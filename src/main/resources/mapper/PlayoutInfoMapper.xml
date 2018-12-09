@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xum.cmnd.dao.PlayoutInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xum.cmnd.pojo.PlayoutInfo" >
+    <id column="playoutId" property="playoutid" jdbcType="INTEGER" />
+    <result column="rooms" property="rooms" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="platform" property="platform" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="VARCHAR" />
+    <result column="schedule" property="schedule" jdbcType="VARCHAR" />
+    <result column="connectId" property="connectid" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    playoutId, rooms, name, type, platform, version, schedule, connectId, status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from playout_info
+    where playoutId = #{playoutid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from playout_info
+    where playoutId = #{playoutid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xum.cmnd.pojo.PlayoutInfo" >
+    insert into playout_info (playoutId, rooms, name, 
+      type, platform, version, 
+      schedule, connectId, status
+      )
+    values (#{playoutid,jdbcType=INTEGER}, #{rooms,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{platform,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, 
+      #{schedule,jdbcType=VARCHAR}, #{connectid,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xum.cmnd.pojo.PlayoutInfo" >
+    insert into playout_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="playoutid != null" >
+        playoutId,
+      </if>
+      <if test="rooms != null" >
+        rooms,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="platform != null" >
+        platform,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="schedule != null" >
+        schedule,
+      </if>
+      <if test="connectid != null" >
+        connectId,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="playoutid != null" >
+        #{playoutid,jdbcType=INTEGER},
+      </if>
+      <if test="rooms != null" >
+        #{rooms,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="platform != null" >
+        #{platform,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="schedule != null" >
+        #{schedule,jdbcType=VARCHAR},
+      </if>
+      <if test="connectid != null" >
+        #{connectid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xum.cmnd.pojo.PlayoutInfo" >
+    update playout_info
+    <set >
+      <if test="rooms != null" >
+        rooms = #{rooms,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="platform != null" >
+        platform = #{platform,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="schedule != null" >
+        schedule = #{schedule,jdbcType=VARCHAR},
+      </if>
+      <if test="connectid != null" >
+        connectId = #{connectid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where playoutId = #{playoutid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xum.cmnd.pojo.PlayoutInfo" >
+    update playout_info
+    set rooms = #{rooms,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      platform = #{platform,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR},
+      schedule = #{schedule,jdbcType=VARCHAR},
+      connectId = #{connectid,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER}
+    where playoutId = #{playoutid,jdbcType=INTEGER}
+  </update>
+</mapper>

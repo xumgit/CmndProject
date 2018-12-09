@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xum.cmnd.dao.OnlinedevicesMapper" >
+  <resultMap id="BaseResultMap" type="com.xum.cmnd.pojo.Onlinedevices" >
+    <id column="Id" property="id" jdbcType="VARCHAR" />
+    <result column="TVName" property="tvname" jdbcType="VARCHAR" />
+    <result column="TVModelNumber" property="tvmodelnumber" jdbcType="VARCHAR" />
+    <result column="TVSerialNumber" property="tvserialnumber" jdbcType="VARCHAR" />
+    <result column="TVRoomID" property="tvroomid" jdbcType="INTEGER" />
+    <result column="TVMACAddress" property="tvmacaddress" jdbcType="VARCHAR" />
+    <result column="TVIPAddress" property="tvipaddress" jdbcType="VARCHAR" />
+    <result column="VSecureTVID" property="vsecuretvid" jdbcType="VARCHAR" />
+    <result column="Type" property="type" jdbcType="VARCHAR" />
+    <result column="PowerStatus" property="powerstatus" jdbcType="VARCHAR" />
+    <result column="TVUniqueID" property="tvuniqueid" jdbcType="VARCHAR" />
+    <result column="FirmwareId" property="firmwareid" jdbcType="INTEGER" />
+    <result column="CloneId" property="cloneid" jdbcType="INTEGER" />
+    <result column="lastCloneRename" property="lastclonerename" jdbcType="VARCHAR" />
+    <result column="Status" property="status" jdbcType="VARCHAR" />
+    <result column="Progress" property="progress" jdbcType="VARCHAR" />
+    <result column="si_clone_Identifiers" property="siCloneIdentifiers" jdbcType="VARCHAR" />
+    <result column="si_firmware_Identifier" property="siFirmwareIdentifier" jdbcType="VARCHAR" />
+    <result column="tv_clone_Identifiers" property="tvCloneIdentifiers" jdbcType="VARCHAR" />
+    <result column="tv_firmware_Identifier" property="tvFirmwareIdentifier" jdbcType="VARCHAR" />
+    <result column="success_siclone_Identifier" property="successSicloneIdentifier" jdbcType="VARCHAR" />
+    <result column="success_tvclone_Identifier" property="successTvcloneIdentifier" jdbcType="VARCHAR" />
+    <result column="clone_color" property="cloneColor" jdbcType="VARCHAR" />
+    <result column="fw_color" property="fwColor" jdbcType="VARCHAR" />
+    <result column="CreatedDate" property="createddate" jdbcType="VARCHAR" />
+    <result column="ModifiedDate" property="modifieddate" jdbcType="VARCHAR" />
+    <result column="Lastonline" property="lastonline" jdbcType="VARCHAR" />
+    <result column="clone_mode" property="cloneMode" jdbcType="VARCHAR" />
+    <result column="upload_progress" property="uploadProgress" jdbcType="VARCHAR" />
+    <result column="upload_session_id" property="uploadSessionId" jdbcType="VARCHAR" />
+    <result column="upload_session_start" property="uploadSessionStart" jdbcType="VARCHAR" />
+    <result column="upload_session_end" property="uploadSessionEnd" jdbcType="VARCHAR" />
+    <result column="upload_session_status" property="uploadSessionStatus" jdbcType="VARCHAR" />
+    <result column="networkInterfaceDisplayName" property="networkinterfacedisplayname" jdbcType="VARCHAR" />
+    <result column="networkInterfaceIp" property="networkinterfaceip" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xum.cmnd.pojo.Onlinedevices" extends="BaseResultMap" >
+    <result column="TVStatus" property="tvstatus" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Id, TVName, TVModelNumber, TVSerialNumber, TVRoomID, TVMACAddress, TVIPAddress, VSecureTVID, 
+    Type, PowerStatus, TVUniqueID, FirmwareId, CloneId, lastCloneRename, Status, Progress, 
+    si_clone_Identifiers, si_firmware_Identifier, tv_clone_Identifiers, tv_firmware_Identifier, 
+    success_siclone_Identifier, success_tvclone_Identifier, clone_color, fw_color, CreatedDate, 
+    ModifiedDate, Lastonline, clone_mode, upload_progress, upload_session_id, upload_session_start, 
+    upload_session_end, upload_session_status, networkInterfaceDisplayName, networkInterfaceIp
+  </sql>
+  <sql id="Blob_Column_List" >
+    TVStatus
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from onlinedevices
+    where Id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from onlinedevices
+    where Id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xum.cmnd.pojo.Onlinedevices" >
+    insert into onlinedevices (Id, TVName, TVModelNumber, 
+      TVSerialNumber, TVRoomID, TVMACAddress, 
+      TVIPAddress, VSecureTVID, Type, 
+      PowerStatus, TVUniqueID, FirmwareId, 
+      CloneId, lastCloneRename, Status, 
+      Progress, si_clone_Identifiers, si_firmware_Identifier, 
+      tv_clone_Identifiers, tv_firmware_Identifier, 
+      success_siclone_Identifier, success_tvclone_Identifier, 
+      clone_color, fw_color, CreatedDate, 
+      ModifiedDate, Lastonline, clone_mode, 
+      upload_progress, upload_session_id, upload_session_start, 
+      upload_session_end, upload_session_status, 
+      networkInterfaceDisplayName, networkInterfaceIp, 
+      TVStatus)
+    values (#{id,jdbcType=VARCHAR}, #{tvname,jdbcType=VARCHAR}, #{tvmodelnumber,jdbcType=VARCHAR}, 
+      #{tvserialnumber,jdbcType=VARCHAR}, #{tvroomid,jdbcType=INTEGER}, #{tvmacaddress,jdbcType=VARCHAR}, 
+      #{tvipaddress,jdbcType=VARCHAR}, #{vsecuretvid,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{powerstatus,jdbcType=VARCHAR}, #{tvuniqueid,jdbcType=VARCHAR}, #{firmwareid,jdbcType=INTEGER}, 
+      #{cloneid,jdbcType=INTEGER}, #{lastclonerename,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{progress,jdbcType=VARCHAR}, #{siCloneIdentifiers,jdbcType=VARCHAR}, #{siFirmwareIdentifier,jdbcType=VARCHAR}, 
+      #{tvCloneIdentifiers,jdbcType=VARCHAR}, #{tvFirmwareIdentifier,jdbcType=VARCHAR}, 
+      #{successSicloneIdentifier,jdbcType=VARCHAR}, #{successTvcloneIdentifier,jdbcType=VARCHAR}, 
+      #{cloneColor,jdbcType=VARCHAR}, #{fwColor,jdbcType=VARCHAR}, #{createddate,jdbcType=VARCHAR}, 
+      #{modifieddate,jdbcType=VARCHAR}, #{lastonline,jdbcType=VARCHAR}, #{cloneMode,jdbcType=VARCHAR}, 
+      #{uploadProgress,jdbcType=VARCHAR}, #{uploadSessionId,jdbcType=VARCHAR}, #{uploadSessionStart,jdbcType=VARCHAR}, 
+      #{uploadSessionEnd,jdbcType=VARCHAR}, #{uploadSessionStatus,jdbcType=VARCHAR}, 
+      #{networkinterfacedisplayname,jdbcType=VARCHAR}, #{networkinterfaceip,jdbcType=VARCHAR}, 
+      #{tvstatus,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xum.cmnd.pojo.Onlinedevices" >
+    insert into onlinedevices
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="tvname != null" >
+        TVName,
+      </if>
+      <if test="tvmodelnumber != null" >
+        TVModelNumber,
+      </if>
+      <if test="tvserialnumber != null" >
+        TVSerialNumber,
+      </if>
+      <if test="tvroomid != null" >
+        TVRoomID,
+      </if>
+      <if test="tvmacaddress != null" >
+        TVMACAddress,
+      </if>
+      <if test="tvipaddress != null" >
+        TVIPAddress,
+      </if>
+      <if test="vsecuretvid != null" >
+        VSecureTVID,
+      </if>
+      <if test="type != null" >
+        Type,
+      </if>
+      <if test="powerstatus != null" >
+        PowerStatus,
+      </if>
+      <if test="tvuniqueid != null" >
+        TVUniqueID,
+      </if>
+      <if test="firmwareid != null" >
+        FirmwareId,
+      </if>
+      <if test="cloneid != null" >
+        CloneId,
+      </if>
+      <if test="lastclonerename != null" >
+        lastCloneRename,
+      </if>
+      <if test="status != null" >
+        Status,
+      </if>
+      <if test="progress != null" >
+        Progress,
+      </if>
+      <if test="siCloneIdentifiers != null" >
+        si_clone_Identifiers,
+      </if>
+      <if test="siFirmwareIdentifier != null" >
+        si_firmware_Identifier,
+      </if>
+      <if test="tvCloneIdentifiers != null" >
+        tv_clone_Identifiers,
+      </if>
+      <if test="tvFirmwareIdentifier != null" >
+        tv_firmware_Identifier,
+      </if>
+      <if test="successSicloneIdentifier != null" >
+        success_siclone_Identifier,
+      </if>
+      <if test="successTvcloneIdentifier != null" >
+        success_tvclone_Identifier,
+      </if>
+      <if test="cloneColor != null" >
+        clone_color,
+      </if>
+      <if test="fwColor != null" >
+        fw_color,
+      </if>
+      <if test="createddate != null" >
+        CreatedDate,
+      </if>
+      <if test="modifieddate != null" >
+        ModifiedDate,
+      </if>
+      <if test="lastonline != null" >
+        Lastonline,
+      </if>
+      <if test="cloneMode != null" >
+        clone_mode,
+      </if>
+      <if test="uploadProgress != null" >
+        upload_progress,
+      </if>
+      <if test="uploadSessionId != null" >
+        upload_session_id,
+      </if>
+      <if test="uploadSessionStart != null" >
+        upload_session_start,
+      </if>
+      <if test="uploadSessionEnd != null" >
+        upload_session_end,
+      </if>
+      <if test="uploadSessionStatus != null" >
+        upload_session_status,
+      </if>
+      <if test="networkinterfacedisplayname != null" >
+        networkInterfaceDisplayName,
+      </if>
+      <if test="networkinterfaceip != null" >
+        networkInterfaceIp,
+      </if>
+      <if test="tvstatus != null" >
+        TVStatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="tvname != null" >
+        #{tvname,jdbcType=VARCHAR},
+      </if>
+      <if test="tvmodelnumber != null" >
+        #{tvmodelnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="tvserialnumber != null" >
+        #{tvserialnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="tvroomid != null" >
+        #{tvroomid,jdbcType=INTEGER},
+      </if>
+      <if test="tvmacaddress != null" >
+        #{tvmacaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="tvipaddress != null" >
+        #{tvipaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="vsecuretvid != null" >
+        #{vsecuretvid,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="powerstatus != null" >
+        #{powerstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="tvuniqueid != null" >
+        #{tvuniqueid,jdbcType=VARCHAR},
+      </if>
+      <if test="firmwareid != null" >
+        #{firmwareid,jdbcType=INTEGER},
+      </if>
+      <if test="cloneid != null" >
+        #{cloneid,jdbcType=INTEGER},
+      </if>
+      <if test="lastclonerename != null" >
+        #{lastclonerename,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="progress != null" >
+        #{progress,jdbcType=VARCHAR},
+      </if>
+      <if test="siCloneIdentifiers != null" >
+        #{siCloneIdentifiers,jdbcType=VARCHAR},
+      </if>
+      <if test="siFirmwareIdentifier != null" >
+        #{siFirmwareIdentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="tvCloneIdentifiers != null" >
+        #{tvCloneIdentifiers,jdbcType=VARCHAR},
+      </if>
+      <if test="tvFirmwareIdentifier != null" >
+        #{tvFirmwareIdentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="successSicloneIdentifier != null" >
+        #{successSicloneIdentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="successTvcloneIdentifier != null" >
+        #{successTvcloneIdentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="cloneColor != null" >
+        #{cloneColor,jdbcType=VARCHAR},
+      </if>
+      <if test="fwColor != null" >
+        #{fwColor,jdbcType=VARCHAR},
+      </if>
+      <if test="createddate != null" >
+        #{createddate,jdbcType=VARCHAR},
+      </if>
+      <if test="modifieddate != null" >
+        #{modifieddate,jdbcType=VARCHAR},
+      </if>
+      <if test="lastonline != null" >
+        #{lastonline,jdbcType=VARCHAR},
+      </if>
+      <if test="cloneMode != null" >
+        #{cloneMode,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadProgress != null" >
+        #{uploadProgress,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadSessionId != null" >
+        #{uploadSessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadSessionStart != null" >
+        #{uploadSessionStart,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadSessionEnd != null" >
+        #{uploadSessionEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadSessionStatus != null" >
+        #{uploadSessionStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="networkinterfacedisplayname != null" >
+        #{networkinterfacedisplayname,jdbcType=VARCHAR},
+      </if>
+      <if test="networkinterfaceip != null" >
+        #{networkinterfaceip,jdbcType=VARCHAR},
+      </if>
+      <if test="tvstatus != null" >
+        #{tvstatus,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xum.cmnd.pojo.Onlinedevices" >
+    update onlinedevices
+    <set >
+      <if test="tvname != null" >
+        TVName = #{tvname,jdbcType=VARCHAR},
+      </if>
+      <if test="tvmodelnumber != null" >
+        TVModelNumber = #{tvmodelnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="tvserialnumber != null" >
+        TVSerialNumber = #{tvserialnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="tvroomid != null" >
+        TVRoomID = #{tvroomid,jdbcType=INTEGER},
+      </if>
+      <if test="tvmacaddress != null" >
+        TVMACAddress = #{tvmacaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="tvipaddress != null" >
+        TVIPAddress = #{tvipaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="vsecuretvid != null" >
+        VSecureTVID = #{vsecuretvid,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        Type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="powerstatus != null" >
+        PowerStatus = #{powerstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="tvuniqueid != null" >
+        TVUniqueID = #{tvuniqueid,jdbcType=VARCHAR},
+      </if>
+      <if test="firmwareid != null" >
+        FirmwareId = #{firmwareid,jdbcType=INTEGER},
+      </if>
+      <if test="cloneid != null" >
+        CloneId = #{cloneid,jdbcType=INTEGER},
+      </if>
+      <if test="lastclonerename != null" >
+        lastCloneRename = #{lastclonerename,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        Status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="progress != null" >
+        Progress = #{progress,jdbcType=VARCHAR},
+      </if>
+      <if test="siCloneIdentifiers != null" >
+        si_clone_Identifiers = #{siCloneIdentifiers,jdbcType=VARCHAR},
+      </if>
+      <if test="siFirmwareIdentifier != null" >
+        si_firmware_Identifier = #{siFirmwareIdentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="tvCloneIdentifiers != null" >
+        tv_clone_Identifiers = #{tvCloneIdentifiers,jdbcType=VARCHAR},
+      </if>
+      <if test="tvFirmwareIdentifier != null" >
+        tv_firmware_Identifier = #{tvFirmwareIdentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="successSicloneIdentifier != null" >
+        success_siclone_Identifier = #{successSicloneIdentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="successTvcloneIdentifier != null" >
+        success_tvclone_Identifier = #{successTvcloneIdentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="cloneColor != null" >
+        clone_color = #{cloneColor,jdbcType=VARCHAR},
+      </if>
+      <if test="fwColor != null" >
+        fw_color = #{fwColor,jdbcType=VARCHAR},
+      </if>
+      <if test="createddate != null" >
+        CreatedDate = #{createddate,jdbcType=VARCHAR},
+      </if>
+      <if test="modifieddate != null" >
+        ModifiedDate = #{modifieddate,jdbcType=VARCHAR},
+      </if>
+      <if test="lastonline != null" >
+        Lastonline = #{lastonline,jdbcType=VARCHAR},
+      </if>
+      <if test="cloneMode != null" >
+        clone_mode = #{cloneMode,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadProgress != null" >
+        upload_progress = #{uploadProgress,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadSessionId != null" >
+        upload_session_id = #{uploadSessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadSessionStart != null" >
+        upload_session_start = #{uploadSessionStart,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadSessionEnd != null" >
+        upload_session_end = #{uploadSessionEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadSessionStatus != null" >
+        upload_session_status = #{uploadSessionStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="networkinterfacedisplayname != null" >
+        networkInterfaceDisplayName = #{networkinterfacedisplayname,jdbcType=VARCHAR},
+      </if>
+      <if test="networkinterfaceip != null" >
+        networkInterfaceIp = #{networkinterfaceip,jdbcType=VARCHAR},
+      </if>
+      <if test="tvstatus != null" >
+        TVStatus = #{tvstatus,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xum.cmnd.pojo.Onlinedevices" >
+    update onlinedevices
+    set TVName = #{tvname,jdbcType=VARCHAR},
+      TVModelNumber = #{tvmodelnumber,jdbcType=VARCHAR},
+      TVSerialNumber = #{tvserialnumber,jdbcType=VARCHAR},
+      TVRoomID = #{tvroomid,jdbcType=INTEGER},
+      TVMACAddress = #{tvmacaddress,jdbcType=VARCHAR},
+      TVIPAddress = #{tvipaddress,jdbcType=VARCHAR},
+      VSecureTVID = #{vsecuretvid,jdbcType=VARCHAR},
+      Type = #{type,jdbcType=VARCHAR},
+      PowerStatus = #{powerstatus,jdbcType=VARCHAR},
+      TVUniqueID = #{tvuniqueid,jdbcType=VARCHAR},
+      FirmwareId = #{firmwareid,jdbcType=INTEGER},
+      CloneId = #{cloneid,jdbcType=INTEGER},
+      lastCloneRename = #{lastclonerename,jdbcType=VARCHAR},
+      Status = #{status,jdbcType=VARCHAR},
+      Progress = #{progress,jdbcType=VARCHAR},
+      si_clone_Identifiers = #{siCloneIdentifiers,jdbcType=VARCHAR},
+      si_firmware_Identifier = #{siFirmwareIdentifier,jdbcType=VARCHAR},
+      tv_clone_Identifiers = #{tvCloneIdentifiers,jdbcType=VARCHAR},
+      tv_firmware_Identifier = #{tvFirmwareIdentifier,jdbcType=VARCHAR},
+      success_siclone_Identifier = #{successSicloneIdentifier,jdbcType=VARCHAR},
+      success_tvclone_Identifier = #{successTvcloneIdentifier,jdbcType=VARCHAR},
+      clone_color = #{cloneColor,jdbcType=VARCHAR},
+      fw_color = #{fwColor,jdbcType=VARCHAR},
+      CreatedDate = #{createddate,jdbcType=VARCHAR},
+      ModifiedDate = #{modifieddate,jdbcType=VARCHAR},
+      Lastonline = #{lastonline,jdbcType=VARCHAR},
+      clone_mode = #{cloneMode,jdbcType=VARCHAR},
+      upload_progress = #{uploadProgress,jdbcType=VARCHAR},
+      upload_session_id = #{uploadSessionId,jdbcType=VARCHAR},
+      upload_session_start = #{uploadSessionStart,jdbcType=VARCHAR},
+      upload_session_end = #{uploadSessionEnd,jdbcType=VARCHAR},
+      upload_session_status = #{uploadSessionStatus,jdbcType=VARCHAR},
+      networkInterfaceDisplayName = #{networkinterfacedisplayname,jdbcType=VARCHAR},
+      networkInterfaceIp = #{networkinterfaceip,jdbcType=VARCHAR},
+      TVStatus = #{tvstatus,jdbcType=LONGVARCHAR}
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xum.cmnd.pojo.Onlinedevices" >
+    update onlinedevices
+    set TVName = #{tvname,jdbcType=VARCHAR},
+      TVModelNumber = #{tvmodelnumber,jdbcType=VARCHAR},
+      TVSerialNumber = #{tvserialnumber,jdbcType=VARCHAR},
+      TVRoomID = #{tvroomid,jdbcType=INTEGER},
+      TVMACAddress = #{tvmacaddress,jdbcType=VARCHAR},
+      TVIPAddress = #{tvipaddress,jdbcType=VARCHAR},
+      VSecureTVID = #{vsecuretvid,jdbcType=VARCHAR},
+      Type = #{type,jdbcType=VARCHAR},
+      PowerStatus = #{powerstatus,jdbcType=VARCHAR},
+      TVUniqueID = #{tvuniqueid,jdbcType=VARCHAR},
+      FirmwareId = #{firmwareid,jdbcType=INTEGER},
+      CloneId = #{cloneid,jdbcType=INTEGER},
+      lastCloneRename = #{lastclonerename,jdbcType=VARCHAR},
+      Status = #{status,jdbcType=VARCHAR},
+      Progress = #{progress,jdbcType=VARCHAR},
+      si_clone_Identifiers = #{siCloneIdentifiers,jdbcType=VARCHAR},
+      si_firmware_Identifier = #{siFirmwareIdentifier,jdbcType=VARCHAR},
+      tv_clone_Identifiers = #{tvCloneIdentifiers,jdbcType=VARCHAR},
+      tv_firmware_Identifier = #{tvFirmwareIdentifier,jdbcType=VARCHAR},
+      success_siclone_Identifier = #{successSicloneIdentifier,jdbcType=VARCHAR},
+      success_tvclone_Identifier = #{successTvcloneIdentifier,jdbcType=VARCHAR},
+      clone_color = #{cloneColor,jdbcType=VARCHAR},
+      fw_color = #{fwColor,jdbcType=VARCHAR},
+      CreatedDate = #{createddate,jdbcType=VARCHAR},
+      ModifiedDate = #{modifieddate,jdbcType=VARCHAR},
+      Lastonline = #{lastonline,jdbcType=VARCHAR},
+      clone_mode = #{cloneMode,jdbcType=VARCHAR},
+      upload_progress = #{uploadProgress,jdbcType=VARCHAR},
+      upload_session_id = #{uploadSessionId,jdbcType=VARCHAR},
+      upload_session_start = #{uploadSessionStart,jdbcType=VARCHAR},
+      upload_session_end = #{uploadSessionEnd,jdbcType=VARCHAR},
+      upload_session_status = #{uploadSessionStatus,jdbcType=VARCHAR},
+      networkInterfaceDisplayName = #{networkinterfacedisplayname,jdbcType=VARCHAR},
+      networkInterfaceIp = #{networkinterfaceip,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

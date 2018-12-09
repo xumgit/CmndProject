@@ -1,0 +1,1296 @@
+*
+{
+border: 0;
+margin: 0;
+}
+img
+{
+border: 0px;
+}
+
+body{
+font-family:verdana,arial,sans-serif;
+font-size: 100%;
+color: #000000;
+/*background:#D6D6D6;*/
+line-height: 18px;
+/*padding-bottom: 23px;*/
+/*overflow: scroll;*/
+/*scroll: no-scroll;*/
+}
+
+#main {
+width: 1020px;
+margin: 0px auto;
+/*background:red;*/
+background:#FFFFFF;
+height: auto;
+font-size: 0.69em;
+}
+#header	{
+width: 1000px;
+height: 30px;
+padding-top: 50px;
+/*background:red;*/
+
+}
+#head-text	{
+letter-spacing:1px;
+margin-left: 5px;
+float: left;
+}
+
+#left-nav	{
+float: left;
+width: 200px;
+height: 400px;
+/*background:red;*/
+}
+#left-nav ul { 
+list-style-type: none; 
+margin: 0; 
+padding: 0; 
+}
+#left-nav li { 
+margin: 0px;
+padding: 10px 10px;
+width: 178px; 
+}
+#left-nav li img { 
+ vertical-align: middle;
+}
+#left-nav ul li a { 
+display: block;
+text-decoration: none;
+color: #FFFFFF;
+}
+#left-nav ul a { 
+display: block;
+text-decoration: none;
+color: #000000;
+}
+.major-head	{
+font-size: 13px;
+font-weight: bold;
+color: #FFFFFF;
+background-color: #636363;
+border-top: 10px solid #FFF;
+cursor:pointer;
+}
+.sub-head	{
+font-weight: bold;
+display: block;
+border-bottom: 1px solid #FFFFFF;
+background-color:#E5E5E5;
+}
+.sub-head:hover	{
+background-color:#000;
+color: #FFFFFF;
+border-bottom: 1px solid #FFFFFF;
+}
+.noborder
+{
+	border-top: 0px;
+}
+
+#content	{
+float: left;
+width: 100%;
+height: auto;
+/*background:red;*/
+}
+.leftFloat
+{
+	float: left;
+	width:134px;
+}
+.nodisp
+{
+display: none;
+}
+
+input,select,textarea
+{
+	border:1px solid #000000; 
+}
+
+.mainPageDetails
+{
+	padding-bottom: 10px;
+	/*border-bottom: 1px solid #E6E6E6;*/
+}
+
+.mainPageDetails1
+{
+
+	padding-bottom: 20px;
+	/*border-bottom: 1px solid #E6E6E6;*/
+	width: 100%;
+}
+
+.mainPageDetails2
+{
+	padding-top: 10px;
+}
+
+.mainPageDetails3
+{
+	margin-bottom: 10px;
+}
+
+#conf_left_heading
+{
+	padding: 5px;
+	padding-bottom: 10px;
+	text-align: left;
+}
+
+#conf_mid_heading
+{
+	padding-bottom: 15px;
+	text-align: left;
+}
+.conf_left_opt
+{
+	padding: 3px;
+	padding-left: 10px;
+	text-align: left;
+	color: #1C2A47;
+	padding-top: 3px;
+	font-weight: normal;
+}
+.conf_left_optextra
+{
+	padding: 5px;
+	text-align: left;
+	color: #1C2A47;
+	padding-top: 3px;
+	font-weight: normal;
+	padding-left: 10px;
+}
+.co_setwidth
+{
+	width: 100px;
+	float: left;
+}
+/*
+@Date:151231
+@Author:fanbi.lu
+@Function:2kxxconfig style of "source:"
+*/ 
+.co_mid_attr
+{
+	float: left;
+	width: 128px;
+	margin-left: 10px;
+	font-weight: normal;
+}
+
+.co_mid_attrmod
+{
+	float: left;
+	width: 128px;
+	margin-left: 10px;
+	font-weight: normal;
+}
+/*end @Date:151231*/
+/*modify by fanbi.lu@151231 for newconfig2kx*/
+.co_mid_attrmod1 {
+	float: left;
+	width: 210px;
+	margin-left: 10px;
+	font-weight: normal;
+}
+/*end @Date:151331*/
+/*modify by fanbi.lu @151230 for config2kx*/
+.co_mid_attrmod2
+{
+	float: left;
+	width: 175px;
+	margin-left: 10px;
+	font-weight: normal;
+}
+/*end*/
+.co_mid_attrmod3
+{
+	float: left;
+	width: 290px;
+	margin-left: 10px;
+	font-weight: normal;
+}
+/*modify fanbi.lu@151231 for Display: Standby: label*/
+.co_mid_attrmod4
+{
+	float: left;
+	width: 175px;
+	margin-left: 10px;
+	font-weight: normal;
+}
+.profileInfo_withCaption3
+{
+	font-size: 12px;
+	height: 340px;	
+}
+.profileInfo_withCaption1
+{
+	font-size: 12px;
+	height: 170px;	
+}
+
+.profileInfo_withCaption2
+{
+	font-size: 12px;
+	height: 280px;	
+}
+
+.profileInfo_withCaption3
+{
+	font-size: 12px;
+	height: 340px;	
+}
+.symbol_and_caption
+{
+	width: 340px;
+	float: left;
+}
+
+.accordtxt
+{
+	text-decoration: none;
+	color: #000000;
+}
+
+
+.themeTop
+{
+	margin: 10px;
+	margin-top: 20px;
+}
+.themeTop1
+{
+	margin: 10px;
+	margin-top: 30px;
+}
+.themeimgs
+{
+	margin: 10px;
+	margin-top: 20px; 
+	width:180px; 
+	height: 90px; 
+	border: 1px solid #000;
+}
+.dropWid
+{
+	width:180px;
+}
+
+#flagGroups
+{
+	margin-top: 20px;
+	margin-bottom: 20px; 
+	height: 400px;
+}
+.flagGrps
+{
+	height: 400px; 
+	float: left;
+	width: 50%;
+}
+
+.flagGrps1
+{
+	height: 400px; 
+	float: right;
+}
+.incwidth
+{
+	width: 40%;
+}
+.eachFlag
+{
+	margin-top: 20px;
+	height: 100px; 
+	padding-left: 10%;
+}
+
+.eachFlag1
+{
+	margin-top: 20px;
+	height: 100px; 
+	padding-left: 30%;
+}
+.flgborder
+{
+	border: 1px solid #0E0E0E;
+}
+.btstyle
+{
+	padding-bottom:20px;
+	padding-right: 50px;
+	float: right;
+}
+.btstyle1
+{
+	padding-right: 10px;
+	float: left;
+}
+
+.btstyle2
+{
+	padding-bottom:5px;
+	padding-left: 20px;
+	padding-right: 30px;
+	padding-bottom: 10px;
+	float: left;
+}
+
+.btstyle3
+{
+	padding-bottom:10px;
+	padding-right:5px;
+	float: left;
+}
+
+#fullGrps
+{
+	float: left;
+	width: 60%;
+	height: 400px;
+}
+.eachGrpstyle
+{
+	float: left; 
+	width: 100%;
+	height: 400px;
+}
+.test12 {
+font-size: 1em;
+}
+.popup_flg
+{
+margin:10px 15px;
+}
+.bord_marg
+{
+border: 1px solid #E5E5E5;
+margin-top: 10px;
+}
+
+/*** channel editor css **********/
+
+.bord_marg_h
+{
+border-top: 1px solid #E5E5E5;
+border-left: 1px solid #E5E5E5;
+border-right: 1px solid #E5E5E5;
+float: left;
+background: #F2F2F2;
+}
+/*modify by fanbi.lu@151228*/
+.bord_marg_e
+{
+/*border-bottom: 1px solid #E5E5E5;*/
+border-right: 1px solid #E5E5E5;
+float: left;
+width: 100%;
+}
+/*end*/
+.settingWidth
+{
+	width: 700px;
+}
+
+#wholecont
+{
+	float: left;
+	width: 100%;
+	margin-top: 10px;
+	
+	padding-left: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-right: 10px;
+}
+
+.maineach
+{
+	width: 100%;
+	float:left;
+}
+.divHeader
+{
+	width: auto;
+	float:left;
+}
+
+/*
+@Date:151215
+@Author:fanbi.lu
+@Function: modify for channel.jsp
+*/
+.smallEle
+{
+	float: left;
+	width: 6.66666667%;
+	height: 20px;
+	/*border-left: 1px solid #E3E3E3;*/
+	border-right: 1px solid #E3E3E3;
+	border-top: 1px solid #E3E3E3;
+	/*border-bottom: 1px solid #E3E3E3;*/
+	/*padding-left: 3px;*/
+	/*font-size: 80%;*/
+	text-align: center;
+	
+}
+/* modify by fanbi.lu@161126 for PR597 */
+.smallEle_TTV
+{
+	float: left;
+	width: 10%;
+	height: 20px;
+	/*border-left: 1px solid #E3E3E3;*/
+	/* border-right: 1px solid #E3E3E3;
+	border-top: 1px solid #E3E3E3;
+	border-bottom: 1px solid #E3E3E3; */
+	/*padding-left: 3px;*/
+	/*font-size: 80%;*/
+	text-align: center;
+	
+}
+.smallEle_spl
+{
+	float: left;
+	width: 443px;
+	height: 18px;
+	border-right: 1px solid #E3E3E3;
+	border-top: 1px solid #E3E3E3;
+	border-bottom: 1px solid #E3E3E3;
+	text-align: center;
+	font-size: 80%;
+}
+.smallEle_spl1
+{
+	float: left;
+	width: 110px;
+	height: 18px;
+	border-right: 1px solid #E3E3E3;
+	border-top: 1px solid #E3E3E3;
+	border-bottom: 1px solid #E3E3E3;
+	text-align: center;
+	font-size: 80%;
+}
+/*modify by fanbi.lu @Date:151223*/
+.smallEle1
+{
+	float: left;
+	width: 6.66666667%;
+	/*height: 20px;*/
+	border-right: 1px solid #E3E3E3;
+	border-top: 1px solid #E3E3E3;
+	/*border-bottom: 1px solid #E3E3E3;*/
+
+	/*font-size: 80%;*/
+	padding-top: 10px;
+	text-align: center;
+	padding-bottom: 4px;
+}
+/*end*/
+/*add by fanbi.lu @Date:160906*/
+.smallEle1_TTV
+{
+	float: left;
+	width: 10%;
+	/*height: 20px;*/
+	border-right: 1px solid #E3E3E3;
+	/*border-top: 1px solid #E3E3E3;*/
+	border-bottom: 1px solid #E3E3E3;
+
+	/*font-size: 80%;*/
+	padding-top: 10px;
+	text-align: center;
+	padding-bottom: 4px;
+}
+/*end*/
+/*modify by fanbi.lu @151228*/
+.largeEle
+{
+	float: left;
+	width: 120px;
+	height: 25px;
+	/*height: 25px;*/
+	border-right: 1px solid #E3E3E3;
+	border-top: 1px solid #E3E3E3;
+	border-bottom: 1px solid #E3E3E3;
+	padding-left: 3px;
+	padding-top: 5px;
+}
+.largeEle11
+{
+	float: left;
+	width: 241px;			
+	border-right: 1px solid #E3E3E3;
+	border-top: 1px solid #E3E3E3;
+	border-bottom: 1px solid #E3E3E3;	
+	text-align: center;
+	
+	height: 40px;
+}
+.largeEle111
+{
+	float: left;
+	width: 120px;	
+	height: 20px;
+	border-top: 1px solid #E3E3E3; /* real change border from 2px to 1px*/
+	text-align: center;	 
+	border-right: 1px solid #E3E3E3;
+	margin-top: -2px;
+}
+.largeEle112
+{
+	width: 104px; 	
+}
+/*
+@Data 151223
+@Author fanbi.lu
+@Function channel.jsp channels_checkbox
+*/
+.largeEle1
+{
+	float: left;
+	width: 120px;
+    height: 100%;
+	border-right: 1px solid #E3E3E3;
+	/*border-top: 1px solid #E3E3E3; removed by real*/
+    border-bottom: 1px solid #E3E3E3;
+	padding-left: 5px;
+	font-size: 80%;
+	padding-top: 10px;
+	text-align: center;
+}
+/*end*/
+.vrlargeEle
+{
+	float: left;
+	width: 200px;
+	height: 34px;
+	border-right: 1px solid #E3E3E3;
+	border-top: 1px solid #E3E3E3;
+	border-bottom: 1px solid #E3E3E3;
+	padding-left: 3px;
+	padding-top: 4px;
+}
+.vrlargeEle1
+{
+	float: left;
+	width: 200px;
+	height: 36px;
+	border-right: 1px solid #E3E3E3;
+	border-top: 1px solid #E3E3E3;
+	border-bottom: 1px solid #E3E3E3;
+	padding-left: 5px;
+	padding-top: 2px;
+}
+.vrlargeEle2
+{
+	float: left;
+	width: 148px;
+	height: 22px;
+	border-right: 1px solid #E3E3E3;
+	border-top: 1px solid #E3E3E3;
+	border-bottom: 1px solid #E3E3E3;
+	padding-left: 5px;
+	padding-top: 5px;
+}
+/*
+.forUser
+{
+	height: 35px;
+}
+.forUserpad
+{
+	padding-top:10px;
+	height: 17px;
+}*/
+
+.vr_more
+{
+	width: 184px;
+}
+.vr_more1
+{
+	width: 182px;
+}
+.vr_more2
+{
+	width: 92px;
+}
+.vr_more3
+{
+	width: 90px;
+}
+
+/*modify by fanbi*/
+.nameEle
+{
+	float: left;
+	width: 260px;
+	/*height: 25px; removed by real*/
+	border-right: 1px solid #E3E3E3;
+	/*border-top: 1px solid #E3E3E3;*/
+	border-bottom: 1px solid #E3E3E3;
+	padding-left: 100px;
+	padding-top: 5px;	
+	margin-right: 0px;	
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;  
+}
+.nameEle1
+{
+	float: left;
+	width: 220px;
+	height: 20px;
+	border-right: 1px solid #E3E3E3;
+	border-top: 1px solid #E3E3E3;
+	border-bottom: 1px solid #E3E3E3;
+	padding-left: 3px;
+	padding-top: 5px;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.nameEle2
+{
+	float: left;
+	width: 160px;
+	height: 27px;
+	border-right: 1px solid #E3E3E3;
+	border-top: 1px solid #E3E3E3;
+	border-bottom: 1px solid #E3E3E3;
+	padding-left: 3px;
+	/*padding-top: 5px;*/
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/*modify by fanbi.lu*/
+.tinyEle
+{
+	float: left;
+	width: 45px;
+	height: 20px;
+	border: 1px solid #E3E3E3;
+	padding-left: 3px;
+	padding-top: 3px;
+	border-top:0px
+}
+/*end*/
+.tinyEle1
+{
+	float: left;
+	width: 45px;
+	height: 22px;
+	border: 1px solid #E3E3E3;
+	padding-left: 3px;
+	padding-top: 5px;
+	
+}
+/* modify by fanbi.li*/
+.headrextra
+{
+	text-align: center;
+	/*font-size: 80%;*/
+	height: 40px;
+	padding-top: 10px;
+}
+/*end*/
+.headrextra1
+{
+	text-align: center;
+	/*font-size: 80%;*/
+	height: 30px;
+	padding-top: 5px;
+}
+/*end*/
+
+/*modfiy by fanbi.lu @Date;151223*/
+.heightlimit
+{
+	height: 500px;
+	overflow-y: scroll;
+}
+/*end */
+
+.fixheight
+{
+	height: 150px;
+	overflow-y: scroll;
+}
+
+.clonefixheight
+{
+	height: 265px;
+	overflow-y: scroll;
+}
+
+.usrfixheight
+{
+	height: 420px;
+	overflow-y: scroll;
+}
+/*modfiy by fanbi.lu @Date;151215*/
+.themes1
+{
+/*float:left;
+margin-left: 30px;*/
+}
+/*end*/
+
+.altbg
+{
+background: #F2F2F2;
+}
+
+/*modify by fanbi.lu @151230*/
+.settings
+{
+    height: 25px;
+    width: 600px;
+    float: left;
+    height: 28px;
+}
+
+/*modfiy for channel.jsp by fanbi.lu*/
+#addchannel
+{
+}
+/*end*/
+.addch_ele
+{
+	width: 250px;
+	float: left;
+	padding: 20px 10px;
+	padding-left: 0px;
+	/*background: yellow;
+	border: 1px solid #000000;*/
+}
+.addch_ele2
+{
+	width: 200px;
+	float: left;
+	padding: 20px 10px;
+	padding-left: 0px;
+	/*background: yellow;
+	border: 1px solid #000000;*/
+}
+.addch_wid1
+{
+	width: 150px;
+}
+.addch_wid2
+{
+	width: 150px;
+}
+
+/************ Login Form**************/
+.adminui
+{
+width: 500px;
+margin: auto;
+padding-top: 50px;
+}
+.each_bform_admiin
+{
+	width: 100px;
+	height: 20px;
+	float: left;
+}
+.sperator_colon_long
+{
+	width: 120px;
+}
+.adminheadbg
+{
+	background-color: #FFFFFF;
+	padding: 10px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 110%;
+	border: 2px solid black;
+}
+.topSpaceForm
+{
+	height: 100px;
+}
+
+fieldset#orangeFledlist
+{ 
+	border:2px solid #f47315; 
+	padding: 0px 20px;
+}
+
+.singleEntry
+{
+	height: 30px;
+	padding: 5px 0px;
+}
+
+.each_bform_ele
+{
+	width: 120px;
+	height: 20px;
+	float: left;
+	font-size: 0.85em;
+}
+.each_bform_element
+{
+	width: 80px;
+	height: 20px;
+	float: left;
+	font-size: 0.85em;
+}
+
+.sperator_colon
+{
+	width: 25px;
+	height: 20px;
+	float: left;
+}
+
+.sperator_colon_long
+{
+	width: 120px;
+}
+
+.each_bform_inSmall
+{
+	width: 130px;
+	height: 20px;
+	float: left;
+}
+
+.legend_font
+{
+	font-size: 1em;
+	font-weight: bold;
+}
+ label.error 
+ { 
+ /*width: 150px; */
+ display: block; 
+ /*float: right; */
+ color: red; 
+ /*font-size: 0.65em;*/
+ 
+ }
+
+
+#dialog-form
+{
+	font-size: 14px;
+}
+/***************** Logo and hotel information ***********************/
+.eachlogoimg
+{
+	width:183px;
+	height:auto;
+	padding: 10px 10px;
+	float: left;
+	border: 1px solid #C5C5C5;
+	margin-right: 10px;
+	margin-top: 10px;
+}
+.eachlogoimg1
+{
+	width:160px;
+	height:auto;
+	padding: 10px 10px;
+	float: left;
+	border: 1px solid #C5C5C5;
+	margin-right: 10px;
+	margin-top: 10px;
+}
+.eachlogoimg:hover
+{
+	background: #959595;
+}
+
+.selectedLogo
+{
+	background:black;
+}
+
+.selectorDiv
+{
+	float: left;
+	height: 10px;
+	width: 100%;
+	margin-top: 10px;
+	text-align: center;
+	line-height: 10px;
+}
+.radStyle
+{
+	vertical-align:middle;
+	margin: 0px; 
+	padding: 0px;
+}
+.alogo
+{
+	width: 160px; 
+	height: 90px;
+	float: left;
+}
+
+/*
+@Data 151210->170522
+@Author fanbi.lu
+@Function modify layout of logoEditor.jsp  for PR938
+*/
+.logoGrid
+{
+	margin:auto;
+	min-height: 400px;
+	height: 450px;
+	overflow-y: scroll;
+	margin-bottom: 20px;
+	border:1px solid #E3E3E3;
+	padding-left:10px;
+}
+/*end logEditor*/
+/***************** User creation *******************/
+
+.labelCol
+{
+	width: 200px;
+	float: left;
+	height: 20px; 
+	padding: 10px 10px;
+}
+
+.inCol
+{
+	width: 400px;
+	float: left;
+	height: 20px; 
+	padding: 10px 10px;
+}
+
+.pass_reset
+{
+	float: left;
+	width: 140px;
+	margin-left: 10px;
+	margin-right: 20px;
+}
+.dele_user
+{
+	float: left;
+	/*width: 80px;*/
+}
+.download_user
+{
+	float: left;
+	width: 148px;
+	height: 30px;
+	border-right: 1px solid #E3E3E3;
+	border-top: 1px solid #E3E3E3;
+	padding-left: 5px;	
+}
+
+.poplabel
+{
+	width: 150px; 
+	float: left; 
+	height: 20px; 
+	padding: 10px 10px;
+}
+
+.popinp
+{
+	width: 160px; 
+	float: left; 
+	height: 20px; 
+	padding: 10px 10px;
+}
+
+#successmsg
+{
+	color: green;
+	display: none;
+	font-size: initial;
+}
+#ressuccess_msg
+{
+	width: 93%;
+	color: green;
+	display: none;
+}
+#failmsg,#invalidCloneDataName,#inputmsg
+{
+	color: red;
+	display: none;
+	font-size: initial;
+}
+#fail_msg
+{
+	color: red;
+	display: none;
+}
+#worngpassword
+{
+	width: 93%;
+	color: red;
+	height: 20px; 
+	padding-top: 10px;
+	padding-bottom: 10px;
+	display: none;
+}
+#logout-div
+{
+	float: right;
+	padding-right: 20px;
+	font-size: 14px;
+}
+#logout-div a
+{
+	text-decoration: none;
+}
+.main-content {
+			height:400px;;
+			width:100%;
+			display:block;	
+}
+.smuieditor-main {
+			height:400px;
+			width:60%;
+			float:left;
+			margin: 0 auto 0 10px;
+			display:block;
+			border:2px dashed #999999;
+}
+.smuieditor-toolbox {
+			height:400px;
+			width:17%;
+			float:right;
+			margin: 0 auto 0 10px;
+			display:block;
+			border:2px solid #999999;
+}
+.first-row {
+			width:100%;
+			background-color:#DFDFDF;
+			height:80%;
+			border-bottom:2px dashed #999999;
+}
+.second-row {
+			width:80%;
+			margin:0 auto;
+			height:20%;
+}
+.third-row {
+			background-color: #DFDFDF;
+		    border-top: 2px solid #999999;
+		    font-weight: bold;
+		    height: 30px;
+		    line-height: 26px;
+		    padding-left: 10px;
+    		width: 94%;
+}
+.button-holder {
+			height:30%;
+			border:1px dashed #999999;
+			width:14%;
+			background-color:#DFDFDF;
+			margin-top:2%;
+			float:left;
+			margin-left:5%;
+}
+.toolbox-first-row {
+			width:100%;
+			background-color:#DFDFDF;
+			height:30px;
+			line-height: 26px;
+			border-bottom:2px solid #999999;
+			font-weight: bold;
+}
+.toolbox-second-row {
+			width:100%;
+			margin:0 auto;
+			height:84%;
+}
+.toolbox-button-holder {
+			border:1px solid #999999;
+			width:40%;
+			background-color:#DFDFDF;
+			font-size: xx-small;
+			padding-left:2px;
+}
+.toolbox-text-holder {
+			
+			width:50%;			
+			font-size: xx-small;
+			padding-left:2px;
+			border: 0 none;
+}
+.clicked {
+  background-color: #E3E3E3;
+  border: 1px solid black;
+}
+
+.divTable{
+	display:table;
+	width:auto;
+	border-spacing:0px;/*cellspacing:poor IE support for  this*/
+   /* border-collapse:separate;*/
+}
+
+.divRow{
+   display:table-row;
+   width:auto; 
+}
+.divCell{
+	float:left;/*fix for  buggy browsers*/
+	display:table-column;
+	width:110px;	
+	padding-top:2px;
+    padding-bottom:2px;
+}
+.divHeading{
+	float:left;/*fix for  buggy browsers*/
+	display:table-column;
+	width:auto;	
+	padding-top:2px;
+    padding-bottom:2px;
+}
+
+.slide{
+	float:left;/*fix for  buggy browsers*/
+	display:table-column;
+	width:500px;	
+	padding:2px;
+}
+.clear{
+	clear:both;
+}
+
+.height5px{
+	clear:both;
+	height:5px;	
+}
+
+.floatRight{
+	float:right;
+}
+
+.height10px{
+	clear:both;
+	height:10px;	
+}
+
+.width100px{
+	width:100px;
+}
+
+.editlabel{	
+	float:left;
+	text-align:right;
+	width:180px;
+	padding-right:5px;
+}
+
+.thumbnail{
+	float:left;
+	width:134px;
+	height:70px;
+	margin-right:5px;	
+	border: 1px solid #000000;
+	/*overflow: hidden;	*/
+}
+
+.thumbnailMargin{
+	margin-top: 30px;
+	margin-left: 10px;
+}
+
+input[type=checkbox]{	 
+	position: relative;
+    top: 0px;
+    *overflow: hidden;
+}
+
+.styled-select {
+   background: transparent;
+   width: 108px;
+   padding: 5px;
+   font-size: 100%;
+   line-height: 1;
+   border: 0;
+   border-radius: 0;
+   height: 34px;
+   -webkit-appearance: none;
+}
+
+#tabs li .ui-icon-close { float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; }
+
+#levelSlider .ui-slider-range { background: #ff6633; }
+#levelSlider .ui-slider-handle { border-color: #ff6633; }
+#freSlider .ui-slider-range { background: #ff6633; }
+#freSlider .ui-slider-handle { border-color: #ff6633; }
+input::-ms-clear { visibility: hidden; }
+#uploadSmartInfo{
+	display:none;
+}
+
+.rowSelectionColor{
+	background: #F2F5A9;
+}
+
+.ui-tabs-anchor:active, .ui-tabs-anchor:focus {
+	outline:none;
+}
+
+/*
+@Data 151210
+@Author fanbi.lu
+@Function Control Menu Arrow for newconfig2Kxx
+*/
+.nav-header.collapsed > span.glyphicon-chevron-toggle:before {
+    content: "\e114";
+}
+
+.nav-header > span.glyphicon-chevron-toggle:before {
+    content: "\e113";
+}
+/*@Function modify jquery-ui-slider widget-header*/ 
+.ui-widget-header{
+	/*background:rgb(28, 148, 196);*/
+	background:#149bdf;
+}
+
+.ui-slider-handle .ui-state-active .ui-state-focus .ui-state-hover{
+border-radius: 23px;
+background:#1494c4;
+}
+/*
+@Data 151230
+@Author fanbi.lu
+@Function Control Menu Arrow for newconfig2Kxx
+*/
+.timeOffsetSlider4{
+width: auto; 
+margin-left: 0px; 
+}
+
+/* @real.chen 2016-01-09 for setting tab separation line*/
+.setting_separation_line{
+	clear: both;margin: 15px;padding-top: 10px;border-bottom: 1px solid #ddd;
+}
+
+/* @fanbi 2047-09-28 for add or edit channel table */
+.tableLineGap{
+	margin-top:5px;
+}
+.tableTitleGap{
+	padding-left:10px;
+}

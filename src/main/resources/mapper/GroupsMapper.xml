@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xum.cmnd.dao.GroupsMapper" >
+  <resultMap id="BaseResultMap" type="com.xum.cmnd.pojo.Groups" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="GroupName" property="groupname" jdbcType="VARCHAR" />
+    <result column="TVId" property="tvid" jdbcType="VARCHAR" />
+    <result column="FirmwareId" property="firmwareid" jdbcType="INTEGER" />
+    <result column="CloneId" property="cloneid" jdbcType="INTEGER" />
+    <result column="Status" property="status" jdbcType="VARCHAR" />
+    <result column="Progress" property="progress" jdbcType="VARCHAR" />
+    <result column="PowerStatus" property="powerstatus" jdbcType="VARCHAR" />
+    <result column="CreatedDate" property="createddate" jdbcType="VARCHAR" />
+    <result column="ModifiedDate" property="modifieddate" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xum.cmnd.pojo.Groups" extends="BaseResultMap" >
+    <result column="TVStatus" property="tvstatus" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Id, GroupName, TVId, FirmwareId, CloneId, Status, Progress, PowerStatus, CreatedDate, 
+    ModifiedDate
+  </sql>
+  <sql id="Blob_Column_List" >
+    TVStatus
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from groups
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from groups
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xum.cmnd.pojo.Groups" >
+    insert into groups (Id, GroupName, TVId, 
+      FirmwareId, CloneId, Status, 
+      Progress, PowerStatus, CreatedDate, 
+      ModifiedDate, TVStatus)
+    values (#{id,jdbcType=INTEGER}, #{groupname,jdbcType=VARCHAR}, #{tvid,jdbcType=VARCHAR}, 
+      #{firmwareid,jdbcType=INTEGER}, #{cloneid,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, 
+      #{progress,jdbcType=VARCHAR}, #{powerstatus,jdbcType=VARCHAR}, #{createddate,jdbcType=VARCHAR}, 
+      #{modifieddate,jdbcType=VARCHAR}, #{tvstatus,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xum.cmnd.pojo.Groups" >
+    insert into groups
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="groupname != null" >
+        GroupName,
+      </if>
+      <if test="tvid != null" >
+        TVId,
+      </if>
+      <if test="firmwareid != null" >
+        FirmwareId,
+      </if>
+      <if test="cloneid != null" >
+        CloneId,
+      </if>
+      <if test="status != null" >
+        Status,
+      </if>
+      <if test="progress != null" >
+        Progress,
+      </if>
+      <if test="powerstatus != null" >
+        PowerStatus,
+      </if>
+      <if test="createddate != null" >
+        CreatedDate,
+      </if>
+      <if test="modifieddate != null" >
+        ModifiedDate,
+      </if>
+      <if test="tvstatus != null" >
+        TVStatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="groupname != null" >
+        #{groupname,jdbcType=VARCHAR},
+      </if>
+      <if test="tvid != null" >
+        #{tvid,jdbcType=VARCHAR},
+      </if>
+      <if test="firmwareid != null" >
+        #{firmwareid,jdbcType=INTEGER},
+      </if>
+      <if test="cloneid != null" >
+        #{cloneid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="progress != null" >
+        #{progress,jdbcType=VARCHAR},
+      </if>
+      <if test="powerstatus != null" >
+        #{powerstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createddate != null" >
+        #{createddate,jdbcType=VARCHAR},
+      </if>
+      <if test="modifieddate != null" >
+        #{modifieddate,jdbcType=VARCHAR},
+      </if>
+      <if test="tvstatus != null" >
+        #{tvstatus,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xum.cmnd.pojo.Groups" >
+    update groups
+    <set >
+      <if test="groupname != null" >
+        GroupName = #{groupname,jdbcType=VARCHAR},
+      </if>
+      <if test="tvid != null" >
+        TVId = #{tvid,jdbcType=VARCHAR},
+      </if>
+      <if test="firmwareid != null" >
+        FirmwareId = #{firmwareid,jdbcType=INTEGER},
+      </if>
+      <if test="cloneid != null" >
+        CloneId = #{cloneid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        Status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="progress != null" >
+        Progress = #{progress,jdbcType=VARCHAR},
+      </if>
+      <if test="powerstatus != null" >
+        PowerStatus = #{powerstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createddate != null" >
+        CreatedDate = #{createddate,jdbcType=VARCHAR},
+      </if>
+      <if test="modifieddate != null" >
+        ModifiedDate = #{modifieddate,jdbcType=VARCHAR},
+      </if>
+      <if test="tvstatus != null" >
+        TVStatus = #{tvstatus,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xum.cmnd.pojo.Groups" >
+    update groups
+    set GroupName = #{groupname,jdbcType=VARCHAR},
+      TVId = #{tvid,jdbcType=VARCHAR},
+      FirmwareId = #{firmwareid,jdbcType=INTEGER},
+      CloneId = #{cloneid,jdbcType=INTEGER},
+      Status = #{status,jdbcType=VARCHAR},
+      Progress = #{progress,jdbcType=VARCHAR},
+      PowerStatus = #{powerstatus,jdbcType=VARCHAR},
+      CreatedDate = #{createddate,jdbcType=VARCHAR},
+      ModifiedDate = #{modifieddate,jdbcType=VARCHAR},
+      TVStatus = #{tvstatus,jdbcType=LONGVARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xum.cmnd.pojo.Groups" >
+    update groups
+    set GroupName = #{groupname,jdbcType=VARCHAR},
+      TVId = #{tvid,jdbcType=VARCHAR},
+      FirmwareId = #{firmwareid,jdbcType=INTEGER},
+      CloneId = #{cloneid,jdbcType=INTEGER},
+      Status = #{status,jdbcType=VARCHAR},
+      Progress = #{progress,jdbcType=VARCHAR},
+      PowerStatus = #{powerstatus,jdbcType=VARCHAR},
+      CreatedDate = #{createddate,jdbcType=VARCHAR},
+      ModifiedDate = #{modifieddate,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

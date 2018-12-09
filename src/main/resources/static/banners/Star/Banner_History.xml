@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><CloneHistory>
+  <SchemaVersion MajorVerNo="1" MinorVerNo="0"/>
+  <CurrentCloneIdentifier>15/10/2018:03:46</CurrentCloneIdentifier>
+  <History>
+    <HistoryOrder>1</HistoryOrder>
+    <SourceDevice>TV</SourceDevice>
+    <SourceDeviceModel>TPM181HE</SourceDeviceModel>
+    <SourceDeviceVersion>TPM181HE_R.005.001.039.000</SourceDeviceVersion>
+    <SourceDeviceSerialNumber>4165025I080833</SourceDeviceSerialNumber>
+    <SourceReason>OutOfBox</SourceReason>
+    <SourceDate>12/09/2018</SourceDate>
+    <SourceTime>07:36</SourceTime>
+    <CloneIdentifier>12/09/2018:07:36</CloneIdentifier>
+  </History>
+  <History>
+    <HistoryOrder>2</HistoryOrder>
+    <SourceDevice>Unknown</SourceDevice>
+    <SourceDeviceModel>Unknown</SourceDeviceModel>
+    <SourceDeviceVersion>Unknown</SourceDeviceVersion>
+    <SourceDeviceSerialNumber>Unknown</SourceDeviceSerialNumber>
+    <SourceReason>Unknown</SourceReason>
+    <SourceDate>15/10/2018</SourceDate>
+    <SourceTime>03:46</SourceTime>
+    <CloneIdentifier>15/10/2018:03:46</CloneIdentifier>
+</History>
+</CloneHistory>

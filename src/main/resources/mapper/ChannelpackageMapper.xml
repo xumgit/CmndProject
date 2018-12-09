@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xum.cmnd.dao.ChannelpackageMapper" >
+  <resultMap id="BaseResultMap" type="com.xum.cmnd.pojo.Channelpackage" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="platform" property="platform" jdbcType="VARCHAR" />
+    <result column="numberOfChs" property="numberofchs" jdbcType="INTEGER" />
+    <result column="lastEdit" property="lastedit" jdbcType="VARCHAR" />
+    <result column="createdBy" property="createdby" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xum.cmnd.pojo.ChannelpackageWithBLOBs" extends="BaseResultMap" >
+    <result column="name" property="name" jdbcType="LONGVARCHAR" />
+    <result column="value" property="value" jdbcType="LONGVARCHAR" />
+    <result column="configName" property="configname" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, platform, numberOfChs, lastEdit, createdBy
+  </sql>
+  <sql id="Blob_Column_List" >
+    name, value, configName
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from channelpackage
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from channelpackage
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xum.cmnd.pojo.ChannelpackageWithBLOBs" >
+    insert into channelpackage (id, platform, numberOfChs, 
+      lastEdit, createdBy, name, 
+      value, configName)
+    values (#{id,jdbcType=INTEGER}, #{platform,jdbcType=VARCHAR}, #{numberofchs,jdbcType=INTEGER}, 
+      #{lastedit,jdbcType=VARCHAR}, #{createdby,jdbcType=VARCHAR}, #{name,jdbcType=LONGVARCHAR}, 
+      #{value,jdbcType=LONGVARCHAR}, #{configname,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xum.cmnd.pojo.ChannelpackageWithBLOBs" >
+    insert into channelpackage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="platform != null" >
+        platform,
+      </if>
+      <if test="numberofchs != null" >
+        numberOfChs,
+      </if>
+      <if test="lastedit != null" >
+        lastEdit,
+      </if>
+      <if test="createdby != null" >
+        createdBy,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="value != null" >
+        value,
+      </if>
+      <if test="configname != null" >
+        configName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="platform != null" >
+        #{platform,jdbcType=VARCHAR},
+      </if>
+      <if test="numberofchs != null" >
+        #{numberofchs,jdbcType=INTEGER},
+      </if>
+      <if test="lastedit != null" >
+        #{lastedit,jdbcType=VARCHAR},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="configname != null" >
+        #{configname,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xum.cmnd.pojo.ChannelpackageWithBLOBs" >
+    update channelpackage
+    <set >
+      <if test="platform != null" >
+        platform = #{platform,jdbcType=VARCHAR},
+      </if>
+      <if test="numberofchs != null" >
+        numberOfChs = #{numberofchs,jdbcType=INTEGER},
+      </if>
+      <if test="lastedit != null" >
+        lastEdit = #{lastedit,jdbcType=VARCHAR},
+      </if>
+      <if test="createdby != null" >
+        createdBy = #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="value != null" >
+        value = #{value,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="configname != null" >
+        configName = #{configname,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xum.cmnd.pojo.ChannelpackageWithBLOBs" >
+    update channelpackage
+    set platform = #{platform,jdbcType=VARCHAR},
+      numberOfChs = #{numberofchs,jdbcType=INTEGER},
+      lastEdit = #{lastedit,jdbcType=VARCHAR},
+      createdBy = #{createdby,jdbcType=VARCHAR},
+      name = #{name,jdbcType=LONGVARCHAR},
+      value = #{value,jdbcType=LONGVARCHAR},
+      configName = #{configname,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xum.cmnd.pojo.Channelpackage" >
+    update channelpackage
+    set platform = #{platform,jdbcType=VARCHAR},
+      numberOfChs = #{numberofchs,jdbcType=INTEGER},
+      lastEdit = #{lastedit,jdbcType=VARCHAR},
+      createdBy = #{createdby,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

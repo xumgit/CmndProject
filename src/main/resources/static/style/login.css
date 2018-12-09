@@ -1,0 +1,407 @@
+/***
+Login page
+***/
+
+/* logo page */
+.login {
+  background-color: #444 !important;
+}
+
+.login .logo {
+  margin: 0 auto;   
+  margin-top:120px;
+  padding: 15px;
+  text-align: center;
+}  
+
+.login .content {
+  background-color:#fff; 
+  width: 360px;
+  margin: 0 auto; 
+  margin-bottom: 0px;
+  padding: 30px;  
+  padding-top: 20px;  
+  padding-bottom: 15px;  
+}
+
+.login .content h3 {
+  color: #000;
+}
+.login .content h4  {
+  color: #555;
+}
+
+.login .content p {
+  color: #222;
+}
+
+.login .content .login-form,
+.login .content .forget-form {
+    padding: 0px;
+    margin: 0px;
+}
+
+.login .content .input-icon {
+  border-left: 2px solid #E74F1C !important;
+}
+
+.login .content .input-icon .form-control {
+  border-left: 0;
+  border-radius: 0 !important;
+}
+
+.login .content .form-title {
+  font-weight: 300;
+  margin-bottom: 25px;
+}
+
+.login .content .form-actions {
+  background-color: #fff;
+  clear: both;
+  border: 0px;
+  border-bottom: 1px solid #eee;
+  padding: 0px 30px 25px 30px;
+  margin-left: -30px;
+  margin-right: -30px;
+}
+
+
+/* footer copyright */
+.login .copyright {
+  text-align: center;
+  margin: 0 auto; 
+  padding: 10px;
+  color: #999;
+  font-size: 13px;
+}
+
+@media (max-width: 480px) {
+  /***
+  Login page
+  ***/
+
+  .login .content {
+    width: 280px;
+  }
+
+  .login .content h3 {
+    font-size: 22px;
+  }
+
+}
+
+
+
+/*********************
+ GENERAL RESET & SETUP 
+*********************/
+
+/***
+Reset and overrides  
+***/
+
+/* general body settings */
+body { 
+  color: #000; 
+  font-family: cursive;
+  padding: 0px !important;
+  margin: 0px !important;
+  font-size:13px; 
+  direction: ltr;
+}
+
+/*
+Internet Explorer 10 doesn't differentiate device width from viewport width, and thus doesn't 
+properly apply the media queries in Bootstrap's CSS. To address this, 
+you can optionally include the following CSS and JavaScript to work around this problem until Microsoft issues a fix.
+*/
+@-webkit-viewport { 
+/*  width: device-width; */
+}
+
+@-moz-viewport { 
+/*  width: device-width; */
+}
+
+@-ms-viewport { 
+/*  width: device-width; */
+}
+
+@-o-viewport { 
+/*  width: device-width; */
+}
+
+@viewport { 
+/*  width: device-width; */
+}
+
+/* Internet Explorer 10 doesn't differentiate device width from viewport width, 
+and thus doesn't properly apply the media queries in Bootstrap's CSS. To address this, following CSS code applied */
+@-ms-viewport { 
+  width: auto !important; 
+}
+
+/***
+General typography 
+***/
+h1 small,
+h2 small,
+h3 small, 
+h4 small, 
+h5 small,
+h6 small {
+  color: #444;
+}
+
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6 {
+  /*font-family: -webkit-pictograph;*/
+  font-weight: 300 !important;
+}
+
+h1.block, 
+h2.block, 
+h3.block, 
+h4.block, 
+h5.block, 
+h6.block {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+a {
+  text-shadow: none !important;
+  color: #0d638f;
+}
+
+/***
+Fix link outlines after click
+***/
+a,a:focus, a:hover, a:active {
+  outline: 0;
+}
+
+/***
+Font Awesome Icons
+***/
+
+[class^="fa-"],
+[class*=" fa-"] {
+  display: inline-block;
+  margin-top: 1px;
+  font-size: 14px;
+  *margin-right: .3em;
+  line-height: 14px;
+}
+
+/***
+Make font awesome icons fixed width(latest version issue)
+***/
+
+li [class^="fa-"],
+li [class*=" fa-"] {
+  display: inline-block;
+  width: 1.25em;
+  text-align: center;
+}
+li [class^="fa-"].icon-large,
+li [class*=" fa-"].icon-large {
+  /* increased font size for icon-large */
+  width: 1.5625em;
+}
+
+.fa-lg,
+.icon-lg {
+  font-size: 16px;
+}
+
+.fa-2x {
+  font-size: 2em;
+}
+.fa-3x {
+  font-size: 3em;
+}
+.fa-4x {
+  font-size: 4em;
+}
+.fa-5x {
+  font-size: 5em;
+}
+
+.icon-default {
+  color: #ccc;
+}
+
+.icon-success {
+  color: #468847;
+}
+
+.icon-info {
+  color: #27a9e3; 
+}
+
+.icon-warning {
+  color: #dbc056;
+}
+
+.icon-danger {
+  color: #B94A48;
+}
+
+/***
+ie8 & ie9 modes
+***/
+
+.visible-ie8 {
+  display: none;
+}
+
+.ie8 .visible-ie8 {
+  display: inherit !important;
+}
+
+.visible-ie9 {
+  display: none;
+}
+
+.ie9 .visible-ie9 {
+  display: inherit !important;
+}
+
+.hidden-ie8 {
+  display: inherit;
+}
+
+.ie8 .hidden-ie8 {
+  display: none !important;
+}
+
+.hidden-ie9 {
+  display: inherit;
+}
+
+.ie9 .hidden-ie9 {
+  display: none !important;
+}
+
+/***
+Input icons
+***/
+
+.input-icon {
+  position: relative;
+}
+
+.input-icon input {
+   padding-left: 33px !important;
+}
+
+.input-icon i {
+  color: #ccc;
+  display: block;
+  position: absolute;
+  margin: 11px 2px 4px 10px;
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.has-success .input-icon > i {
+  color: #468847;
+}
+
+.has-warning .input-icon > i {
+  color: #c09853;
+}
+
+.has-error .input-icon > i {
+  color: #b94a48;
+}
+
+/***
+Forms 
+****/
+
+input.placeholder,
+textarea.placeholder {
+  color: #aaa !important;
+}
+
+.help-block {
+ margin-top: 5px;
+ margin-bottom: 5px;
+}
+
+.form-inline input {
+  margin-bottom: 0px !important;
+}
+
+.control-label {
+  margin-top: 2px;
+}
+
+.form-control-static {
+  font-size: 14px;
+  padding-top: 7px;
+}
+
+.control-label .required {
+  color: #e02222;
+  font-size: 12px;
+  padding-left: 2px;
+}
+
+.switch-wrapper {
+   display: inline-block;
+}
+
+.form {
+  padding: 0 !important;
+}
+
+.form-body {
+  padding: 10px;
+}
+
+.form-actions {
+  padding: 20px 10px;
+  margin-top: 20px;
+  background-color: #f5f5f5;
+  border-top: 1px solid #e5e5e5;
+  *zoom: 1;
+}
+
+.form-actions.nobg {
+  background-color: transparent;
+}
+
+.form-actions.top {
+  margin-top: 0;
+  margin-bottom: 20px;
+  border-top: 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.form-actions.fluid {
+  padding: 20px 0;
+}
+
+.form-actions.fluid > [class^="col-"] {
+  padding-left: 13px;
+}
+
+.form-actions:before,
+.form-actions:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+
+.form-actions:after {
+  clear: both;
+}

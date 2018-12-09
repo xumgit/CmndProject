@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xum.cmnd.dao.MessageMapper" >
+  <resultMap id="BaseResultMap" type="com.xum.cmnd.pojo.Message" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="timeSend" property="timesend" jdbcType="TIMESTAMP" />
+    <result column="isSent" property="issent" jdbcType="CHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xum.cmnd.pojo.MessageWithBLOBs" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="guestIds" property="guestids" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, timeSend, isSent, status
+  </sql>
+  <sql id="Blob_Column_List" >
+    content, guestIds
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from message
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from message
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xum.cmnd.pojo.MessageWithBLOBs" >
+    insert into message (id, timeSend, isSent, 
+      status, content, guestIds
+      )
+    values (#{id,jdbcType=INTEGER}, #{timesend,jdbcType=TIMESTAMP}, #{issent,jdbcType=CHAR}, 
+      #{status,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}, #{guestids,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xum.cmnd.pojo.MessageWithBLOBs" >
+    insert into message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="timesend != null" >
+        timeSend,
+      </if>
+      <if test="issent != null" >
+        isSent,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="guestids != null" >
+        guestIds,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="timesend != null" >
+        #{timesend,jdbcType=TIMESTAMP},
+      </if>
+      <if test="issent != null" >
+        #{issent,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="guestids != null" >
+        #{guestids,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xum.cmnd.pojo.MessageWithBLOBs" >
+    update message
+    <set >
+      <if test="timesend != null" >
+        timeSend = #{timesend,jdbcType=TIMESTAMP},
+      </if>
+      <if test="issent != null" >
+        isSent = #{issent,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="guestids != null" >
+        guestIds = #{guestids,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xum.cmnd.pojo.MessageWithBLOBs" >
+    update message
+    set timeSend = #{timesend,jdbcType=TIMESTAMP},
+      isSent = #{issent,jdbcType=CHAR},
+      status = #{status,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR},
+      guestIds = #{guestids,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xum.cmnd.pojo.Message" >
+    update message
+    set timeSend = #{timesend,jdbcType=TIMESTAMP},
+      isSent = #{issent,jdbcType=CHAR},
+      status = #{status,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

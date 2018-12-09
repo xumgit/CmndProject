@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xum.cmnd.dao.LogSystemMapper" >
+  <resultMap id="BaseResultMap" type="com.xum.cmnd.pojo.LogSystem" >
+    <id column="logId" property="logid" jdbcType="INTEGER" />
+    <result column="logLevel" property="loglevel" jdbcType="VARCHAR" />
+    <result column="userId" property="userid" jdbcType="VARCHAR" />
+    <result column="userName" property="username" jdbcType="VARCHAR" />
+    <result column="class" property="class" jdbcType="VARCHAR" />
+    <result column="method" property="method" jdbcType="VARCHAR" />
+    <result column="logTime" property="logtime" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xum.cmnd.pojo.LogSystem" extends="BaseResultMap" >
+    <result column="message" property="message" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    logId, logLevel, userId, userName, class, method, logTime
+  </sql>
+  <sql id="Blob_Column_List" >
+    message
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from log_system
+    where logId = #{logid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from log_system
+    where logId = #{logid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xum.cmnd.pojo.LogSystem" >
+    insert into log_system (logId, logLevel, userId, 
+      userName, class, method, 
+      logTime, message)
+    values (#{logid,jdbcType=INTEGER}, #{loglevel,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{class,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, 
+      #{logtime,jdbcType=VARCHAR}, #{message,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xum.cmnd.pojo.LogSystem" >
+    insert into log_system
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logid != null" >
+        logId,
+      </if>
+      <if test="loglevel != null" >
+        logLevel,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="username != null" >
+        userName,
+      </if>
+      <if test="class != null" >
+        class,
+      </if>
+      <if test="method != null" >
+        method,
+      </if>
+      <if test="logtime != null" >
+        logTime,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logid != null" >
+        #{logid,jdbcType=INTEGER},
+      </if>
+      <if test="loglevel != null" >
+        #{loglevel,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="class != null" >
+        #{class,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null" >
+        #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="logtime != null" >
+        #{logtime,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xum.cmnd.pojo.LogSystem" >
+    update log_system
+    <set >
+      <if test="loglevel != null" >
+        logLevel = #{loglevel,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="class != null" >
+        class = #{class,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null" >
+        method = #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="logtime != null" >
+        logTime = #{logtime,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where logId = #{logid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xum.cmnd.pojo.LogSystem" >
+    update log_system
+    set logLevel = #{loglevel,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=VARCHAR},
+      userName = #{username,jdbcType=VARCHAR},
+      class = #{class,jdbcType=VARCHAR},
+      method = #{method,jdbcType=VARCHAR},
+      logTime = #{logtime,jdbcType=VARCHAR},
+      message = #{message,jdbcType=LONGVARCHAR}
+    where logId = #{logid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xum.cmnd.pojo.LogSystem" >
+    update log_system
+    set logLevel = #{loglevel,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=VARCHAR},
+      userName = #{username,jdbcType=VARCHAR},
+      class = #{class,jdbcType=VARCHAR},
+      method = #{method,jdbcType=VARCHAR},
+      logTime = #{logtime,jdbcType=VARCHAR}
+    where logId = #{logid,jdbcType=INTEGER}
+  </update>
+</mapper>

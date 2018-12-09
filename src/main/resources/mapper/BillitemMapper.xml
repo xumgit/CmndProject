@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xum.cmnd.dao.BillitemMapper" >
+  <resultMap id="BaseResultMap" type="com.xum.cmnd.pojo.Billitem" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="BillItemDisplayName" property="billitemdisplayname" jdbcType="VARCHAR" />
+    <result column="BillItemAmount" property="billitemamount" jdbcType="VARCHAR" />
+    <result column="BillItemDate" property="billitemdate" jdbcType="VARCHAR" />
+    <result column="BillItemTime" property="billitemtime" jdbcType="VARCHAR" />
+    <result column="RoomId" property="roomid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, BillItemDisplayName, BillItemAmount, BillItemDate, BillItemTime, RoomId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from billitem
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from billitem
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xum.cmnd.pojo.Billitem" >
+    insert into billitem (ID, BillItemDisplayName, BillItemAmount, 
+      BillItemDate, BillItemTime, RoomId
+      )
+    values (#{id,jdbcType=INTEGER}, #{billitemdisplayname,jdbcType=VARCHAR}, #{billitemamount,jdbcType=VARCHAR}, 
+      #{billitemdate,jdbcType=VARCHAR}, #{billitemtime,jdbcType=VARCHAR}, #{roomid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xum.cmnd.pojo.Billitem" >
+    insert into billitem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="billitemdisplayname != null" >
+        BillItemDisplayName,
+      </if>
+      <if test="billitemamount != null" >
+        BillItemAmount,
+      </if>
+      <if test="billitemdate != null" >
+        BillItemDate,
+      </if>
+      <if test="billitemtime != null" >
+        BillItemTime,
+      </if>
+      <if test="roomid != null" >
+        RoomId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="billitemdisplayname != null" >
+        #{billitemdisplayname,jdbcType=VARCHAR},
+      </if>
+      <if test="billitemamount != null" >
+        #{billitemamount,jdbcType=VARCHAR},
+      </if>
+      <if test="billitemdate != null" >
+        #{billitemdate,jdbcType=VARCHAR},
+      </if>
+      <if test="billitemtime != null" >
+        #{billitemtime,jdbcType=VARCHAR},
+      </if>
+      <if test="roomid != null" >
+        #{roomid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xum.cmnd.pojo.Billitem" >
+    update billitem
+    <set >
+      <if test="billitemdisplayname != null" >
+        BillItemDisplayName = #{billitemdisplayname,jdbcType=VARCHAR},
+      </if>
+      <if test="billitemamount != null" >
+        BillItemAmount = #{billitemamount,jdbcType=VARCHAR},
+      </if>
+      <if test="billitemdate != null" >
+        BillItemDate = #{billitemdate,jdbcType=VARCHAR},
+      </if>
+      <if test="billitemtime != null" >
+        BillItemTime = #{billitemtime,jdbcType=VARCHAR},
+      </if>
+      <if test="roomid != null" >
+        RoomId = #{roomid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xum.cmnd.pojo.Billitem" >
+    update billitem
+    set BillItemDisplayName = #{billitemdisplayname,jdbcType=VARCHAR},
+      BillItemAmount = #{billitemamount,jdbcType=VARCHAR},
+      BillItemDate = #{billitemdate,jdbcType=VARCHAR},
+      BillItemTime = #{billitemtime,jdbcType=VARCHAR},
+      RoomId = #{roomid,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

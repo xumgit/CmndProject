@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xum.cmnd.dao.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.xum.cmnd.pojo.Order" >
+    <id column="orderid" property="orderid" jdbcType="VARCHAR" />
+    <result column="orderType" property="ordertype" jdbcType="VARCHAR" />
+    <result column="total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xum.cmnd.pojo.Order" extends="BaseResultMap" >
+    <result column="orderContent" property="ordercontent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    orderid, orderType, total
+  </sql>
+  <sql id="Blob_Column_List" >
+    orderContent
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from order
+    where orderid = #{orderid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from order
+    where orderid = #{orderid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xum.cmnd.pojo.Order" >
+    insert into order (orderid, orderType, total, 
+      orderContent)
+    values (#{orderid,jdbcType=VARCHAR}, #{ordertype,jdbcType=VARCHAR}, #{total,jdbcType=VARCHAR}, 
+      #{ordercontent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xum.cmnd.pojo.Order" >
+    insert into order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderid != null" >
+        orderid,
+      </if>
+      <if test="ordertype != null" >
+        orderType,
+      </if>
+      <if test="total != null" >
+        total,
+      </if>
+      <if test="ordercontent != null" >
+        orderContent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderid != null" >
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="ordertype != null" >
+        #{ordertype,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=VARCHAR},
+      </if>
+      <if test="ordercontent != null" >
+        #{ordercontent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xum.cmnd.pojo.Order" >
+    update order
+    <set >
+      <if test="ordertype != null" >
+        orderType = #{ordertype,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null" >
+        total = #{total,jdbcType=VARCHAR},
+      </if>
+      <if test="ordercontent != null" >
+        orderContent = #{ordercontent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where orderid = #{orderid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xum.cmnd.pojo.Order" >
+    update order
+    set orderType = #{ordertype,jdbcType=VARCHAR},
+      total = #{total,jdbcType=VARCHAR},
+      orderContent = #{ordercontent,jdbcType=LONGVARCHAR}
+    where orderid = #{orderid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xum.cmnd.pojo.Order" >
+    update order
+    set orderType = #{ordertype,jdbcType=VARCHAR},
+      total = #{total,jdbcType=VARCHAR}
+    where orderid = #{orderid,jdbcType=VARCHAR}
+  </update>
+</mapper>

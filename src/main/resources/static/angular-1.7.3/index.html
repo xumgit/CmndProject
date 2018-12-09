@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Index</title>
+<script src="angular-1.7.3/angular.min.js"></script>
+<script src="angular-study.js"></script>
+<style>
+input.ng-invalid {
+    background-color: lightblue;
+}
+</style>
+</head>
+<body ng-app="myApps">
+	<div ng-controller="myCtrls">
+    	<input ng-model="name">
+    	<h1>{{greeting}}</h1>
+    	<button ng-click='sayHello()'>点我</button>
+    	<div>Name: {{printName() | reverse}}</div> 
+    	<ul>
+  			<li ng-repeat="x in names | orderBy:'country'">
+    		{{ x.name + ', ' + x.country }}
+  			</li>
+		</ul> 
+		<div>{{localurl}}</div>
+	</div>
+
+	<div ng-controller="myCtrl1">     
+    	{{first}}<br>              
+    	{{$root.first}}<br>         
+    	{{second}}<br>              
+    	{{$root.second}}<br>       
+	</div>
+
+	<div ng-controller="myCtrl2">
+    	{{first}}<br>               
+    	{{$root.first}}<br>        
+    	{{second}}<br>            
+    	{{$root.second}}       
+	</div>
+
+	<!--
+	ng-invalid:未通过验证的表单
+	ng-valid:布尔型属性，它指示表单是否通过验证。如果表单当前通过验证，他将为true
+	ng-dirty:布尔值属性，表示用户是否修改了表单。如果为 ture，表示有修改过；false 表示修没有修改过
+	ng-touched:布尔值属性，表示用户是否和控件进行过交互
+	ng-pristine:布尔值属性，表示用户是否修改了表单。如果为ture，表示没有修改过；false表示修改过
+
+	ng-valid: 验证通过
+	ng-invalid: 验证失败
+	ng-valid-[key]: 由$setValidity添加的所有验证通过的值
+	ng-invalid-[key]: 由$setValidity添加的所有验证失败的值
+	ng-pristine: 控件为初始状态
+	ng-dirty: 控件输入值已变更
+	ng-touched: 控件已失去焦点
+	ng-untouched: 控件未失去焦点
+	ng-pending: 任何为满足$asyncValidators的情况
+	-->
+	<!-- <form ng-app="" name="myForm">
+    输入你的名字:
+    <input name="myAddress" ng-model="text" required>
+	</form> -->
+
+
+	<!-- <div ng-app="" ng-init="names=[
+		{name:'Jani',country:'Norway'},
+		{name:'Hege',country:'Sweden'},
+		{name:'Kai',country:'Denmark'}]">
+		<p>循环对象：</p>
+		<ul>
+  			<li ng-repeat="x in names">
+    		{{ x.name + ', ' + x.country }}
+  			</li>
+		</ul> 
+	</div> -->
+
+	<!-- <div ng-app="" ng-init="names=['Jani','Hege','Kai']">
+  		<p>使用 ng-repeat 来循环数组</p>
+  		<ul>
+    		<li ng-repeat="x in names">
+      		{{ x }}
+    		</li>
+  		</ul>
+	</div> -->
+
+	<!-- <div ng-app="" ng-init="quantity=1;price=5">
+		数量: <input type="text" ng-model="quantity"> <br />
+		价格: <input type="text" ng-model="price"> <br />
+		<h1><b>总价: </b> {{quantity*price}}</h1>
+	</div> -->
+
+	<!-- <div ng-app="">
+	<p>名字 : <input type="text" ng-model="name"></p>
+	<h1>Hello {{name}}</h1>
+	</div>
+	 -->
+
+	<!-- <div ng-app="" ng-init="firstName='John'">
+	<p>姓名为 <span ng-bind="firstName"></span></p>
+	</div>  -->
+	
+	<!-- <div ng-app="myApp" ng-controller="myCtrl">
+	名: <input type="text" ng-model="firstName1"><br>
+	姓: <input type="text" ng-model="lastName1"><br>
+	<br>
+	姓名: {{firstName1 + " " + lastName1}} 
+	</div> -->
+
+	<!-- <form ng-app="" name="myForm" ng-init="myText = 'test@runoob.com'">
+    Email:
+    <input type="email" name="myAddress" ng-model="text">
+    <span ng-show="myForm.myAddress.$error.email">
+    不是一个合法的邮箱地址</span>
+    <h1>状态</h1>
+    {{myForm.myAddress.$valid}}
+    {{myForm.myAddress.$dirty}}
+    {{myForm.myAddress.$touched}}
+	</form> -->
+
+	<!-- <div ng-app="" ng-init="points=[1,15,19,2,40]">
+		<p>第三个值为 {{points[2]}}</p> 
+	</div> -->
+
+	<!-- <div ng-app="" ng-init="person={first:'John',second:'Doe'}">
+		<p>{{person.first}}</p>
+	</div> -->
+
+	<!-- <div ng-app="" ng-init="name='John'">
+		<p>名字 : <input type="text" ng-model="name"></p>
+		<h1>Hello {{name}}</h1>
+	</div> -->
+
+</body>
+</html>

@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xum.cmnd.dao.PmsStatusMapper" >
+  <resultMap id="BaseResultMap" type="com.xum.cmnd.pojo.PmsStatus" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="pms" property="pms" jdbcType="CHAR" />
+    <result column="pmstype" property="pmstype" jdbcType="CHAR" />
+    <result column="pmsurl" property="pmsurl" jdbcType="VARCHAR" />
+    <result column="pmskey" property="pmskey" jdbcType="VARCHAR" />
+    <result column="pmssite" property="pmssite" jdbcType="VARCHAR" />
+    <result column="guestname" property="guestname" jdbcType="CHAR" />
+    <result column="guestlanguage" property="guestlanguage" jdbcType="CHAR" />
+    <result column="billontv" property="billontv" jdbcType="CHAR" />
+    <result column="welcomemessage" property="welcomemessage" jdbcType="CHAR" />
+    <result column="messages" property="messages" jdbcType="CHAR" />
+    <result column="expresscheckout" property="expresscheckout" jdbcType="CHAR" />
+    <result column="changechannelpackage" property="changechannelpackage" jdbcType="CHAR" />
+    <result column="changeapppackage" property="changeapppackage" jdbcType="CHAR" />
+    <result column="pmsconnectiontype" property="pmsconnectiontype" jdbcType="CHAR" />
+    <result column="pmsconnectionversion" property="pmsconnectionversion" jdbcType="VARCHAR" />
+    <result column="pmsconnectionstatus" property="pmsconnectionstatus" jdbcType="VARCHAR" />
+    <result column="currency" property="currency" jdbcType="VARCHAR" />
+    <result column="autoWakeUpTv" property="autowakeuptv" jdbcType="CHAR" />
+    <result column="currencyPreference" property="currencypreference" jdbcType="VARCHAR" />
+    <result column="autoSwitchOffTv" property="autoswitchofftv" jdbcType="CHAR" />
+    <result column="doNotDisturb" property="donotdisturb" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, pms, pmstype, pmsurl, pmskey, pmssite, guestname, guestlanguage, billontv, welcomemessage, 
+    messages, expresscheckout, changechannelpackage, changeapppackage, pmsconnectiontype, 
+    pmsconnectionversion, pmsconnectionstatus, currency, autoWakeUpTv, currencyPreference, 
+    autoSwitchOffTv, doNotDisturb
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pms_status
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pms_status
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xum.cmnd.pojo.PmsStatus" >
+    insert into pms_status (id, pms, pmstype, pmsurl, 
+      pmskey, pmssite, guestname, 
+      guestlanguage, billontv, welcomemessage, 
+      messages, expresscheckout, changechannelpackage, 
+      changeapppackage, pmsconnectiontype, pmsconnectionversion, 
+      pmsconnectionstatus, currency, autoWakeUpTv, 
+      currencyPreference, autoSwitchOffTv, doNotDisturb
+      )
+    values (#{id,jdbcType=INTEGER}, #{pms,jdbcType=CHAR}, #{pmstype,jdbcType=CHAR}, #{pmsurl,jdbcType=VARCHAR}, 
+      #{pmskey,jdbcType=VARCHAR}, #{pmssite,jdbcType=VARCHAR}, #{guestname,jdbcType=CHAR}, 
+      #{guestlanguage,jdbcType=CHAR}, #{billontv,jdbcType=CHAR}, #{welcomemessage,jdbcType=CHAR}, 
+      #{messages,jdbcType=CHAR}, #{expresscheckout,jdbcType=CHAR}, #{changechannelpackage,jdbcType=CHAR}, 
+      #{changeapppackage,jdbcType=CHAR}, #{pmsconnectiontype,jdbcType=CHAR}, #{pmsconnectionversion,jdbcType=VARCHAR}, 
+      #{pmsconnectionstatus,jdbcType=VARCHAR}, #{currency,jdbcType=VARCHAR}, #{autowakeuptv,jdbcType=CHAR}, 
+      #{currencypreference,jdbcType=VARCHAR}, #{autoswitchofftv,jdbcType=CHAR}, #{donotdisturb,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xum.cmnd.pojo.PmsStatus" >
+    insert into pms_status
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="pms != null" >
+        pms,
+      </if>
+      <if test="pmstype != null" >
+        pmstype,
+      </if>
+      <if test="pmsurl != null" >
+        pmsurl,
+      </if>
+      <if test="pmskey != null" >
+        pmskey,
+      </if>
+      <if test="pmssite != null" >
+        pmssite,
+      </if>
+      <if test="guestname != null" >
+        guestname,
+      </if>
+      <if test="guestlanguage != null" >
+        guestlanguage,
+      </if>
+      <if test="billontv != null" >
+        billontv,
+      </if>
+      <if test="welcomemessage != null" >
+        welcomemessage,
+      </if>
+      <if test="messages != null" >
+        messages,
+      </if>
+      <if test="expresscheckout != null" >
+        expresscheckout,
+      </if>
+      <if test="changechannelpackage != null" >
+        changechannelpackage,
+      </if>
+      <if test="changeapppackage != null" >
+        changeapppackage,
+      </if>
+      <if test="pmsconnectiontype != null" >
+        pmsconnectiontype,
+      </if>
+      <if test="pmsconnectionversion != null" >
+        pmsconnectionversion,
+      </if>
+      <if test="pmsconnectionstatus != null" >
+        pmsconnectionstatus,
+      </if>
+      <if test="currency != null" >
+        currency,
+      </if>
+      <if test="autowakeuptv != null" >
+        autoWakeUpTv,
+      </if>
+      <if test="currencypreference != null" >
+        currencyPreference,
+      </if>
+      <if test="autoswitchofftv != null" >
+        autoSwitchOffTv,
+      </if>
+      <if test="donotdisturb != null" >
+        doNotDisturb,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="pms != null" >
+        #{pms,jdbcType=CHAR},
+      </if>
+      <if test="pmstype != null" >
+        #{pmstype,jdbcType=CHAR},
+      </if>
+      <if test="pmsurl != null" >
+        #{pmsurl,jdbcType=VARCHAR},
+      </if>
+      <if test="pmskey != null" >
+        #{pmskey,jdbcType=VARCHAR},
+      </if>
+      <if test="pmssite != null" >
+        #{pmssite,jdbcType=VARCHAR},
+      </if>
+      <if test="guestname != null" >
+        #{guestname,jdbcType=CHAR},
+      </if>
+      <if test="guestlanguage != null" >
+        #{guestlanguage,jdbcType=CHAR},
+      </if>
+      <if test="billontv != null" >
+        #{billontv,jdbcType=CHAR},
+      </if>
+      <if test="welcomemessage != null" >
+        #{welcomemessage,jdbcType=CHAR},
+      </if>
+      <if test="messages != null" >
+        #{messages,jdbcType=CHAR},
+      </if>
+      <if test="expresscheckout != null" >
+        #{expresscheckout,jdbcType=CHAR},
+      </if>
+      <if test="changechannelpackage != null" >
+        #{changechannelpackage,jdbcType=CHAR},
+      </if>
+      <if test="changeapppackage != null" >
+        #{changeapppackage,jdbcType=CHAR},
+      </if>
+      <if test="pmsconnectiontype != null" >
+        #{pmsconnectiontype,jdbcType=CHAR},
+      </if>
+      <if test="pmsconnectionversion != null" >
+        #{pmsconnectionversion,jdbcType=VARCHAR},
+      </if>
+      <if test="pmsconnectionstatus != null" >
+        #{pmsconnectionstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null" >
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="autowakeuptv != null" >
+        #{autowakeuptv,jdbcType=CHAR},
+      </if>
+      <if test="currencypreference != null" >
+        #{currencypreference,jdbcType=VARCHAR},
+      </if>
+      <if test="autoswitchofftv != null" >
+        #{autoswitchofftv,jdbcType=CHAR},
+      </if>
+      <if test="donotdisturb != null" >
+        #{donotdisturb,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xum.cmnd.pojo.PmsStatus" >
+    update pms_status
+    <set >
+      <if test="pms != null" >
+        pms = #{pms,jdbcType=CHAR},
+      </if>
+      <if test="pmstype != null" >
+        pmstype = #{pmstype,jdbcType=CHAR},
+      </if>
+      <if test="pmsurl != null" >
+        pmsurl = #{pmsurl,jdbcType=VARCHAR},
+      </if>
+      <if test="pmskey != null" >
+        pmskey = #{pmskey,jdbcType=VARCHAR},
+      </if>
+      <if test="pmssite != null" >
+        pmssite = #{pmssite,jdbcType=VARCHAR},
+      </if>
+      <if test="guestname != null" >
+        guestname = #{guestname,jdbcType=CHAR},
+      </if>
+      <if test="guestlanguage != null" >
+        guestlanguage = #{guestlanguage,jdbcType=CHAR},
+      </if>
+      <if test="billontv != null" >
+        billontv = #{billontv,jdbcType=CHAR},
+      </if>
+      <if test="welcomemessage != null" >
+        welcomemessage = #{welcomemessage,jdbcType=CHAR},
+      </if>
+      <if test="messages != null" >
+        messages = #{messages,jdbcType=CHAR},
+      </if>
+      <if test="expresscheckout != null" >
+        expresscheckout = #{expresscheckout,jdbcType=CHAR},
+      </if>
+      <if test="changechannelpackage != null" >
+        changechannelpackage = #{changechannelpackage,jdbcType=CHAR},
+      </if>
+      <if test="changeapppackage != null" >
+        changeapppackage = #{changeapppackage,jdbcType=CHAR},
+      </if>
+      <if test="pmsconnectiontype != null" >
+        pmsconnectiontype = #{pmsconnectiontype,jdbcType=CHAR},
+      </if>
+      <if test="pmsconnectionversion != null" >
+        pmsconnectionversion = #{pmsconnectionversion,jdbcType=VARCHAR},
+      </if>
+      <if test="pmsconnectionstatus != null" >
+        pmsconnectionstatus = #{pmsconnectionstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null" >
+        currency = #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="autowakeuptv != null" >
+        autoWakeUpTv = #{autowakeuptv,jdbcType=CHAR},
+      </if>
+      <if test="currencypreference != null" >
+        currencyPreference = #{currencypreference,jdbcType=VARCHAR},
+      </if>
+      <if test="autoswitchofftv != null" >
+        autoSwitchOffTv = #{autoswitchofftv,jdbcType=CHAR},
+      </if>
+      <if test="donotdisturb != null" >
+        doNotDisturb = #{donotdisturb,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xum.cmnd.pojo.PmsStatus" >
+    update pms_status
+    set pms = #{pms,jdbcType=CHAR},
+      pmstype = #{pmstype,jdbcType=CHAR},
+      pmsurl = #{pmsurl,jdbcType=VARCHAR},
+      pmskey = #{pmskey,jdbcType=VARCHAR},
+      pmssite = #{pmssite,jdbcType=VARCHAR},
+      guestname = #{guestname,jdbcType=CHAR},
+      guestlanguage = #{guestlanguage,jdbcType=CHAR},
+      billontv = #{billontv,jdbcType=CHAR},
+      welcomemessage = #{welcomemessage,jdbcType=CHAR},
+      messages = #{messages,jdbcType=CHAR},
+      expresscheckout = #{expresscheckout,jdbcType=CHAR},
+      changechannelpackage = #{changechannelpackage,jdbcType=CHAR},
+      changeapppackage = #{changeapppackage,jdbcType=CHAR},
+      pmsconnectiontype = #{pmsconnectiontype,jdbcType=CHAR},
+      pmsconnectionversion = #{pmsconnectionversion,jdbcType=VARCHAR},
+      pmsconnectionstatus = #{pmsconnectionstatus,jdbcType=VARCHAR},
+      currency = #{currency,jdbcType=VARCHAR},
+      autoWakeUpTv = #{autowakeuptv,jdbcType=CHAR},
+      currencyPreference = #{currencypreference,jdbcType=VARCHAR},
+      autoSwitchOffTv = #{autoswitchofftv,jdbcType=CHAR},
+      doNotDisturb = #{donotdisturb,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

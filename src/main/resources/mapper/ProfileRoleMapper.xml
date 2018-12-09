@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xum.cmnd.dao.ProfileRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.xum.cmnd.pojo.ProfileRoleKey" >
+    <id column="profile_id" property="profileId" jdbcType="VARCHAR" />
+    <id column="role_idrole" property="roleIdrole" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.xum.cmnd.pojo.ProfileRoleKey" >
+    delete from profile_role
+    where profile_id = #{profileId,jdbcType=VARCHAR}
+      and role_idrole = #{roleIdrole,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xum.cmnd.pojo.ProfileRoleKey" >
+    insert into profile_role (profile_id, role_idrole)
+    values (#{profileId,jdbcType=VARCHAR}, #{roleIdrole,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xum.cmnd.pojo.ProfileRoleKey" >
+    insert into profile_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="profileId != null" >
+        profile_id,
+      </if>
+      <if test="roleIdrole != null" >
+        role_idrole,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="profileId != null" >
+        #{profileId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleIdrole != null" >
+        #{roleIdrole,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

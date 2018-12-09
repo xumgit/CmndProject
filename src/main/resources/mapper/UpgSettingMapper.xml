@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xum.cmnd.dao.UpgSettingMapper" >
+  <resultMap id="BaseResultMap" type="com.xum.cmnd.pojo.UpgSetting" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="platform" property="platform" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="VARCHAR" />
+    <result column="ipversion" property="ipversion" jdbcType="VARCHAR" />
+    <result column="upgRename" property="upgrename" jdbcType="VARCHAR" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="last_updated_by" property="lastUpdatedBy" jdbcType="VARCHAR" />
+    <result column="last_updated_date" property="lastUpdatedDate" jdbcType="TIMESTAMP" />
+    <result column="upg_played_on" property="upgPlayedOn" jdbcType="TIMESTAMP" />
+    <result column="upg_played_by" property="upgPlayedBy" jdbcType="VARCHAR" />
+    <result column="isDelete" property="isdelete" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xum.cmnd.pojo.UpgSetting" extends="BaseResultMap" >
+    <result column="name" property="name" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, platform, version, ipversion, upgRename, created_by, created_date, last_updated_by, 
+    last_updated_date, upg_played_on, upg_played_by, isDelete
+  </sql>
+  <sql id="Blob_Column_List" >
+    name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from upg_setting
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from upg_setting
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xum.cmnd.pojo.UpgSetting" >
+    insert into upg_setting (id, platform, version, 
+      ipversion, upgRename, created_by, 
+      created_date, last_updated_by, last_updated_date, 
+      upg_played_on, upg_played_by, isDelete, 
+      name)
+    values (#{id,jdbcType=INTEGER}, #{platform,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, 
+      #{ipversion,jdbcType=VARCHAR}, #{upgrename,jdbcType=VARCHAR}, #{createdBy,jdbcType=VARCHAR}, 
+      #{createdDate,jdbcType=TIMESTAMP}, #{lastUpdatedBy,jdbcType=VARCHAR}, #{lastUpdatedDate,jdbcType=TIMESTAMP}, 
+      #{upgPlayedOn,jdbcType=TIMESTAMP}, #{upgPlayedBy,jdbcType=VARCHAR}, #{isdelete,jdbcType=VARCHAR}, 
+      #{name,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xum.cmnd.pojo.UpgSetting" >
+    insert into upg_setting
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="platform != null" >
+        platform,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="ipversion != null" >
+        ipversion,
+      </if>
+      <if test="upgrename != null" >
+        upgRename,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+      <if test="lastUpdatedBy != null" >
+        last_updated_by,
+      </if>
+      <if test="lastUpdatedDate != null" >
+        last_updated_date,
+      </if>
+      <if test="upgPlayedOn != null" >
+        upg_played_on,
+      </if>
+      <if test="upgPlayedBy != null" >
+        upg_played_by,
+      </if>
+      <if test="isdelete != null" >
+        isDelete,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="platform != null" >
+        #{platform,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="ipversion != null" >
+        #{ipversion,jdbcType=VARCHAR},
+      </if>
+      <if test="upgrename != null" >
+        #{upgrename,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdatedBy != null" >
+        #{lastUpdatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdatedDate != null" >
+        #{lastUpdatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upgPlayedOn != null" >
+        #{upgPlayedOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upgPlayedBy != null" >
+        #{upgPlayedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="isdelete != null" >
+        #{isdelete,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xum.cmnd.pojo.UpgSetting" >
+    update upg_setting
+    <set >
+      <if test="platform != null" >
+        platform = #{platform,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="ipversion != null" >
+        ipversion = #{ipversion,jdbcType=VARCHAR},
+      </if>
+      <if test="upgrename != null" >
+        upgRename = #{upgrename,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdatedBy != null" >
+        last_updated_by = #{lastUpdatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdatedDate != null" >
+        last_updated_date = #{lastUpdatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upgPlayedOn != null" >
+        upg_played_on = #{upgPlayedOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upgPlayedBy != null" >
+        upg_played_by = #{upgPlayedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="isdelete != null" >
+        isDelete = #{isdelete,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xum.cmnd.pojo.UpgSetting" >
+    update upg_setting
+    set platform = #{platform,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR},
+      ipversion = #{ipversion,jdbcType=VARCHAR},
+      upgRename = #{upgrename,jdbcType=VARCHAR},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
+      last_updated_by = #{lastUpdatedBy,jdbcType=VARCHAR},
+      last_updated_date = #{lastUpdatedDate,jdbcType=TIMESTAMP},
+      upg_played_on = #{upgPlayedOn,jdbcType=TIMESTAMP},
+      upg_played_by = #{upgPlayedBy,jdbcType=VARCHAR},
+      isDelete = #{isdelete,jdbcType=VARCHAR},
+      name = #{name,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xum.cmnd.pojo.UpgSetting" >
+    update upg_setting
+    set platform = #{platform,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR},
+      ipversion = #{ipversion,jdbcType=VARCHAR},
+      upgRename = #{upgrename,jdbcType=VARCHAR},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
+      last_updated_by = #{lastUpdatedBy,jdbcType=VARCHAR},
+      last_updated_date = #{lastUpdatedDate,jdbcType=TIMESTAMP},
+      upg_played_on = #{upgPlayedOn,jdbcType=TIMESTAMP},
+      upg_played_by = #{upgPlayedBy,jdbcType=VARCHAR},
+      isDelete = #{isdelete,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

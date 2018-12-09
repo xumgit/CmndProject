@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xum.cmnd.dao.LogRequestMapper" >
+  <resultMap id="BaseResultMap" type="com.xum.cmnd.pojo.LogRequest" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="clientId" property="clientid" jdbcType="VARCHAR" />
+    <result column="clientIp" property="clientip" jdbcType="VARCHAR" />
+    <result column="function" property="function" jdbcType="VARCHAR" />
+    <result column="logTime" property="logtime" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xum.cmnd.pojo.LogRequestWithBLOBs" extends="BaseResultMap" >
+    <result column="commandData" property="commanddata" jdbcType="LONGVARCHAR" />
+    <result column="parameterData" property="parameterdata" jdbcType="LONGVARCHAR" />
+    <result column="responseData" property="responsedata" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, clientId, clientIp, function, logTime
+  </sql>
+  <sql id="Blob_Column_List" >
+    commandData, parameterData, responseData
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from log_request
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from log_request
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xum.cmnd.pojo.LogRequestWithBLOBs" >
+    insert into log_request (id, clientId, clientIp, 
+      function, logTime, commandData, 
+      parameterData, responseData)
+    values (#{id,jdbcType=VARCHAR}, #{clientid,jdbcType=VARCHAR}, #{clientip,jdbcType=VARCHAR}, 
+      #{function,jdbcType=VARCHAR}, #{logtime,jdbcType=VARCHAR}, #{commanddata,jdbcType=LONGVARCHAR}, 
+      #{parameterdata,jdbcType=LONGVARCHAR}, #{responsedata,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xum.cmnd.pojo.LogRequestWithBLOBs" >
+    insert into log_request
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="clientid != null" >
+        clientId,
+      </if>
+      <if test="clientip != null" >
+        clientIp,
+      </if>
+      <if test="function != null" >
+        function,
+      </if>
+      <if test="logtime != null" >
+        logTime,
+      </if>
+      <if test="commanddata != null" >
+        commandData,
+      </if>
+      <if test="parameterdata != null" >
+        parameterData,
+      </if>
+      <if test="responsedata != null" >
+        responseData,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="clientid != null" >
+        #{clientid,jdbcType=VARCHAR},
+      </if>
+      <if test="clientip != null" >
+        #{clientip,jdbcType=VARCHAR},
+      </if>
+      <if test="function != null" >
+        #{function,jdbcType=VARCHAR},
+      </if>
+      <if test="logtime != null" >
+        #{logtime,jdbcType=VARCHAR},
+      </if>
+      <if test="commanddata != null" >
+        #{commanddata,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="parameterdata != null" >
+        #{parameterdata,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="responsedata != null" >
+        #{responsedata,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xum.cmnd.pojo.LogRequestWithBLOBs" >
+    update log_request
+    <set >
+      <if test="clientid != null" >
+        clientId = #{clientid,jdbcType=VARCHAR},
+      </if>
+      <if test="clientip != null" >
+        clientIp = #{clientip,jdbcType=VARCHAR},
+      </if>
+      <if test="function != null" >
+        function = #{function,jdbcType=VARCHAR},
+      </if>
+      <if test="logtime != null" >
+        logTime = #{logtime,jdbcType=VARCHAR},
+      </if>
+      <if test="commanddata != null" >
+        commandData = #{commanddata,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="parameterdata != null" >
+        parameterData = #{parameterdata,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="responsedata != null" >
+        responseData = #{responsedata,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xum.cmnd.pojo.LogRequestWithBLOBs" >
+    update log_request
+    set clientId = #{clientid,jdbcType=VARCHAR},
+      clientIp = #{clientip,jdbcType=VARCHAR},
+      function = #{function,jdbcType=VARCHAR},
+      logTime = #{logtime,jdbcType=VARCHAR},
+      commandData = #{commanddata,jdbcType=LONGVARCHAR},
+      parameterData = #{parameterdata,jdbcType=LONGVARCHAR},
+      responseData = #{responsedata,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xum.cmnd.pojo.LogRequest" >
+    update log_request
+    set clientId = #{clientid,jdbcType=VARCHAR},
+      clientIp = #{clientip,jdbcType=VARCHAR},
+      function = #{function,jdbcType=VARCHAR},
+      logTime = #{logtime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

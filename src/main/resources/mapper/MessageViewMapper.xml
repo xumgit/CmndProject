@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xum.cmnd.dao.MessageViewMapper" >
+  <resultMap id="BaseResultMap" type="com.xum.cmnd.pojo.MessageView" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="timeSend" property="timesend" jdbcType="TIMESTAMP" />
+    <result column="isSent" property="issent" jdbcType="CHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="roomid" property="roomid" jdbcType="INTEGER" />
+    <result column="guestName" property="guestname" jdbcType="VARCHAR" />
+    <result column="guestGroup" property="guestgroup" jdbcType="VARCHAR" />
+    <result column="reservationId" property="reservationid" jdbcType="INTEGER" />
+    <result column="tvGroupName" property="tvgroupname" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xum.cmnd.pojo.MessageViewWithBLOBs" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="guestIds" property="guestids" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Blob_Column_List" >
+    content, guestIds
+  </sql>
+  <insert id="insert" parameterType="com.xum.cmnd.pojo.MessageViewWithBLOBs" >
+    insert into message_view (id, timeSend, isSent, 
+      status, roomid, guestName, 
+      guestGroup, reservationId, tvGroupName, 
+      content, guestIds)
+    values (#{id,jdbcType=INTEGER}, #{timesend,jdbcType=TIMESTAMP}, #{issent,jdbcType=CHAR}, 
+      #{status,jdbcType=VARCHAR}, #{roomid,jdbcType=INTEGER}, #{guestname,jdbcType=VARCHAR}, 
+      #{guestgroup,jdbcType=VARCHAR}, #{reservationid,jdbcType=INTEGER}, #{tvgroupname,jdbcType=VARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR}, #{guestids,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xum.cmnd.pojo.MessageViewWithBLOBs" >
+    insert into message_view
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="timesend != null" >
+        timeSend,
+      </if>
+      <if test="issent != null" >
+        isSent,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="roomid != null" >
+        roomid,
+      </if>
+      <if test="guestname != null" >
+        guestName,
+      </if>
+      <if test="guestgroup != null" >
+        guestGroup,
+      </if>
+      <if test="reservationid != null" >
+        reservationId,
+      </if>
+      <if test="tvgroupname != null" >
+        tvGroupName,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="guestids != null" >
+        guestIds,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="timesend != null" >
+        #{timesend,jdbcType=TIMESTAMP},
+      </if>
+      <if test="issent != null" >
+        #{issent,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="roomid != null" >
+        #{roomid,jdbcType=INTEGER},
+      </if>
+      <if test="guestname != null" >
+        #{guestname,jdbcType=VARCHAR},
+      </if>
+      <if test="guestgroup != null" >
+        #{guestgroup,jdbcType=VARCHAR},
+      </if>
+      <if test="reservationid != null" >
+        #{reservationid,jdbcType=INTEGER},
+      </if>
+      <if test="tvgroupname != null" >
+        #{tvgroupname,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="guestids != null" >
+        #{guestids,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

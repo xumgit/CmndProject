@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xum.cmnd.dao.ConfigViewMapper" >
+  <resultMap id="BaseResultMap" type="com.xum.cmnd.pojo.ConfigView" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="platform" property="platform" jdbcType="VARCHAR" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="geoname_id" property="geonameId" jdbcType="VARCHAR" />
+    <result column="fetchTime" property="fetchtime" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="errorMsg" property="errormsg" jdbcType="VARCHAR" />
+    <result column="forecasts" property="forecasts" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xum.cmnd.pojo.ConfigView" extends="BaseResultMap" >
+    <result column="name" property="name" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Blob_Column_List" >
+    name
+  </sql>
+  <insert id="insert" parameterType="com.xum.cmnd.pojo.ConfigView" >
+    insert into config_view (id, platform, created_date, 
+      geoname_id, fetchTime, status, 
+      errorMsg, forecasts, name
+      )
+    values (#{id,jdbcType=INTEGER}, #{platform,jdbcType=VARCHAR}, #{createdDate,jdbcType=TIMESTAMP}, 
+      #{geonameId,jdbcType=VARCHAR}, #{fetchtime,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{errormsg,jdbcType=VARCHAR}, #{forecasts,jdbcType=VARCHAR}, #{name,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xum.cmnd.pojo.ConfigView" >
+    insert into config_view
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="platform != null" >
+        platform,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+      <if test="geonameId != null" >
+        geoname_id,
+      </if>
+      <if test="fetchtime != null" >
+        fetchTime,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="errormsg != null" >
+        errorMsg,
+      </if>
+      <if test="forecasts != null" >
+        forecasts,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="platform != null" >
+        #{platform,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="geonameId != null" >
+        #{geonameId,jdbcType=VARCHAR},
+      </if>
+      <if test="fetchtime != null" >
+        #{fetchtime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="errormsg != null" >
+        #{errormsg,jdbcType=VARCHAR},
+      </if>
+      <if test="forecasts != null" >
+        #{forecasts,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xum.cmnd.dao.ReservationMapper" >
+  <resultMap id="BaseResultMap" type="com.xum.cmnd.pojo.Reservation" >
+    <id column="reservationId" property="reservationid" jdbcType="INTEGER" />
+    <result column="guests" property="guests" jdbcType="VARCHAR" />
+    <result column="rooms" property="rooms" jdbcType="VARCHAR" />
+    <result column="startTime" property="starttime" jdbcType="VARCHAR" />
+    <result column="endTime" property="endtime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    reservationId, guests, rooms, startTime, endTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from reservation
+    where reservationId = #{reservationid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from reservation
+    where reservationId = #{reservationid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xum.cmnd.pojo.Reservation" >
+    insert into reservation (reservationId, guests, rooms, 
+      startTime, endTime)
+    values (#{reservationid,jdbcType=INTEGER}, #{guests,jdbcType=VARCHAR}, #{rooms,jdbcType=VARCHAR}, 
+      #{starttime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xum.cmnd.pojo.Reservation" >
+    insert into reservation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="reservationid != null" >
+        reservationId,
+      </if>
+      <if test="guests != null" >
+        guests,
+      </if>
+      <if test="rooms != null" >
+        rooms,
+      </if>
+      <if test="starttime != null" >
+        startTime,
+      </if>
+      <if test="endtime != null" >
+        endTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="reservationid != null" >
+        #{reservationid,jdbcType=INTEGER},
+      </if>
+      <if test="guests != null" >
+        #{guests,jdbcType=VARCHAR},
+      </if>
+      <if test="rooms != null" >
+        #{rooms,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xum.cmnd.pojo.Reservation" >
+    update reservation
+    <set >
+      <if test="guests != null" >
+        guests = #{guests,jdbcType=VARCHAR},
+      </if>
+      <if test="rooms != null" >
+        rooms = #{rooms,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        startTime = #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null" >
+        endTime = #{endtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where reservationId = #{reservationid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xum.cmnd.pojo.Reservation" >
+    update reservation
+    set guests = #{guests,jdbcType=VARCHAR},
+      rooms = #{rooms,jdbcType=VARCHAR},
+      startTime = #{starttime,jdbcType=VARCHAR},
+      endTime = #{endtime,jdbcType=VARCHAR}
+    where reservationId = #{reservationid,jdbcType=INTEGER}
+  </update>
+</mapper>

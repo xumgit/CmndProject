@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xum.cmnd.dao.BootgridDropmenuMapper" >
+  <resultMap id="BaseResultMap" type="com.xum.cmnd.pojo.BootgridDropmenu" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user" property="user" jdbcType="VARCHAR" />
+    <result column="grid_id" property="gridId" jdbcType="VARCHAR" />
+    <result column="invisible_column_id" property="invisibleColumnId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user, grid_id, invisible_column_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bootgrid_dropmenu
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bootgrid_dropmenu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xum.cmnd.pojo.BootgridDropmenu" >
+    insert into bootgrid_dropmenu (id, user, grid_id, 
+      invisible_column_id)
+    values (#{id,jdbcType=INTEGER}, #{user,jdbcType=VARCHAR}, #{gridId,jdbcType=VARCHAR}, 
+      #{invisibleColumnId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xum.cmnd.pojo.BootgridDropmenu" >
+    insert into bootgrid_dropmenu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="user != null" >
+        user,
+      </if>
+      <if test="gridId != null" >
+        grid_id,
+      </if>
+      <if test="invisibleColumnId != null" >
+        invisible_column_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="user != null" >
+        #{user,jdbcType=VARCHAR},
+      </if>
+      <if test="gridId != null" >
+        #{gridId,jdbcType=VARCHAR},
+      </if>
+      <if test="invisibleColumnId != null" >
+        #{invisibleColumnId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xum.cmnd.pojo.BootgridDropmenu" >
+    update bootgrid_dropmenu
+    <set >
+      <if test="user != null" >
+        user = #{user,jdbcType=VARCHAR},
+      </if>
+      <if test="gridId != null" >
+        grid_id = #{gridId,jdbcType=VARCHAR},
+      </if>
+      <if test="invisibleColumnId != null" >
+        invisible_column_id = #{invisibleColumnId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xum.cmnd.pojo.BootgridDropmenu" >
+    update bootgrid_dropmenu
+    set user = #{user,jdbcType=VARCHAR},
+      grid_id = #{gridId,jdbcType=VARCHAR},
+      invisible_column_id = #{invisibleColumnId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

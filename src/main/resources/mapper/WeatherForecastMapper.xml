@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xum.cmnd.dao.WeatherForecastMapper" >
+  <resultMap id="BaseResultMap" type="com.xum.cmnd.pojo.WeatherForecast" >
+    <id column="cityId" property="cityid" jdbcType="VARCHAR" />
+    <result column="lang" property="lang" jdbcType="VARCHAR" />
+    <result column="forecasts" property="forecasts" jdbcType="VARCHAR" />
+    <result column="fetchTime" property="fetchtime" jdbcType="VARCHAR" />
+    <result column="lastFetchTime" property="lastfetchtime" jdbcType="VARCHAR" />
+    <result column="errorMsg" property="errormsg" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cityId, lang, forecasts, fetchTime, lastFetchTime, errorMsg, status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from weather_forecast
+    where cityId = #{cityid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from weather_forecast
+    where cityId = #{cityid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xum.cmnd.pojo.WeatherForecast" >
+    insert into weather_forecast (cityId, lang, forecasts, 
+      fetchTime, lastFetchTime, errorMsg, 
+      status)
+    values (#{cityid,jdbcType=VARCHAR}, #{lang,jdbcType=VARCHAR}, #{forecasts,jdbcType=VARCHAR}, 
+      #{fetchtime,jdbcType=VARCHAR}, #{lastfetchtime,jdbcType=VARCHAR}, #{errormsg,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xum.cmnd.pojo.WeatherForecast" >
+    insert into weather_forecast
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cityid != null" >
+        cityId,
+      </if>
+      <if test="lang != null" >
+        lang,
+      </if>
+      <if test="forecasts != null" >
+        forecasts,
+      </if>
+      <if test="fetchtime != null" >
+        fetchTime,
+      </if>
+      <if test="lastfetchtime != null" >
+        lastFetchTime,
+      </if>
+      <if test="errormsg != null" >
+        errorMsg,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cityid != null" >
+        #{cityid,jdbcType=VARCHAR},
+      </if>
+      <if test="lang != null" >
+        #{lang,jdbcType=VARCHAR},
+      </if>
+      <if test="forecasts != null" >
+        #{forecasts,jdbcType=VARCHAR},
+      </if>
+      <if test="fetchtime != null" >
+        #{fetchtime,jdbcType=VARCHAR},
+      </if>
+      <if test="lastfetchtime != null" >
+        #{lastfetchtime,jdbcType=VARCHAR},
+      </if>
+      <if test="errormsg != null" >
+        #{errormsg,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xum.cmnd.pojo.WeatherForecast" >
+    update weather_forecast
+    <set >
+      <if test="lang != null" >
+        lang = #{lang,jdbcType=VARCHAR},
+      </if>
+      <if test="forecasts != null" >
+        forecasts = #{forecasts,jdbcType=VARCHAR},
+      </if>
+      <if test="fetchtime != null" >
+        fetchTime = #{fetchtime,jdbcType=VARCHAR},
+      </if>
+      <if test="lastfetchtime != null" >
+        lastFetchTime = #{lastfetchtime,jdbcType=VARCHAR},
+      </if>
+      <if test="errormsg != null" >
+        errorMsg = #{errormsg,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where cityId = #{cityid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xum.cmnd.pojo.WeatherForecast" >
+    update weather_forecast
+    set lang = #{lang,jdbcType=VARCHAR},
+      forecasts = #{forecasts,jdbcType=VARCHAR},
+      fetchTime = #{fetchtime,jdbcType=VARCHAR},
+      lastFetchTime = #{lastfetchtime,jdbcType=VARCHAR},
+      errorMsg = #{errormsg,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where cityId = #{cityid,jdbcType=VARCHAR}
+  </update>
+</mapper>

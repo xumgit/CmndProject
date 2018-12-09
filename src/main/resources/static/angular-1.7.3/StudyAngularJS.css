@@ -1,0 +1,30 @@
+
+table#authorInfo, table#authorInfo th, table#authorInfo td {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 5px;
+}
+table#authorInfo tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table#authorInfo tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+div#ngAnimate {
+  transition: all linear 0.5s;
+  background-color: lightblue;
+  height: 100px;
+  width: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.ng-hide {
+  height: 0;
+  width: 0;
+  background-color: transparent;
+  top:-200px;
+  left: 200px;
+}

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xum.cmnd.dao.GroupViewMapper" >
+  <resultMap id="BaseResultMap" type="com.xum.cmnd.pojo.GroupView" >
+    <result column="GroupName" property="groupname" jdbcType="VARCHAR" />
+    <result column="FirmwareId" property="firmwareid" jdbcType="INTEGER" />
+    <result column="CloneId" property="cloneid" jdbcType="INTEGER" />
+    <result column="CreatedDate" property="createddate" jdbcType="VARCHAR" />
+    <result column="ModifiedDate" property="modifieddate" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xum.cmnd.pojo.GroupViewWithBLOBs" extends="BaseResultMap" >
+    <result column="CloneName" property="clonename" jdbcType="LONGVARCHAR" />
+    <result column="UpgName" property="upgname" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Blob_Column_List" >
+    CloneName, UpgName
+  </sql>
+  <insert id="insert" parameterType="com.xum.cmnd.pojo.GroupViewWithBLOBs" >
+    insert into group_view (GroupName, FirmwareId, CloneId, 
+      CreatedDate, ModifiedDate, CloneName, 
+      UpgName)
+    values (#{groupname,jdbcType=VARCHAR}, #{firmwareid,jdbcType=INTEGER}, #{cloneid,jdbcType=INTEGER}, 
+      #{createddate,jdbcType=VARCHAR}, #{modifieddate,jdbcType=VARCHAR}, #{clonename,jdbcType=LONGVARCHAR}, 
+      #{upgname,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xum.cmnd.pojo.GroupViewWithBLOBs" >
+    insert into group_view
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="groupname != null" >
+        GroupName,
+      </if>
+      <if test="firmwareid != null" >
+        FirmwareId,
+      </if>
+      <if test="cloneid != null" >
+        CloneId,
+      </if>
+      <if test="createddate != null" >
+        CreatedDate,
+      </if>
+      <if test="modifieddate != null" >
+        ModifiedDate,
+      </if>
+      <if test="clonename != null" >
+        CloneName,
+      </if>
+      <if test="upgname != null" >
+        UpgName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="groupname != null" >
+        #{groupname,jdbcType=VARCHAR},
+      </if>
+      <if test="firmwareid != null" >
+        #{firmwareid,jdbcType=INTEGER},
+      </if>
+      <if test="cloneid != null" >
+        #{cloneid,jdbcType=INTEGER},
+      </if>
+      <if test="createddate != null" >
+        #{createddate,jdbcType=VARCHAR},
+      </if>
+      <if test="modifieddate != null" >
+        #{modifieddate,jdbcType=VARCHAR},
+      </if>
+      <if test="clonename != null" >
+        #{clonename,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="upgname != null" >
+        #{upgname,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

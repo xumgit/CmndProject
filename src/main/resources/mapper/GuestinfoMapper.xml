@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xum.cmnd.dao.GuestinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xum.cmnd.pojo.Guestinfo" >
+    <id column="guestId" property="guestid" jdbcType="INTEGER" />
+    <result column="guestName" property="guestname" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="guestLanguage" property="guestlanguage" jdbcType="VARCHAR" />
+    <result column="roomid" property="roomid" jdbcType="INTEGER" />
+    <result column="tvsettingtype" property="tvsettingtype" jdbcType="VARCHAR" />
+    <result column="checkin" property="checkin" jdbcType="CHAR" />
+    <result column="orderid" property="orderid" jdbcType="VARCHAR" />
+    <result column="doNotDisturb" property="donotdisturb" jdbcType="CHAR" />
+    <result column="viewBill" property="viewbill" jdbcType="CHAR" />
+    <result column="expressCheckout" property="expresscheckout" jdbcType="CHAR" />
+    <result column="arrivalDate" property="arrivaldate" jdbcType="VARCHAR" />
+    <result column="departureDate" property="departuredate" jdbcType="VARCHAR" />
+    <result column="groupName" property="groupname" jdbcType="VARCHAR" />
+    <result column="channelPackageId" property="channelpackageid" jdbcType="INTEGER" />
+    <result column="appPackageId" property="apppackageid" jdbcType="INTEGER" />
+    <result column="balance" property="balance" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    guestId, guestName, title, guestLanguage, roomid, tvsettingtype, checkin, orderid, 
+    doNotDisturb, viewBill, expressCheckout, arrivalDate, departureDate, groupName, channelPackageId, 
+    appPackageId, balance
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from guestinfo
+    where guestId = #{guestid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from guestinfo
+    where guestId = #{guestid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xum.cmnd.pojo.Guestinfo" >
+    insert into guestinfo (guestId, guestName, title, 
+      guestLanguage, roomid, tvsettingtype, 
+      checkin, orderid, doNotDisturb, 
+      viewBill, expressCheckout, arrivalDate, 
+      departureDate, groupName, channelPackageId, 
+      appPackageId, balance)
+    values (#{guestid,jdbcType=INTEGER}, #{guestname,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{guestlanguage,jdbcType=VARCHAR}, #{roomid,jdbcType=INTEGER}, #{tvsettingtype,jdbcType=VARCHAR}, 
+      #{checkin,jdbcType=CHAR}, #{orderid,jdbcType=VARCHAR}, #{donotdisturb,jdbcType=CHAR}, 
+      #{viewbill,jdbcType=CHAR}, #{expresscheckout,jdbcType=CHAR}, #{arrivaldate,jdbcType=VARCHAR}, 
+      #{departuredate,jdbcType=VARCHAR}, #{groupname,jdbcType=VARCHAR}, #{channelpackageid,jdbcType=INTEGER}, 
+      #{apppackageid,jdbcType=INTEGER}, #{balance,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xum.cmnd.pojo.Guestinfo" >
+    insert into guestinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="guestid != null" >
+        guestId,
+      </if>
+      <if test="guestname != null" >
+        guestName,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="guestlanguage != null" >
+        guestLanguage,
+      </if>
+      <if test="roomid != null" >
+        roomid,
+      </if>
+      <if test="tvsettingtype != null" >
+        tvsettingtype,
+      </if>
+      <if test="checkin != null" >
+        checkin,
+      </if>
+      <if test="orderid != null" >
+        orderid,
+      </if>
+      <if test="donotdisturb != null" >
+        doNotDisturb,
+      </if>
+      <if test="viewbill != null" >
+        viewBill,
+      </if>
+      <if test="expresscheckout != null" >
+        expressCheckout,
+      </if>
+      <if test="arrivaldate != null" >
+        arrivalDate,
+      </if>
+      <if test="departuredate != null" >
+        departureDate,
+      </if>
+      <if test="groupname != null" >
+        groupName,
+      </if>
+      <if test="channelpackageid != null" >
+        channelPackageId,
+      </if>
+      <if test="apppackageid != null" >
+        appPackageId,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="guestid != null" >
+        #{guestid,jdbcType=INTEGER},
+      </if>
+      <if test="guestname != null" >
+        #{guestname,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="guestlanguage != null" >
+        #{guestlanguage,jdbcType=VARCHAR},
+      </if>
+      <if test="roomid != null" >
+        #{roomid,jdbcType=INTEGER},
+      </if>
+      <if test="tvsettingtype != null" >
+        #{tvsettingtype,jdbcType=VARCHAR},
+      </if>
+      <if test="checkin != null" >
+        #{checkin,jdbcType=CHAR},
+      </if>
+      <if test="orderid != null" >
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="donotdisturb != null" >
+        #{donotdisturb,jdbcType=CHAR},
+      </if>
+      <if test="viewbill != null" >
+        #{viewbill,jdbcType=CHAR},
+      </if>
+      <if test="expresscheckout != null" >
+        #{expresscheckout,jdbcType=CHAR},
+      </if>
+      <if test="arrivaldate != null" >
+        #{arrivaldate,jdbcType=VARCHAR},
+      </if>
+      <if test="departuredate != null" >
+        #{departuredate,jdbcType=VARCHAR},
+      </if>
+      <if test="groupname != null" >
+        #{groupname,jdbcType=VARCHAR},
+      </if>
+      <if test="channelpackageid != null" >
+        #{channelpackageid,jdbcType=INTEGER},
+      </if>
+      <if test="apppackageid != null" >
+        #{apppackageid,jdbcType=INTEGER},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xum.cmnd.pojo.Guestinfo" >
+    update guestinfo
+    <set >
+      <if test="guestname != null" >
+        guestName = #{guestname,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="guestlanguage != null" >
+        guestLanguage = #{guestlanguage,jdbcType=VARCHAR},
+      </if>
+      <if test="roomid != null" >
+        roomid = #{roomid,jdbcType=INTEGER},
+      </if>
+      <if test="tvsettingtype != null" >
+        tvsettingtype = #{tvsettingtype,jdbcType=VARCHAR},
+      </if>
+      <if test="checkin != null" >
+        checkin = #{checkin,jdbcType=CHAR},
+      </if>
+      <if test="orderid != null" >
+        orderid = #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="donotdisturb != null" >
+        doNotDisturb = #{donotdisturb,jdbcType=CHAR},
+      </if>
+      <if test="viewbill != null" >
+        viewBill = #{viewbill,jdbcType=CHAR},
+      </if>
+      <if test="expresscheckout != null" >
+        expressCheckout = #{expresscheckout,jdbcType=CHAR},
+      </if>
+      <if test="arrivaldate != null" >
+        arrivalDate = #{arrivaldate,jdbcType=VARCHAR},
+      </if>
+      <if test="departuredate != null" >
+        departureDate = #{departuredate,jdbcType=VARCHAR},
+      </if>
+      <if test="groupname != null" >
+        groupName = #{groupname,jdbcType=VARCHAR},
+      </if>
+      <if test="channelpackageid != null" >
+        channelPackageId = #{channelpackageid,jdbcType=INTEGER},
+      </if>
+      <if test="apppackageid != null" >
+        appPackageId = #{apppackageid,jdbcType=INTEGER},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where guestId = #{guestid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xum.cmnd.pojo.Guestinfo" >
+    update guestinfo
+    set guestName = #{guestname,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      guestLanguage = #{guestlanguage,jdbcType=VARCHAR},
+      roomid = #{roomid,jdbcType=INTEGER},
+      tvsettingtype = #{tvsettingtype,jdbcType=VARCHAR},
+      checkin = #{checkin,jdbcType=CHAR},
+      orderid = #{orderid,jdbcType=VARCHAR},
+      doNotDisturb = #{donotdisturb,jdbcType=CHAR},
+      viewBill = #{viewbill,jdbcType=CHAR},
+      expressCheckout = #{expresscheckout,jdbcType=CHAR},
+      arrivalDate = #{arrivaldate,jdbcType=VARCHAR},
+      departureDate = #{departuredate,jdbcType=VARCHAR},
+      groupName = #{groupname,jdbcType=VARCHAR},
+      channelPackageId = #{channelpackageid,jdbcType=INTEGER},
+      appPackageId = #{apppackageid,jdbcType=INTEGER},
+      balance = #{balance,jdbcType=VARCHAR}
+    where guestId = #{guestid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xum.cmnd.dao.RoominfoViewMapper" >
+  <resultMap id="BaseResultMap" type="com.xum.cmnd.pojo.RoominfoView" >
+    <result column="Id" property="id" jdbcType="VARCHAR" />
+    <result column="PowerStatus" property="powerstatus" jdbcType="VARCHAR" />
+    <result column="TVUniqueID" property="tvuniqueid" jdbcType="VARCHAR" />
+    <result column="guestId" property="guestid" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="language" property="language" jdbcType="VARCHAR" />
+    <result column="groupName" property="groupname" jdbcType="VARCHAR" />
+    <result column="Type" property="type" jdbcType="VARCHAR" />
+    <result column="roomid" property="roomid" jdbcType="INTEGER" />
+    <result column="tvsettingtype" property="tvsettingtype" jdbcType="VARCHAR" />
+    <result column="checkin" property="checkin" jdbcType="VARCHAR" />
+    <result column="doNotDisturb" property="donotdisturb" jdbcType="VARCHAR" />
+    <result column="viewBill" property="viewbill" jdbcType="VARCHAR" />
+    <result column="expressCheckout" property="expresscheckout" jdbcType="VARCHAR" />
+    <result column="orderid" property="orderid" jdbcType="VARCHAR" />
+    <result column="channelPackageId" property="channelpackageid" jdbcType="INTEGER" />
+    <result column="appPackageId" property="apppackageid" jdbcType="INTEGER" />
+    <result column="reservationId" property="reservationid" jdbcType="INTEGER" />
+    <result column="startTime" property="starttime" jdbcType="VARCHAR" />
+    <result column="endTime" property="endtime" jdbcType="VARCHAR" />
+    <result column="tvGroupName" property="tvgroupname" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.xum.cmnd.pojo.RoominfoView" >
+    insert into roominfo_view (Id, PowerStatus, TVUniqueID, 
+      guestId, name, title, 
+      language, groupName, Type, 
+      roomid, tvsettingtype, checkin, 
+      doNotDisturb, viewBill, expressCheckout, 
+      orderid, channelPackageId, appPackageId, 
+      reservationId, startTime, endTime, 
+      tvGroupName)
+    values (#{id,jdbcType=VARCHAR}, #{powerstatus,jdbcType=VARCHAR}, #{tvuniqueid,jdbcType=VARCHAR}, 
+      #{guestid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{language,jdbcType=VARCHAR}, #{groupname,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{roomid,jdbcType=INTEGER}, #{tvsettingtype,jdbcType=VARCHAR}, #{checkin,jdbcType=VARCHAR}, 
+      #{donotdisturb,jdbcType=VARCHAR}, #{viewbill,jdbcType=VARCHAR}, #{expresscheckout,jdbcType=VARCHAR}, 
+      #{orderid,jdbcType=VARCHAR}, #{channelpackageid,jdbcType=INTEGER}, #{apppackageid,jdbcType=INTEGER}, 
+      #{reservationid,jdbcType=INTEGER}, #{starttime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR}, 
+      #{tvgroupname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xum.cmnd.pojo.RoominfoView" >
+    insert into roominfo_view
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="powerstatus != null" >
+        PowerStatus,
+      </if>
+      <if test="tvuniqueid != null" >
+        TVUniqueID,
+      </if>
+      <if test="guestid != null" >
+        guestId,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="language != null" >
+        language,
+      </if>
+      <if test="groupname != null" >
+        groupName,
+      </if>
+      <if test="type != null" >
+        Type,
+      </if>
+      <if test="roomid != null" >
+        roomid,
+      </if>
+      <if test="tvsettingtype != null" >
+        tvsettingtype,
+      </if>
+      <if test="checkin != null" >
+        checkin,
+      </if>
+      <if test="donotdisturb != null" >
+        doNotDisturb,
+      </if>
+      <if test="viewbill != null" >
+        viewBill,
+      </if>
+      <if test="expresscheckout != null" >
+        expressCheckout,
+      </if>
+      <if test="orderid != null" >
+        orderid,
+      </if>
+      <if test="channelpackageid != null" >
+        channelPackageId,
+      </if>
+      <if test="apppackageid != null" >
+        appPackageId,
+      </if>
+      <if test="reservationid != null" >
+        reservationId,
+      </if>
+      <if test="starttime != null" >
+        startTime,
+      </if>
+      <if test="endtime != null" >
+        endTime,
+      </if>
+      <if test="tvgroupname != null" >
+        tvGroupName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="powerstatus != null" >
+        #{powerstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="tvuniqueid != null" >
+        #{tvuniqueid,jdbcType=VARCHAR},
+      </if>
+      <if test="guestid != null" >
+        #{guestid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null" >
+        #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="groupname != null" >
+        #{groupname,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="roomid != null" >
+        #{roomid,jdbcType=INTEGER},
+      </if>
+      <if test="tvsettingtype != null" >
+        #{tvsettingtype,jdbcType=VARCHAR},
+      </if>
+      <if test="checkin != null" >
+        #{checkin,jdbcType=VARCHAR},
+      </if>
+      <if test="donotdisturb != null" >
+        #{donotdisturb,jdbcType=VARCHAR},
+      </if>
+      <if test="viewbill != null" >
+        #{viewbill,jdbcType=VARCHAR},
+      </if>
+      <if test="expresscheckout != null" >
+        #{expresscheckout,jdbcType=VARCHAR},
+      </if>
+      <if test="orderid != null" >
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="channelpackageid != null" >
+        #{channelpackageid,jdbcType=INTEGER},
+      </if>
+      <if test="apppackageid != null" >
+        #{apppackageid,jdbcType=INTEGER},
+      </if>
+      <if test="reservationid != null" >
+        #{reservationid,jdbcType=INTEGER},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="tvgroupname != null" >
+        #{tvgroupname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

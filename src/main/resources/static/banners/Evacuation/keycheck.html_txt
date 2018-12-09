@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	
+		<link rel="stylesheet" type="text/css" href="css/ui.css" />
+
+	    <script type="text/javascript">
+		
+			var  BANNER_START_TIMEOUT_PROD = 900000; // 15 minutes
+			var  BANNER_START_TIMEOUT_TEST = 30000;  // 30 seconds
+			var  BANNER_SHOW_TIMEOUT = 30000;  // 30 seconds
+			
+			var  startTimer, stopTimer;			
+			
+			var  bannerLaunchCommand = "START BANNER";
+			var  bannerHideCommand = "STOP BANNER";
+		
+            var picPaths = ['food3.jpg','food4.jpg','food5.jpg','food6.jpg','food7.jpg','food8.jpg','food9.jpg'];
+			var loungepicPaths = ['treat.jpg','treat1.jpg','treat2.jpg','treat4.jpg','treat5.jpg','treat6.jpg','treat7.jpg','treat8.jpg','treat9.jpg','treat10.jpg','treat11.jpg'];
+            var curPic = -1;
+			var curPic1 = -1;
+            //preload the images for smooth animation
+            var imgO = new Array();
+			var imgO1 = new Array();
+			var output;
+            for(i=0; i < picPaths.length; i++) {
+                imgO[i] = new Image();
+                imgO[i].src = "images/" + picPaths[i];
+            }
+			
+			function doLog(data) {
+				console.log("**PHILIPS BANNER PAGE :: " + data);
+				//alert("PHILIPS BANNER PAGE :: " + data);
+			}
+			
+			for(i=0; i < loungepicPaths.length; i++) {
+                imgO1[i] = new Image();
+                imgO1[i].src = "images/" + loungepicPaths[i];
+            }
+			
+            function swapImage() {
+                curPic = (++curPic > picPaths.length-1)? 0 : curPic;
+                imgCont.src = imgO[curPic].src;
+				curPic1 = (++curPic1 > loungepicPaths.length-1)? 0 : curPic1;
+				imgCont1.src = imgO1[curPic1].src;
+                setTimeout(swapImage,3000);
+            }
+			
+			function handleKeyPress(e) {			
+				output = "onkeydown keycode= " + e.keyCode ;
+				doLog("!!keyDown : " + e.keyCode);
+				document.getElementById('message').innerHTML=output;
+				if(e.keycode == HBBTV_VK_MYCHOICE)
+				{
+					output = " HBBTV_VK_MYCHOICE";
+				}
+				else{
+					output = " NO HBBTV_VK_MYCHOICE";
+				}
+				document.getElementById('message').innerHTML=output;
+				
+				
+			}
+			
+			function handleKeyReceived(e) {
+				var eventDetail = event.detail;
+				var eventval = eventDetail.split(',');
+				var keyStatus = parseInt(eventval[1]);
+				var keyCode = parseInt(eventval[0]);				
+				output = "onKeyReceived keycode= " + keyCode + "Keystatus= " + keyStatus;
+				doLog("$$keyReceived : " + keyCode);
+				document.getElementById('message').innerHTML=output;
+				if(keyCode == VK_MYCHOICE)
+				{
+					output = " VK_MYCHOICE";
+				}
+				else{
+					output = " NO VK_MYCHOICE";
+				}
+				document.getElementById('message').innerHTML=output;
+				
+			}
+			
+			function onWixpCallback(data) {
+				doLog("WIXP response : " + data);
+			}
+			
+			function launchBanner() {
+				doLog("Activate Banner");
+				clearTimeout(startTimer);
+				try {		
+					webixpObject.WebIxpSend(JSON.stringify(bannerLaunchCommand));
+				} catch(e) {		
+					console.log("ERROR : While sending wixp commad");
+				}	
+				
+				// Auto hide Banner
+				stopTimer = window.setTimeout(hideBanner, BANNER_SHOW_TIMEOUT);
+			}
+			
+			function hideBanner() {
+				doLog("Hide Banner");
+				clearTimeout(stopTimer);
+				try {		
+					webixpObject.WebIxpSend(JSON.stringify(bannerHideCommand));
+				} catch(e) {		
+					console.log("ERROR : While sending wixp commad");
+				}	
+			}
+			
+			function init() {
+				doLog("Init");
+				// Clear timer
+				clearTimeout(startTimer);
+				clearTimeout(stopTimer);
+				
+				// Add key listeners
+				document.addEventListener("keydown", handleKeyPress, true);
+				document.addEventListener("OnKeyReceived", handleKeyReceived, false);
+				
+				// Image algo
+                imgCont = document.getElementById('imgBanner');
+				imgCont1 = document.getElementById('loungeimgBanner');
+                swapImage();
+				
+				webixpObject.WebIXPOnReceive = onWixpCallback;
+				startTimer = window.setTimeout(launchBanner, BANNER_START_TIMEOUT_TEST);
+			}
+			
+			function foodbanner() {				
+				document.getElementById('imgBanner').src = imgO[1].src;
+			}
+			function loungebanner() {				
+				document.getElementById('loungeimgBanner').src = imgO1[1].src;
+			}
+			
+			function bannerfun() {
+				doLog(1+5);				
+			}	
+			
+			function goBack() {
+				doLog("goBack");
+				//window.close();
+				hideBanner();
+			}
+    </script>
+	
+</head>
+
+<body onload="init();">
+	
+	<div class="container">
+		<!--div class="PhilipsLogo">
+			<img id="logo" src="images/philips.png" alt="" width="40%" height="50%"  align="middle">  Logo
+		</div-->
+		<div class="WelcomeText">Philips BANNER Reference !!! </div>
+		<div class="firstLabel">			
+			<img id="imgBanner" src="" alt="" width="80%" height="100%" onclick="foodbanner()" align="middle">  Lounge
+		</div>
+		<div class="secondLabel">
+			<img id="loungeimgBanner" src="" alt="" width="80%" height="100%" onclick="loungebanner()" align="middle" >    Promos</div>
+		 <div class="backLabel">
+			 <img src="images/bb_1.jpg" width="60" height="50" alt="Back Button" onclick="goBack()"></img>
+			 <p>Press to return</p>
+		 </div>
+	</div>
+	
+
+	<div id="message"> </div>
+	
+	<!-- WIXP object instantiation -->
+	<object style="visibility: hidden;" type="application/jswebixp" width="0" height="0" id="webixpObject"></object>
+	
+		
+</body>
+
+</html>

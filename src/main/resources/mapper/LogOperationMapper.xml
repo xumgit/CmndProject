@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xum.cmnd.dao.LogOperationMapper" >
+  <resultMap id="BaseResultMap" type="com.xum.cmnd.pojo.LogOperation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="VARCHAR" />
+    <result column="module" property="module" jdbcType="VARCHAR" />
+    <result column="operation" property="operation" jdbcType="VARCHAR" />
+    <result column="bizId" property="bizid" jdbcType="VARCHAR" />
+    <result column="logTime" property="logtime" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xum.cmnd.pojo.LogOperation" extends="BaseResultMap" >
+    <result column="bizData" property="bizdata" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, uid, module, operation, bizId, logTime
+  </sql>
+  <sql id="Blob_Column_List" >
+    bizData
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from log_operation
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from log_operation
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xum.cmnd.pojo.LogOperation" >
+    insert into log_operation (id, uid, module, 
+      operation, bizId, logTime, 
+      bizData)
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=VARCHAR}, #{module,jdbcType=VARCHAR}, 
+      #{operation,jdbcType=VARCHAR}, #{bizid,jdbcType=VARCHAR}, #{logtime,jdbcType=VARCHAR}, 
+      #{bizdata,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xum.cmnd.pojo.LogOperation" >
+    insert into log_operation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="module != null" >
+        module,
+      </if>
+      <if test="operation != null" >
+        operation,
+      </if>
+      <if test="bizid != null" >
+        bizId,
+      </if>
+      <if test="logtime != null" >
+        logTime,
+      </if>
+      <if test="bizdata != null" >
+        bizData,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="module != null" >
+        #{module,jdbcType=VARCHAR},
+      </if>
+      <if test="operation != null" >
+        #{operation,jdbcType=VARCHAR},
+      </if>
+      <if test="bizid != null" >
+        #{bizid,jdbcType=VARCHAR},
+      </if>
+      <if test="logtime != null" >
+        #{logtime,jdbcType=VARCHAR},
+      </if>
+      <if test="bizdata != null" >
+        #{bizdata,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xum.cmnd.pojo.LogOperation" >
+    update log_operation
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="module != null" >
+        module = #{module,jdbcType=VARCHAR},
+      </if>
+      <if test="operation != null" >
+        operation = #{operation,jdbcType=VARCHAR},
+      </if>
+      <if test="bizid != null" >
+        bizId = #{bizid,jdbcType=VARCHAR},
+      </if>
+      <if test="logtime != null" >
+        logTime = #{logtime,jdbcType=VARCHAR},
+      </if>
+      <if test="bizdata != null" >
+        bizData = #{bizdata,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xum.cmnd.pojo.LogOperation" >
+    update log_operation
+    set uid = #{uid,jdbcType=VARCHAR},
+      module = #{module,jdbcType=VARCHAR},
+      operation = #{operation,jdbcType=VARCHAR},
+      bizId = #{bizid,jdbcType=VARCHAR},
+      logTime = #{logtime,jdbcType=VARCHAR},
+      bizData = #{bizdata,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xum.cmnd.pojo.LogOperation" >
+    update log_operation
+    set uid = #{uid,jdbcType=VARCHAR},
+      module = #{module,jdbcType=VARCHAR},
+      operation = #{operation,jdbcType=VARCHAR},
+      bizId = #{bizid,jdbcType=VARCHAR},
+      logTime = #{logtime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

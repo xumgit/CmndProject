@@ -1,0 +1,88 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>evacuation</title>
+		
+		<script type="text/javascript">
+	
+			//control show and hide
+			var  BANNER_START_TIMEOUT_PROD = 300000; // 15 minutes
+			var  BANNER_START_TIMEOUT_TEST = 60000;  // 60 seconds
+			var  BANNER_SHOW_TIMEOUT = 20000;  // 20 seconds
+			
+			var  startTimer, stopTimer;			
+			var  counter = 1;
+			
+			var  bannerLaunchCommand = '{"Svc":"WIXP","SvcVer":"4.0","Cookie":11900,"CmdType":"Change","Fun":"ApplicationControl","CommandDetails":{"ApplicationDetails":{"ApplicationName":"Banner"},"ApplicationState":"Activate"}}';
+			
+			var  bannerHideCommand = '{"Svc":"WIXP","SvcVer":"4.0","Cookie":11900,"CmdType":"Change","Fun":"ApplicationControl","CommandDetails":{"ApplicationDetails":{"ApplicationName":"Banner"},"ApplicationState":"Deactivate"}}';
+				
+			function SwitchAnimation(){
+				if(counter < 25){
+					counter++;
+				}else{
+					counter=1;
+				}
+				document.getElementById("imgs").src="firealert_r"+counter+".png";
+				setTimeout(SwitchAnimation, 50);
+			}
+
+			function init() {
+					doLog("Init");
+					
+//					SwitchAnimation();
+				
+					// Clear timer
+					clearTimeout(startTimer);
+					clearTimeout(stopTimer);
+					
+					webixpObject = document.getElementById('webixpObject');
+					
+					
+					webixpObject.WebIXPOnReceive = onWixpCallback;
+					startTimer = window.setTimeout(launchBanner, BANNER_START_TIMEOUT_TEST);
+			}		
+			
+			function onWixpCallback(data) {
+				//doLog("WIXP response : " + data);
+			}
+			
+			function launchBanner() {
+					doLog("Activate Banner");
+					clearTimeout(startTimer);
+					try {		
+						webixpObject.WebIxpSend(bannerLaunchCommand);
+					} catch(e) {		
+						console.log("ERROR : While sending wixp commad");
+					}	
+					
+					// Auto hide Banner
+					stopTimer = window.setTimeout(hideBanner, BANNER_SHOW_TIMEOUT);
+			}
+			
+			function hideBanner() {
+					doLog("Hide Banner");
+					clearTimeout(stopTimer);
+					try {		
+						webixpObject.WebIxpSend(bannerHideCommand);
+					} catch(e) {		
+						console.log("ERROR : While sending wixp commad");
+					}	
+			}
+			
+			function doLog(data) {
+				console.log("**PHILIPS BANNER PAGE :: " + data);
+			}
+			
+		</script>
+	</head>
+	<body onload="init();">
+		<div class="bg">
+				
+				<img src="star.png" />
+			
+		</div>
+			<!-- WIXP object instantiation -->
+		<object style="visibility: hidden;" type="application/jswebixp" width="0" height="0" id="webixpObject"></object>
+	</body>
+</html>
