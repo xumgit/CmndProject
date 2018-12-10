@@ -25,9 +25,9 @@ import com.xum.cmnd.service.DevicesService;
 
 @Controller
 @RequestMapping(value = "/SmartInstall")
-public class IptvController {
+public class IPTVController {
 	
-	private static final Logger LOG = LogManager.getLogger(IptvController.class);
+	private static final Logger LOG = LogManager.getLogger(IPTVController.class);
 	
 	@Autowired
 	private IptvUtils iptvUtils;
