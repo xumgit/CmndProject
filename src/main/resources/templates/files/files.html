@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="menu/index">
+    <div th:fragment="content">
+	    <div>
+	        <ul class="nav nav-tabs" role="tablelist" id="tabs">
+				<li role="presentation" class="active">
+					<a href="#tabs_firmware" role="tab" data-table="tabs_firmware" data-toggle="tab"> 
+						Firmware List 
+					</a>
+				</li>
+				<li role="presentation">
+					<a href="#tabs_clone" role="tab" data-table="tabs_clone" data-toggle="tab"> 
+						Clone List 
+					</a>
+				</li>
+				<li role="presentation">
+					<a href="#tabs_settingPackage" role="tab" data-table="tabs_settingPackage" data-toggle="tab"> 
+						Setting Package 
+					</a>
+				</li>
+				<li role="presentation">
+					<a href="#tabs_channelPackage" role="tab" data-table="tabs_channelPackage" data-toggle="tab"> 
+						Channel Package 
+					</a>
+				</li>
+				<li role="presentation">
+					<a href="#tabs_app" role="tab" data-table="tabs_app" data-toggle="tab"> 
+						App Packages 
+					</a>
+				</li>
+		 		<li role="presentation">
+		 			<a href="#tabs_banners" role="tab" data-table="tabs_banners" data-toggle="tab"> 
+		 				Banners 
+		 			</a>
+		 		</li>
+				<li role="presentation">
+					<a href="#tabs_play" role="tab" data-table="tabs_play" data-toggle="tab"> 
+						Play 
+					</a>
+				</li>
+			</ul>
+	    </div>
+    </div>
+</html>
