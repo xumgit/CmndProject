@@ -1,15 +1,15 @@
-package com.xum.cmnd.controller;
+package com.xum.cmnd.navigation;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = "/index")
-public class IndexController {
-	
+@RequestMapping(value = "/tvs")
+public class NavigationTVs {
+
 	@RequestMapping(value = "/index")
 	public String index() {
-		String view = "index/index";
+		String view = "navigation/tvs/index";
 		return view;
 	}
 	
