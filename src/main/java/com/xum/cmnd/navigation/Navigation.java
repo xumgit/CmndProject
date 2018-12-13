@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value = "/navi")
@@ -16,22 +17,46 @@ public class Navigation {
 	private static final Logger LOG = LogManager.getLogger(Navigation.class);
 	
 	@RequestMapping(value = "/index")
-	public String index(HttpServletRequest request, ModelMap model) {
+	public String index(HttpServletRequest request) {
+		String view = "navigation/index";	
+		return view;
+	}
+	
+	@RequestMapping(value = "/dafaultTab")
+	@ResponseBody
+	public String defaultTab(HttpServletRequest request) {
+		String dafaultTab = "{\"tab\":\"tvs\"}";
+		
 		HttpSession session = request.getSession();
 	    String strSessionId = session.getId();
 	    int iPort = request.getServerPort();
 	    String requestUrl = request.getRequestURI();
 	    Object obj = session.getAttribute("currentTab");
 	    if (obj == null) {
-	    	session.setAttribute("currentTab", "devices");
+	    	session.setAttribute("currentTab", "tvs");
 	    } 
 	    LOG.info("strSessionId=" + strSessionId);
 	    LOG.info("requestUrl=" + requestUrl);
 	    LOG.info("iPort=" + iPort);
 	    LOG.info("obj=" + obj);
-		model.addAttribute("currentTab", String.valueOf(obj));
-		String view = "navigation/index";
-		return view;
+	    String cuttentTab = String.valueOf(obj);
+	    
+	    switch(cuttentTab) {
+			case "tvs" : 
+				dafaultTab = "{\"tab\":\"tvs\"}";
+				break;
+			case "files" : 
+				dafaultTab = "{\"tab\":\"files\"}";
+				break;
+			case "admin" : 
+				dafaultTab = "{\"tab\":\"admin\"}";
+				break;
+			default:
+				dafaultTab = "{\"tab\":\"tvs\"}";
+				break;
+	    }
+		
+		return dafaultTab;
 	}
 	
 }

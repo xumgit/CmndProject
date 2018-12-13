@@ -1,7 +1,8 @@
-<div th:include="navigation/header">Header</div>
+<div th:insert="navigation/header">Header</div>
 
-<div th:include="navigation/tabs">Tabs</div>
+<div th:insert="navigation/tabs">Tabs</div>
 
-<div th:include="navigation/tvs/tvs::content">Content</div>
+<!-- <div th:insert="navigation/tvs/tvs::content">Content</div> -->
+<div id="mainContent" ng-bind-html="mainContent"></div>
 
-<div th:include="navigation/footer">Footer</div>
+<div th:insert="navigation/footer">Footer</div>

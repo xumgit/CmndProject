@@ -14,10 +14,10 @@
         <div id="navbar" class="navbar_real collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right" style="margin-right:0px;">
                 <li><a id="nav_monitors" th:href="@{#}">Monitors</a></li>
-                <li><a id="nav_tvs" th:href="@{~/tvs/index}">TVs</a></li>
-                <li><a id="nav_files" th:href="@{~/files/index}">Files</a></li>
+                <li ng-class="{true:'active',false:''}[isTVsActive]"><a id="nav_tvs" th:href="@{#}" ng-click="navigation('tvs')">TVs</a></li>
+                <li ng-class="{true:'active',false:''}[isFilesActive]"><a id="nav_files" th:href="@{#}" ng-click="navigation('files')">Files</a></li>
                 <li><a id="nav_cms" th:href="@{#}">Create</a></li>
-                <li><a id="nav_admin" th:href="@{/admin/index}">Admin</a></li>
+                <li ng-class="{true:'active',false:''}[isAdminActive]"><a id="nav_admin" th:href="@{#}" ng-click="navigation('admin')">Admin</a></li>
                 <li><a id="nav_logout" th:href="@{#}">Logout</a></li>
                 <li>&nbsp;&nbsp;</li>
             </ul>

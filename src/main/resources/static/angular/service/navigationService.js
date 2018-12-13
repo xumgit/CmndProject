@@ -1,0 +1,7 @@
+/**
+ * 
+ */
+
+cmndProjectApps.service('navigationService', function(){
+	
+});
