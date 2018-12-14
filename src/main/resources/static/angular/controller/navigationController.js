@@ -15,18 +15,40 @@ cmndProjectApps.controller('navigationController', ['$scope', '$rootScope', '$ht
 		var currentTab = $scope.getCurrentTab();
 		$scope.navigation(currentTab);
 	};
-	
-	$scope.navigation = function(currentTab) {
-		var goToUrl = $scope.checkWhichUrl(currentTab);
-		$http({
-            method: "GET",
-            url: goToUrl,
-            params: {}
-        }).then(function(response){
-            $scope.mainContent = response.data;
-        }).catch(function(data){
-		    console.log("catch error data=" + data);
-	    });
+    
+    $rootScope.hitSelectTab = function(obj) {
+       obj.parent().addClass("active");
+       obj.parent().siblings("li").removeClass("active");     
+    }
+    
+	$scope.navigation = function(event) {
+        var dom = $(event.target);
+        var navId = dom.attr("id");
+        console.log("navId:" + navId);
+        if (navId != null && navId != undefined) {
+            if (navId.indexOf("tvs") > -1) {
+                $location.path("#/tvs");
+            } else if (navId.indexOf("files") > -1) {
+                $location.path("#/files");
+            } else if (navId.indexOf("admin") > -1) {
+                $location.path("#/admin");
+            } else {
+                $location.path("#/tvs");
+            }
+        } else {
+            $location.path("#/tvs");
+        }
+    
+		// var goToUrl = $scope.checkWhichUrl(currentTab);
+		// $http({
+        //     method: "GET",
+        //     url: goToUrl,
+        //     params: {}
+        // }).then(function(response){
+        //     $scope.mainContent = response.data;
+        // }).catch(function(data){
+		//     console.log("catch error data=" + data);
+	    // });
 	}; 
 	
 	$scope.checkWhichUrl = function(currentTab) {

@@ -4,7 +4,20 @@
 
 var cmndProjectApps = angular.module('cmndProject', ['ngAnimate','ngRoute','ngCookies','ngSanitize']);
 
-cmndProjectApps.config(['$locationProvider', function($locationProvider) {   
+cmndProjectApps.config(["$routeProvider", function($routeProvider) {
+        $routeProvider.when("/tvs", {
+            templateUrl: "/tvs/index",
+            controller: "navigationTVsController"
+        }).when("/files", {
+            templateUrl: "/files/index",
+            controller: "navigationFilesController"
+        }).when("/admin", {
+            templateUrl: "/admin/index",
+            controller: "navigationAdminController"
+        }).otherwise({
+            redirectTo: "/tvs"
+        });
+}]).config(['$locationProvider', function($locationProvider) {   
     $locationProvider.hashPrefix(''); 
 }]).factory('locals', ['$window', function($window){
     return{

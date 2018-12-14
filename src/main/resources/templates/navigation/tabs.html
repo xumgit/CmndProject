@@ -13,12 +13,24 @@
         </div>
         <div id="navbar" class="navbar_real collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right" style="margin-right:0px;">
-                <li><a id="nav_monitors" th:href="@{#}">Monitors</a></li>
-                <li ng-class="{true:'active',false:''}[isTVsActive]"><a id="nav_tvs" th:href="@{#}" ng-click="navigation('tvs')">TVs</a></li>
-                <li ng-class="{true:'active',false:''}[isFilesActive]"><a id="nav_files" th:href="@{#}" ng-click="navigation('files')">Files</a></li>
-                <li><a id="nav_cms" th:href="@{#}">Create</a></li>
-                <li ng-class="{true:'active',false:''}[isAdminActive]"><a id="nav_admin" th:href="@{#}" ng-click="navigation('admin')">Admin</a></li>
-                <li><a id="nav_logout" th:href="@{#}">Logout</a></li>
+                <li>
+                    <a id="nav_monitors" ng-href="#/monitors" ng-click="navigation($event)">Monitors</a>
+                </li>
+                <li>
+                    <a id="nav_tvs" ng-href="#/tvs" ng-click="navigation($event)">TVs</a>
+                </li>
+                <li>
+                    <a id="nav_files" ng-href="#/files" ng-click="navigation($event)">Files</a>
+                </li>
+                <li>
+                    <a id="nav_cms" ng-href="#/cms" ng-click="navigation($event)">Create</a>
+                </li>
+                <li>
+                    <a id="nav_admin" ng-href="#/admin" ng-click="navigation($event)">Admin</a>
+                </li>
+                <li>
+                    <a id="nav_logout" ng-href="#/logout" ng-click="navigation($event)">Logout</a>
+                </li>
                 <li>&nbsp;&nbsp;</li>
             </ul>
         </div>
