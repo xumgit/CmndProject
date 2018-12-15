@@ -7,17 +7,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = "/admin")
-public class NavigationAdmin {
-	
+@RequestMapping(value = "/logout")
+public class NavigationLogout {
+
 	@RequestMapping(value = "/index")
 	public String index(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 	    Object obj = session.getAttribute("currentTab");
 	    if (obj == null) {
-	    	session.setAttribute("currentTab", "admin");
+	    	session.setAttribute("currentTab", "logout");
 	    }
-		String view = "navigation/admin/index";
+		String view = "navigation/logout/index";
 		return view;
 	}
 	

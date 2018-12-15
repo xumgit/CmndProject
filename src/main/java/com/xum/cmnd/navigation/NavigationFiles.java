@@ -17,7 +17,7 @@ public class NavigationFiles {
 	    if (obj == null) {
 	    	session.setAttribute("currentTab", "files");
 	    }
-		String view = "navigation/files/files";
+		String view = "navigation/files/index";
 		return view;
 	}
 	

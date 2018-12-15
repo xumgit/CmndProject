@@ -2,21 +2,43 @@
  * root apps
  */
 
-var cmndProjectApps = angular.module('cmndProject', ['ngAnimate','ngRoute','ngCookies','ngSanitize']);
+var cmndProjectApps = angular.module('cmndProject', ['ngAnimate','ngRoute','ngCookies','ngSanitize','ui.router']);
 
+/*cmndProjectApps.config(function($stateProvider, $urlRouterProvider) {
+	$stateProvider.state("#/tvs", {
+		templateUrl: "/tvs/index",
+		controller: "navigationTVsController"
+	}).state("#/files", {
+		templateUrl: "/files/index",
+		controller: "navigationFilesController"
+	}).state("#/admin", {
+		templateUrl: "/admin/index",
+		controller: "navigationAdminController"
+	});
+	$urlRouterProvider.otherwise("/","tvs");
+})*/
 cmndProjectApps.config(["$routeProvider", function($routeProvider) {
-        $routeProvider.when("/tvs", {
-            templateUrl: "/tvs/index",
-            controller: "navigationTVsController"
-        }).when("/files", {
-            templateUrl: "/files/index",
-            controller: "navigationFilesController"
-        }).when("/admin", {
-            templateUrl: "/admin/index",
-            controller: "navigationAdminController"
-        }).otherwise({
-            redirectTo: "/tvs"
-        });
+	$routeProvider.when("/monitors", {
+		templateUrl: "/monitors/index",
+		controller: "navigationMonitorsController"
+	}).when("/tvs", {
+		templateUrl: "/tvs/index",
+		controller: "navigationTVsController"
+	}).when("/files", {
+		templateUrl: "/files/index",
+		controller: "navigationFilesController"
+	}).when("/create", {
+		templateUrl: "/create/index",
+		controller: "navigationCreateController"
+	}).when("/admin", {
+		templateUrl: "/admin/index",
+		controller: "navigationAdminController"
+	}).when("/logout", {
+		templateUrl: "/logout/index",
+		controller: "navigationLogoutController"
+	}).otherwise({
+		redirectTo: "/tvs"
+	});
 }]).config(['$locationProvider', function($locationProvider) {   
     $locationProvider.hashPrefix(''); 
 }]).factory('locals', ['$window', function($window){

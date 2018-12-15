@@ -42,14 +42,23 @@ public class Navigation {
 	    String cuttentTab = String.valueOf(obj);
 	    
 	    switch(cuttentTab) {
+			case "monitors" : 
+				dafaultTab = "{\"tab\":\"monitors\"}";
+				break;
 			case "tvs" : 
 				dafaultTab = "{\"tab\":\"tvs\"}";
 				break;
 			case "files" : 
 				dafaultTab = "{\"tab\":\"files\"}";
 				break;
+			case "create" : 
+				dafaultTab = "{\"tab\":\"create\"}";
+				break;
 			case "admin" : 
 				dafaultTab = "{\"tab\":\"admin\"}";
+				break;
+			case "logout" : 
+				dafaultTab = "{\"tab\":\"logout\"}";
 				break;
 			default:
 				dafaultTab = "{\"tab\":\"tvs\"}";

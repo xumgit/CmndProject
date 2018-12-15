@@ -2,8 +2,8 @@
  * 
  */
 
-cmndProjectApps.controller('navigationController', ['$scope', '$rootScope', '$http', '$location', 'locals', 
-    function($scope, $rootScope, $http, $location, locals) {
+cmndProjectApps.controller('navigationController', ['$scope', '$rootScope', '$http', '$location', 'locals', '$state', '$stateParams',
+    function($scope, $rootScope, $http, $location, locals, $state, $stateParams) {
 	$scope.mainContent = "";
 	$scope.currentTab = "tvs";
 	$scope.isTVsActive = false;
