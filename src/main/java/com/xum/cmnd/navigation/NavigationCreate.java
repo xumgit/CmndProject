@@ -1,8 +1,5 @@
 package com.xum.cmnd.navigation;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -11,13 +8,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class NavigationCreate {
 	
 	@RequestMapping(value = "/index")
-	public String index(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-	    Object obj = session.getAttribute("currentTab");
-	    if (obj == null) {
-	    	session.setAttribute("currentTab", "create");
-	    }
+	public String index() {
 		String view = "navigation/create/index";
+		return view;
+	}
+	
+	@RequestMapping(value = "/index/create1")
+	public String create1() {
+		String view = "navigation/create/create1";
+		return view;
+	}
+	
+	@RequestMapping(value = "/index/create2")
+	public String create2() {
+		String view = "navigation/create/create2";
 		return view;
 	}
 	

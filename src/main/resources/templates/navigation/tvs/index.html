@@ -1,29 +1,30 @@
 <div>
-	<ul class="nav nav-tabs" role="tablelist" id="tabs_tvs">
+	<ul class="nav nav-tabs" role="tablelist" id="tvs_tabs">
 		<li role="presentation">
-			<a href="\tvs\tabs_msg" role="tab" data-table="tabs_msg" data-toggle="tab">
+			<a ui-sref=".tabs_msg" role="tab" id="tvs_tabs_msg">
 			 	Messages
 			</a>
 		</li>
 		<li role="presentation">
-			<a ng-href="\tvs\tabs_rooms" role="tab" data-table="tabs_rooms" data-toggle="tab">
+			<a ui-sref=".tabs_rooms" role="tab" id="tvs_tabs_rooms">
 				Rooms
 			</a>
 		</li>	
 		<li role="presentation">
-			<a ng-href="\tvs\tabs_tvList" role="tab" data-table="tabs_tvList" data-toggle="tab"> 
+			<a ui-sref=".tabs_tvList" role="tab" id="tvs_tabs_tvList"> 
 				TV List 
 			</a>
 		</li>
 		<li role="presentation">
-			<a ng-href="\tvs\tabs_groupList" role="tab" data-table="tabs_groupList" data-toggle="tab"> 
+			<a ui-sref=".tabs_groupList" role="tab" id="tvs_tabs_groupList"> 
 				Group List 
 			</a>
 		</li>
 		<li role="presentation">
-			<a ng-href="\tvs\tabs_rfSetting" role="tab" data-table="tabs_rfSetting" data-toggle="tab">
+			<a ui-sref=".tabs_rfSetting" role="tab" id="tvs_tabs_rfSetting">
 				Settings 
 			</a>
 		</li>
 	</ul>
+    <div ui-view></div>
 </div>

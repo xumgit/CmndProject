@@ -1,40 +1,41 @@
 
 <div>
-	<ul class="nav nav-tabs" role="tablelist" id="tabs_files">
+	<ul class="nav nav-tabs" role="tablelist" id="files_tabs">
 		<li role="presentation" class="active">
-			<a href="#tabs_firmware" role="tab" data-table="tabs_firmware" data-toggle="tab"> 
+			<a ui-sref=".tabs_firmware" role="tab" id="tabs_firmware"> 
 				Firmware List 
 			</a>
 		</li>
 		<li role="presentation">
-			<a href="#tabs_clone" role="tab" data-table="tabs_clone" data-toggle="tab"> 
+			<a ui-sref=".tabs_clone" role="tab" id="tabs_clone"> 
 				Clone List 
 			</a>
 		</li>
 		<li role="presentation">
-			<a href="#tabs_settingPackage" role="tab" data-table="tabs_settingPackage" data-toggle="tab"> 
+			<a ui-sref=".tabs_settingPackage" role="tab" id="tabs_settingPackage"> 
 				Setting Package 
 			</a>
 		</li>
 		<li role="presentation">
-			<a href="#tabs_channelPackage" role="tab" data-table="tabs_channelPackage" data-toggle="tab"> 
+			<a ui-sref=".tabs_channelPackage" role="tab" id="tabs_channelPackage"> 
 				Channel Package 
 			</a>
 		</li>
 		<li role="presentation">
-			<a href="#tabs_app" role="tab" data-table="tabs_app" data-toggle="tab"> 
+			<a ui-sref=".tabs_appPackage" role="tab" id="tabs_app"> 
 				App Packages 
 			</a>
 		</li>
 		<li role="presentation">
-			<a href="#tabs_banners" role="tab" data-table="tabs_banners" data-toggle="tab"> 
+			<a ui-sref=".tabs_banners" role="tab" id="tabs_banners"> 
 				Banners 
 			</a>
 		</li>
 		<li role="presentation">
-			<a href="#tabs_play" role="tab" data-table="tabs_play" data-toggle="tab"> 
+			<a ui-sref=".tabs_play" role="tab" id="tabs_play"> 
 				Play 
 			</a>
 		</li>
-	</ul>
+    </ul>
+    <div ui-view></div>
 </div>

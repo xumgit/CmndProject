@@ -2,21 +2,32 @@
  * 
  */
 
-cmndProjectApps.controller('navigationController', ['$scope', '$rootScope', '$http', '$location', 'locals', '$state', '$stateParams',
-    function($scope, $rootScope, $http, $location, locals, $state, $stateParams) {
-	$scope.mainContent = "";
-	$scope.currentTab = "tvs";
-	$scope.isTVsActive = false;
-	$scope.isFilesActive = false;
-	$scope.isAdminActive = false;
+cmndProjectApps.controller('navigationController', ['$scope', '$rootScope', '$http', '$location', 'locals', 
+'$state', '$stateParams', 'navigationService', function($scope, $rootScope, $http, $location, locals, $state, 
+    $stateParams, navigationService) {
+
+	$scope.tvs_tabs_content = "";
 	
 	$scope.initData = function() {	
-		console.log("initData");
-		var currentTab = $scope.getCurrentTab();
-		$scope.navigation(currentTab);
+        console.log("navigationController => initData");
+        var urlPath = $location.path();
+        console.log("urlPath:" + urlPath);
+        var gotoUrl = locals.get("nav_current_tabs", "tvs.tabs_tvList");
+        //console.log("gotoUrl:" + gotoUrl);
+        $state.go(gotoUrl);
 	};
     
-    $rootScope.hitSelectTab = function(obj) {
+    $("#navbar ul li a").each(function(index, ele){
+        $(this).click(function(){
+            var tab = $(this).attr("id");
+            console.log("tab:" + tab);  
+            var gotoUrl = locals.get("nav_current_tabs", "tvs.tabs_tvList");  
+            console.log("gotoUrl:" + gotoUrl);
+        $state.go(gotoUrl);     
+        });
+    });
+
+    $scope.hitSelectTab = function(obj) {
        obj.parent().addClass("active");
        obj.parent().siblings("li").removeClass("active");     
     }
@@ -38,49 +49,16 @@ cmndProjectApps.controller('navigationController', ['$scope', '$rootScope', '$ht
         } else {
             $location.path("#/tvs");
         }
-    
-		// var goToUrl = $scope.checkWhichUrl(currentTab);
-		// $http({
-        //     method: "GET",
-        //     url: goToUrl,
-        //     params: {}
-        // }).then(function(response){
-        //     $scope.mainContent = response.data;
-        // }).catch(function(data){
-		//     console.log("catch error data=" + data);
-	    // });
 	}; 
-	
-	$scope.checkWhichUrl = function(currentTab) {
-		var goToUrl = "/tvs/index";
-		$scope.isTVsActive = false;
-		$scope.isFilesActive = false;
-		$scope.isAdminActive = false;
-		if (currentTab == "files") {
-			goToUrl = "/files/index";
-			$scope.isFilesActive = true;
-		} else if (currentTab == "admin") {
-			goToUrl = "/admin/index";
-			$scope.isAdminActive = true;
-		} else {
-			goToUrl = "/tvs/index";
-			$scope.isTVsActive = true;
-		}
-		return goToUrl;
-	};
-	
-	$scope.getCurrentTab = function() {
-		var currentTab = $scope.currentTab;
-		$http({
-            method: "GET",
-            url: "/navi/dafaultTab",
-            params: {}
-        }).then(function(response){
-            console.log("currentTab=" + response.data.tab);
-            currentTab = response.data.tab;
-        }).catch(function(data){
-		    console.log("error data=" + data);
-	    });
-		return currentTab;
-	};
+    
+     $scope.loadTVListContent = function() {
+            console.log("loadTVListContent");
+        }; 
+
+    $scope.loadTabsContentData = function(url) {
+        navigationService.getTabsContentData(url).then(function(data) {
+            $scope.tvs_tabs_content = data;
+		});
+    };
+
 }]);

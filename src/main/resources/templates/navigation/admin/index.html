@@ -1,40 +1,41 @@
 
 <div>
-	<ul class="nav nav-tabs" role="tablist" id="tab_admin" style="margin-bottom: 20px;"> 
+	<ul class="nav nav-tabs" role="tablist" id="admin_tabs" style="margin-bottom: 20px;"> 
 		<li>
-			<a href="#list"> 
+			<a ui-sref=".users" id="tabs_users"> 
 				<span class="glyphicon glyphicon-th-list">&nbsp;</span> Users 
 			</a>
 		</li>
 		<li>
-			<a href="#pwd"> 
+			<a ui-sref=".changePassword" id="tabs_changePassword"> 
 				<span class="glyphicon glyphicon-lock">&nbsp;</span> Change password 
 			</a>
 		</li>
 		<li>
-			<a href="#log"> 
+			<a ui-sref=".systemLog" id="tabs_systemLog"> 
 				<span class="glyphicon glyphicon-info-sign">&nbsp;</span> System log
 			</a>
 		</li>
 		<li>
-			<a href="#loc"> 
+			<a ui-sref=".locationConfig" id="tabs_changePassword"> 
 				<span class="glyphicon glyphicon-map-marker">&nbsp;</span> Location config
 			</a>
 		</li>	
 		<li>
-			<a href="#pmsConfig"> 
+			<a ui-sref=".pmsConfig" id="tabs_pmsConfig"> 
 				<span class="glyphicon glyphicon-credit-card">&nbsp;</span> PMS
 			</a>	
 		</li>	
 		<li>
-			<a href="#apiConfig"> 
+			<a ui-sref=".exapi" id="tabs_exapi"> 
 				<span class="glyphicon glyphicon-tasks">&nbsp;</span> ExAPI
 			</a>	
 		</li>	
 		<li>
-			<a href="#weather"> 
+			<a ui-sref=".weather" id="tabs_weather"> 
 				<span class="glyphicon glyphicon-cloud-download">&nbsp;</span> Weather
 			</a>
 		</li>
-	</ul>
+    </ul>
+    <div ui-view></div>
 </div>

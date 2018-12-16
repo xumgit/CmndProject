@@ -1,52 +1,34 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>TV List</title>
-</head>
-<body>
-	<div style="color:red;">TV List</div>
-	<div>
-					<table id="grid_tvList"
-						class="table table-condensed table-hover table-striped">
-						<thead>
-							<tr>
-								<th data-column-id="Id" data-identifier="true"
-									data-visible-in-selection="false" data-visible="false">ID</th>
-								<th data-width="6%" data-column-id="power" data-align="center"
-									data-header-align="center" data-formatter="power"
-									data-sortable="true">Power</th>
-								<!-- pr923 -->
-								<th data-width="8%" data-column-id="name" data-align="center"
-									data-header-align="left" data-formatter="name">Name</th>
-								<th data-width="8%" data-column-id="TVSerialNumber"
-									data-align="center" data-header-align="center">S/N</th>
-								<th data-width="5%" data-column-id="TVRoomID"
-									data-align="center" data-header-align="center"
-									data-formatter="RID">RID</th>
-								<th data-width="8%" data-column-id="TVModelNumber"
-									data-align="center" data-header-align="center">CTN</th>
-								<th data-width="8%" data-column-id="Type" data-align="center"
-									data-header-align="center">Platform</th>
-								<th data-width="10%" data-column-id="TVIPAddress"
-									data-align="center" data-header-align="center">IP</th>
-								<th data-width="8%" data-column-id="TVMACAddress"
-									data-align="center" data-header-align="center"
-									data-formatter="MAC">MAC</th>
-								<th data-width="15%" data-column-id="UpgVersion"
-									data-align="center" data-header-align="center"
-									data-formatter="sw">SW</th>
-								<th data-width="13%" data-column-id="CloneDate"
-									data-align="center" data-header-align="center"
-									data-formatter="clone">Clone</th>
-								<th data-width="10%" data-column-id="commands"
-									data-align="center" data-header-align="center"
-									data-formatter="commands" data-sortable="false">Actions</th>
-							</tr>
-						</thead>
-						<tbody id="tvsBody">
-						</tbody>
-					</table>
-				</div>
-</body>
-</html>
+<div ng-controller="tabsTVListController" ng-init="initTVListData()">
+    <table id="grid_tvList" class="table table-condensed table-hover table-striped">
+        <thead>
+            <tr>
+                <th data-column-id="Id" data-identifier="true"
+                    data-visible-in-selection="false" data-visible="false" ng-click="clickInfo()">ID</th>
+                <th data-width="6%" data-column-id="power" data-align="center"
+                    data-header-align="center" data-formatter="power" data-sortable="true">Power</th>
+                <th data-width="8%" data-column-id="name" data-align="center"
+                    data-header-align="left" data-formatter="name">Name</th>
+                <th data-width="8%" data-column-id="TVSerialNumber"
+                    data-align="center" data-header-align="center">S/N</th>
+                <th data-width="5%" data-column-id="TVRoomID"
+                    data-align="center" data-header-align="center" data-formatter="RID">RID</th>
+                <th data-width="8%" data-column-id="TVModelNumber"
+                    data-align="center" data-header-align="center">CTN</th>
+                <th data-width="8%" data-column-id="Type" data-align="center"
+                    data-header-align="center">Platform</th>
+                <th data-width="10%" data-column-id="TVIPAddress"
+                    data-align="center" data-header-align="center">IP</th>
+                <th data-width="8%" data-column-id="TVMACAddress"
+                    data-align="center" data-header-align="center" data-formatter="MAC">MAC</th>
+                <th data-width="15%" data-column-id="UpgVersion"
+                    data-align="center" data-header-align="center" data-formatter="sw">SW</th>
+                <th data-width="13%" data-column-id="CloneDate"
+                    data-align="center" data-header-align="center" data-formatter="clone">Clone</th>
+                <th data-width="10%" data-column-id="commands"
+                    data-align="center" data-header-align="center"  data-formatter="commands" data-sortable="false">Actions</th>
+            </tr>
+        </thead>
+        <tbody id="tvsBody">
+        </tbody>
+    </table>
+</div>

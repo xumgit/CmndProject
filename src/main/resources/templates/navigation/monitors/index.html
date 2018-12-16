@@ -1,14 +1,15 @@
 <div>
-	<ul class="nav nav-tabs" role="tablelist" id="tabs_monitors">
-		<li role="presentation" class="active">
-			<a href="#monitors_1" role="tab" data-table="tabs_monitors_1" data-toggle="tab"> 
+	<ul class="nav nav-tabs" role="tablelist" id="monitors_tabs">
+		<li role="presentation">
+			<a ui-sref=".monitors1" role="tab" data-table="tabs_monitors_1"> 
 				monitors_1 
 			</a>
 		</li>
 		<li role="presentation">
-			<a href="#monitors_2" role="tab" data-table="tabs_monitors_2" data-toggle="tab"> 
+			<a ui-sref=".monitors2" role="tab" data-table="tabs_monitors_2"> 
 				monitors_2 
 			</a>
 		</li>
-	</ul>
+    </ul>
+    <div ui-view></div>
 </div>
