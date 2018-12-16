@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.JsonArray;
@@ -25,10 +26,14 @@ public class TVsController {
 	
 	@RequestMapping(value="/getDevices")
 	@ResponseBody
-	public String getAuthor() {
+	public String getDevices(@RequestParam(value="current", required=false, defaultValue="1") Integer current,
+			@RequestParam(value="rowCount", required=false, defaultValue="10") Integer rowCount,
+			@RequestParam(value="searchPhrase", required=false) String searchPhrase) {
+		int total = 0;
+		total = this.devicesService.selectAllCount();
 		JsonObject data = new JsonObject();
 		JsonArray array = new JsonArray();
-		List<Map<String, Object>> authors = devicesService.selectAllWithMap();
+		List<Map<String, Object>> authors = this.devicesService.selectAllWithMap();
 		JsonObject jsonObj = null;
 		for (Map<String, Object> kv : authors) { 
 			jsonObj = new JsonObject();
@@ -37,9 +42,9 @@ public class TVsController {
 			}
 			array.add(jsonObj);
 		}	
-		data.addProperty("current", 1);
-		data.addProperty("rowCount", 10);
-		data.addProperty("total", 3);
+		data.addProperty("current", current);
+		data.addProperty("rowCount", rowCount);
+		data.addProperty("total", total);
 		data.add("rows", array);
 		LOG.info("data.toString():" + data.toString());
 		return data.toString();

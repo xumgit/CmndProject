@@ -3,30 +3,31 @@
  */
 
 cmndProjectApps.controller('tabsTVListController', ['$scope', '$rootScope', '$http', '$location', 
-'locals', 
-    function($scope, $rootScope, $http, $location, locals) {
+'locals', 'navigationService', function($scope, $rootScope, $http, $location, locals, navigationService) {
         console.log('tabsTVListController');
 
-        $scope.initTVListData = function() {
-            console.log("tabsTVListController => initTVListData");
-            $("#grid_tvList").bootgrid({
+        //angular.element(document).ready(function () {
+            //Angular breaks if this is done earlier than document ready.
+           $scope.init = function() {
+                $("#grid_tvList").bootgrid({
                 ajax: true,
                 rowCount: [10, 20, 30, 50],
                 post: function (){
+                    return {
+                        paraid: "b0df282a",
+                        type: "selectAll"
+                    };
                 },
                 url: "/tvs/getDevices",
                 selection: true,
                 multiSelect: true,
                 keepSelection: false
-			}).on("loaded.rs.jquery.bootgrid",function(){
-
-
-			}).on("selected.rs.jquery.bootgrid", function(e, rows){
-				//checkboxChecked("devices");
-			}).on("deselected.rs.jquery.bootgrid", function(e, rows){
-			    //checkboxChecked("devices");
 			});
-
+           };  
+        //});
+        $scope.initTVListData = function($timeout) {
+            console.log("tabsTVListController => initTVListData");
+            //$timeout($scope.init(),0);
         };
         // $scope.hitSelectTab($("#nav_tvs"));       
         // var tvs_current_tabs = locals.get("tvs_current_tabs", "tvs_tabs_tvList");

@@ -62,6 +62,12 @@ public class DevicesService {
 		return affectRow;
 	}
 	
+	public int selectAllCount() {
+		int allcount = 0;
+		allcount = this.devicesMapper.selectAllCount();
+		return allcount;
+	}
+	
 	public List<Map<String, Object>> selectAllWithMap() {
 		List<Map<String, Object>> devices = null;
 		devices = this.devicesMapper.selectAllWithMap();

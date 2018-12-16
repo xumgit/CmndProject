@@ -21,6 +21,8 @@ public interface DevicesMapper {
 
     int updateByPrimaryKey(Devices record);
     
+    int selectAllCount();
+    
     List<Map<String, Object>> selectAllWithMap();
     
     List<DevicesWithBLOBs> selectAllWithList();
