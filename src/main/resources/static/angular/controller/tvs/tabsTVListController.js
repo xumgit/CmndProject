@@ -5,7 +5,7 @@
 cmndProjectApps.controller('tabsTVListController', ['$scope', '$rootScope', '$http', '$location', 
 'locals', 'navigationService', function($scope, $rootScope, $http, $location, locals, navigationService) {
         console.log('tabsTVListController');
-
+     
         //angular.element(document).ready(function () {
             //Angular breaks if this is done earlier than document ready.
            $scope.init = function() {
@@ -27,6 +27,9 @@ cmndProjectApps.controller('tabsTVListController', ['$scope', '$rootScope', '$ht
         //});
         $scope.initTVListData = function($timeout) {
             console.log("tabsTVListController => initTVListData");
+            var nav_current_tabs = locals.get("nav_current_tabs", "tvs.tabs_tvList");
+            //var subNav = $("#" + tabs_key);
+             
             //$timeout($scope.init(),0);
         };
         // $scope.hitSelectTab($("#nav_tvs"));       
@@ -39,9 +42,9 @@ cmndProjectApps.controller('tabsTVListController', ['$scope', '$rootScope', '$ht
         $("#tvs_tabs li a").each(function(index, ele){  	
         	$(this).click(function(){
                 var current_tabs = $(this).attr("id");              
-                console.log(index + " - " + ele + " - " + current_tabs);
-                var url = $scope.checkTVsTabsUrl(current_tabs);
-                locals.set("nav_current_tabs", url);
+                //console.log(index + " - " + ele + " - " + current_tabs);
+                //var url = $scope.checkTVsTabsUrl(current_tabs);
+                //locals.set("nav_current_tabs", url);
                 //$scope.loadTabsContentData(url);
         	});
         });
