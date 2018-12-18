@@ -1,38 +1,37 @@
-
 <div>
 	<ul class="nav nav-tabs" role="tablelist" id="files_tabs">
-		<li role="presentation" class="active">
-			<a ui-sref=".tabs_firmware" role="tab" id="tabs_firmware"> 
+		<li ng-class="{'active' : sub_nav_files_tabs.files_tabs_firmwareList}">
+			<a ui-sref=".tabs_firmwareList" role="tab" id="files_tabs_firmwareList"> 
 				Firmware List 
 			</a>
 		</li>
-		<li role="presentation">
-			<a ui-sref=".tabs_clone" role="tab" id="tabs_clone"> 
+		<li ng-class="{'active' : sub_nav_files_tabs.files_tabs_cloneList}">
+			<a ui-sref=".tabs_cloneList" role="tab" id="files_tabs_cloneList"> 
 				Clone List 
 			</a>
 		</li>
-		<li role="presentation">
-			<a ui-sref=".tabs_settingPackage" role="tab" id="tabs_settingPackage"> 
+		<li ng-class="{'active' : sub_nav_files_tabs.files_tabs_settingPackage}">
+			<a ui-sref=".tabs_settingPackage" role="tab" id="files_tabs_settingPackage"> 
 				Setting Package 
 			</a>
 		</li>
-		<li role="presentation">
-			<a ui-sref=".tabs_channelPackage" role="tab" id="tabs_channelPackage"> 
+		<li ng-class="{'active' : sub_nav_files_tabs.files_tabs_channelPackage}">
+			<a ui-sref=".tabs_channelPackage" role="tab" id="files_tabs_channelPackage"> 
 				Channel Package 
 			</a>
 		</li>
-		<li role="presentation">
-			<a ui-sref=".tabs_appPackage" role="tab" id="tabs_app"> 
+		<li ng-class="{'active' : sub_nav_files_tabs.files_tabs_appPackage}">
+			<a ui-sref=".tabs_appPackage" role="tab" id="files_tabs_appPackage"> 
 				App Packages 
 			</a>
 		</li>
-		<li role="presentation">
-			<a ui-sref=".tabs_banners" role="tab" id="tabs_banners"> 
+		<li ng-class="{'active' : sub_nav_files_tabs.files_tabs_banners}">
+			<a ui-sref=".tabs_banners" role="tab" id="files_tabs_banners"> 
 				Banners 
 			</a>
 		</li>
-		<li role="presentation">
-			<a ui-sref=".tabs_play" role="tab" id="tabs_play"> 
+		<li ng-class="{'active' : sub_nav_files_tabs.files_tabs_play}">
+			<a ui-sref=".tabs_play" role="tab" id="files_tabs_play"> 
 				Play 
 			</a>
 		</li>

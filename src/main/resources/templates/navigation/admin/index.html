@@ -1,38 +1,37 @@
-
 <div>
 	<ul class="nav nav-tabs" role="tablist" id="admin_tabs" style="margin-bottom: 20px;"> 
-		<li>
-			<a ui-sref=".users" id="tabs_users"> 
+		<li ng-class="{'active' : sub_nav_admin_tabs.admin_tabs_users}">
+			<a ui-sref=".tabs_users" tab-id="tabs_users"> 
 				<span class="glyphicon glyphicon-th-list">&nbsp;</span> Users 
 			</a>
 		</li>
-		<li>
-			<a ui-sref=".changePassword" id="tabs_changePassword"> 
+		<li ng-class="{'active' : sub_nav_admin_tabs.admin_tabs_changePassword}">
+			<a ui-sref=".tabs_changePassword" tab-id="tabs_changePassword"> 
 				<span class="glyphicon glyphicon-lock">&nbsp;</span> Change password 
 			</a>
 		</li>
-		<li>
-			<a ui-sref=".systemLog" id="tabs_systemLog"> 
+		<li ng-class="{'active' : sub_nav_admin_tabs.admin_tabs_systemLog}">
+			<a ui-sref=".tabs_systemLog" tab-id="tabs_systemLog"> 
 				<span class="glyphicon glyphicon-info-sign">&nbsp;</span> System log
 			</a>
 		</li>
-		<li>
-			<a ui-sref=".locationConfig" id="tabs_changePassword"> 
+		<li ng-class="{'active' : sub_nav_admin_tabs.admin_tabs_LocationConfig}">
+			<a ui-sref=".tabs_locationConfig" tab-id="tabs_LocationConfig"> 
 				<span class="glyphicon glyphicon-map-marker">&nbsp;</span> Location config
 			</a>
 		</li>	
-		<li>
-			<a ui-sref=".pmsConfig" id="tabs_pmsConfig"> 
+		<li ng-class="{'active' : sub_nav_admin_tabs.admin_tabs_pmsConfig}">
+			<a ui-sref=".tabs_pmsConfig" tab-id="tabs_pmsConfig"> 
 				<span class="glyphicon glyphicon-credit-card">&nbsp;</span> PMS
 			</a>	
 		</li>	
-		<li>
-			<a ui-sref=".exapi" id="tabs_exapi"> 
+		<li ng-class="{'active' : sub_nav_admin_tabs.admin_tabs_exapi}">
+			<a ui-sref=".tabs_exapi" tab-id="tabs_exapi"> 
 				<span class="glyphicon glyphicon-tasks">&nbsp;</span> ExAPI
 			</a>	
 		</li>	
-		<li>
-			<a ui-sref=".weather" id="tabs_weather"> 
+		<li ng-class="{'active' : sub_nav_admin_tabs.admin_tabs_weather}">
+			<a ui-sref=".tabs_weather" tab-id="tabs_weather"> 
 				<span class="glyphicon glyphicon-cloud-download">&nbsp;</span> Weather
 			</a>
 		</li>

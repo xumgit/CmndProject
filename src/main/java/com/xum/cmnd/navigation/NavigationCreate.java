@@ -13,15 +13,15 @@ public class NavigationCreate {
 		return view;
 	}
 	
-	@RequestMapping(value = "/index/create1")
-	public String create1() {
-		String view = "navigation/create/create1";
+	@RequestMapping(value = "/index/tabs_create1")
+	public String tabs_create1() {
+		String view = "navigation/create/tabs_create1";
 		return view;
 	}
 	
-	@RequestMapping(value = "/index/create2")
-	public String create2() {
-		String view = "navigation/create/create2";
+	@RequestMapping(value = "/index/tabs_create2")
+	public String tabs_create2() {
+		String view = "navigation/create/tabs_create2";
 		return view;
 	}
 	

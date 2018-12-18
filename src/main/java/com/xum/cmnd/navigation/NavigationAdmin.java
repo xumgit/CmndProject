@@ -13,45 +13,45 @@ public class NavigationAdmin {
 		return view;
 	}
 	
-	@RequestMapping(value = "/index/users")
-	public String users() {
-		String view = "navigation/admin/users";
+	@RequestMapping(value = "/index/tabs_users")
+	public String tabs_users() {
+		String view = "navigation/admin/tabs_users";
 		return view;
 	}
 	
-	@RequestMapping(value = "/index/changePassword")
-	public String changePassword() {
-		String view = "navigation/admin/changePassword";
+	@RequestMapping(value = "/index/tabs_changePassword")
+	public String tabs_changePassword() {
+		String view = "navigation/admin/tabs_changePassword";
 		return view;
 	}
 	
-	@RequestMapping(value = "/index/systemLog")
-	public String systemLog() {
-		String view = "navigation/admin/systemLog";
+	@RequestMapping(value = "/index/tabs_systemLog")
+	public String tabs_systemLog() {
+		String view = "navigation/admin/tabs_systemLog";
 		return view;
 	}
 	
-	@RequestMapping(value = "/index/locationConfig")
-	public String locationConfig() {
-		String view = "navigation/admin/locationConfig";
+	@RequestMapping(value = "/index/tabs_locationConfig")
+	public String tabs_locationConfig() {
+		String view = "navigation/admin/tabs_locationConfig";
 		return view;
 	}
 	
-	@RequestMapping(value = "/index/pmsConfig")
-	public String pms() {
-		String view = "navigation/admin/pms";
+	@RequestMapping(value = "/index/tabs_pmsConfig")
+	public String tabs_pmsConfig() {
+		String view = "navigation/admin/tabs_pmsConfig";
 		return view;
 	}
 	
-	@RequestMapping(value = "/index/exapi")
-	public String exapi() {
-		String view = "navigation/admin/exapi";
+	@RequestMapping(value = "/index/tabs_exapi")
+	public String tabs_exapi() {
+		String view = "navigation/admin/tabs_exapi";
 		return view;
 	}
 	
-	@RequestMapping(value = "/index/weather")
-	public String weather() {
-		String view = "navigation/admin/weather";
+	@RequestMapping(value = "/index/tabs_weather")
+	public String tabs_weather() {
+		String view = "navigation/admin/tabs_weather";
 		return view;
 	}
 	

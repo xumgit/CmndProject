@@ -7,13 +7,7 @@ cmndProjectApps.controller('navigationTVsController', ['$scope', '$rootScope', '
     function($scope, $rootScope, $http, $location, locals) {
         console.log('navigationTVsController');
 
-        $scope.tvs_tabs_flag = {
-            tvs_tabs_msg : false, 
-            tvs_tabs_rooms : false, 
-            tvs_tabs_tvList : false, 
-            tvs_tabs_groupList : false,
-            tvs_tabs_rfSetting : false
-        };
+        
 
         $scope.initSelectTvsSubTabs = function() {
             var nav_current_tabs = locals.get("nav_current_tabs", "tvs.tabs_tvList");
@@ -22,10 +16,16 @@ cmndProjectApps.controller('navigationTVsController', ['$scope', '$rootScope', '
             if (navs.length > 1) {
                 tabs_key = navs[0] + "_" + navs[1];
             }
-            $scope.hitSelectSubTabs(tabs_key);
+            //$scope.hitSelectSubTabs($scope.tvs_tabs_flag, tabs_key);
         };
 
-       
+        $("#tvs_tabs li a").each(function(index, ele){  	
+        	$(this).click(function(){
+                var current_tabs = $(this).attr("id");              
+                console.log(current_tabs);
+                //$scope.hitSelectSubTabs($scope.tvs_tabs_flag, current_tabs);
+        	});
+        });
 
         // $scope.hitSelectTab($("#nav_tvs"));       
         // var tvs_current_tabs = locals.get("tvs_current_tabs", "tvs_tabs_tvList");

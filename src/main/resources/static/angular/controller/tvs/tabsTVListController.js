@@ -39,16 +39,6 @@ cmndProjectApps.controller('tabsTVListController', ['$scope', '$rootScope', '$ht
         // $scope.loadTabsContentData(url);
         // $scope.hitSelectTab($("#" + tvs_current_tabs));
 
-        $("#tvs_tabs li a").each(function(index, ele){  	
-        	$(this).click(function(){
-                var current_tabs = $(this).attr("id");              
-                //console.log(index + " - " + ele + " - " + current_tabs);
-                //var url = $scope.checkTVsTabsUrl(current_tabs);
-                //locals.set("nav_current_tabs", url);
-                //$scope.loadTabsContentData(url);
-        	});
-        });
-
         $scope.checkTVsTabsUrl = function(tab) {
             var url = "tvs.tabs_tvList";
             if (tab != null || tab != "" || tab != undefined) {

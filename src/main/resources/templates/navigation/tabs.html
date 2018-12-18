@@ -13,23 +13,23 @@
         </div>
         <div id="navbar" class="navbar_real collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right" style="margin-right:0px;">
-                <li>
-                    <a id="nav_monitors" ui-sref="monitors">Monitors</a>
+                <li ng-class="{'active' : main_nav_tabs.nav_monitors}">
+                    <a tabs-id="monitors" ui-sref="monitors">Monitors</a>
                 </li>
-                <li>
-                    <a id="nav_tvs" ui-sref="tvs">TVs</a>
+                <li ng-class="{'active' : main_nav_tabs.nav_tvs}">
+                    <a tabs-id="tvs" ui-sref="tvs">TVs</a>
                 </li>
-                <li>
-                    <a id="nav_files" ui-sref="files">Files</a>
+                <li ng-class="{'active' : main_nav_tabs.nav_files}">
+                    <a tabs-id="files" ui-sref="files">Files</a>
                 </li>
-                <li>
-                    <a id="nav_create" ui-sref="create">Create</a>
+                <li ng-class="{'active' : main_nav_tabs.nav_create}">
+                    <a tabs-id="create" ui-sref="create">Create</a>
                 </li>
-                <li>
-                    <a id="nav_admin" ui-sref="admin">Admin</a>
+                <li ng-class="{'active' : main_nav_tabs.nav_admin}">
+                    <a tabs-id="admin" ui-sref="admin">Admin</a>
                 </li>
-                <li>
-                    <a id="nav_logout" ui-sref="logout">Logout</a>
+                <li ng-class="{'active' : main_nav_tabs.nav_logout}">
+                    <a tabs-id="logout" ui-sref="logout">Logout</a>
                 </li>
                 <li>&nbsp;&nbsp;</li>
             </ul>

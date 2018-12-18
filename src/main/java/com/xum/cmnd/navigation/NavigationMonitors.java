@@ -13,15 +13,15 @@ public class NavigationMonitors {
 		return view;
 	}
 	
-	@RequestMapping(value = "/index/monitors1")
-	public String monitors1() {
-		String view = "navigation/monitors/monitors1";
+	@RequestMapping(value = "/index/tabs_monitors1")
+	public String tabs_monitors1() {
+		String view = "navigation/monitors/tabs_monitors1";
 		return view;
 	}
 	
-	@RequestMapping(value = "/index/monitors2")
-	public String monitors2() {
-		String view = "navigation/monitors/monitors2";
+	@RequestMapping(value = "/index/tabs_monitors2")
+	public String tabs_monitors2() {
+		String view = "navigation/monitors/tabs_monitors2";
 		return view;
 	}
 	

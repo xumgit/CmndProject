@@ -1,12 +1,12 @@
 <div>
 	<ul class="nav nav-tabs" role="tablelist" id="monitors_tabs">
-		<li role="presentation">
-			<a ui-sref=".monitors1" role="tab" data-table="tabs_monitors_1"> 
+		<li ng-class="{'active' : sub_nav_monitors_tabs.monitors_tabs_monitors1}">
+			<a ui-sref=".tabs_monitors1" role="tab" id="monitors_tabs_monitors1"> 
 				monitors_1 
 			</a>
 		</li>
-		<li role="presentation">
-			<a ui-sref=".monitors2" role="tab" data-table="tabs_monitors_2"> 
+		<li ng-class="{'active' : sub_nav_monitors_tabs.monitors_tabs_monitors2}">
+			<a ui-sref=".tabs_monitors2" role="tab" id="monitors_tabs_monitors2"> 
 				monitors_2 
 			</a>
 		</li>

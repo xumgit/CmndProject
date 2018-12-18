@@ -13,15 +13,15 @@ public class NavigationLogout {
 		return view;
 	}
 	
-	@RequestMapping(value = "/index/logout1")
-	public String logout1() {
-		String view = "navigation/logout/logout1";
+	@RequestMapping(value = "/index/tabs_logout1")
+	public String tabs_logout1() {
+		String view = "navigation/logout/tabs_logout1";
 		return view;
 	}
 	
-	@RequestMapping(value = "/index/logout2")
-	public String logout2() {
-		String view = "navigation/logout/logout2";
+	@RequestMapping(value = "/index/tabs_logout2")
+	public String tabs_logout2() {
+		String view = "navigation/logout/tabs_logout2";
 		return view;
 	}
 	

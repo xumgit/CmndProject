@@ -1,12 +1,12 @@
 <div>
 	<ul class="nav nav-tabs" role="tablelist" id="create_tabs">
-		<li role="presentation">
-			<a ui-sref=".create1" role="tab" id="tabs_create_1"> 
+		<li ng-class="{'active' : sub_nav_create_tabs.create_tabs_create1}">
+			<a ui-sref=".tabs_create1" role="tab" id="create_tabs_create1"> 
 				create_1
 			</a>
 		</li>
-		<li role="presentation">
-			<a ui-sref=".create2" role="tab" id="tabs_create_2"> 
+		<li ng-class="{'active' : sub_nav_create_tabs.create_tabs_create2}">
+			<a ui-sref=".tabs_create2" role="tab" id="create_tabs_create2"> 
 				create_2
 			</a>
 		</li>

@@ -12,13 +12,13 @@ cmndProjectApps.config(function($stateProvider, $urlRouterProvider) {
         url: "/monitors",
         templateUrl: "/monitors/index"
     })
-    .state("monitors.monitors1", {
-        url: "/monitors1",
-        templateUrl: "/monitors/index/monitors1"
+    .state("monitors.tabs_monitors1", {
+        url: "/tabs_monitors1",
+        templateUrl: "/monitors/index/tabs_monitors1"
     })
-    .state("monitors.monitors2", {
-        url: "/monitors2",
-        templateUrl: "/monitors/index/monitors2"
+    .state("monitors.tabs_monitors2", {
+        url: "/tabs_monitors2",
+        templateUrl: "/monitors/index/tabs_monitors2"
     })
     
     // TVs ui-route
@@ -52,13 +52,13 @@ cmndProjectApps.config(function($stateProvider, $urlRouterProvider) {
         url: "/files",
 		templateUrl: "/files/index"
     })
-    .state("files.tabs_firmware", {
-        url: "/tabs_firmware",
-		templateUrl: "/files/index/tabs_firmware"
+    .state("files.tabs_firmwareList", {
+        url: "/tabs_firmwareList",
+		templateUrl: "/files/index/tabs_firmwareList"
     })
-    .state("files.tabs_clone", {
-        url: "/tabs_clone",
-		templateUrl: "/files/index/tabs_clone"
+    .state("files.tabs_cloneList", {
+        url: "/tabs_cloneList",
+		templateUrl: "/files/index/tabs_cloneList"
     })
     .state("files.tabs_settingPackage", {
         url: "/tabs_settingPackage",
@@ -86,13 +86,13 @@ cmndProjectApps.config(function($stateProvider, $urlRouterProvider) {
         url: "/create",
 		templateUrl: "/create/index"
     })
-    .state("create.create1", {
-        url: "/create1",
-		templateUrl: "/create/index/create1"
+    .state("create.tabs_create1", {
+        url: "/tabs_create1",
+		templateUrl: "/create/index/tabs_create1"
     })
-    .state("create.create2", {
-        url: "/create2",
-		templateUrl: "/create/index/create2"
+    .state("create.tabs_create2", {
+        url: "/tabs_create2",
+		templateUrl: "/create/index/tabs_create2"
     })
     
     // Admin ui-route
@@ -100,33 +100,33 @@ cmndProjectApps.config(function($stateProvider, $urlRouterProvider) {
         url: "/admin",
 		templateUrl: "/admin/index"
     })
-    .state("admin.users", {
-        url: "/users",
-		templateUrl: "/admin/index/users"
+    .state("admin.tabs_users", {
+        url: "/tabs_users",
+		templateUrl: "/admin/index/tabs_users"
     })
-    .state("admin.changePassword", {
-        url: "/changePassword",
-		templateUrl: "/admin/index/changePassword"
+    .state("admin.tabs_changePassword", {
+        url: "/tabs_changePassword",
+		templateUrl: "/admin/index/tabs_changePassword"
     })
-    .state("admin.systemLog", {
-        url: "/systemLog",
-		templateUrl: "/admin/index/systemLog"
+    .state("admin.tabs_systemLog", {
+        url: "/tabs_systemLog",
+		templateUrl: "/admin/index/tabs_systemLog"
     })
-    .state("admin.locationConfig", {
-        url: "/locationConfig",
-		templateUrl: "/admin/index/locationConfig"
+    .state("admin.tabs_locationConfig", {
+        url: "/tabs_locationConfig",
+		templateUrl: "/admin/index/tabs_locationConfig"
     })
-    .state("admin.pmsConfig", {
-        url: "/pmsConfig",
-		templateUrl: "/admin/index/pmsConfig"
+    .state("admin.tabs_pmsConfig", {
+        url: "/tabs_pmsConfig",
+		templateUrl: "/admin/index/tabs_pmsConfig"
     })
-    .state("admin.exapi", {
-        url: "/exapi",
-		templateUrl: "/admin/index/exapi"
+    .state("admin.tabs_exapi", {
+        url: "/tabs_exapi",
+		templateUrl: "/admin/index/tabs_exapi"
     })
-    .state("admin.weather", {
-        url: "/weather",
-		templateUrl: "/admin/index/weather"
+    .state("admin.tabs_weather", {
+        url: "/tabs_weather",
+		templateUrl: "/admin/index/tabs_weather"
     })
     
     // Logout ui-route
@@ -134,12 +134,12 @@ cmndProjectApps.config(function($stateProvider, $urlRouterProvider) {
         url: "/logout",
 		templateUrl: "/logout/index"
     })
-    .state("logout.logout1", {
-        url: "/logout1",
-		templateUrl: "/logout/index/logout1"
+    .state("logout.tabs_logout1", {
+        url: "/tabs_logout1",
+		templateUrl: "/logout/index/tabs_logout1"
     })
-    .state("logout.logout2", {
-        url: "/logout2",
-		templateUrl: "/logout/index/logout2"
+    .state("logout.tabs_logout2", {
+        url: "/tabs_logout2",
+		templateUrl: "/logout/index/tabs_logout2"
 	});
 });
