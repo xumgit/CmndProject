@@ -1,4 +1,4 @@
-<div ng-controller="navigationTVsController">
+<div ng-controller="navigationTVsController" ng-init="initSelectTvsSubTabs()">
 	<ul class="nav nav-tabs" role="tablelist" id="tvs_tabs">
 		<li ng-class="{'active' : sub_nav_tvs_tabs.tvs_tabs_msg}">
 			<a ui-sref=".tabs_msg" role="tab" tabs-id="tabs_msg">

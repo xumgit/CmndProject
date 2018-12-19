@@ -36,7 +36,8 @@ cmndProjectApps.config(function($stateProvider, $urlRouterProvider) {
     })
     .state("tvs.tabs_tvList", {
         url: "/tabs_tvList",
-		templateUrl: "/tvs/index/tabs_tvList"
+        templateUrl: "/tvs/index/tabs_tvList",
+        cache: false
     })
     .state("tvs.tabs_groupList", {
         url: "/tabs_groupList",

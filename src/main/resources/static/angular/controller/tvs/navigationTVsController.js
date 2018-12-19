@@ -3,46 +3,24 @@
  */
 
 cmndProjectApps.controller('navigationTVsController', ['$scope', '$rootScope', '$http', '$location', 
-'locals', 
-    function($scope, $rootScope, $http, $location, locals) {
+'locals', '$state', '$stateParams', 'navigationService',
+    function($scope, $rootScope, $http, $location, locals, $state, $stateParams, navigationService) {
         console.log('navigationTVsController');
 
-        
+        $scope.tvs_main_nav_tab = "tvs";
 
-        $scope.initSelectTvsSubTabs = function() {
-            var nav_current_tabs = locals.get("nav_current_tabs", "tvs.tabs_tvList");
-            var navs = $scope.splitCurrentTab(nav_current_tabs);
-            var tabs_key = "tvs_tabs_tvList";           
-            if (navs.length > 1) {
-                tabs_key = navs[0] + "_" + navs[1];
-            }
-            //$scope.hitSelectSubTabs($scope.tvs_tabs_flag, tabs_key);
+        $scope.initSelectTvsSubTabs = function() {         
+            var sub_nav_tab = $scope.getCurrentNavTab($scope.tvs_main_nav_tab);
+            $scope.selectTabsAndGoto($scope.tvs_main_nav_tab, sub_nav_tab);
         };
 
         $("#tvs_tabs li a").each(function(index, ele){  	
         	$(this).click(function(){
-                var current_tabs = $(this).attr("id");              
-                console.log(current_tabs);
-                //$scope.hitSelectSubTabs($scope.tvs_tabs_flag, current_tabs);
+                var tvs_sub_tab = $(this).attr("tabs-id");              
+                console.log("tvs_sub_tab:" + tvs_sub_tab);
+                locals.set("tvs_sub_tab", tvs_sub_tab);
+                $scope.selectTabsAndGoto($scope.tvs_main_nav_tab, tvs_sub_tab);
         	});
         });
-
-        // $scope.hitSelectTab($("#nav_tvs"));       
-        // var tvs_current_tabs = locals.get("tvs_current_tabs", "tvs_tabs_tvList");
-        // console.log("tvs_current_tabs:" + tvs_current_tabs);
-        // var url = $scope.checkTVsTabsUrl(tvs_current_tabs);
-        // $scope.loadTabsContentData(url);
-        // $scope.hitSelectTab($("#" + tvs_current_tabs));
-
-        // $("#tvs_tabs li a").each(function(index, ele){  	
-        // 	$(this).click(function(){
-        //         var current_tabs = $(this).attr("id");
-        //         locals.set("tvs_current_tabs", current_tabs);
-        //         //console.log(index + " - " + ele + " - " + current_tabs);
-        //         var url = $scope.checkTVsTabsUrl(current_tabs);
-        //         $scope.loadTabsContentData(url);
-        // 	});
-        // });
-
-            
+          
 }]);

@@ -1,37 +1,37 @@
-<div>
+<div ng-controller="navigationFilesController" ng-init="initSelectFilesSubTabs()">
 	<ul class="nav nav-tabs" role="tablelist" id="files_tabs">
 		<li ng-class="{'active' : sub_nav_files_tabs.files_tabs_firmwareList}">
-			<a ui-sref=".tabs_firmwareList" role="tab" id="files_tabs_firmwareList"> 
+			<a ui-sref=".tabs_firmwareList" role="tab" tabs-id="tabs_firmwareList"> 
 				Firmware List 
 			</a>
 		</li>
 		<li ng-class="{'active' : sub_nav_files_tabs.files_tabs_cloneList}">
-			<a ui-sref=".tabs_cloneList" role="tab" id="files_tabs_cloneList"> 
+			<a ui-sref=".tabs_cloneList" role="tab" tabs-id="tabs_cloneList"> 
 				Clone List 
 			</a>
 		</li>
 		<li ng-class="{'active' : sub_nav_files_tabs.files_tabs_settingPackage}">
-			<a ui-sref=".tabs_settingPackage" role="tab" id="files_tabs_settingPackage"> 
+			<a ui-sref=".tabs_settingPackage" role="tab" tabs-id="tabs_settingPackage"> 
 				Setting Package 
 			</a>
 		</li>
 		<li ng-class="{'active' : sub_nav_files_tabs.files_tabs_channelPackage}">
-			<a ui-sref=".tabs_channelPackage" role="tab" id="files_tabs_channelPackage"> 
+			<a ui-sref=".tabs_channelPackage" role="tab" tabs-id="tabs_channelPackage"> 
 				Channel Package 
 			</a>
 		</li>
 		<li ng-class="{'active' : sub_nav_files_tabs.files_tabs_appPackage}">
-			<a ui-sref=".tabs_appPackage" role="tab" id="files_tabs_appPackage"> 
+			<a ui-sref=".tabs_appPackage" role="tab" tabs-id="tabs_appPackage"> 
 				App Packages 
 			</a>
 		</li>
 		<li ng-class="{'active' : sub_nav_files_tabs.files_tabs_banners}">
-			<a ui-sref=".tabs_banners" role="tab" id="files_tabs_banners"> 
+			<a ui-sref=".tabs_banners" role="tab" tabs-id="tabs_banners"> 
 				Banners 
 			</a>
 		</li>
 		<li ng-class="{'active' : sub_nav_files_tabs.files_tabs_play}">
-			<a ui-sref=".tabs_play" role="tab" id="files_tabs_play"> 
+			<a ui-sref=".tabs_play" role="tab" tabs-id="tabs_play"> 
 				Play 
 			</a>
 		</li>

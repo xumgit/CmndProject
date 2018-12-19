@@ -3,7 +3,13 @@
  */
 
 var cmndProjectApps = angular.module('cmndProject', ['ngAnimate', 'ngCookies', 'ui.router']);
-
+cmndProjectApps.run(function($state) {
+    window.myAppErrorLog = [];
+    $state.defaultErrorHandler(function(error) {
+        // This is a naive example of how to silence the default error handler.
+        window.myAppErrorLog.push(error);
+    });
+})
 // cmndProjectApps.config(["$routeProvider", function($routeProvider) {
 // 	$routeProvider.when("/monitors", {
 // 		templateUrl: "/monitors/index",

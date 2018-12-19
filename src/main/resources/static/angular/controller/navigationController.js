@@ -15,6 +15,15 @@ cmndProjectApps.controller('navigationController', ['$scope', '$rootScope', '$ht
     		nav_logout : false
     }; 
     
+    $scope.nav_current_tab = {
+            nav_monitors : "tabs_monitors2",
+    		nav_tvs : "tabs_tvList",
+    		nav_files : "tabs_cloneList",
+    		nav_create : "tabs_create2",
+    		nav_admin : "tabs_users",
+    		nav_logout : "tabs_logout1"
+    };
+
     $scope.sub_nav_monitors_tabs = {
     		monitors_tabs_monitors1 : false, 
     		monitors_tabs_monitors2 : false
@@ -60,31 +69,20 @@ cmndProjectApps.controller('navigationController', ['$scope', '$rootScope', '$ht
     
 	$scope.initData = function() {	
         console.log("navigationController => initData");
-        var urlPath = $location.path();
-        console.log("urlPath:" + urlPath);
-        var main_nav = locals.get("main_nav", "tvs");
-        var sub_nav = locals.get("sub_nav", "tabs_tvList");
-        console.log("main_nav:" + main_nav + ",sub_nav=" + sub_nav);
-        
-        var ui_route_pattern = main_nav + "." + sub_nav;
-        var main_sub_nav = main_nav + "_" + sub_nav;
-        var curentNavSubTab = $scope.checkCurentNavSubTab(main_sub_nav);
-        $scope.hitSelectTabs($scope.main_nav_tabs, main_nav);       
-        $scope.hitSelectTabs(curentNavSubTab, sub_nav);
-
-        $state.go(ui_route_pattern);
+        //var urlPath = $location.path();
+        //console.log("urlPath:" + urlPath);
+        var main_nav_tab = locals.get("main_nav_tab", "tvs");
+        var sub_nav_tab = locals.get("sub_nav_tab", "tabs_tvList");
+        console.log("main_nav_tab:" + main_nav_tab + ",sub_nav_tab:" + sub_nav_tab);
+        $scope.selectTabsAndGoto(main_nav_tab, sub_nav_tab);
 	};
     
     $("#navbar ul li a").each(function(index, ele){
         $(this).click(function(){
-            var tabs = $(this).attr("tabs-id");
-            console.log("tabs:" + tabs);            
-            locals.get("main_nav", tabs);
-            //var sub_nav = locals.get("sub_nav", "tabs_tvList");
-            //$state.go(nav_current_tabs);
-            //var nav_current_tabs = locals.get("nav_current_tabs", "tvs.tabs_tvList");  
-            //console.log("nav_current_tabs:" + nav_current_tabs);
-            //$state.go(nav_current_tabs);     
+            var main_nav_tab = $(this).attr("tabs-id");
+            console.log("main_nav_tab:" + main_nav_tab);            
+            var sub_nav_tab = $scope.getCurrentNavTab(main_nav_tab);
+            $scope.selectTabsAndGoto(main_nav_tab, sub_nav_tab);   
         });
     });
 
@@ -97,6 +95,107 @@ cmndProjectApps.controller('navigationController', ['$scope', '$rootScope', '$ht
         return navs;
     };
     
+    $scope.selectTabsAndGoto = function(main_nav, sub_nav) {
+        var main_sub_nav = main_nav + "_" + sub_nav;
+        var ui_route_pattern = main_nav + "." + sub_nav; 
+        if (!$scope.checkMatchUrlPattern(main_nav, sub_nav)) {
+             main_nav = "tvs";
+             sub_nav = "tabs_tvList";
+             main_sub_nav = main_nav + "_" + sub_nav;
+             ui_route_pattern = main_nav + "." + sub_nav;
+        }            
+        var currentNavSubTab = $scope.checkCurentNavSubTab(main_sub_nav);
+        $scope.hitSelectTabs($scope.main_nav_tabs, main_nav);       
+        $scope.hitSelectTabs(currentNavSubTab, sub_nav);
+        locals.set("main_nav_tab", main_nav);
+        locals.set("sub_nav_tab", sub_nav);
+        $state.go(ui_route_pattern);
+    };
+
+    $scope.getCurrentNavTab = function(currentNav) {
+        var tab = "";
+        switch(currentNav) {
+    		case "monitors":
+                tab = locals.get("monitors_sub_tab", "tabs_monitors2");
+    			break;
+    		case "tvs":
+                tab = locals.get("tvs_sub_tab", "tabs_tvList");
+    			break;
+    		case "files":
+                tab = locals.get("files_sub_tab", "tabs_cloneList");
+    			break;
+    		case "create":
+                tab = locals.get("create_sub_tab", "tabs_create2");
+    			break;
+    		case "admin":
+                tab = locals.get("admin_sub_tab", "tabs_changePassword");
+    			break;
+    		case "logout":
+                tab = locals.get("logout_sub_tab", "tabs_logout1");
+    			break;
+        }
+        return tab;
+    }
+
+    $scope.checkMatchUrlPattern = function(main_nav, sub_nav) {
+        var isMatch = false;
+    	switch(sub_nav) {
+    		case "tabs_monitors1":
+    		case "tabs_monitors2":
+    			if (main_nav == "monitors") {
+                    isMatch = true;
+                }
+    			break;
+    		case "tabs_msg":
+    		case "tabs_rooms":
+    		case "tabs_tvList":
+    		case "tabs_groupList":
+    		case "tabs_rfSetting":
+    			if (main_nav == "tvs") {
+                    isMatch = true;
+                }
+    			break;
+    		case "tabs_firmwareList":
+    		case "tabs_cloneList":
+    		case "tabs_settingPackage":
+    		case "tabs_channelPackage":
+    		case "tabs_appPackage":
+    		case "tabs_banners":
+    		case "tabs_play":
+    			if (main_nav == "files") {
+                    isMatch = true;
+                }
+    			break;
+    		case "tabs_create1":
+    		case "tabs_create2":
+    			if (main_nav == "create") {
+                    isMatch = true;
+                }
+    			break;
+    		case "tabs_users":
+    		case "tabs_changePassword":
+    		case "tabs_systemLog":
+    		case "tabs_LocationConfig":
+    		case "tabs_pmsConfig":
+    		case "tabs_exapi":
+    		case "tabs_weather":
+    			if (main_nav == "admin") {
+                    isMatch = true;
+                }
+    			break;
+    		case "tabs_logout1":
+    		case "tabs_logout2":
+    			if (main_nav == "logout") {
+                    isMatch = true;
+                }
+    			break;
+    		default :
+    			curentNavSubTab = $scope.sub_nav_tvs_tabs;
+    			break;
+        }  
+        return isMatch; 		
+    };
+
     $scope.checkCurentNavSubTab = function(subTab) {
     	var curentNavSubTab = $scope.sub_nav_tvs_tabs;
     	if (subTab != "" || sub != null || sub != undefined) {

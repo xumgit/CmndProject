@@ -3,7 +3,8 @@
  */
 
 cmndProjectApps.controller('tabsTVListController', ['$scope', '$rootScope', '$http', '$location', 
-'locals', 'navigationService', function($scope, $rootScope, $http, $location, locals, navigationService) {
+'locals', '$state', '$stateParams','navigationService', 
+    function($scope, $rootScope, $http, $location, locals, $state, $stateParams, navigationService) {
         console.log('tabsTVListController');
      
         //angular.element(document).ready(function () {
@@ -27,7 +28,7 @@ cmndProjectApps.controller('tabsTVListController', ['$scope', '$rootScope', '$ht
         //});
         $scope.initTVListData = function($timeout) {
             console.log("tabsTVListController => initTVListData");
-            var nav_current_tabs = locals.get("nav_current_tabs", "tvs.tabs_tvList");
+            //var nav_current_tabs = locals.get("nav_current_tabs", "tvs.tabs_tvList");
             //var subNav = $("#" + tabs_key);
              
             //$timeout($scope.init(),0);
