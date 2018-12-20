@@ -2,9 +2,9 @@
  * 
  */
 
-cmndProjectApps.controller('navigationController', ['$scope', '$rootScope', '$http', '$location', 'locals', 
-'$state', '$stateParams', 'navigationService', function($scope, $rootScope, $http, $location, locals, $state, 
-    $stateParams, navigationService) {
+cmndProjectApps.controller('navigationController', ['$scope', '$rootScope', '$http', '$location', 
+'locals', '$state', '$stateParams', 'navigationService', 
+    function($scope, $rootScope, $http, $location, locals, $state, $stateParams, navigationService) {
 
     $scope.main_nav_tabs = {
     		nav_monitors : false,
@@ -66,7 +66,7 @@ cmndProjectApps.controller('navigationController', ['$scope', '$rootScope', '$ht
     		logout_tabs_logout1 : false, 
     		logout_tabs_logout2 : false
     }
-    
+
 	$scope.initData = function() {	
         console.log("navigationController => initData");
         //var urlPath = $location.path();
@@ -109,7 +109,15 @@ cmndProjectApps.controller('navigationController', ['$scope', '$rootScope', '$ht
         $scope.hitSelectTabs(currentNavSubTab, sub_nav);
         locals.set("main_nav_tab", main_nav);
         locals.set("sub_nav_tab", sub_nav);
-        $state.go(ui_route_pattern);
+       
+        console.log("selectTabsAndGoto=>main_sub_nav:" + main_sub_nav + ",ui_route_pattern:" + ui_route_pattern);
+        $state.go(ui_route_pattern, {}, {reload: true});
+        //  if (obj != null) {        
+        //     var r = "#" + main_nav + "/" + sub_nav;
+        //     console.log("r:" + r);
+        //     $(this).attr("sref", main_nav + "." + sub_nav);
+        //     $(this).attr("href", r);
+        // }
     };
 
     $scope.getCurrentNavTab = function(currentNav) {

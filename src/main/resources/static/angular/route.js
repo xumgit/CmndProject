@@ -24,15 +24,18 @@ cmndProjectApps.config(function($stateProvider, $urlRouterProvider) {
     // TVs ui-route
     .state("tvs", {
         url: "/tvs",
-		templateUrl: "/tvs/index"
+        templateUrl: "/tvs/index",
+        cache: false
     })
     .state("tvs.tabs_msg", {
         url: "/tabs_msg",
-		templateUrl: "/tvs/index/tabs_msg"
+        templateUrl: "/tvs/index/tabs_msg",
+        cache: false
     })
     .state("tvs.tabs_rooms", {
         url: "/tabs_rooms",
-		templateUrl: "/tvs/index/tabs_rooms"
+        templateUrl: "/tvs/index/tabs_rooms",
+        cache: false
     })
     .state("tvs.tabs_tvList", {
         url: "/tabs_tvList",
@@ -41,11 +44,13 @@ cmndProjectApps.config(function($stateProvider, $urlRouterProvider) {
     })
     .state("tvs.tabs_groupList", {
         url: "/tabs_groupList",
-		templateUrl: "/tvs/index/tabs_groupList"
+        templateUrl: "/tvs/index/tabs_groupList",
+        cache: false
     })
     .state("tvs.tabs_rfSetting", {
         url: "/tabs_rfSetting",
-		templateUrl: "/tvs/index/tabs_rfSetting"
+        templateUrl: "/tvs/index/tabs_rfSetting",
+        cache: false
     })
     
     // Files ui-route

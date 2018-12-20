@@ -9,5 +9,5 @@ cmndProjectApps.service("navigationService", ["$q", "$http", function($q, $http)
 		}, function(resp) {
 			return $q.reject(resp.status);
 		});
-	};
+    };
 }]);
