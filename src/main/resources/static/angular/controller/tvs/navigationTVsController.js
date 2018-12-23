@@ -10,7 +10,9 @@ cmndProjectApps.controller('navigationTVsController', ['$scope', '$rootScope', '
         $scope.tvs_main_nav_tab = "tvs";
 
         $scope.initSelectTvsSubTabs = function() {         
-            var sub_nav_tab = $scope.getCurrentNavTab($scope.tvs_main_nav_tab);
+            //var sub_nav_tab = $rootScope.getCurrentNavTab($scope.tvs_main_nav_tab);
+            //console.log("TVs=>sub_nav_tab:" + sub_nav_tab);
+            //$scope.gotoSubTabPage(sub_nav_tab);
             //$scope.selectTabsAndGoto($scope.tvs_main_nav_tab, sub_nav_tab);
         };
 
@@ -19,7 +21,7 @@ cmndProjectApps.controller('navigationTVsController', ['$scope', '$rootScope', '
                 var tvs_sub_tab = $(this).attr("tabs-id");              
                 console.log("tvs_sub_tab:" + tvs_sub_tab);
                 locals.set("tvs_sub_tab", tvs_sub_tab);
-                $scope.selectTabsAndGoto($scope.tvs_main_nav_tab, tvs_sub_tab);
+                $scope.selectTabs($scope.tvs_main_nav_tab, tvs_sub_tab);
         	});
         });
           

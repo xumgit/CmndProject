@@ -1,12 +1,12 @@
-<div>
+<div ng-controller="navigationMonitorsController" ng-init="initSelectMonitorsSubTabs()">
 	<ul class="nav nav-tabs" role="tablelist" id="monitors_tabs">
 		<li ng-class="{'active' : sub_nav_monitors_tabs.monitors_tabs_monitors1}">
-			<a ui-sref=".tabs_monitors1" role="tab" tabs-id="monitors_tabs_monitors1"> 
+			<a ui-sref=".tabs_monitors1" role="tab" tabs-id="tabs_monitors1"> 
 				monitors_1 
 			</a>
 		</li>
 		<li ng-class="{'active' : sub_nav_monitors_tabs.monitors_tabs_monitors2}">
-			<a ui-sref=".tabs_monitors2" role="tab" tabs-id="monitors_tabs_monitors2"> 
+			<a ui-sref=".tabs_monitors2" role="tab" tabs-id="tabs_monitors2"> 
 				monitors_2 
 			</a>
 		</li>

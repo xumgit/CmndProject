@@ -1,27 +1,27 @@
 <div ng-controller="navigationTVsController" ng-init="initSelectTvsSubTabs()">
 	<ul class="nav nav-tabs" role="tablelist" id="tvs_tabs">
 		<li ng-class="{'active' : sub_nav_tvs_tabs.tvs_tabs_msg}">
-			<a ui-sref=".tabs_msg" role="tab" tabs-id="tabs_msg">
+			<a ui-sref=".tabs_msg" ui-sref-opts="{reload: true}" role="tab" tabs-id="tabs_msg">
 			 	Messages
 			</a>
 		</li>
 		<li ng-class="{'active' : sub_nav_tvs_tabs.tvs_tabs_rooms}">
-			<a ui-sref=".tabs_rooms" role="tab" tabs-id="tabs_rooms">
+			<a ui-sref=".tabs_rooms" ui-sref-opts="{reload: true}" role="tab" tabs-id="tabs_rooms">
 				Rooms
 			</a>
 		</li>	
 		<li ng-class="{'active' : sub_nav_tvs_tabs.tvs_tabs_tvList}">
-			<a ui-sref=".tabs_tvList" role="tab" tabs-id="tabs_tvList"> 
+			<a ui-sref=".tabs_tvList" ui-sref-opts="{reload: true}" role="tab" tabs-id="tabs_tvList"> 
 				TV List 
 			</a>
 		</li>
 		<li ng-class="{'active' : sub_nav_tvs_tabs.tvs_tabs_groupList}">
-			<a ui-sref=".tabs_groupList" role="tab" tabs-id="tabs_groupList"> 
+			<a ui-sref=".tabs_groupList" ui-sref-opts="{reload: true}" role="tab" tabs-id="tabs_groupList"> 
 				Group List 
 			</a>
 		</li>
 		<li ng-class="{'active' : sub_nav_tvs_tabs.tvs_tabs_rfSetting}">
-			<a ui-sref=".tabs_rfSetting" role="tab" tabs-id="tabs_rfSetting">
+			<a ui-sref=".tabs_rfSetting" ui-sref-opts="{reload: true}" role="tab" tabs-id="tabs_rfSetting">
 				Settings 
 			</a>
 		</li>

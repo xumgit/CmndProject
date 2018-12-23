@@ -5,7 +5,31 @@
 cmndProjectApps.config(function($stateProvider, $urlRouterProvider) {
 
     // default ui-route
-    $urlRouterProvider.otherwise("/");
+    //$urlRouterProvider.otherwise("/");
+    $urlRouterProvider
+    .when("", ['navigationService', function(navigationService) {
+        navigationService.goToPage();
+    }])
+    .when("/monitors", ['navigationService', function(navigationService) {
+        navigationService.goToPage();
+    }])
+    .when("/tvs", ['navigationService', function(navigationService) {
+        navigationService.goToPage();
+    }])
+    .when("/files", ['navigationService', function(navigationService) {
+        navigationService.goToPage();
+    }])
+    .when("/create", ['navigationService', function(navigationService) {
+        navigationService.goToPage();
+    }])
+    .when("/admin", ['navigationService', function(navigationService) {
+        navigationService.goToPage();
+    }])
+    .when("/logout", ['navigationService', function(navigationService) {
+        navigationService.goToPage();
+    }]);
+
+
     $stateProvider
     // Monitors ui-route
     .state("monitors", {
