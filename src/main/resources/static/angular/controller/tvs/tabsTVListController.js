@@ -3,13 +3,14 @@
  */
 
 cmndProjectApps.controller('tabsTVListController', ['$scope', '$rootScope', '$http', '$location', 
-'locals', '$state', '$stateParams','navigationService', 
-    function($scope, $rootScope, $http, $location, locals, $state, $stateParams, navigationService) {
+'locals', '$state', '$stateParams', '$timeout', 'navigationService', 
+    function($scope, $rootScope, $http, $location, locals, $state, $stateParams, $timeout, navigationService) {
         console.log('tabsTVListController');
      
         //angular.element(document).ready(function () {
             //Angular breaks if this is done earlier than document ready.
            $scope.init = function() {
+               console.log("init");
                 $("#grid_tvList").bootgrid({
                 ajax: true,
                 rowCount: [10, 20, 30, 50],
@@ -26,8 +27,10 @@ cmndProjectApps.controller('tabsTVListController', ['$scope', '$rootScope', '$ht
 			});
            };  
         //});
-        $scope.initTVListData = function($timeout) {
+        $scope.initTVListData = function() {
             console.log("tabsTVListController => initTVListData");
+            setTimeout($scope.init(), 1000);
+            
             //var nav_current_tabs = locals.get("nav_current_tabs", "tvs.tabs_tvList");
             //var subNav = $("#" + tabs_key);
              
