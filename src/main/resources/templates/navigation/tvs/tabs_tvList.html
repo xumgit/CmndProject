@@ -1,4 +1,122 @@
 <div ng-controller="tabsTVListController" ng-init="initTVListData()">
+    <table id="table" cellspacing="0" style="width: 100%">
+        <tr>
+            <td>
+                <label ng-click="TestBlack('divc')" class="btn btn-primary" id="TVStatusOverview" style="width: 100%">
+                    <div class="text-left">
+                        <span class="glyphicon glyphicon-chevron-up"></span>
+                        &nbsp;&nbsp;TV Status overview
+                    </div>
+                </label>&nbsp;
+            </td>
+        </tr>
+        <tr id="divc">
+            <td>
+                <table class="columns" style="width: 100%">
+                    <tr>
+                        <td>
+                            <h5 align="center" class="piechartheader">
+                                TV Models
+                            </h5>
+                            <div id="tv_models_chart_div" style="width: 20% ;display:block"></div>
+                        </td>
+						<td>
+							<h5 align="center" class="piechartheader">
+                                Current Power Status
+                            </h5>
+							<div id="current_power_status_chart_div" style="width: 20%"></div>
+						</td>
+						<td>
+							<h5 align="center" class="piechartheader">
+                                Current SW
+                            </h5>
+							<div id="current_sw_chart_div" style="width: 20%"></div>
+						</td>
+						<td>
+							<h5 align="center" class="piechartheader">
+                                Current Clone Data
+                            </h5>
+							<div id="current_clone_data_chart_div" style="width: 20%"></div>
+						</td>
+						<td>
+							<h5 align="center" class="piechartheader">
+                                Current Upgrade Status
+                            </h5>
+							<div id="current_upgrade_status_chart_div" style="width: 20%"></div>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+    </table>
+    <div style="width: auto; float: left; margin-top: 15px;">
+        <div style="float: left;">
+            <label class="btn btn-primary" id="detectDevicesBtn" ng-click="detectDevicesBtn()" data-toggle="modal"> 
+                <span class="glyphicon glyphicon-search"></span>
+                &nbsp;&nbsp;Detect
+            </label>&nbsp; 
+            <label class="btn btn-primary" id="addDetectDevicesBtn" ng-click="addDetectDevicesBtn()" data-toggle="modal"> 
+                <span class="glyphicon glyphicon-plus-sign"></span>
+                &nbsp;&nbsp;Add
+            </label>&nbsp; 
+            <label class="btn btn-primary" id="CreateGroupBtn" ng-click="CreateGroupBtn()" data-toggle="modal"> 
+                <span class="glyphicon glyphicon-th-list"></span>
+                &nbsp;&nbsp;Create Group
+            </label>&nbsp; 
+            <label class="btn btn-primary" id="DelSelBtn" ng-click="DelSelBtn()" data-toggle="modal"> 
+                <span class="glyphicon glyphicon-trash"></span>
+                &nbsp;&nbsp;Delete Selected
+            </label>&nbsp; 
+            <label class="btn btn-primary" id="allBtn" ng-click="allBtn()"> 
+                <span class="glyphicon glyphicon-play"></span>
+                &nbsp;&nbsp;Force Selected
+            </label>&nbsp; 
+            <label class="btn btn-primary" id="downloadDisplays" ng-click="downloadDisplays()"> 
+                <span class="glyphicon glyphicon-download"></span>
+				&nbsp;&nbsp;Download Displays
+			</label>&nbsp;
+		</div>
+		<div style="float: left;">
+			<h5 style="float: left;">&nbsp;&nbsp;SW:&nbsp;&nbsp;</h5>
+			<div class="form-group form-group-sm" style="float: left;">
+                <select id="sw_select" class="selectpicker show-tick" 
+                    disabled data-size="10" data-live-search="true">
+                    <div data-toggle="modal" data-target="#showModal">
+						<option value="0">None</option>
+					</div>
+                </select>
+			</div>
+		</div>
+		<div style="float: left;">
+			<h5 style="float: left;">&nbsp;&nbsp;Clone:&nbsp;&nbsp;</h5>
+			<div class="form-group form-group-sm" style="float: left;">
+                <select id="cl_select" class="selectpicker show-tick" 
+                    disabled data-size="10" data-live-search="true">
+					    <div data-toggle="modal" data-target="#showModal">
+                            <option value="0">None</option>
+						</div>
+				</select>
+			</div>
+		</div>
+		<div style="float: left;">				
+            &nbsp;&nbsp;
+            <label name="partialClone" class="btn btn-primary" id="filter"> 
+                <span class="glyphicon glyphicon-filter"></span>
+                &nbsp;&nbsp; Clone Parts
+			</label>&nbsp;				
+			<!-- <a href="#" name="partialClone" data-toggle="modal"> <span
+				class="glyphicon glyphicon-filter"
+				style="margin-top: 5px; font-size: 20px;"> </span>
+			</a> -->
+		</div>
+		<!--downloadDeviceData button-->
+		<!-- <div style="float: left;">
+			<a href="#" name="downloadDeviceData" data-toggle="modal"> <span
+				class="glyphicon glyphicon-download"
+				style="margin-top: 5px; font-size: 18px;"> </span>
+			</a>
+	    </div> -->
+	</div>
     <table id="grid_tvList" class="table table-condensed table-hover table-striped">
         <thead>
             <tr>
@@ -20,11 +138,11 @@
                     data-align="center" data-header-align="center">IP</th>
                 <th data-width="8%" data-column-id="TVMACAddress"
                     data-align="center" data-header-align="center" data-formatter="MAC">MAC</th>
-                <th data-width="15%" data-column-id="fw_color"
+                <th data-width="15%" data-column-id="UpgVersion"
                     data-align="center" data-header-align="center" data-formatter="sw">SW</th>
-                <th data-width="13%" data-column-id="clone_color"
+                <th data-width="13%" data-column-id="CloneDate"
                     data-align="center" data-header-align="center" data-formatter="clone">Clone</th>
-                <th data-width="10%" data-column-id="clone_mode"
+                <th data-width="10%" data-column-id="commands"
                     data-align="center" data-header-align="center" data-formatter="commands" data-sortable="false">Actions</th>
             </tr>
         </thead>

@@ -1,5 +1,5 @@
 /**
- * 
+ * common factory
  */
 
 cmndProjectApps.factory('locals', ['$window', function($window){

@@ -2,46 +2,64 @@
  * tabsTVListController
  */
 
-cmndProjectApps.controller('tabsTVListController', ['$scope', '$rootScope', '$http', '$location', 
-'locals', '$state', '$stateParams', '$timeout', 'navigationService', 
-    function($scope, $rootScope, $http, $location, locals, $state, $stateParams, $timeout, navigationService) {
+cmndProjectApps.controller('tabsTVListController', ['$scope', '$rootScope', '$http', '$location', 'locals',
+'$state', '$stateParams', '$timeout', 'navigationService', 'loadTVListDataFactory', '$compile', 'tabsTVListService',
+    function($scope, $rootScope, $http, $location, locals, $state, $stateParams, $timeout, 
+        navigationService, loadTVListDataFactory, tabsTVListService, $compile, tabsTVListService) {
         console.log('tabsTVListController');
-     
-        //angular.element(document).ready(function () {
-            //Angular breaks if this is done earlier than document ready.
-           $scope.init = function() {
-               console.log("init");
-                $("#grid_tvList").bootgrid({
-                ajax: true,
-                rowCount: [10, 20, 30, 50],
-                post: function (){
-                    return {
-                        paraid: "b0df282a",
-                        type: "selectAll"
-                    };
-                },
-                url: "/tvs/getDevices",
-                selection: true,
-                multiSelect: true,
-                keepSelection: false
-			});
-           };  
-        //});
+
         $scope.initTVListData = function() {
             console.log("tabsTVListController => initTVListData");
-            setTimeout($scope.init(), 1000);
-            
-            //var nav_current_tabs = locals.get("nav_current_tabs", "tvs.tabs_tvList");
-            //var subNav = $("#" + tabs_key);
-             
-            //$timeout($scope.init(),0);
+            loadTVListDataFactory.loadTVListData();
         };
-        // $scope.hitSelectTab($("#nav_tvs"));       
-        // var tvs_current_tabs = locals.get("tvs_current_tabs", "tvs_tabs_tvList");
-        // console.log("tvs_current_tabs:" + tvs_current_tabs);
-        // var url = $scope.checkTVsTabsUrl(tvs_current_tabs);
-        // $scope.loadTabsContentData(url);
-        // $scope.hitSelectTab($("#" + tvs_current_tabs));
+
+        $scope.TestBlack = function(TagName){    
+            var status = "show";
+            var table = document.getElementById("table");
+            var table_tr = table.getElementsByTagName("tr");
+            var table_td = table_tr[0].getElementsByTagName("td");
+            var obj = document.getElementById(TagName);
+            if(obj.style.display==""){
+                obj.style.display = "none";
+                var html = '<label ng-click="TestBlack(\'divc\');" class="btn btn-primary" id="TVStatusOverview" '
+                            + 'style="width:100%"><div class="text-left"><span class="glyphicon glyphicon-chevron-down">'
+                            + '</span>&nbsp;&nbsp;TV Status overview</div></label>&nbsp;';
+                $(table_td[0]).html($compile(html)($scope)); 
+                status = "hide";
+            } else {
+                obj.style.display = "";
+                var html = '<label ng-click="TestBlack(\'divc\');" class="btn btn-primary" id="TVStatusOverview" '
+                            + 'style="width:100%"><div class="text-left"><span class="glyphicon glyphicon-chevron-up">'
+                            + '</span>&nbsp;&nbsp;TV Status overview</div></label>&nbsp;';
+                $(table_td[0]).html($compile(html)($scope));
+                status = "show";
+            }	 
+            //updateConfig('TVs_tabsDevices_tvStatusOverview',status);		 
+        }
+
+        $scope.detectDevicesBtn = function() {
+            console.log("detectDevicesBtn");
+        }
+
+        $scope.addDetectDevicesBtn = function() {
+            console.log("addDetectDevicesBtn");
+        }
+
+        $scope.CreateGroupBtn = function() {
+            console.log("CreateGroupBtn");
+        }
+
+        $scope.DelSelBtn = function() {
+            console.log("DelSelBtn");
+        }
+
+        $scope.allBtn = function() {
+            console.log("allBtn");
+        }
+
+        $scope.downloadDisplays = function() {
+            console.log("downloadDisplays");
+        }
 
         $scope.checkTVsTabsUrl = function(tab) {
             var url = "tvs.tabs_tvList";
@@ -61,5 +79,4 @@ cmndProjectApps.controller('tabsTVListController', ['$scope', '$rootScope', '$ht
             return url;
         };
 
-            
 }]);
