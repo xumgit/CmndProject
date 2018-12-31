@@ -189,7 +189,7 @@ function($timeout, tabsTVListService){
 					});
 					//RefreshUI();
 					grid_devices_data.find("[id^='info_']").on("click",function(e){
-		        		ShowClonedataInfo($(this));
+		        		    ShowClonedataInfo($(this));
 					}).end().find("[id^='dele_']").on("click",function(e){	
 							DeleTvInfo($(this));
 					}).end().find("[name^='Download_']").on("click",function(e){	
@@ -204,6 +204,8 @@ function($timeout, tabsTVListService){
 							TriggerTvPowerstate($(this));
 					});
 
+                    initSwAndCloneInfo();
+                                            
 				    google.charts.setOnLoadCallback(tvModels);
 				    //google.charts.setOnLoadCallback(currentPowerStatus);
 				    //google.charts.setOnLoadCallback(currentSW);
@@ -226,6 +228,44 @@ function($timeout, tabsTVListService){
 			    checkboxChecked("devices");
 			});
     };
+
+    function initSwAndCloneInfo() {
+        tabsTVListService.getSwAndCloneInfo().then(function(data) {
+            var swInfo = data.swInfo;
+            var cloneInfo = data.cloneInfo;
+            select(document.getElementById("sw_select"), swInfo);
+            select(document.getElementById("cl_select"), cloneInfo);
+            $('#sw_select').selectpicker();
+            $('#cl_select').selectpicker();                   
+            $('#sw_select').prop('disabled', false);
+            $('#cl_select').prop('disabled', false);
+            $('#sw_select').selectpicker('refresh');
+            $('#cl_select').selectpicker('refresh');
+        });
+    }
+
+    function select(selectObj, Obj){
+		var id ,name;
+		Obj = eval('(' + Obj + ')');
+		for(var i=0;i<Obj.length;i++){
+		    var obj=Obj[i];
+		    for(var p in obj) {
+			    if(chk(parseInt(p))){
+			    	id = obj[p];
+			    }else{
+			    	name = obj[p];
+			    	selectObj.options[selectObj.length] = new Option(name,id);
+			    } 
+		    } 
+		}			
+	}
+
+    function chk(num){ 
+		if((!(num%2))||(num==0))
+			return true;
+		else
+			return false;
+	}
 
     function tvModels() {
     	
@@ -334,7 +374,41 @@ function($timeout, tabsTVListService){
 		// 	}
 		// }); 
 		//setTimeout(function(){showCloneInfoDelay(ID);}, 1000);
-		//showCloneInfoDelay(ID);
+        //showCloneInfoDelay(ID);
+        var row_1 = '<table><tr><td>TV Name : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>' +
+				'<tr><td>ModelNumber : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>' + 
+				'<tr><td>SerialNumber : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>' +
+				'<tr><td>RoomID : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>' +
+				'<tr><td>MACAddress : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>' +
+				'<tr><td>IPAddress : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>' +
+				'<tr><td>VSecureTVID : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>' + 
+				'<tr><td>PowerStatus : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>' +
+				'<tr><td>TVUniqueID : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>';				
+				row_1 += '<tr><td>Current Firmware Name : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>';
+				row_1 += '<tr><td>Current TV Settings Identifier : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>';					
+				row_1 += '<tr><td>Current TVChannel List Identifier : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>'; 							
+				row_1 += '<tr><td>Current Welcome Logo Identifier : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>';							
+				row_1 += '<tr><td>Current Smartinfo Images Identifier : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>';
+				row_1 += '<tr><td>Current SmartInfo Pages Identifier : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>';
+				row_1 += '<tr><td>Current Local Custom Dashboard Identifier : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>';
+				row_1 += '<tr><td>Current Android Apps : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>';
+				row_1 += '<tr><td>Current Media channels : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>';
+				row_1 += '<tr><td>Current Room Specific Settings : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>';				
+				row_1 += '<tr><td>Current Script : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>';
+				row_1 += '<tr><td>Current HTV Cfg : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>';
+				row_1 += '<tr><td>Current ProfessionalApps : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>';
+				row_1 += '<tr><td>Current AndroidAppsData : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>';										
+				row_1 += '<tr><td>Current ProfessionalAppsData : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>';
+				row_1 += '<tr><td>Current Banner : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>';
+				row_1 += '<tr><td>Current PMS : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>';					
+				row_1 += '<tr><td>Current Schedules : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>';
+				row_1 += '<tr><td>Current MyChoice : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>';
+				row_1 += '<tr><td>Current Vsecure : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>';	
+				row_1 += '<tr><td>Type : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>' + 
+				         '<tr><td>CreatedDate : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr>' +
+                         '<tr><td>Lastonline : </td><td style=\"padding-left: 30px;\">' + 'None' + '</td></tr></table>';
+                $('#TV_info').html(row_1); 
+				$('#infoModal_ID').modal('show');
 	}
 
     function DeleTvInfo(obj){

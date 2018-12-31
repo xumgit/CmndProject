@@ -1,5 +1,7 @@
 package com.xum.cmnd.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.xum.cmnd.pojo.DevicesWithBLOBs;
 import com.xum.cmnd.service.DevicesService;
 
 @Controller
@@ -48,6 +52,57 @@ public class TVsController {
 		data.add("rows", array);
 		LOG.info("data.toString():" + data.toString());
 		return data.toString();
+	}
+	
+	@RequestMapping(value="/getSwAndCloneInfo")
+	@ResponseBody
+	public String getSwAndCloneInfo() {
+		JsonObject data = new JsonObject();
+		
+		List<Map<Integer, String>> upgList = new ArrayList<Map<Integer, String>>();
+		Map<Integer, String> upgMap = new HashMap<Integer, String>();
+		upgMap.put(0, String.valueOf(1));
+		upgMap.put(1, "TPM1531HE.5.249.300");	
+		upgMap.put(2, String.valueOf(2));
+		upgMap.put(3, "TPM1531HE.5.249.310");
+		upgList.add(upgMap);
+		String swInfo = new Gson().toJson(upgList).toString();
+		data.addProperty("swInfo", swInfo);
+		
+		List<Map<Integer, String>> clList = new ArrayList<Map<Integer, String>>();
+		Map<Integer, String> map = new HashMap<Integer, String>();		
+		map.put(0, String.valueOf(1));
+		map.put(1, "TPM1532_clonedata_1");	
+		map.put(2, String.valueOf(2));
+		map.put(3, "TPM1532_clonedata_2");		
+		clList.add(map);
+		String cloneInfo = new Gson().toJson(clList).toString();
+		data.addProperty("cloneInfo", cloneInfo);
+		
+		return data.toString();
+	}
+	
+	@RequestMapping(value="/saveDeviceName")
+	@ResponseBody
+	public String saveDeviceName(@RequestParam(value="tvUid", required=true, defaultValue="") String tvUid,
+			@RequestParam(value="deviceName", required=true, defaultValue="") String deviceName) {
+		String status = "{\"status\":\"success\"}";
+		LOG.info("tvUid:" + tvUid + ",deviceName:" + deviceName);
+		
+		DevicesWithBLOBs device = new DevicesWithBLOBs();
+		
+		if (tvUid != "") {
+			device.setId(tvUid);
+			device.setTvname(deviceName);
+			int affectRow = devicesService.updateByPrimaryKeySelective(device);
+			if (affectRow < 0) {
+				status = "{\"status\":\"failed\"}";
+			}
+		} else {
+			status = "{\"status\":\"failed\"}";
+		}
+		
+		return status;
 	}
 	
 }

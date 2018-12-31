@@ -79,7 +79,7 @@
 		<div style="float: left;">
 			<h5 style="float: left;">&nbsp;&nbsp;SW:&nbsp;&nbsp;</h5>
 			<div class="form-group form-group-sm" style="float: left;">
-                <select id="sw_select" class="selectpicker show-tick" 
+                <select id="sw_select" class="selectpicker show-tick" onchange="angular.element(this).scope().swSelect()"
                     disabled data-size="10" data-live-search="true">
                     <div data-toggle="modal" data-target="#showModal">
 						<option value="0">None</option>
@@ -90,7 +90,7 @@
 		<div style="float: left;">
 			<h5 style="float: left;">&nbsp;&nbsp;Clone:&nbsp;&nbsp;</h5>
 			<div class="form-group form-group-sm" style="float: left;">
-                <select id="cl_select" class="selectpicker show-tick" 
+                <select id="cl_select" class="selectpicker show-tick" onchange="angular.element(this).scope().cloneSelect()"
                     disabled data-size="10" data-live-search="true">
 					    <div data-toggle="modal" data-target="#showModal">
                             <option value="0">None</option>
@@ -100,7 +100,7 @@
 		</div>
 		<div style="float: left;">				
             &nbsp;&nbsp;
-            <label name="partialClone" class="btn btn-primary" id="filter"> 
+            <label name="partialClone" class="btn btn-primary" id="filter" ng-click="partialClone()"> 
                 <span class="glyphicon glyphicon-filter"></span>
                 &nbsp;&nbsp; Clone Parts
 			</label>&nbsp;				
@@ -149,4 +149,163 @@
         <tbody id="tvsBody">
         </tbody>
     </table>
+    <div class="modal fade" id="infoModal_ID" tableindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal_wrapper">
+            <div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header" style="background: rgb(28, 148, 196);">
+						<button type="button" class="close" data-dismiss="modal"aria-hidden="ture">&times;</button>
+						<h3 class="modal-title" style="color: #fff;">More Info</h3>
+					</div>
+					<div class="modal-body" style="padding-top: 5px; padding-left: 20px; padding-bottom: 0px; padding-right: 20px;">
+						<div id="TV_info" class="col-md-12" style="overflow-y: auto; height: 280px; 
+                                                                width: 100%; background: none; border: none; resize: none;">
+						</div>
+						<!-- <textarea id="TV_info" cols="1" rows="50"  class="col-md-12"
+							style="height:280px;width:100%;background:none;border:none;resize:none;">															
+						</textarea> -->
+					</div>
+					<div class="modal-footer"></div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <div class="modal fade" id="cloneSelection" tabindex="-1" role="dialog" aria-labelledby="g_myModalLabel" aria-hidden="true">
+        <div class="modal_wrapper">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header" style="background: rgb(28, 148, 196);">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" style="color: #fff;" id="g_myModalLabel">
+                                Partial Clone Selection
+                        </h4>
+					</div>
+					<div class="modal-body">
+						<div style="width: 100px; height: 20px" id="none">&nbsp;
+                            None
+                        </div>
+						<div style="width: 100px;">
+							<input type="checkbox" id="ipAll" name="ipAll" checked="checked"
+										onchange="angular.element(this).scope().alloption('TVs_tabsDevices_partialClone_ipAll')" />
+									All
+						</div>
+						<div style="height: 25px;">&nbsp;</div>
+						<div style="width: 30%; float: left;">
+							<input type="checkbox" id="ipTVSettings" name="ipTVSettings" disabled="disabled"
+										onchange="angular.element(this).scope().onChangepartialAction('TVs_tabsDevices_partialClone_ipTVSettings', 'ipTVSettings')" />
+									TV Settings
+						</div>
+						<div style="width: 30%; float: left;">
+							<input type="checkbox" id="ipTVChannelList" name="ipTVChannelList" disabled="disabled"
+										onchange="angular.element(this).scope().onChangepartialAction('TVs_tabsDevices_partialClone_ipTVChannelList','ipTVChannelList')" />
+									TV Channel List
+						</div>
+						<div style="width: 40%; float: left;">
+							<input type="checkbox" id="ipWelcomeLogo" name="ipWelcomeLogo" disabled="disabled"
+										onchange="angular.element(this).scope().onChangepartialAction('TVs_tabsDevices_partialClone_ipWelcomeLogo','ipWelcomeLogo')" />
+									WelcomeLogo
+						</div>
+						<div style="height: 25px;">&nbsp;</div>
+						<div style="width: 30%; float: left;">
+							<input type="checkbox" id="ipSmartInfoPages" name="ipSmartInfoPages" disabled="disabled"
+										onchange="angular.element(this).scope().onChangepartialAction('TVs_tabsDevices_partialClone_ipSmartInfoPages','ipSmartInfoPages')" />
+									SmartInfo Pages
+						</div>
+						<div style="width: 30%; float: left;">
+							<input type="checkbox" id="ipSmartInfoImages" name="ipSmartInfoImages" disabled="disabled"
+										onchange="angular.element(this).scope().onChangepartialAction('TVs_tabsDevices_partialClone_ipSmartInfoImages','ipSmartInfoImages')" />
+									SmartInfo Images
+						</div>
+						<div style="width: 40%; float: left;">
+							<input type="checkbox" id="ipCustomDashboard" name="ipCustomDashboard" disabled="disabled"
+										onchange="angular.element(this).scope().onChangepartialAction('TVs_tabsDevices_partialClone_ipCustomDashboard','ipCustomDashboard')" />
+									Local Custom Dashboard
+						</div>
+						<div style="height: 25px;" id="whiteline">&nbsp;</div>
+						<div style="width: 30%; float: left;">
+							<input type="checkbox" id="ipAndroidApps" name="ipAndroidApps" disabled="disabled"
+										onchange="angular.element(this).scope().onChangepartialAction('TVs_tabsDevices_partialClone_ipAndroidApps','ipAndroidApps')" />
+									Android Apps
+						</div>
+						<div style="width: 30%; float: left;">
+							<input type="checkbox" id="ipMediaChannels" name="ipMediaChannels" disabled="disabled"
+										onchange="angular.element(this).scope().onChangepartialAction('TVs_tabsDevices_partialClone_ipMediaChannels','ipMediaChannels')" />
+									Media Channels
+						</div>
+						<div style="width: 40%; float: left;">
+							<input type="checkbox" id="ipRoomSpecificSettings" name="ipRoomSpecificSettings" disabled="disabled"
+										onchange="angular.element(this).scope().onChangepartialAction('TVs_tabsDevices_partialClone_ipRoomSpecificSettings','ipRoomSpecificSettings')" />
+									Room Specific Settings
+						</div>
+						<div style="height:25px;"> &nbsp;</div>
+						<div style="width:30%; float: left;">
+							<input type="checkbox" id="ipWeatherForecast" name="ipWeatherForecast" disabled="disabled" 
+									onchange="angular.element(this).scope().onChangepartialAction('TVs_tabsDevices_partialClone_ipWeatherForecast','ipWeatherForecast')" /> 
+									WeatherForecast
+						</div>
+						<div style="width:30%; float: left;">
+							<input type="checkbox" id="ipHTVCfg" name="ipHTVCfg" disabled="disabled" 
+									onchange="angular.element(this).scope().onChangepartialAction('TVs_tabsDevices_partialClone_ipHTVCfg','ipHTVCfg')" /> 
+									HTV Cfg			 
+						</div>
+						<div style="width:40%; float: left;">
+							<input type="checkbox" id="ipBanner" name="ipBanner" disabled="disabled" 
+									onchange="angular.element(this).scope().onChangepartialAction('TVs_tabsDevices_partialClone_ipBanner','ipBanner')"  /> 
+									Banner
+						</div>
+						<div style="height:26px;"> &nbsp;</div>
+						<div style="width:30%; float: left;">
+							<input type="checkbox" id="ipScript" name="ipScript" disabled="disabled" 
+									onchange="angular.element(this).scope().onChangepartialAction('TVs_tabsDevices_partialClone_ipScript','ipScript')"  /> 
+									Script
+						</div>
+						<div style="width:30%; float: left;">
+							<input type="checkbox" id="ipPMS" name="ipPMS" disabled="disabled" 
+									onchange="angular.element(this).scope().onChangepartialAction('TVs_tabsDevices_partialClone_ipPMS','ipPMS')" /> 
+									PMS			 
+						</div>
+						<div style="width:40%; float: left;">
+							<input type="checkbox" id="ipAndroidAppsData" name="ipAndroidAppsData" disabled="disabled" 
+									onchange="angular.element(this).scope().onChangepartialAction('TVs_tabsDevices_partialClone_ipAndroidAppsData','ipAndroidAppsData')"  /> 
+									AndroidAppsData
+						</div>
+						<div style="height:26px;"> &nbsp;</div>				
+						<div style="width:30%; float: left;">
+							<input type="checkbox" id="ipProfessionalApps" name="ipProfessionalApps" disabled="disabled" 
+									onchange="angular.element(this).scope().onChangepartialAction('TVs_tabsDevices_partialClone_ipProfessionalApps','ipProfessionalApps')"  /> 
+									ProfessionalApps
+						</div>
+						<div style="width:30%; float: left;">
+							<input type="checkbox" id="ipProfessionalAppsData" name="ipProfessionalAppsData" disabled="disabled" 
+									onchange="angular.element(this).scope().onChangepartialAction('TVs_tabsDevices_partialClone_ipProfessionalAppsData','ipProfessionalAppsData')" /> 
+									ProfessionalAppsData			 
+						</div>
+						<div style="width:40%; float: left;">
+							<input type="checkbox" id="ipSchedules" name="ipSchedules" disabled="disabled" 
+									onchange="angular.element(this).scope().onChangepartialAction('TVs_tabsDevices_partialClone_ipSchedules','ipSchedules')"  /> 
+									Schedules
+						</div>
+						<div style="height:26px;"> &nbsp;</div>				
+						<div style="width:30%; float: left;">
+							<input type="checkbox" id="ipMyChoice" name="ipMyChoice" disabled="disabled" 
+									onchange="angular.element(this).scope().onChangepartialAction('TVs_tabsDevices_partialClone_ipMyChoice','ipMyChoice')"  /> 
+									MyChoice
+						</div>
+						<div style="width:30%; float: left;">
+							<input type="checkbox" id="ipVsecure" name="ipVsecure" disabled="disabled" 
+									onchange="angular.element(this).scope().onChangepartialAction('TVs_tabsDevices_partialClone_ipVsecure','ipVsecure')" /> 
+									Vsecure			 
+						</div>		
+						<div style="width: 46px; float: left;">&nbsp;</div>
+						<div class="clear height5px"></div>
+						<div class="clear height5px"></div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="savePartialCloneSelection" class="btn btn-primary" ng-click="savePartialCloneSelection()">save</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
