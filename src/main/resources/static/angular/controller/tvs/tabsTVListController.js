@@ -7,34 +7,33 @@ cmndProjectApps.controller('tabsTVListController', ['$scope', '$rootScope', '$ht
     function($scope, $rootScope, $http, $location, locals, $state, $stateParams, $timeout, 
         navigationService, loadTVListDataFactory, tabsTVListService, $compile, tabsTVListService) {
         console.log('tabsTVListController');
-
+      
         $scope.initTVListData = function() {
             console.log("tabsTVListController => initTVListData");
             loadTVListDataFactory.loadTVListData();
         };
 
         $scope.TestBlack = function(TagName){    
+            console.log('TestBlack');
             var status = "show";
-            var table = document.getElementById("table");
-            var table_tr = table.getElementsByTagName("tr");
-            var table_td = table_tr[0].getElementsByTagName("td");
             var obj = document.getElementById(TagName);
-            if(obj.style.display==""){
+            if (obj.style.display == "") {
                 obj.style.display = "none";
-                var html = '<label ng-click="TestBlack(\'divc\');" class="btn btn-primary" id="TVStatusOverview" '
-                            + 'style="width:100%"><div class="text-left"><span class="glyphicon glyphicon-chevron-down">'
-                            + '</span>&nbsp;&nbsp;TV Status overview</div></label>&nbsp;';
-                $(table_td[0]).html($compile(html)($scope)); 
+                $("#TVStatusOverview div").html('<span class="glyphicon glyphicon-chevron-down">'
+                            + '</span>&nbsp;&nbsp;TV Status overview');
                 status = "hide";
             } else {
                 obj.style.display = "";
-                var html = '<label ng-click="TestBlack(\'divc\');" class="btn btn-primary" id="TVStatusOverview" '
-                            + 'style="width:100%"><div class="text-left"><span class="glyphicon glyphicon-chevron-up">'
-                            + '</span>&nbsp;&nbsp;TV Status overview</div></label>&nbsp;';
-                $(table_td[0]).html($compile(html)($scope));
+                $("#TVStatusOverview div").html('<span class="glyphicon glyphicon-chevron-up">'
+                            + '</span>&nbsp;&nbsp;TV Status overview');
                 status = "show";
-            }	 
+            }
+ 
             //updateConfig('TVs_tabsDevices_tvStatusOverview',status);		 
+        }
+
+        $scope.deviceNameField = function(obj) {
+            console.log("deviceNameField:" + $(obj).val());
         }
 
         $scope.detectDevicesBtn = function() {

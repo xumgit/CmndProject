@@ -58,7 +58,7 @@ function($timeout, tabsTVListService){
                   },
 				  "name": function(column, row)
 				  {
-                    return  '<input type="text" id = tv_Name uid ="'+row.Id+'" onchange="deviceNameField(this);" value="'
+                    return  '<input type="text" id = tv_Name uid ="'+row.Id+'" onchange="angular.element(this).scope().deviceNameField(this);" value="'
                             + row.TVName + '" orgName="'+ row.TVName  + '" title="'+ row.TVName + 
 		                    '" ONKEYDOWN="javascript:return enterEvent(event);"' + 
                     'style="width: 100%;float:left;text-align:left;border:0px solid #dddddd; background: none repeat scroll 0 0 ;"'+ 
