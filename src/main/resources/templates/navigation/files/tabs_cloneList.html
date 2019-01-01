@@ -1,3 +1,267 @@
-<div>
-    Clone List view
-</div>
+<div role="tabpane1" class="tab-pane active" id="tabs_clone" style="">
+			<!-- Button : Upload Clonedata.zip -->
+			<div id="uploadedClone" style="width: 56%; margin-top: 7px;">
+				<form enctype="multipart/form-data" action="/SmartInstall/upload"
+					method="post" id="upload" name="upload_clone_btn">
+					<span id="spanupload" class="btn btn-primary fileinput-button"
+						style="float: left"> <input type="hidden"
+						name="MAX_FILE_SIZE" value="20000000" /> <span
+						class="glyphicon glyphicon-upload"> </span> &nbsp;Upload <input
+						name="uploadedfile" onchange='CloneUploading(this)' accept=".zip"
+						type="file" size="20" />
+					</span>
+				</form>
+				<img id="cloneLoading"
+					src="/images/ajax-loader.gif" height="10"
+					width="85" style="display: none;"></img>
+
+			</div>
+			<div id="uploadAutomatedResult"
+				style="width: auto; margin-top: 7px; margin-left: 120px;"></div>
+			<!-- Holmes.li -->
+			<div style="float: left;margin-right:5px">
+			<button id="assignSettingPackage" type="button"
+				class="btn btn-primary" role="button" disabled="disabled">
+				<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+				Assign Setting Package
+			</button>
+			</div>
+			<div style="width: auto;float: left;margin-right:5px">
+			<!-- pr808 -->
+			<button id="assignChannelPackage" type="button"
+				class="btn btn-primary" role="button" disabled="disabled">
+				<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+				Assign Channel Package
+			</button>
+			</div>
+			<div style="width: auto;float: left;margin-right:5px">
+			<button id="assignAppPackage" type="button" class="btn btn-primary"
+				role="button" disabled="disabled">
+				<span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+				Assign App Package
+			</button>
+			</div>
+			<div style="float: left;margin-right:5px">
+			<button id="assignContent" type="button" class="btn btn-primary"
+				role="button" disabled="disabled">
+				<span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+				Assign content
+			</button>
+			</div>
+			<div style="float: left;margin-right:5px">
+			<button id="assignBanners" type="button" class="btn btn-primary"
+				role="button" disabled="disabled">
+				<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+				Assign Banners
+			</button>
+			</div>
+			<div style="float: left;margin-right:5px">
+			<button id="assignWelcomeLogo" type="button" class="btn btn-primary"
+				role="button" disabled="disabled">
+				<span class="circle1" aria-hidden="true">w</span> Assign Welcome Logo
+			</button>
+			</div>
+			
+			<!-- assign setting package holmes.li-CR1172 -->
+			<div class="modal fade" id="settingPackageModal" tabindex="-1"
+				role="dialog" aria-labelledby="settingPackageModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title" id="assignSettingModalLabel">Assign
+								Setting Package</h4>
+						</div>
+						<div class="modal-body">
+							<table class="table table-condensed">
+								<thead role="row">
+									<tr>
+										<th role="columnheader">Name</th>
+										<th role="columnheader">Platform</th>
+									</tr>
+								</thead>
+								<tbody id=settingPackageRows style="cursor: pointer;">
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+<!-- assignBannersModal CR1309-->
+			<div class="modal fade" id="bannersModal" tabindex="-1"
+				role="dialog" aria-labelledby="bannersModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title" id="assignBannersModalLabel">Assign
+								Banners</h4>
+						</div>
+						<div class="modal-body">
+							<table class="table table-condensed">
+								<thead role="row">
+									<tr>
+										<th role="columnheader">Name</th>
+										<th role="columnheader">Content</th>
+									</tr>
+								</thead>
+								<tbody id=bannersRows style="cursor: pointer;">
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- assignAppPackageModal -->
+			<div class="modal fade" id="appPackageModal" tabindex="-1"
+				role="dialog" aria-labelledby="appPackageModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title" id="assignAppModalLabel">Assign App
+								Package</h4>
+						</div>
+						<div class="modal-body">
+							<table class="table table-condensed">
+								<thead role="row">
+									<tr>
+										<th role="columnheader">Name</th>
+										<th role="columnheader">Platform</th>
+										<th role="columnheader">Number of Apps</th>
+										<th role="columnheader">Size of Apps</th>
+									</tr>
+								</thead>
+								<tbody id=appPackageRows style="cursor: pointer;">
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- pr808 -->
+			<div class="modal fade" id="channelPackageModal" tabindex="-1">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+							<h4 class="modal-title">Assign Channel Package</h4>
+						</div>
+						<div class="modal-body">
+							<table class="table table-condensed">
+								<thead>
+									<th>Name</th>
+									<th>Platform</th>
+									<th>Number of Channels</th>
+								</thead>
+								<tbody id=channelPackageRows style="cursor: pointer;">
+								</tbody>
+							</table>
+						</div>
+						<div class="modal-foot"></div>
+					</div>
+				</div>
+			</div>
+
+			<!-- assignContentModal -->
+			<div class="modal fade" id="settingsModal" tabindex="-1"
+				role="dialog" aria-labelledby="settingsModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title" id="assignContentModalLabel">Assign
+								content</h4>
+						</div>
+						<div class="modal-body">
+							<table class="table table-condensed">
+								<thead role="row">
+									<tr>
+										<th role="columnheader">Title</th>
+										<th role="columnheader">Thumbnail</th>
+									</tr>
+								</thead>
+								<tbody id=contentRow style="cursor: pointer;">
+									<!-- 	<tr>
+									 role="row" id="contentRow" class="contentRow" bgcolor=""
+										<td>{{content.title}}</td>
+										<td>
+											<img src="http://localhost:8082/SmartCMS/sites/default/files/styles/website_thumbnail_in_overview/public/page-71-2.png" class="img-thumbnail" />
+										</td>
+									</tr> -->
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<table id="grid-clonedata" class="table table-hover bootgrid-table">
+				<thead>
+					<tr>
+						<th data-column-id="id" data-type="numeric" data-identifier="true"
+							data-visible="false">Select</th>
+						<th data-column-id="name" data-column-name="name"
+							data-formatter="name" data-sortable="true">Clone Data Name</th>
+						<th data-column-id="platform" data-width="90px"
+							data-column-platform="platform" data-formatter="platform"
+							data-sortable="true">Platform</th>
+						<!-- pr808 -->
+						<th data-column-id="SettingPackages"
+							data-column-SettingPackage="SettingPackages"
+							data-formatter="SettingPackages" data-sortable="true">Setting
+							Packages</th>
+						<th data-column-id="ChannelPackage"
+							data-column-channelPackage="ChannelPackage"
+							data-formatter="ChannelPackage" data-sortable="true">Channel
+							Package</th>
+						<!-- pr808 -->
+						<th data-column-id="appPackage"
+							data-column-appPackage="appPackage" data-formatter="appPackage"
+							data-sortable="true">App Package</th>
+						<!-- pr808 -->
+						<th data-column-id="content" data-width="120px"
+							data-column-content="content" data-formatter="content"
+							data-sortable="true">Content</th>
+						<th data-column-id="banners" data-width="120px"
+							data-column-content="banners" data-formatter="banners"
+							data-sortable="true">Banners</th>							
+						<th data-column-id="WelcomeLogo"
+							data-column-WelcomeLogo="WelcomeLogo"
+							data-formatter="WelcomeLogo" data-sortable="true">WelcomeLogo</th>
+						<!--  <th data-column-id="newaction" data-column-action="action" data-formatter="newaction" data-sortable="false"></th> <!-- meng.xu [TF415PHSI00-671] -->
+						<th data-column-id="action" data-width="110px"
+							data-column-action="action" data-formatter="action"
+							data-sortable="false">Action</th>
+					</tr>
+				</thead>
+			</table>
+
+			<div>
+				<h5 id="hideErrorMsg" class="text-danger" style="display: none;">
+					You have to Upload new clone data or select an existing clone data
+					to work on. Please Upload new clone data or select one from
+					existing clonedata.</h5>
+				<h5 id="hide_leftnav_LockedErrorMsg" class="text-danger"
+					style="display: none;">The clonedata was edited by other user
+					now.</h5>
+				<h4 id="error_msg" class="text-danger" style="display: none;">
+					<%=error%>
+				</h4>
+			</div>
+		</div>

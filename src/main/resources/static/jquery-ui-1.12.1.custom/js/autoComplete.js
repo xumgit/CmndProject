@@ -18,7 +18,7 @@
      			type: 'POST',
      			data: {"type":'getGuestIdData'},
      			dataType: "json",
-     			url: './pms',
+     			//url: './pms',
      			contentType: 'application/x-www-form-urlencoded',				   
      			success: function(data) {
      				availableTags = [];

@@ -1,10 +1,71 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Group List</title>
-</head>
-<body>
-	<div style="color:red;">Group List</div>
-</body>
-</html>
+<div ng-controller="tabsGroupListController" ng-init="initGroupListData()">
+    <div style="width: auto; float: left; margin-top: 15px;">
+		<div style="float: left;">
+			<div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-primary" id="g_allBtn"> 
+                        <span class="glyphicon glyphicon-play"></span>
+                        &nbsp;&nbsp;Force Selected
+					</label>
+			</div>
+		</div>
+		<h5 style="float: left;">&nbsp;&nbsp;SW:&nbsp;&nbsp;</h5>
+			<div style="float: left;">
+				<div class="form-group form-group-sm">
+					<select id="g_sw_select" class="selectpicker  show-tick" disabled
+								data-size="10" data-live-search="true">
+						<div data-toggle="modal" data-target="#showModal">
+							<option value="0">None</option>
+						</div>
+				    </select>
+				</div>
+			</div>
+		<h5 style="float: left;">&nbsp;&nbsp;Clone:&nbsp;&nbsp;</h5>
+		<div style="float: left;">
+			<div class="form-group form-group-sm">
+				<select id="g_cl_select" class="selectpicker  show-tick" disabled
+							data-size="10" data-live-search="true">
+					<div data-toggle="modal" data-target="#showModal">
+						<option value="0">None</option>
+					</div>
+				</select>
+			 </div>
+		</div>
+		<div style="float: left;">					
+            &nbsp;&nbsp;
+            <label name="g_partialClone" class="btn btn-primary" id="filter"> 
+                <span class="glyphicon glyphicon-filter"></span>
+                    &nbsp;&nbsp;Clone Parts
+			</label>&nbsp;				
+			<!-- <a href="#" name="g_partialClone" data-toggle="modal"> <span
+					class="glyphicon glyphicon-filter" style="font-size: 20px;">
+				</span> </a>-->			
+		</div>
+	</div>
+	<table id="grid_groups" class="table table-condensed table-hover table-striped">
+        <thead>
+            <tr>
+                <th data-width="70px" data-column-id="power" data-align="center"
+					data-header-align="center" data-formatter="power"
+					ata-sortable="true">Power</th>
+				<th data-width="" data-column-id="name" data-identifier="true"
+					data-visible-in-selection="false" data-align="center"
+					data-header-align="center" data-formatter="name"
+					data-order="asc">Name</th>
+				<th data-width="" data-column-id="len" data-align="center"
+					data-header-align="center" data-formatter="devices"
+					data-sortable="true">Nr. of Devices</th>
+			    <th data-width="" data-column-id="UpgVersion"
+					data-align="center" data-header-align="center"
+					data-sortable="true" data-formatter="sw">SW</th>
+				<th data-width="" data-column-id="CloneDate" data-align="center"
+					data-header-align="center" data-sortable="true"
+					data-formatter="clone">Clone</th>
+				<th data-width="" data-column-id="commands" data-align="center"
+					data-header-align="left" data-formatter="commands"
+					data-sortable="false">Actions</th>
+			</tr>
+		</thead>
+	    <tbody id="groupsBody">
+	    </tbody>
+	</table>
+</div>

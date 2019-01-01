@@ -1,3 +1,41 @@
-<div>
-    Fireware List view
+<div role="tabpane2" class="tab-pane" id="tabs_firmware" style="">
+			<!-- Button : Upload .upg -->
+			<div id="uploadedUpg" style="float: left;">
+				<form enctype="multipart/form-data" action="" method="post"
+					id="upload">
+					<input type="hidden" name="mode" value="UPLOAD_UPG" /> <span
+						id="uploadUpgFile" class="btn btn-primary fileinput-button">
+						<input type="hidden" name="MAX_FILE_SIZE" value="20000000" /> <span
+						class="glyphicon glyphicon-upload"> </span> &nbsp;Upload <input
+						name="uploadedUPGfile" onchange='upgUploading(this)'
+						accept=".upg,.pkg" type="file" size="20" />
+					</span>
+				</form>
+				<img id="upgLoading"
+					src="/images/ajax-loader.gif" height="10"
+					width="85" style="display: none;"></img>
+			</div>
+
+			<table id="grid-firmware" class="table table-hover bootgrid-table">
+				<thead>
+					<tr>
+						<th data-column-id="id" data-type="numeric" data-identifier="true"
+							data-visible="false">Select</th>
+						<th data-column-id="firmwareName" data-column-name="firmwareName"
+							data-formatter="firmwareName" data-sortable="true">Firmware
+							Name</th>
+						<th data-column-id="platform" data-column-platform="platform"
+							data-formatter="platform" data-sortable="true">Platform</th>
+						<th data-column-id="version" data-column-playDate="version"
+							data-formatter="version" data-sortable="true">Version</th>
+						<th data-column-id="action" data-column-lastPlayDate="action"
+							data-formatter="action" data-sortable="false">Action</th>
+					</tr>
+				</thead>
+			</table>
+
+			<h4 id="upg_overwritten_display" class="text-success"
+				style="line-height: 25px; display: none;">Success: Firmware
+				overwritten successfully</h4>
+
 </div>

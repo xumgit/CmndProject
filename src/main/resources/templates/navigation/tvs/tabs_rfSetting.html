@@ -1,10 +1,61 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>RF Setting</title>
-</head>
-<body>
-	<div style="color:red;">RF Setting</div>
-</body>
-</html>
+<div ng-controller="tabsRFSettingController" ng-init="initRFSettingData()">
+    <div role="tabpane3" class="tab-pane" id="tabs-rfSetting"
+			style="margin-top: 15px; width: 80%; margin: auto; padding: 15px;">
+			<div class="row" style="margin-bottom: 30px;">
+				<span class="col-md-4 polling-label" style="">IP Polling In
+					Fast Standby</span> <span class="glyphicon glyphicon-signal"
+					style="float: left; color: #149bdf;">&nbsp;</span>
+				<div id="fastModeSlider" style="float: left; width: 210px;"></div>
+				&nbsp;&nbsp;&nbsp; <span><span id="fastModeLabel"
+					name="fastModeLabel"></span>&nbsp;Min</span>
+			</div>
+			<div class="row" style="margin-bottom: 30px;">
+				<span class="col-md-4 polling-label" style="">IP Polling In
+					Green Standby</span> <span class="glyphicon glyphicon-signal"
+					style="float: left; color: #149bdf;">&nbsp;</span>
+				<div id="greenModeSlider" style="float: left; width: 210px;"></div>
+				&nbsp;&nbsp;&nbsp; <span><span id="greenModeLabel"
+					name="greenModeLabel"></span>&nbsp;Min</span>
+			</div>
+			<div class="row" style="margin-bottom: 30px;">
+				<span class="col-md-4 polling-label" style="">TV Discovery
+					Service Polling Frequency</span> <span class="glyphicon glyphicon-signal"
+					style="float: left; color: #149bdf;">&nbsp;</span>
+				<div id="TVDiscoverySlider"
+					style="float: left; color: #149bdf; width: 210px;"></div>
+				&nbsp;&nbsp;&nbsp; <span><span id="tvdiscoveryLabel"
+					name="tvdiscoveryLabel"></span>&nbsp;Min</span>
+			</div>
+			<div class="row" style="margin-bottom: 30px;">
+				<span class="col-md-4 polling-label" style="">DashBoard URL</span> <input
+					class="form-control col-md-8" type="text" id="URLLabel"
+					name="URLLabel" ONKEYDOWN="javascript:return enterEvent(event);"
+					onchange="UpdateProfile();" placeholder="" style="width: 60%" />
+			</div>
+			<div class="row" style="margin-bottom: 30px;">
+				<span class="col-md-4 polling-label" style="">Professional
+					Polling Service</span> <span class="glyphicon glyphicon-signal"
+					style="float: left; color: #149bdf;">&nbsp;</span>
+				<div id="professionalServiceSlider"
+					style="float: left; width: 210px;"></div>
+				&nbsp;&nbsp;&nbsp; <span><span id="professionalServiceLabel"
+					name="professionalServiceLabel"></span>&nbsp;Min</span>
+			</div>
+			<div class="row" style="margin-bottom: 30px;">
+				<span class="col-md-4 polling-label" style="">Max
+					Simultaneous Updates</span> <span class="glyphicon glyphicon-signal"
+					style="float: left; color: #149bdf;">&nbsp;</span>
+				<div id="updateMaxSlider" style="float: left; width: 210px;"></div>
+				&nbsp;&nbsp;&nbsp; <span><span id="updateMaxLabel"
+					name="updateMaxLabel"></span>&nbsp;</span>
+			</div>
+			<div class="row" style="margin-bottom: 30px;">
+				<span class="col-md-4 polling-label" style="">Timeout Between
+					Updates</span> <span class="glyphicon glyphicon-signal"
+					style="float: left; color: #149bdf;">&nbsp;</span>
+				<div id="updateTimeoutSlider" style="float: left; width: 210px;"></div>
+				&nbsp;&nbsp;&nbsp; <span><span id="updateTimeoutLabel"
+					name="updateTimeoutLabel"></span>&nbsp;Sec</span>
+			</div>
+		</div>
+</div>
