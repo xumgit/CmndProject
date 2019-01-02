@@ -1,10 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Rooms</title>
-</head>
-<body>
-	<div style="color:red;">Rooms</div>
-</body>
-</html>
+<div role="tabpane4" class="tab-pane" id="tabs_rooms" style="">
+	<div style="clear: both;">&nbsp;</div>
+	<input onchange="propertyNameTextField(this);" type="text" id="propertyName"  value="property name" autocomplete="off"  style="border-left:0px;border-top:0px;border-right:0px;border-bottom:1px;width:auto;float:left;margin-top:15px;"/>
+	<table id="grid-roominfo" class="table table-hover bootgrid-table">
+		<thead>
+			<tr>
+				<th data-column-id="id"  data-identifier="true" data-visible-in-selection = "true" data-visible="false">ID</th>
+				<th data-width="90px" data-column-id="roomid" data-identifier="true" data-visible="true">RoomId</th>
+				<th data-width="110px" data-column-id="checkinfo" data-formatter="checkinfo" data-visible="true" data-sortable="false">Checkin</th><!-- pr810 -->
+				<th data-width="50px" data-column-id="powerStatus" data-formatter="powerStatus" data-visible="true">TV</th>
+				<th data-column-id="guestId" data-formatter="guestId" data-visible="false">Guest ID</th><!-- pr810 -->
+				<th data-column-id="name" data-formatter="guestName" >Guest Name</th>
+				<th data-column-id="language" data-column-language="language" data-formatter="language" data-visible="true" data-sortable="true">Guest Language</th>
+				<th data-column-id="channels" data-column-language="channels" data-formatter="channels" data-visible="true" data-sortable="true">Channels</th><!-- pr956 -->
+				<th data-column-id="apps" data-column-language="apps" data-formatter="apps" data-visible="true" data-sortable="true">Apps</th><!-- pr957 -->
+				<th data-column-id="group" data-formatter="group" data-sortable="true">Group</th><!-- pr810 -->
+				<th data-width="270px"data-column-id="reservation">Reservation</th><!-- pr810 -->
+				<th data-width="130px" data-column-id="reservationId">Reservation ID</th>
+				<th data-width="90px" data-column-action="action" data-formatter="action" data-sortable="false">Action</th>
+			</tr>
+		</thead>
+	</table>
+</div>

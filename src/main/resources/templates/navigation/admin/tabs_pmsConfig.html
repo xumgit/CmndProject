@@ -1,3 +1,307 @@
-<div>
-    PMS view
-</div>
+<div style="margin: auto;width:50%; text-align: left;">
+		<form class="form-horizontal" role="form" method="post" action="" id="pms_mgr" name="pms_mgr">
+			<div id = "PMS_parent" class = "form-group">
+			</div>
+			
+			<div class="form-group">
+				<label class="col-sm-4 control-label">PMS Type</label>
+				<div class="col-sm-8">
+					<select id = "PMS_Type" name = "PMS_Type" class = "form-control" style="width:38%"  onchange = "saveDataOnPmsChange()">
+						<option value = "oracleTMS 2.20f">oracleTMS 2.20f</option>
+						<option value = "oracleTMS 2.20.21">oracleTMS 2.20.21</option>
+						<option value = "tigerTMS 1.0.12.0">tigerTMS 1.0.12.0</option>
+						<option value = "None" selected>None</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-sm-4 control-label">PMS URL</label>
+		      	<div class="col-sm-8">
+				<input id="PMS_URL" name="PMS_URL" class="form-control" type="text" autocomplete="off" 
+				    placeholder="Please enter the PMS URL" 
+					onKeyDown="javascript:return enterEvent(event);" 
+					size="20" onChange="pmsUrlChange()"/>
+		      	</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-sm-4 control-label">PMS Key</label>
+		      	<div class="col-sm-8">
+				<input id="PMS_Key" name="PMS_Key" class="form-control" type="text" autocomplete="off" 
+					placeholder="Please enter the PMS security key" 
+					onKeyDown="javascript:return enterEvent(event);" 
+					size="20" onChange="saveDataOnPmsChange()"/>
+		      	</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-sm-4 control-label">PMS Site</label>
+		      	<div class="col-sm-8">
+					<input id="PMS_Site" name="PMS_Site" class="form-control" type="text" autocomplete="off" 
+						placeholder="Please enter the PMS site ID" 
+						onKeyDown="javascript:return enterEvent(event);" 
+						size="20" onChange="saveDataOnPmsChange()"/>
+		      	</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-sm-4 control-label">Currency preference</label>
+				<div class="col-sm-8">
+					<select id = "Currency_Preference" name = "Currency_Preference" class = "form-control" style="width:auto"  onchange = "saveDataOnPmsChange()">
+						<option value = "CurrencySymbol" selected>Currency symbol</option>
+						<option value = "3LetterCode">3 letter code</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-sm-4 control-label">Bill Currency</label>
+				<div class="col-sm-8">
+					<select id = "Bill_Currency" name = "Bill_Currency" class = "form-control" style="width:auto"  onchange = "saveDataOnPmsChange()">
+						<option value = "\u004c\u0065\u006b ALL">&#x4c;&#x65;&#x6b; &nbsp; &nbsp; ALL - Albania Lek </option>
+						<option value = "\u0060b AFN">&#x60b; &nbsp; &nbsp; &nbsp; &nbsp; AFN - Afghanistan Afghani </option>
+						<option value = "\u0024 ARS">&#x24; &nbsp; &nbsp; &nbsp; &nbsp; ARS - Argentina Peso </option>
+						<option value = "\u0192 AWG">&#x192; &nbsp; &nbsp; &nbsp; &nbsp; AWG - Aruba Guilder </option>
+						<option value = "\u0024 AUD">&#x24; &nbsp; &nbsp; &nbsp; &nbsp; AUD - Australia Dollar </option>
+						<option value = "\u043c\u0430\u043d AZN">&#x43c;&#x430;&#x43d; &nbsp; &nbsp; AZN - Azerbaijan New Manat </option>
+						<option value = "\u0024 BSD">&#x24; &nbsp; &nbsp; &nbsp; &nbsp; BSD - Bahamas Dollar </option>
+						<option value = "\u0024 BBD">&#x24; &nbsp; &nbsp; &nbsp; &nbsp; BBD - Barbados Dollar </option>
+						<option value = "\u0042\u0072 BYN">&#x42;&#x72; &nbsp; &nbsp; &nbsp; BYN - Belarus Ruble </option>
+						<option value = "\u0042\u005a\u0024 BZD">&#x42;&#x5a;&#x24; &nbsp; &nbsp; BZD - Belize Dollar </option>
+						<option value = "\u0024 BMD">&#x24; &nbsp; &nbsp; &nbsp; &nbsp; BMD - Bermuda Dollar </option>
+						<option value = "\u0024\u0062 BOB">&#x24;&#x62; &nbsp; &nbsp; &nbsp; BOB - Bolivia Bol韛iano </option>
+						<option value = "\u004b\u004d BAM">&#x4b;&#x4d; &nbsp; &nbsp; &nbsp; BAM - Bosnia and Herzegovina Convertible Marka </option>
+						<option value = "\u0050 BWP">&#x50; &nbsp; &nbsp; &nbsp; &nbsp; BWP - Botswana Pula </option>
+						<option value = "\u043b\u0432 BGN">&#x43b;&#x432; &nbsp; &nbsp; &nbsp; BGN - Bulgaria Lev </option>
+						<option value = "\u0052\u0024 BRL">&#x52;&#x24; &nbsp; &nbsp; &nbsp; BRL - Brazil Real </option>
+						<option value = "\u0024 BND">&#x24; &nbsp; &nbsp; &nbsp; &nbsp; BND - Brunei Darussalam Dollar </option>
+						<option value = "\u17db KHR">&#x17db; &nbsp; &nbsp; &nbsp; &nbsp; KHR - Cambodia Riel </option>
+						<option value = "\u0024 CAD">&#x24; &nbsp; &nbsp; &nbsp; &nbsp; CAD - Canada Dollar </option>
+						<option value = "\u0024 KYD">&#x24; &nbsp; &nbsp; &nbsp; &nbsp; KYD - Cayman Islands Dollar </option>
+						<option value = "\u0024 CLP">&#x24; &nbsp; &nbsp; &nbsp; &nbsp; CLP - Chile Peso </option>
+						<option value = "\u00a5 CNY">&#xa5; &nbsp; &nbsp; &nbsp; &nbsp; CNY - China Yuan Renminbi </option>
+						<option value = "\u0024 COP">&#x24; &nbsp; &nbsp; &nbsp; &nbsp; COP - Colombia Peso </option>
+						<option value = "\u20a1 CRC">&#x20a1; &nbsp; &nbsp; &nbsp; &nbsp; CRC - Costa Rica Colon </option>
+						<option value = "\u006b\u006e HRK">&#x6b;&#x6e; &nbsp; &nbsp; &nbsp; HRK - Croatia Kuna </option>
+						<option value = "\u20b1 CUP">&#x20b1; &nbsp; &nbsp; &nbsp; &nbsp; CUP - Cuba Peso </option>
+						<option value = "\u004b\u010d CZK">&#x4b;&#x10d; &nbsp; &nbsp; &nbsp; CZK - Czech Republic Koruna </option>
+						<option value = "\u006b\u0072 DKK">&#x6b;&#x72; &nbsp; &nbsp; &nbsp; DKK - Denmark Krone </option>
+						<option value = "\u0052\u0044\u0024 DOP">&#x52;&#x44;&#x24; &nbsp; &nbsp; DOP - Dominican Republic Peso </option>
+						<option value = "\u0024 XCD">&#x24; &nbsp; &nbsp; &nbsp; &nbsp; XCD - East Caribbean Dollar </option>
+						<option value = "\u00a3 EGP">&#xa3; &nbsp; &nbsp; &nbsp; &nbsp; EGP - Egypt Pound </option>
+						<option value = "\u0024 SVC">&#x24; &nbsp; &nbsp; &nbsp; &nbsp; SVC - El Salvador Colon </option>
+						<option value = "\u20ac EUR" selected="selected">&#x20ac; &nbsp; &nbsp; &nbsp; &nbsp; EUR - Euro Member Countries </option>
+						<option value = "\u00a3 FKP">&#xa3; &nbsp; &nbsp; &nbsp; &nbsp; FKP - Falkland Islands (Malvinas) Pound </option>
+						<option value = "\u0024 FJD">&#x24; &nbsp; &nbsp; &nbsp; &nbsp; FJD - Fiji Dollar </option>
+						<option value = "\u00a2 GHS">&#xa2; &nbsp; &nbsp; &nbsp; &nbsp; GHS - Ghana Cedi </option>
+						<option value = "\u00a3 GIP">&#xa3; &nbsp; &nbsp; &nbsp; &nbsp; GIP - Gibraltar Pound </option>
+						<option value = "\u0051 GTQ">&#x51; &nbsp; &nbsp; &nbsp; &nbsp; GTQ - Guatemala Quetzal </option>
+						<option value = "\u00a3 GGP">&#xa3; &nbsp; &nbsp; &nbsp; &nbsp; GGP - Guernsey Pound </option>
+						<option value = "\u0024 GYD">&#x24; &nbsp; &nbsp; &nbsp; &nbsp; GYD - Guyana Dollar </option>
+						<option value = "\u004c HNL">&#x4c; &nbsp; &nbsp; &nbsp; &nbsp; HNL - Honduras Lempira </option>
+						<option value = "\u0024 HKD">&#x24; &nbsp; &nbsp; &nbsp; &nbsp; HKD - Hong Kong Dollar </option>
+						<option value = "\u0046\u0074 HUF">&#x46;&#x74; &nbsp; &nbsp; &nbsp; HUF - Hungary Forint </option>
+						<option value = "\u006b\u0072 ISK">&#x6b;&#x72; &nbsp; &nbsp; &nbsp; ISK - Iceland Krona </option>
+						<option value = "INR">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; INR - India Rupee </option>
+						<option value = "\u0052\u0070 IDR">&#x52;&#x70; &nbsp; &nbsp; &nbsp; IDR - Indonesia Rupiah </option>
+						<option value = "\ufdfc IRR">&#xfdfc; &nbsp; &nbsp; &nbsp; &nbsp; IRR - Iran Rial </option>
+						<option value = "\u00a3 IMP">&#xa3; &nbsp; &nbsp; &nbsp; &nbsp; IMP - Isle of Man Pound </option>
+						<option value = "\u20aa ILS">&#x20aa; &nbsp; &nbsp; &nbsp; &nbsp; ILS - Israel Shekel </option>
+						<option value = "\u004a\u0024 JMD">&#x4a;&#x24; &nbsp; &nbsp; &nbsp; JMD - Jamaica Dollar </option>
+						<option value = "\u00a5 JPY">&#xa5; &nbsp; &nbsp; &nbsp; &nbsp; JPY - Japan Yen </option>
+						<option value = "\u00a3 JEP">&#xa3; &nbsp; &nbsp; &nbsp; &nbsp; JEP - Jersey Pound </option>
+						<option value = "\u043b\u0432 KZT">&#x43b;&#x432; &nbsp; &nbsp; &nbsp; KZT - Kazakhstan Tenge </option>
+						<option value = "\u20a9 KPW">&#x20a9; &nbsp; &nbsp; &nbsp; &nbsp; KPW - Korea (North) Won </option>
+						<option value = "\u20a9 KRW">&#x20a9; &nbsp; &nbsp; &nbsp; &nbsp; KRW - Korea (South) Won </option>
+						<option value = "\u043b\u0432 KGS">&#x43b;&#x432; &nbsp; &nbsp; &nbsp; KGS - Kyrgyzstan Som </option>
+						<option value = "\u20ad LAK">&#x20ad; &nbsp; &nbsp; &nbsp; &nbsp; LAK - Laos Kip </option>
+						<option value = "\u00a3 LBP">&#xa3; &nbsp; &nbsp; &nbsp; &nbsp; LBP - Lebanon Pound </option>
+						<option value = "\u0024 LRD">&#x24; &nbsp; &nbsp; &nbsp; &nbsp; LRD - Liberia Dollar </option>
+
+						<option value = "\u0434\u0435\u0043d MKD">&#x434;&#x435;&#x43d; &nbsp; &nbsp; MKD - Macedonia Denar </option>
+						<option value = "\u0052\u004d MYR">&#x52;&#x4d; &nbsp; &nbsp; &nbsp; MYR - Malaysia Ringgit </option>
+						<option value = "\u20a8 MUR">&#x20a8; &nbsp; &nbsp; &nbsp; &nbsp; MUR - Mauritius Rupee </option>
+						<option value = "\u0024 MXN ">&#x24; &nbsp; &nbsp; &nbsp; &nbsp; MXN  - Mexico Peso </option>
+						<option value = "\u20ae MNT">&#x20ae; &nbsp; &nbsp; &nbsp; &nbsp; MNT - Mongolia Tughrik </option>
+						<option value = "\u004d\u0054 MZN ">&#x4d;&#x54; &nbsp; &nbsp; &nbsp; MZN  - Mozambique Metical </option>
+						<option value = "\u0024 NAD">&#x24; &nbsp; &nbsp; &nbsp; &nbsp; NAD - Namibia Dollar </option>
+						<option value = "\u20a8 NPR">&#x20a8; &nbsp; &nbsp; &nbsp; &nbsp; NPR - Nepal Rupee </option>
+						<option value = "\u0192 ANG">&#x192; &nbsp; &nbsp; &nbsp; &nbsp; ANG - Netherlands Antilles Guilder </option>
+						<option value = "\u0024 NZD">&#x24; &nbsp; &nbsp; &nbsp; &nbsp; NZD - New Zealand Dollar </option>
+						<option value = "\u0043\u0024 NIO">&#x43;&#x24; &nbsp; &nbsp; &nbsp; NIO - Nicaragua Cordoba </option>
+						<option value = "\u20a6 NGN">&#x20a6; &nbsp; &nbsp; &nbsp; &nbsp; NGN - Nigeria Naira </option>
+						<option value = "\u006b\u0072 NOK">&#x6b;&#x72; &nbsp; &nbsp; &nbsp; NOK - Norway Krone </option>
+						<option value = "\ufdfc OMR">&#xfdfc; &nbsp; &nbsp; &nbsp; &nbsp; OMR - Oman Rial </option>
+						<option value = "\u20a8 PKR">&#x20a8; &nbsp; &nbsp; &nbsp; &nbsp; PKR - Pakistan Rupee </option>
+						<option value = "\u0042\u002f\u002e PAB">&#x42;&#x2f;&#x2e; &nbsp; &nbsp; PAB - Panama Balboa </option>
+						<option value = "\u0047\u0073 PYG">&#x47;&#x73; &nbsp; &nbsp; &nbsp; PYG - Paraguay Guarani </option>
+						<option value = "\u0053\u002f\u002e PEN">&#x53;&#x2f;&#x2e; &nbsp; &nbsp; PEN - Peru Sol </option>
+						<option value = "\u0020b1 PHP">&#x20b1; &nbsp; &nbsp; &nbsp; &nbsp; PHP - Philippines Peso </option>
+						<option value = "\u007a\u0142 PLN">&#x7a;&#x142; &nbsp; &nbsp; &nbsp; PLN - Poland Zloty </option>
+						<option value = "\ufdfc QAR">&#xfdfc; &nbsp; &nbsp; &nbsp; &nbsp; QAR - Qatar Riyal </option>
+						<option value = "\u006c\u0065\u0069 RON">&#x6c;&#x65;&#x69; &nbsp; &nbsp; RON - Romania New Leu </option>
+						<option value = "\u20bd RUB">&#x20bd; &nbsp; &nbsp; &nbsp; &nbsp; RUB - Russia Ruble </option>
+						<option value = "\u00a3 SHP">&#xa3; &nbsp; &nbsp; &nbsp; &nbsp; SHP - Saint Helena Pound </option>
+						<option value = "\ufdfc SAR">&#xfdfc; &nbsp; &nbsp; &nbsp; &nbsp; SAR - Saudi Arabia Riyal </option>
+						<option value = "\u0414\u0438\u043d\u002e RSD">&#x414;&#x438;&#x43d;&#x2e; &nbsp; RSD - Serbia Dinar </option>
+						<option value = "\u20a8 SCR">&#x20a8; &nbsp; &nbsp; &nbsp; &nbsp; SCR - Seychelles Rupee </option>
+						<option value = "\u0024 SGD">&#x24; &nbsp; &nbsp; &nbsp; &nbsp; SGD - Singapore Dollar </option>
+						<option value = "\u0024 SBD">&#x24; &nbsp; &nbsp; &nbsp; &nbsp; SBD - Solomon Islands Dollar </option>
+						<option value = "\u0053 SOS">&#x53; &nbsp; &nbsp; &nbsp; &nbsp; SOS - Somalia Shilling </option>
+						<option value = "\u0052 ZAR">&#x52; &nbsp; &nbsp; &nbsp; &nbsp; ZAR - South Africa Rand </option>
+						<option value = "\u20a8 LKR">&#x20a8; &nbsp; &nbsp; &nbsp; &nbsp; LKR - Sri Lanka Rupee </option>
+						<option value = "\u006b\u0072 SEK">&#x6b;&#x72; &nbsp; &nbsp; &nbsp; SEK - Sweden Krona </option>
+						<option value = "\u0043\u0048\u0046 CHF">&#x43;&#x48;&#x46; &nbsp; &nbsp; CHF - Switzerland Franc </option>
+						<option value = "\u0024 SRD">&#x24; &nbsp; &nbsp; &nbsp; &nbsp; SRD - Suriname Dollar </option>
+						<option value = "\u00a3 SYP">&#xa3; &nbsp; &nbsp; &nbsp; &nbsp; SYP - Syria Pound </option>
+						<option value = "\u004e\u0054\u0024 TWD">&#x4e;&#x54;&#x24; &nbsp; &nbsp; TWD - Taiwan New Dollar </option>
+						<option value = "\u0e3f THB">&#xe3f; &nbsp; &nbsp; &nbsp; &nbsp; THB - Thailand Baht </option>
+						<option value = "\u0054\u0054\u0024 TTD">&#x54;&#x54;&#x24; &nbsp; &nbsp; TTD - Trinidad and Tobago Dollar </option>
+						<option value = "TRY">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TRY - Turkey Lira </option>
+						<option value = "\u0024 TVD">&#x24; &nbsp; &nbsp; &nbsp; &nbsp; TVD - Tuvalu Dollar </option>
+						<option value = "\u20b4 UAH">&#x20b4; &nbsp; &nbsp; &nbsp; &nbsp; UAH - Ukraine Hryvnia </option>
+						<option value = "\u00a3 GBP">&#xa3; &nbsp; &nbsp; &nbsp; &nbsp; GBP - United Kingdom Pound </option>
+						<option value = "\u0024 USD">&#x24; &nbsp; &nbsp; &nbsp; &nbsp; USD - United States Dollar </option>
+						<option value = "\u0024\u0055 UYU">&#x24;&#x55; &nbsp; &nbsp; &nbsp; UYU - Uruguay Peso </option>
+						<option value = "\u043b\u0432 UZS">&#x43b;&#x432; &nbsp; &nbsp; &nbsp; UZS - Uzbekistan Som </option>
+						<option value = "\u0042\u0073 VEF">&#x42;&#x73; &nbsp; &nbsp; &nbsp; VEF - Venezuela Bolivar </option>
+						<option value = "\u20ab VND">&#x20ab; &nbsp; &nbsp; &nbsp; &nbsp; VND - Viet Nam Dong </option>
+						<option value = "\ufdfc YER">&#xfdfc; &nbsp; &nbsp; &nbsp; &nbsp; YER - Yemen Rial </option>
+						<option value = "\u005a\u0024 ZWD">&#x5a;&#x24; &nbsp; &nbsp; &nbsp; ZWD - Zimbabwe Dollar </option>
+
+					</select>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-sm-4 control-label">PMS Features:</label>	
+			</div>
+			
+			<div class="form-group">
+				<div class="col-sm-4 control-label" style="font-weight: normal">Auto Wake-up TV </div>
+				<div class="col-sm-8">
+					<select class="form-control" style="width:27%"  name="auto_wake_up_tv" id="auto_wake_up_tv" onChange="saveDataOnPmsChange()">
+						 <option value="Off" selected>Off</option>
+						 <option value="On">On</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<div class="col-sm-4 control-label" style="font-weight: normal">Auto Switch-off TV </div>
+				<div class="col-sm-8">
+					<select class="form-control" style="width:27%"  name="auto_switch_off_tv" id="auto_switch_off_tv" onChange="saveDataOnPmsChange()">
+						 <option value="Off" selected>Off</option>
+						 <option value="On">On</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<div class="col-sm-4 control-label" style="font-weight: normal">Guest Name </div>
+				<div class="col-sm-8">
+					<select class="form-control" style="width:27%"  name="Guest_Name" id="Guest_Name" onChange="saveDataOnPmsChange()">
+						 <option value="Off" selected>Off</option>
+						 <option value="On">On</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label" style="font-weight: normal">Guest Language </div>
+				<div class="col-sm-8">
+					<select class="form-control" style="width:27%"  name="Guest_Language" id="Guest_Language" onChange="saveDataOnPmsChange()">
+						 <option value="Off" selected>Off</option>
+						 <option value="On">On</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label" style="font-weight: normal">Welcome Message </div>
+				<div class="col-sm-8">
+					<select class="form-control" style="width:27%"  name="Welcome_Message" id="Welcome_Message" onChange="saveDataOnPmsChange()">
+						 <option value="Off" selected>Off</option>
+						 <option value="On">On</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label" style="font-weight: normal">Messages </div>
+				<div class="col-sm-8">
+					<select class="form-control" style="width:27%"  name="Messages" id="Messages" onChange="saveDataOnPmsChange()">
+						 <option value="Off" selected>Off</option>
+						 <option value="On">On</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label" style="font-weight: normal">Bill on TV </div>
+				<div class="col-sm-8">
+					<select class="form-control" style="width:40%"  name="Bill_on_TV" id="Bill_on_TV" onChange="saveDataOnPmsChange()">
+						 <option value="Off" selected>Off</option>
+						 <option value="FollowPMS">Follow PMS</option>
+						 <option value="DefaultAlwaysOn">Default Always ON</option>
+						 <option value="DefaultAlwaysOff">Default Always OFF</option>
+						 <option value="Demo">Demo</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label" style="font-weight: normal">Express Checkout </div>
+				<div class="col-sm-8">
+					<select class="form-control" style="width:40%"  name="Express_Checkout" id="Express_Checkout" onChange="saveDataOnPmsChange()">
+						 <option value="Off" selected>Off</option>
+						 <option value="FollowPMS">Follow PMS</option>
+						 <option value="DefaultAlwaysOn">Default Always ON</option>
+						 <option value="DefaultAlwaysOff">Default Always OFF</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label" style="font-weight: normal">Do not Disturb </div>
+				<div class="col-sm-8">
+					<select class="form-control" style="width:40%"  name="Donot_Disturb" id="Donot_Disturb" onChange="saveDataOnPmsChange()">
+						 <option value="Off" selected>Off</option>
+						 <option value="FollowPMS">Follow PMS</option>
+						 <option value="DefaultAlwaysOn">Default Always ON</option>
+						 <option value="DefaultAlwaysOff">Default Always OFF</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label" style="font-weight: normal">Change Channel Package </div>
+				<div class="col-sm-8">
+					<select class="form-control" style="width:27%"  name="Change_Channel_Package" id="Change_Channel_Package" onChange="saveDataOnPmsChange()">
+						 <option value="Off" selected>Off</option>
+						 <option value="On">On</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label" style="font-weight: normal">Change App Package </div>
+				<div class="col-sm-8">
+					<select class="form-control" style="width:27%"  name="Change_App_Package" id="Change_App_Package" onChange="saveDataOnPmsChange()">
+						 <option value="Off" selected>Off</option>
+						 <option value="On">On</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-sm-4 control-label">PMS Connection Status:</label>	
+			</div>
+			
+			<div class="form-group">
+				<div class="col-sm-4 control-label" style="font-weight: normal">PMS Type </div>
+				<div id="PMS_Connection_type" class="col-sm-1 control-label" style="font-weight: normal"></div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label" style="font-weight: normal">PMS Version </div>
+				<div id="PMS_Connection_version" class="col-sm-1 control-label" style="font-weight: normal">0.0.0</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label" style="font-weight: normal">PMS Status </div>
+				<div id="PMS_Connection_status" class="col-sm-4 control-label" style="text-align:left; font-weight: normal; color:red">Error</div>
+			</div>
+		</form>
+	</div>

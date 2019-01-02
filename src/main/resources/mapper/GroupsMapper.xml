@@ -23,6 +23,9 @@
   <sql id="Blob_Column_List" >
     TVStatus
   </sql>
+  <select id="selectAllCount" resultType="java.lang.Integer">
+    select count(1) from groups
+  </select>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -30,6 +33,49 @@
     <include refid="Blob_Column_List" />
     from groups
     where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectGroupsWithBootGrid" parameterType="java.util.Map" resultType="java.util.Map">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from groups
+    <trim prefix=" where (" suffix=") "> 
+      <if test="searchPhrase != null">
+          Id like "%"#{searchPhrase, jdbcType=INTEGER}"%" 
+          or GroupName like "%"#{searchPhrase, jdbcType=VARCHAR}"%" 
+          or TVId like "%"#{searchPhrase, jdbcType=VARCHAR}"%" 
+          or FirmwareId like "%"#{searchPhrase, jdbcType=INTEGER}"%" 
+          or CloneId like "%"#{searchPhrase, jdbcType=INTEGER}"%"
+          or Status like "%"#{searchPhrase, jdbcType=VARCHAR}"%"
+          or Progress like "%"#{searchPhrase, jdbcType=VARCHAR}"%"
+          or PowerStatus like "%"#{searchPhrase, jdbcType=VARCHAR}"%"
+          or CreatedDate like "%"#{searchPhrase, jdbcType=VARCHAR}"%"
+          or ModifiedDate like "%"#{searchPhrase, jdbcType=VARCHAR}"%"
+          or TVStatus like "%"#{searchPhrase, jdbcType=LONGVARCHAR}"%"
+        </if>
+    </trim>
+    <trim prefix=" order by " suffix=" " suffixOverrides=",">
+        <if test="IdSort != null" >
+          Id ${IdSort},
+        </if>
+        <if test="GroupNameSort != null" >
+          GroupName ${GroupNameSort},
+        </if>
+        <if test="TVIdSort != null" >
+          TVId ${TVIdSort},
+        </if> 
+        <if test="FirmwareIdSort != null" >
+          FirmwareId ${FirmwareIdSort},
+        </if>
+        <if test="CloneIdSort != null" >
+          CloneId ${CloneIdSort},
+        </if>
+        <if test="StatusSort != null" >
+          Status ${StatusSort},
+        </if>
+    </trim>
+    limit #{offset,jdbcType=INTEGER},#{rowCount,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from groups

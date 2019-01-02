@@ -1,5 +1,8 @@
 package com.xum.cmnd.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import com.xum.cmnd.pojo.Groups;
 
 public interface GroupsMapper {
@@ -9,6 +12,8 @@ public interface GroupsMapper {
 
     int insertSelective(Groups record);
 
+    int selectAllCount();
+
     Groups selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(Groups record);
@@ -16,4 +21,6 @@ public interface GroupsMapper {
     int updateByPrimaryKeyWithBLOBs(Groups record);
 
     int updateByPrimaryKey(Groups record);
+
+    List<Map<String, Object>> selectGroupsWithBootGrid(Map<String, Object> mapPara);
 }

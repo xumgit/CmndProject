@@ -1,10 +1,45 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Msg</title>
-</head>
-<body>
-	<div style="color:red;">Msg</div>
-</body>
-</html>
+<div role="tabpane5" class="tab-pane" id="tabs_msg" style="">
+	<div style="clear: both;">&nbsp;</div>						<!-- pr836 -->
+	<div style="float:left;margin-top:15px;">
+		<h5 style="float:left;">&nbsp;&nbsp;Show messages of:&nbsp;&nbsp;</h5>
+		<select id = "msgfilter1" class="form-control" style="width: 150px">
+			<option value = "Guest Name">Guest Name</option>
+			<option value = "Guest Group">Guest Group</option>
+			<option value = "TV Group">TV Group</option>
+			<option value = "Reservation Id">Reservation Id</option>
+			<option value = "Room Id">Room Id</option>
+			<option value = "All" selected>All</option>
+		</select>
+	</div>
+			<!-- pr836 -->
+	<div style="float:left;margin-top:15px;">
+		&nbsp;&nbsp;
+	</div>
+			<!-- pr836 -->
+	<div style="float:left;margin-top:15px;">
+		<select id = "msgfilter2" class="form-control" style="width: 220px" disabled>
+		</select>
+	</div>
+			<!-- pr836 -->
+	<div style="float:left;margin-top:15px;">
+		&nbsp;&nbsp;
+	</div>
+			
+	<div style="float:left;margin-top:15px;">
+		<label class="btn btn-primary" id="CreateMsgBtn" data-toggle="modal">
+			<span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Add
+		</label>&nbsp;
+	</div>
+			
+	<table id="grid-message" class="table table-hover bootgrid-table">
+		<thead>
+			<tr>
+				<th data-width="60px" data-column-id="messageStatus" data-formatter="messageStatus" data-visible="true"></th><!-- pr812 -->
+				<th data-column-id="guestIds" data-formatter="guestIds" data-identifier="true" data-visible="true">Recipients</th>
+				<th data-width="60%" data-column-id="content" data-formatter="content" data-visible="true">Message</th>
+				<th data-column-id="timeSend" data-formatter="timeSend" data-visible="true">Time Send</th>
+				<th data-column-action="action" data-formatter="action" data-sortable="false">Action</th>
+			</tr>
+		</thead>
+	</table>
+</div>
