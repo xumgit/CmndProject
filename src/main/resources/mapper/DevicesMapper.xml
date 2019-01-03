@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xum.cmnd.dao.DevicesMapper" >
-  <resultMap id="BaseResultMap" type="com.xum.cmnd.pojo.Devices" >
+  <resultMap id="BaseResultMap" type="Devices" >
     <id column="Id" property="id" jdbcType="VARCHAR" />
     <result column="TVName" property="tvname" jdbcType="VARCHAR" />
     <result column="TVModelNumber" property="tvmodelnumber" jdbcType="VARCHAR" />
@@ -40,7 +40,7 @@
     <result column="upgrade_type" property="upgradeType" jdbcType="VARCHAR" />
     <result column="networkInterfaceIp" property="networkinterfaceip" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.xum.cmnd.pojo.DevicesWithBLOBs" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="DevicesWithBLOBs" extends="BaseResultMap" >
     <result column="TVStatus" property="tvstatus" jdbcType="LONGVARCHAR" />
     <result column="si_Identifiers" property="siIdentifiers" jdbcType="LONGVARCHAR" />
   </resultMap>
@@ -123,7 +123,7 @@
     delete from devices
     where Id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.xum.cmnd.pojo.DevicesWithBLOBs" >
+  <insert id="insert" parameterType="DevicesWithBLOBs" >
     insert into devices (Id, TVName, TVModelNumber, 
       TVSerialNumber, TVRoomID, TVMACAddress, 
       TVIPAddress, VSecureTVID, Type, 
@@ -155,7 +155,7 @@
       #{networkinterfaceip,jdbcType=VARCHAR}, #{tvstatus,jdbcType=LONGVARCHAR}, #{siIdentifiers,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.xum.cmnd.pojo.DevicesWithBLOBs" >
+  <insert id="insertSelective" parameterType="DevicesWithBLOBs" >
     insert into devices
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -396,7 +396,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.xum.cmnd.pojo.DevicesWithBLOBs" >
+  <update id="updateByPrimaryKeySelective" parameterType="DevicesWithBLOBs" >
     update devices
     <set >
       <if test="tvname != null" >
@@ -516,7 +516,7 @@
     </set>
     where Id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xum.cmnd.pojo.DevicesWithBLOBs" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="DevicesWithBLOBs" >
     update devices
     set TVName = #{tvname,jdbcType=VARCHAR},
       TVModelNumber = #{tvmodelnumber,jdbcType=VARCHAR},
@@ -558,7 +558,7 @@
       si_Identifiers = #{siIdentifiers,jdbcType=LONGVARCHAR}
     where Id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.xum.cmnd.pojo.Devices" >
+  <update id="updateByPrimaryKey" parameterType="Devices" >
     update devices
     set TVName = #{tvname,jdbcType=VARCHAR},
       TVModelNumber = #{tvmodelnumber,jdbcType=VARCHAR},

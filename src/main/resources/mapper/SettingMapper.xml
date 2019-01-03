@@ -33,6 +33,9 @@
   <sql id="Blob_Column_List" >
     name, value, cloneRename, isDelete, androidApps, cloneItemStatus
   </sql>
+  <select id="selectAllCount" resultType="java.lang.Integer">
+   	select count(1) from setting
+  </select>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -40,6 +43,46 @@
     <include refid="Blob_Column_List" />
     from setting
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectSettingWithBootGrid" parameterType="java.util.Map" resultType="java.util.Map">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from setting
+    <trim prefix=" where (" suffix=") "> 
+      <if test="searchPhrase != null">
+          id like "%"#{searchPhrase, jdbcType=VARCHAR}"%" 
+          or platform like "%"#{searchPhrase, jdbcType=VARCHAR}"%" 
+          or type like "%"#{searchPhrase, jdbcType=VARCHAR}"%" 
+          or created_by like "%"#{searchPhrase, jdbcType=VARCHAR}"%" 
+          or created_date like "%"#{searchPhrase, jdbcType=VARCHAR}"%"
+          or last_updated_by like "%"#{searchPhrase, jdbcType=VARCHAR}"%"
+          or last_updated_date like "%"#{searchPhrase, jdbcType=VARCHAR}"%"
+          or geoname_id like "%"#{searchPhrase, jdbcType=VARCHAR}"%"
+          or language like "%"#{searchPhrase, jdbcType=VARCHAR}"%"
+          or content like "%"#{searchPhrase, jdbcType=VARCHAR}"%"
+          or channelPackageId like "%"#{searchPhrase, jdbcType=VARCHAR}"%"
+        </if>
+    </trim>
+    <trim prefix=" order by " suffix=" " suffixOverrides=",">
+        <if test="idSort != null" >
+          id ${idSort},
+        </if>
+        <if test="platformSort != null" >
+          platform ${platformSort},
+        </if>
+        <if test="typeSort != null" >
+          type ${typeSort},
+        </if> 
+        <if test="languageSort != null" >
+          language ${languageSort},
+        </if>
+        <if test="contentSort != null" >
+          content ${contentSort},
+        </if>
+    </trim>
+    limit #{offset,jdbcType=INTEGER},#{rowCount,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from setting
