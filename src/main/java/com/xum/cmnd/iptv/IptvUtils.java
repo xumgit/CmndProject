@@ -26,6 +26,9 @@ public class IptvUtils {
 	@Autowired
 	private TVDiscoveryService tVDiscoveryService;
 	
+	@Autowired
+	private IPCloneService iPCloneService;
+	
 	public String tvResponseDetails(String data, String clientip) {
 		String responseData = "";
 		
@@ -57,7 +60,7 @@ public class IptvUtils {
 			} else if("SIService".equalsIgnoreCase(_function)){
 				//responseData = ProfessionalSettingsParameters(commandDetails, webServiceParameters, clientip);
 			} else if("IPCloneService".equalsIgnoreCase(_function)){
-				//responseData = IPCloneService(commandDetails, webServiceParameters, clientip);
+				responseData = iPCloneService.handleIPCloneService(commandDetails, webServiceParameters, clientip);
 			} else if("ApplicationControl".equalsIgnoreCase(_function)) {
 				if("Request".equalsIgnoreCase(jsonObject.get("CmdType").toString())){
 					//responseData = AppCtrlForRequest(commandDetails, webServiceParameters, clientip);

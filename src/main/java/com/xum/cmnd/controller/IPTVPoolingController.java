@@ -38,7 +38,7 @@ public class IPTVPoolingController {
 	@RequestMapping(value = "/iptvpolling")
 	@ResponseBody
 	public String iptvPolling() {
-		String status = "N";
+		String status = "{\"status\":\"N\"}";
 		String tvRetryFlag = "N";
 		String tvUpgradeResult = "None";
 		if(!CommonVariables.hashMap.isEmpty()) {
@@ -65,7 +65,7 @@ public class IPTVPoolingController {
 		    }
 		    
 		    Gson gson = new Gson();
-		    status = "{\"TVUpload\":" + gson.toJson(tvUpload) + ",\"TVUpgrade\":" + gson.toJson(tvUpgrade) + 
+		    status = "{\"status\":\"Y\",\"TVUpload\":" + gson.toJson(tvUpload) + ",\"TVUpgrade\":" + gson.toJson(tvUpgrade) + 
 		    		 ",\"TvLength\":\"" + devicesService.selectAllWithList().size() + "\",\"TvRetryFlag\":\"" + tvRetryFlag + 
 		    		 "\",\"TvUpgradeResult\":\"" + tvUpgradeResult + "\"}";				
 		    CommonVariables.hashMap.clear();		   	    

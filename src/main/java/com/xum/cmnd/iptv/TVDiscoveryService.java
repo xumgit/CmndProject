@@ -11,6 +11,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.xum.cmnd.common.CommonVariables;
 import com.xum.cmnd.pojo.DevicesWithBLOBs;
 import com.xum.cmnd.service.DevicesService;
 import com.xum.cmnd.utils.JAPITUtils;
@@ -110,7 +111,7 @@ public class TVDiscoveryService {
 		
 		LOG.info("bChange=" + bChange + ",affectRow=" + affectRow);
 		if(bChange) {
-			//hashMap.put("tv", "change"); 				
+			CommonVariables.hashMap.put("tv", "change"); 				
 			//PmsUtils.setUpdated();
 		}
 			

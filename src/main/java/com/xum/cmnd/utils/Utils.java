@@ -1,8 +1,13 @@
 package com.xum.cmnd.utils;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,6 +21,112 @@ public class Utils {
 	public static String GetDate() {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss");
 		return dateFormat.format(new Date());
+	}
+	
+	public static boolean isReachable(String ipAddress) throws UnknownHostException {
+		InetAddress inet = InetAddress.getByName(ipAddress);
+		boolean reachable = false;
+		try {
+			reachable = inet.isReachable(5000);
+		} catch (IOException e) {
+			LOG.error(e.getMessage(), e);
+		}
+
+		return reachable;
+	}
+	
+	public static String getMaxItemVersion(ArrayList<String> allItemVersions, String platform){
+		
+		if((null == allItemVersions) || (0 == allItemVersions.size())){
+			return "";
+		}
+		Iterator<String> it = allItemVersions.iterator();
+		ArrayList<Date> convertDates = new ArrayList<Date>();
+		SimpleDateFormat format = new SimpleDateFormat();
+		if("2K14/2K15-MS".equals(platform)){
+			format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		}else if("2016 MS".equals(platform) || "2016 SS".equals(platform)){//Android
+			format = new SimpleDateFormat("dd/MM/yyyy:HH:mm");
+		}
+		
+		
+		while(it.hasNext()){
+			String version = it.next();
+			Date date = null;
+			String  pos11Str = "";
+			try{
+				if("2K14/2K15-MS".equals(platform)){
+					version = version.replace("/", "-");
+					pos11Str = version.substring(10, 11);
+					SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd"+pos11Str+"HH:mm");
+					date = format1.parse(version);
+				}else{
+					date = format.parse(version);
+				}
+				convertDates.add(date);
+				LOG.info("clone item version : " + date.toString());
+			}catch(Exception e){
+				//LOG.error(e.getMessage(), e);
+			}
+		}
+		
+		if(convertDates == null || convertDates.size() == 0){
+			return "";
+		}
+		Iterator<Date> dateIt = convertDates.iterator();
+		Date maxVersion = convertDates.get(0);
+		while(dateIt.hasNext()){
+			Date date = dateIt.next();
+			if(maxVersion.compareTo(date) < 0){
+				maxVersion = date;
+			}
+		}
+		LOG.info("max version : " + maxVersion.toString());
+		return format.format(maxVersion);
+	}
+	
+	public static String uniformDateFormatForTvCloneIdentifiers(ArrayList<String> allItemVersions, String platform){
+		
+		if((null == allItemVersions) || (0 == allItemVersions.size())){
+			return "";
+		}
+		String ret = "";
+		StringBuilder stringBuilder = new StringBuilder();
+		SimpleDateFormat format = new SimpleDateFormat();
+		if("2K14/2K15-MS".equals(platform)){
+			format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		}/*else if("2016".equals(platform)){//Android no need deal because of read TvCloneIdentifiers will jude in DeviceServlet 
+			format = new SimpleDateFormat("dd/MM/yyyy:HH:mm");
+		}*/
+		
+		Iterator<String> it = allItemVersions.iterator();
+		while(it.hasNext()){
+			String version = it.next();
+			Date date = null;
+			String  pos11Str = "";
+			try{
+				if("2K14/2K15-MS".equals(platform)){
+					version = version.replace("/", "-");
+					pos11Str = version.substring(10, 11);
+					SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd"+pos11Str+"HH:mm");
+					date = format1.parse(version);
+					stringBuilder.append(format.format(date)+",");
+					
+				}else{//Android
+					//date = format.parse(version);
+					stringBuilder.append(version+",");
+					
+				}
+				
+			}catch(Exception e){//Android will enter 
+				//no deal with,remain the old dateStr
+				//stringBuilder.append(version+",");
+			}
+		}
+		ret = stringBuilder.toString();
+		ret = ret.substring(0, ret.length() -1);
+		LOG.info(platform + " TvCloneIdentifiers in DeviceServlet="+ ret);
+		return ret;
 	}
 	
 	public static String GetVersion(String version) {

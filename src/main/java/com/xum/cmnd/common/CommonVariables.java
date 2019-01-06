@@ -12,6 +12,9 @@ public class CommonVariables {
 	public static String TARGET_PORT = ":"+ CommonConstants.TV_WIXP_PORT + "/WIXP";
 	public static String reboot = "REBOOT";
 	public static Integer MAX_RESEND_COUNTER = 3; 
+	
+	public static final String CLONE_MODE_UPGRADE = "Upgrade";
+	public static final String CLONE_MODE_UPLOAD = "Upload";
 		
 	public static ConcurrentHashMap<String, String> hashMap = new ConcurrentHashMap<String, String>();
 	public static HashMap<String, Integer> reSendCounter = new HashMap<String, Integer>();

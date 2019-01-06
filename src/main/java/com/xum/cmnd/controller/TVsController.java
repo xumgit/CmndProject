@@ -30,14 +30,31 @@ public class TVsController {
 	
 	@RequestMapping(value="/getDevices")
 	@ResponseBody
-	public String getDevices(@RequestParam(value="current", required=false, defaultValue="1") Integer current,
-			@RequestParam(value="rowCount", required=false, defaultValue="10") Integer rowCount,
-			@RequestParam(value="searchPhrase", required=false) String searchPhrase) {
+	public String getDevices(@RequestParam(value="current", required=true, defaultValue="1") Integer current,
+			@RequestParam(value="rowCount", required=true, defaultValue="10") Integer rowCount,
+			@RequestParam(value="searchPhrase", required=false) String searchPhrase,
+			@RequestParam(value="sort[TVIPAddress]", required=false) String sortTVIPAddress) {
+		Map<String, Object> mapPara = new HashMap<String, Object>();
+		int offset = 0;
+		if (current > 0) { 
+			offset = (current - 1) * rowCount;
+		}
+		mapPara.put("offset", offset);
+		mapPara.put("rowCount", rowCount);
+		
+		if (searchPhrase != "" && searchPhrase != null) {
+			mapPara.put("searchPhrase", searchPhrase);
+		}
+		
+		if (sortTVIPAddress != null) {
+			mapPara.put("TVIPAddressSort", sortTVIPAddress);
+		}
+		
 		int total = 0;
 		total = this.devicesService.selectAllCount();
 		JsonObject data = new JsonObject();
 		JsonArray array = new JsonArray();
-		List<Map<String, Object>> authors = this.devicesService.selectAllWithMap();
+		List<Map<String, Object>> authors = this.devicesService.selectDevicesWithBootGrid(mapPara);
 		JsonObject jsonObj = null;
 		for (Map<String, Object> kv : authors) { 
 			jsonObj = new JsonObject();

@@ -104,8 +104,8 @@
       	<if test="TvNameSort != null" >
         	TVName ${TvNameSort},
       	</if>
-      	<if test="TVModelNumberSort != null" >
-        	TVModelNumber ${TVModelNumberSort},
+      	<if test="TVIPAddressSort != null" >
+        	TVIPAddress ${TVIPAddressSort},
       	</if> 
       	<if test="TVRoomIDSort != null" >
         	TVRoomID ${TVRoomIDSort},

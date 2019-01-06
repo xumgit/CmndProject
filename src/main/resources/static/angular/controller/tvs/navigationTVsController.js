@@ -3,8 +3,8 @@
  */
 
 cmndProjectApps.controller('navigationTVsController', ['$scope', '$rootScope', '$http', '$location', 
-'locals', '$state', '$stateParams', 'navigationService',
-    function($scope, $rootScope, $http, $location, locals, $state, $stateParams, navigationService) {
+'locals', '$state', '$stateParams', 'navigationService','$interval','$timeout',
+    function($scope, $rootScope, $http, $location, locals, $state, $stateParams, navigationService, $interval, $timeout) {
         console.log('navigationTVsController');
 
         $scope.tvs_main_nav_tab = "tvs";
@@ -13,8 +13,17 @@ cmndProjectApps.controller('navigationTVsController', ['$scope', '$rootScope', '
             //var sub_nav_tab = $rootScope.getCurrentNavTab($scope.tvs_main_nav_tab);
             //console.log("TVs=>sub_nav_tab:" + sub_nav_tab);
             //$scope.gotoSubTabPage(sub_nav_tab);
-            //$scope.selectTabsAndGoto($scope.tvs_main_nav_tab, sub_nav_tab);
+            //$scope.selectTabsAndGoto($scope.tvs_main_nav_tab, sub_nav_tab);          
         };
+
+        $scope.timer = $interval(function(){
+            navigationService.getIptvPollingData().then(function(data){
+                //console.log("status:" + data.status);
+                if (data.status != "N") {
+                    $('#grid_tvList').bootgrid('reload');
+                }
+            });
+        }, 3000); 
 
         $("#tvs_tabs li a").each(function(index, ele){  	
         	$(this).click(function(){
