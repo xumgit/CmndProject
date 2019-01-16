@@ -18,10 +18,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xum.cmnd.iptv.IptvUtils;
+import com.xum.cmnd.pojo.Devices;
 import com.xum.cmnd.service.DevicesService;
 
 import io.swagger.annotations.Api;
@@ -94,12 +96,20 @@ public class IPTVController {
 		return data;
 	}
 	
-	@ApiOperation(value = "testIptv", notes = "test function", code = 201)
-	@RequestMapping(value = "/index")
+	@ApiOperation(value = "Index", notes = "iptv test function", code = 201)
+	@RequestMapping(value = "/index", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public String index() {
 		String view = "iptv/index";		
 		LOG.info("test=>/SmartInstall/index");
 		return view;
+	}
+	
+	@ApiOperation(value = "testIptvIndex", notes = "iptv test function", code = 201)
+	@RequestMapping(value = "/iptvTest", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public void iptvTest(@RequestBody Devices devices) {
+		LOG.info("iptv Test");
+		return ;
 	}
 	
 }

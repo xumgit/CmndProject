@@ -90,12 +90,12 @@
 		    <version>2.6.1</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework.restdocs/spring-restdocs-mockmvc -->
-<!-- 		<dependency>
+ 		<dependency>
 		    <groupId>org.springframework.restdocs</groupId>
 		    <artifactId>spring-restdocs-mockmvc</artifactId>
 		    <version>1.2.1.RELEASE</version>
 		    <scope>test</scope>
-		</dependency> -->
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-staticdocs -->
 		<dependency>
 		    <groupId>io.springfox</groupId>
@@ -157,6 +157,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
+		</dependency>
+		<dependency>
+            <groupId>org.jruby</groupId>
+			<artifactId>jruby-complete</artifactId>
+			<version>1.7.26</version>
 		</dependency>
 	</dependencies>
 
