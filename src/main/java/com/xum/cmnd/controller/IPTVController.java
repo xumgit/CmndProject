@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +24,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xum.cmnd.iptv.IptvUtils;
 import com.xum.cmnd.service.DevicesService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(value = "HandleIPTV info", description = "IPTV API", tags = "IPTVApi", 
+consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 @Controller
 @RequestMapping(value = "/SmartInstall")
 public class IPTVController {
@@ -31,8 +37,9 @@ public class IPTVController {
 	
 	@Autowired
 	private IptvUtils iptvUtils;
-		
-	@RequestMapping(value = "/webservices.jsp")
+	
+	@ApiOperation(value = "entry", notes = "all iptv info entry")
+	@RequestMapping(value = "/webservices.jsp", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public String iptv(@RequestBody String requestData, HttpServletRequest request, HttpServletResponse response) {
 		String data = "";
@@ -87,6 +94,7 @@ public class IPTVController {
 		return data;
 	}
 	
+	@ApiOperation(value = "testIptv", notes = "test function", code = 201)
 	@RequestMapping(value = "/index")
 	public String index() {
 		String view = "iptv/index";		

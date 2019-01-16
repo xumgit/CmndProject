@@ -1,78 +1,120 @@
 package com.xum.cmnd.pojo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value = "Devices", description = "Device table info")
 public class Devices {
+	
+	@ApiModelProperty("KeyWord")
     private String id;
 
+	@ApiModelProperty("TV name")
     private String tvname;
 
+	@ApiModelProperty("TV model number")
     private String tvmodelnumber;
 
+	@ApiModelProperty("TV serial number")
     private String tvserialnumber;
 
+	@ApiModelProperty("TV room id")
     private String tvroomid;
 
+	@ApiModelProperty("TV mac address")
     private String tvmacaddress;
 
+	@ApiModelProperty("TV ip address")
     private String tvipaddress;
 
+	@ApiModelProperty("TV vsecuretv id")
     private String vsecuretvid;
 
+	@ApiModelProperty("TV type")
     private String type;
 
+	@ApiModelProperty("TV power status")
     private String powerstatus;
 
+	@ApiModelProperty("TV uniqueid")
     private String tvuniqueid;
 
+	@ApiModelProperty("TV assign firmware id")
     private Integer firmwareid;
 
+	@ApiModelProperty("TV assign clone id")
     private Integer cloneid;
 
+	@ApiModelProperty("TV last clone name")
     private String lastclonerename;
 
+	@ApiModelProperty("TV status")
     private String status;
 
+	@ApiModelProperty("TV progress")
     private String progress;
 
+	@ApiModelProperty("TV siCloneIdentifiers")
     private String siCloneIdentifiers;
 
+	@ApiModelProperty("TV siFirmwareIdentifier")
     private String siFirmwareIdentifier;
 
+	@ApiModelProperty("TV tvCloneIdentifiers")
     private String tvCloneIdentifiers;
 
+	@ApiModelProperty("TV tvFirmwareIdentifier")
     private String tvFirmwareIdentifier;
 
+	@ApiModelProperty("TV successSicloneIdentifier")
     private String successSicloneIdentifier;
 
+	@ApiModelProperty("TV successTvcloneIdentifier")
     private String successTvcloneIdentifier;
 
+	@ApiModelProperty("TV cloneColor")
     private String cloneColor;
 
+	@ApiModelProperty("TV fwColor")
     private String fwColor;
 
+	@ApiModelProperty("TV createddate")
     private String createddate;
 
+	@ApiModelProperty("TV modifieddate")
     private String modifieddate;
 
+	@ApiModelProperty("TV lastonline")
     private String lastonline;
 
+	@ApiModelProperty("TV cloneMode")
     private String cloneMode;
 
+	@ApiModelProperty("TV uploadProgress")
     private String uploadProgress;
 
+	@ApiModelProperty("TV uploadSessionId")
     private String uploadSessionId;
 
+	@ApiModelProperty("TV uploadSessionStart")
     private String uploadSessionStart;
 
+	@ApiModelProperty("TV uploadSessionEnd")
     private String uploadSessionEnd;
 
+	@ApiModelProperty("TV uploadSessionStatus")
     private String uploadSessionStatus;
 
+	@ApiModelProperty("TV channelColor")
     private String channelColor;
 
+	@ApiModelProperty("TV appColor")
     private String appColor;
 
+	@ApiModelProperty("TV upgradeType")
     private String upgradeType;
 
+	@ApiModelProperty("TV networkinterfaceip")
     private String networkinterfaceip;
 
     public String getId() {
