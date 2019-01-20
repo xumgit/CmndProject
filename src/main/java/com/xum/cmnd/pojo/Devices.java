@@ -3,118 +3,170 @@ package com.xum.cmnd.pojo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(value = "Devices", description = "Device table info")
+import org.springframework.beans.factory.annotation.Value;
+
+/*
+ * @ApiModelProperty()用于方法，字段； 表示对model属性的说明或者数据操作更改 
+ *	value–字段说明 
+ *	name–重写属性名字 
+ *	dataType–重写属性类型 
+ *	required–是否必填 
+ *	example–举例说明 
+ *	hidden–隐藏
+ * 
+ * */
+
+@ApiModel(value = "Devices", description = "devices column info")
 public class Devices {
 	
-	@ApiModelProperty("KeyWord")
+	@ApiModelProperty(notes = "devices id", name = "id", 
+			required = true, value = "devices id, uniqueid")
     private String id;
 
-	@ApiModelProperty("TV name")
+	@ApiModelProperty(notes = "devices name", name = "tvname", 
+			required = true, value = "devices name")
+	@Value("null")
     private String tvname;
 
-	@ApiModelProperty("TV model number")
+	@ApiModelProperty(notes = "devices model number", name = "tvmodelnumber", 
+			required = true, value = "devices tvmodelnumber")
     private String tvmodelnumber;
 
-	@ApiModelProperty("TV serial number")
+	@ApiModelProperty(notes = "devices serial number", name = "tvserialnumber", 
+			required = true, value = "devices tvserialnumber")
     private String tvserialnumber;
 
-	@ApiModelProperty("TV room id")
+	@ApiModelProperty(notes = "devices room id", name = "tvroomid", 
+			required = true, value = "devices tvroomid")
     private String tvroomid;
 
-	@ApiModelProperty("TV mac address")
+	@ApiModelProperty(notes = "devices mac address", name = "tvmacaddress", 
+			required = true, value = "devices tvmacaddress")
     private String tvmacaddress;
 
-	@ApiModelProperty("TV ip address")
+	@ApiModelProperty(notes = "devices ip address", name = "tvipaddress", 
+			required = true, value = "devices tvipaddress")
     private String tvipaddress;
 
-	@ApiModelProperty("TV vsecuretv id")
+	@ApiModelProperty(notes = "devices vsecure id", name = "vsecuretvid", 
+			required = true, value = "devices vsecuretvid")
     private String vsecuretvid;
 
-	@ApiModelProperty("TV type")
+	@ApiModelProperty(notes = "devices type", name = "type", 
+			required = true, value = "devices type")
     private String type;
 
-	@ApiModelProperty("TV power status")
+	@ApiModelProperty(notes = "devices power status", name = "powerstatus", 
+			required = true, value = "devices powerstatus")
     private String powerstatus;
 
-	@ApiModelProperty("TV uniqueid")
+	@ApiModelProperty(notes = "devices tvunique id", name = "tvuniqueid", 
+			required = true, value = "devices tvuniqueid")
     private String tvuniqueid;
 
-	@ApiModelProperty("TV assign firmware id")
+	@ApiModelProperty(notes = "devices firmware id", name = "firmwareid", 
+			required = true, value = "devices firmwareid")
     private Integer firmwareid;
 
-	@ApiModelProperty("TV assign clone id")
+	@ApiModelProperty(notes = "devices clone id", name = "cloneid", 
+			required = true, value = "devices cloneid")
     private Integer cloneid;
 
-	@ApiModelProperty("TV last clone name")
+	@ApiModelProperty(notes = "devices last clone name", name = "lastclonerename", 
+			required = true, value = "devices lastclonerename")
+	@Value("{\"old\":\"Unknown\",\"new\":\"Unknown\"}")
     private String lastclonerename;
 
-	@ApiModelProperty("TV status")
+	@ApiModelProperty(notes = "devices status", name = "status", 
+			required = true, value = "devices status")
     private String status;
 
-	@ApiModelProperty("TV progress")
+	@ApiModelProperty(notes = "devices progress", name = "progress", 
+			required = true, value = "devices progress")
     private String progress;
-
-	@ApiModelProperty("TV siCloneIdentifiers")
+    
+	@ApiModelProperty(notes = "devices si Clone Identifiers", name = "siCloneIdentifiers", 
+			required = true, value = "devices siCloneIdentifiers")
     private String siCloneIdentifiers;
 
-	@ApiModelProperty("TV siFirmwareIdentifier")
+	@ApiModelProperty(notes = "devices si Firmware Identifier", name = "siFirmwareIdentifier", 
+			required = true, value = "devices siFirmwareIdentifier")
     private String siFirmwareIdentifier;
 
-	@ApiModelProperty("TV tvCloneIdentifiers")
+	@ApiModelProperty(notes = "devices tv Clone Identifiers", name = "tvCloneIdentifiers", 
+			required = true, value = "devices tvCloneIdentifiers")
     private String tvCloneIdentifiers;
 
-	@ApiModelProperty("TV tvFirmwareIdentifier")
+	@ApiModelProperty(notes = "devices tv Firmware Identifier", name = "tvFirmwareIdentifier", 
+			required = true, value = "devices tvFirmwareIdentifier")
     private String tvFirmwareIdentifier;
 
-	@ApiModelProperty("TV successSicloneIdentifier")
+	@ApiModelProperty(notes = "devices success siclone Identifier", name = "successSicloneIdentifier", 
+			required = true, value = "devices successSicloneIdentifier")
     private String successSicloneIdentifier;
 
-	@ApiModelProperty("TV successTvcloneIdentifier")
+	@ApiModelProperty(notes = "devices success tv cloneIdentifier", name = "successTvcloneIdentifier", 
+			required = true, value = "devices successTvcloneIdentifier")
     private String successTvcloneIdentifier;
 
-	@ApiModelProperty("TV cloneColor")
+	@ApiModelProperty(notes = "devices clone color", name = "cloneColor", 
+			required = true, value = "devices cloneColor")
     private String cloneColor;
 
-	@ApiModelProperty("TV fwColor")
+	@ApiModelProperty(notes = "devices fw color", name = "fwColor", 
+			required = true, value = "devices fwColor")
     private String fwColor;
 
-	@ApiModelProperty("TV createddate")
+	@ApiModelProperty(notes = "devices created date", name = "createddate", 
+			required = true, value = "devices createddate")
     private String createddate;
 
-	@ApiModelProperty("TV modifieddate")
+	@ApiModelProperty(notes = "devices modified date", name = "modifieddate", 
+			required = true, value = "devices modifieddate")
     private String modifieddate;
 
-	@ApiModelProperty("TV lastonline")
+	@ApiModelProperty(notes = "devices last online", name = "lastonline", 
+			required = true, value = "devices last online time")
     private String lastonline;
 
-	@ApiModelProperty("TV cloneMode")
+	@ApiModelProperty(notes = "devices clone mode", name = "cloneMode", 
+			required = true, value = "devices cloneMode")
     private String cloneMode;
 
-	@ApiModelProperty("TV uploadProgress")
+	@ApiModelProperty(notes = "devices upload progress", name = "uploadProgress", 
+			required = true, value = "devices uploadProgress")
     private String uploadProgress;
 
-	@ApiModelProperty("TV uploadSessionId")
+	@ApiModelProperty(notes = "devices upload session id", name = "uploadSessionId", 
+			required = true, value = "devices uploadSessionId")
     private String uploadSessionId;
 
-	@ApiModelProperty("TV uploadSessionStart")
+	@ApiModelProperty(notes = "devices upload session start", name = "uploadSessionStart", 
+			required = true, value = "devices uploadSessionStart")
     private String uploadSessionStart;
 
-	@ApiModelProperty("TV uploadSessionEnd")
+	@ApiModelProperty(notes = "devices upload session status", name = "uploadSessionStatus", 
+			required = true, value = "devices uploadSessionStatus")
     private String uploadSessionEnd;
 
-	@ApiModelProperty("TV uploadSessionStatus")
+	@ApiModelProperty(notes = "devices progress", name = "progress", 
+			required = true, value = "devices progress")
     private String uploadSessionStatus;
 
-	@ApiModelProperty("TV channelColor")
+	@ApiModelProperty(notes = "devices channel color", name = "channelColor", 
+			required = true, value = "devices channelColor")
     private String channelColor;
 
-	@ApiModelProperty("TV appColor")
+	@ApiModelProperty(notes = "devices app color", name = "appColor", 
+			required = true, value = "devices appColor")
     private String appColor;
 
-	@ApiModelProperty("TV upgradeType")
+	@ApiModelProperty(notes = "devices upgrade type", name = "upgradeType", 
+			required = true, value = "devices upgradeType")
     private String upgradeType;
 
-	@ApiModelProperty("TV networkinterfaceip")
+	@ApiModelProperty(notes = "devices network interface ip", name = "networkinterfaceip", 
+			required = true, value = "devices networkinterfaceip")
     private String networkinterfaceip;
 
     public String getId() {

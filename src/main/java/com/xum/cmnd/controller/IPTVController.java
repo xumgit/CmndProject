@@ -26,11 +26,6 @@ import com.xum.cmnd.iptv.IptvUtils;
 import com.xum.cmnd.pojo.Devices;
 import com.xum.cmnd.service.DevicesService;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-
-@Api(value = "HandleIPTV info", description = "IPTV API", tags = "IPTVApi", 
-consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 @Controller
 @RequestMapping(value = "/SmartInstall")
 public class IPTVController {
@@ -40,7 +35,6 @@ public class IPTVController {
 	@Autowired
 	private IptvUtils iptvUtils;
 	
-	@ApiOperation(value = "entry", notes = "all iptv info entry")
 	@RequestMapping(value = "/webservices.jsp", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public String iptv(@RequestBody String requestData, HttpServletRequest request, HttpServletResponse response) {
@@ -96,7 +90,6 @@ public class IPTVController {
 		return data;
 	}
 	
-	@ApiOperation(value = "Index", notes = "iptv test function", code = 201)
 	@RequestMapping(value = "/index", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public String index() {
 		String view = "iptv/index";		
@@ -104,7 +97,6 @@ public class IPTVController {
 		return view;
 	}
 	
-	@ApiOperation(value = "testIptvIndex", notes = "iptv test function", code = 201)
 	@RequestMapping(value = "/iptvTest", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public void iptvTest(@RequestBody Devices devices) {

@@ -11,4 +11,5 @@ public class CmndProjectApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CmndProjectApplication.class, args);
 	}
+
 }

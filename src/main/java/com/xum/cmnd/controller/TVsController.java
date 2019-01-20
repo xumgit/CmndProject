@@ -9,7 +9,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -19,6 +21,14 @@ import com.google.gson.JsonObject;
 import com.xum.cmnd.pojo.DevicesWithBLOBs;
 import com.xum.cmnd.service.DevicesService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
+
+@Api(tags = {"TVSList"})
 @Controller
 @RequestMapping(value = "/tvs")
 public class TVsController {
@@ -28,7 +38,14 @@ public class TVsController {
 	@Autowired
 	private DevicesService devicesService;
 	
-	@RequestMapping(value="/getDevices")
+	@ApiOperation(value = "getDevices", notes = "get all devices from devices table") 
+	@RequestMapping(value="/getDevices", method = RequestMethod.POST, produces = {"application/JSON"}, 
+		consumes = {"application/JSON","application/XML","text/plain"})
+	@ApiResponses(value = { 
+            @ApiResponse(code = 200, message = "Suceess|OK"),
+            @ApiResponse(code = 401, message = "not authorized!"), 
+            @ApiResponse(code = 403, message = "forbidden!!!"),
+            @ApiResponse(code = 404, message = "not found!!!") })
 	@ResponseBody
 	public String getDevices(@RequestParam(value="current", required=true, defaultValue="1") Integer current,
 			@RequestParam(value="rowCount", required=true, defaultValue="10") Integer rowCount,
@@ -71,7 +88,9 @@ public class TVsController {
 		return data.toString();
 	}
 	
-	@RequestMapping(value="/getSwAndCloneInfo")
+    @ApiOperation(value="getSwAndCloneInfo", notes = "get all devices sw and cl info")
+	@RequestMapping(value="/getSwAndCloneInfo", method = RequestMethod.POST, produces = {"application/JSON"}, 
+			consumes = {"application/JSON","application/XML","text/plain"})
 	@ResponseBody
 	public String getSwAndCloneInfo() {
 		JsonObject data = new JsonObject();
@@ -99,7 +118,23 @@ public class TVsController {
 		return data.toString();
 	}
 	
-	@RequestMapping(value="/saveDeviceName")
+    @ApiOperation(value="getDevicesInfoByTvUid/{tvUid}", notes = "according to tvUid, get current devices info")
+    @ApiImplicitParam(name = "tvUid", value = "tvUid", required = false, dataType = "String")
+    @RequestMapping(value = "/getDevicesInfoByTvUid/{tvUid}", method = RequestMethod.POST, produces = {"application/JSON"}, 
+			consumes = {"application/JSON","application/XML","text/plain"})
+    public DevicesWithBLOBs getDevicesInfoByTvUid(@PathVariable(value = "tvUid", required=false) String tvUid) {
+    	DevicesWithBLOBs devices = null;
+    	
+    	if (tvUid != "") { 
+    		devices = this.devicesService.selectByPrimaryKey(tvUid);
+    	}
+    	  	
+    	return devices;
+    }
+    
+    @ApiOperation(value="saveDeviceName", notes = "according to tvUid, save device name")
+	@RequestMapping(value="/saveDeviceName", method = RequestMethod.POST, produces = {"application/JSON"}, 
+			consumes = {"application/JSON","application/XML","text/plain"})
 	@ResponseBody
 	public String saveDeviceName(@RequestParam(value="tvUid", required=true, defaultValue="") String tvUid,
 			@RequestParam(value="deviceName", required=true, defaultValue="") String deviceName) {
