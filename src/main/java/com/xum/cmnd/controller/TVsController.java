@@ -38,9 +38,10 @@ public class TVsController {
 	@Autowired
 	private DevicesService devicesService;
 	
+	// consumes = {"application/JSON","application/XML","text/plain"}
 	@ApiOperation(value = "getDevices", notes = "get all devices from devices table") 
-	@RequestMapping(value="/getDevices", method = RequestMethod.POST, produces = {"application/JSON"}, 
-		consumes = {"application/JSON","application/XML","text/plain"})
+	@RequestMapping(value="/getDevices", method = {RequestMethod.POST}, produces = {"application/*"}, 
+		consumes = {"application/*"})
 	@ApiResponses(value = { 
             @ApiResponse(code = 200, message = "Suceess|OK"),
             @ApiResponse(code = 401, message = "not authorized!"), 
@@ -89,8 +90,8 @@ public class TVsController {
 	}
 	
     @ApiOperation(value="getSwAndCloneInfo", notes = "get all devices sw and cl info")
-	@RequestMapping(value="/getSwAndCloneInfo", method = RequestMethod.POST, produces = {"application/JSON"}, 
-			consumes = {"application/JSON","application/XML","text/plain"})
+	@RequestMapping(value="/getSwAndCloneInfo", method = {RequestMethod.GET}, produces = {"application/*"}, 
+			consumes = {"application/*"})
 	@ResponseBody
 	public String getSwAndCloneInfo() {
 		JsonObject data = new JsonObject();
@@ -120,8 +121,8 @@ public class TVsController {
 	
     @ApiOperation(value="getDevicesInfoByTvUid/{tvUid}", notes = "according to tvUid, get current devices info")
     @ApiImplicitParam(name = "tvUid", value = "tvUid", required = false, dataType = "String")
-    @RequestMapping(value = "/getDevicesInfoByTvUid/{tvUid}", method = RequestMethod.POST, produces = {"application/JSON"}, 
-			consumes = {"application/JSON","application/XML","text/plain"})
+    @RequestMapping(value = "/getDevicesInfoByTvUid/{tvUid}", method = {RequestMethod.POST}, produces = {"application/*"}, 
+			consumes = {"application/*"})
     public DevicesWithBLOBs getDevicesInfoByTvUid(@PathVariable(value = "tvUid", required=false) String tvUid) {
     	DevicesWithBLOBs devices = null;
     	
@@ -133,8 +134,8 @@ public class TVsController {
     }
     
     @ApiOperation(value="saveDeviceName", notes = "according to tvUid, save device name")
-	@RequestMapping(value="/saveDeviceName", method = RequestMethod.POST, produces = {"application/JSON"}, 
-			consumes = {"application/JSON","application/XML","text/plain"})
+	@RequestMapping(value="/saveDeviceName", method = {RequestMethod.POST}, produces = {"application/*"}, 
+			consumes = {"application/*"})
 	@ResponseBody
 	public String saveDeviceName(@RequestParam(value="tvUid", required=true, defaultValue="") String tvUid,
 			@RequestParam(value="deviceName", required=true, defaultValue="") String deviceName) {
