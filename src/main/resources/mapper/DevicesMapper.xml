@@ -74,6 +74,11 @@
     <include refid="Blob_Column_List" />
     from devices
   </select> 
+  <select id="selectAllByList" resultMap="BaseResultMap">
+   	select 
+  	<include refid="Base_Column_List" />
+    from devices
+  </select>
   <select id="selectAllWithList" resultMap="ResultMapWithBLOBs">
    	select 
   	<include refid="Base_Column_List" />

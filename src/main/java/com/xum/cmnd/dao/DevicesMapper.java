@@ -25,6 +25,8 @@ public interface DevicesMapper {
     
     List<Map<String, Object>> selectAllWithMap();
     
+    List<Devices> selectAllByList();
+    
     List<DevicesWithBLOBs> selectAllWithList();
     
     List<Map<String, Object>> selectDevicesWithBootGrid(Map<String, Object> mapPara);

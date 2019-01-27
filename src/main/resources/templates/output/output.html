@@ -1,0 +1,28 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<script type="text/javascript" th:src="@{/static/js/jquery-1.10.2.min.js}"></script>
+<title>OUTPUT</title>
+</head>
+<body>
+	<div>
+        <table class="example">
+		 <caption>OUTPUT</caption>
+			<thead>
+				<tr>
+				    <td>pdf</td>
+				    <td><a th:href="@{/output/pdf}" th:text="${'download'}"></a></td>
+				</tr>
+				<tr>
+				    <td>excel</td>
+				    <td><a th:href="@{/output/excel}" th:text="${'download'}"></a></td>
+				</tr>
+				<tr>
+				    <td>word</td>
+				    <td><a th:href="@{/output/word}" th:text="${'download'}"></a></td>
+				</tr>
+			</thead>
+		</table>
+	</div>
+</body>
+</html>

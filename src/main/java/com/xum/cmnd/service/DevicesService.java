@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.xum.cmnd.dao.DevicesMapper;
+import com.xum.cmnd.pojo.Devices;
 import com.xum.cmnd.pojo.DevicesWithBLOBs;
 
 @Service(value = "devicesService")
@@ -71,6 +72,12 @@ public class DevicesService {
 	public List<Map<String, Object>> selectAllWithMap() {
 		List<Map<String, Object>> devices = null;
 		devices = this.devicesMapper.selectAllWithMap();
+		return devices;
+	}
+	
+	public List<Devices> selectAllByList() {
+		List<Devices> devices = null;
+		devices = this.devicesMapper.selectAllByList();
 		return devices;
 	}
 	
