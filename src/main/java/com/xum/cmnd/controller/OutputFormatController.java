@@ -72,8 +72,8 @@ public class OutputFormatController {
 	@RequestMapping(value = "/pdf", method = RequestMethod.GET)
 	public void pdfExample(ModelMap model, HttpServletResponse response) {
 		//String status = "success";
-		String webRoot = System.getProperty("web.root");
-		String uploadPath = webRoot + "static" + File.separator + "upload";
+		String webRoot = System.getProperty("user.dir");
+		String uploadPath = webRoot + File.separator + "upload";
 		File file = new File(uploadPath);
 		if (!file.exists()) {
 			LOG.info("mkdir file=" + uploadPath);
