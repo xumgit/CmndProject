@@ -55,6 +55,8 @@ import com.xum.cmnd.pojo.DevicesWithBLOBs;
 import com.xum.cmnd.service.DevicesService;
 import com.xum.cmnd.utils.ExportExcelUtils;
 
+import io.swagger.annotations.ApiOperation;
+
 @Controller
 @RequestMapping(value = "/output")
 public class OutputFormatController {
@@ -64,11 +66,13 @@ public class OutputFormatController {
 	@Autowired
 	private DevicesService devicesService;
 	
+	@ApiOperation(value = "out", notes = "display out list") 
 	@RequestMapping(value = "/out", method = RequestMethod.GET)
 	public String outPutExample() {
 		return "output/output";
 	}
 	
+	@ApiOperation(value = "pdf", notes = "download pdf")
 	@RequestMapping(value = "/pdf", method = RequestMethod.GET)
 	public void pdfExample(ModelMap model, HttpServletResponse response) {
 		//String status = "success";
@@ -228,12 +232,13 @@ public class OutputFormatController {
 		//return "output/pdf";
 	}
 
+	@ApiOperation(value = "readpdf", notes = "read pdf")
 	@RequestMapping(value = "/readpdf", method = RequestMethod.GET)
 	public String pdfReadExample(ModelMap model) {
 		String status = "success";
-		String webRoot = System.getProperty("web.root");
+		String webRoot = System.getProperty("user.dir");
 		String fileName = "test.pdf";
-		String uploadPath = webRoot + "static" + File.separator + "upload" + File.separator + fileName;
+		String uploadPath = webRoot + File.separator + "upload" + File.separator + fileName;
 		try {
 			File file = new File(uploadPath);
 			if (file.exists()) {
@@ -242,7 +247,7 @@ public class OutputFormatController {
 				PdfStamper pdfStamper;
 				pdfStamper = new PdfStamper(pdfReader, new FileOutputStream(uploadPath));
 
-				String imageFilePath = webRoot + "static" + File.separator + "images" + File.separator + "img2.jpg";
+				String imageFilePath = webRoot + File.separator + "upload" + File.separator + "images" + File.separator + "test.jpg";
 				File imageFile = new File(imageFilePath);
 				if (imageFile.exists()) {
 					Image image = Image.getInstance(imageFilePath);
@@ -276,6 +281,7 @@ public class OutputFormatController {
 		return "output/readpdf";
 	}
 	
+	@ApiOperation(value = "excel", notes = "excel example")
 	@RequestMapping(value = "/excel", method = RequestMethod.GET)
 	public void excelExample(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
 		//String status = "success";
@@ -297,6 +303,7 @@ public class OutputFormatController {
 		//return "output/excel";
 	}
 	
+	@ApiOperation(value = "word", notes = "word example")
 	@RequestMapping(value = "/word", method = RequestMethod.GET)
 	public void wordExample(ModelMap model, HttpServletResponse response){  
 		// http://poi.apache.org/apidocs/org/apache/poi/xwpf/usermodel/XWPFParagraph.html#isWordWrapped--

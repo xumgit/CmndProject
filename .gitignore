@@ -10,7 +10,8 @@
 .springBeans
 .sts4-cache
 /log/
-/upload/
+/upload/*
+!/upload/images/
 
 ### IntelliJ IDEA ###
 .idea
