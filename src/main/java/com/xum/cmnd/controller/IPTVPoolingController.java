@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -22,6 +23,10 @@ import com.xum.cmnd.iptvpolling.SessionStatus;
 import com.xum.cmnd.pojo.DevicesWithBLOBs;
 import com.xum.cmnd.service.DevicesService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(tags = {"IPTVPolling"})
 @Controller
 @RequestMapping(value = "/SmartInstall")
 public class IPTVPoolingController {
@@ -35,7 +40,8 @@ public class IPTVPoolingController {
 		IPTVPoolingController.devicesService = devicesService;
     }
 	
-	@RequestMapping(value = "/iptvpolling")
+	@ApiOperation(value = "iptvpolling", notes = "time polling info") 
+	@RequestMapping(value = "/iptvpolling", method = {RequestMethod.POST})
 	@ResponseBody
 	public String iptvPolling() {
 		String status = "{\"status\":\"N\"}";

@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 @ApiModel(value = "Devices", description = "devices column info")
 public class Devices {
 	
-	@ApiModelProperty(notes = "devices id", name = "id", 
+	@ApiModelProperty(notes = "devices id", name = "id",
 			required = true, value = "devices id, uniqueid")
     private String id;
 

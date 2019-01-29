@@ -55,8 +55,10 @@ import com.xum.cmnd.pojo.DevicesWithBLOBs;
 import com.xum.cmnd.service.DevicesService;
 import com.xum.cmnd.utils.ExportExcelUtils;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+@Api(tags = {"OutputFormat"})
 @Controller
 @RequestMapping(value = "/output")
 public class OutputFormatController {

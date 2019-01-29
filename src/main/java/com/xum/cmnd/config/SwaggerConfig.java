@@ -16,8 +16,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
-	// http://localhost:8080/v2/api-docs
-	// http://localhost:8080/swagger-ui.html
+	// http://localhost:8081/v2/api-docs
+	// http://localhost:8081/swagger-ui.html
 	
 	@Bean
     public Docket api() {
@@ -34,7 +34,8 @@ public class SwaggerConfig {
         Tag[] tags = {
         	new Tag("IPTV", "Receive tv response content"),
             new Tag("IPTVHandle", "Handle tv response content"),
-            new Tag("IPTVPolling", "Time check")
+            new Tag("IPTVPolling", "Time check"),
+            new Tag("OutputFormat", "Output format")
         };
         return tags;
     }
@@ -43,7 +44,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("Test API")
                 .description("cmnd api function")
-                .termsOfServiceUrl("http://localhost:8080/navi/index")
+                .termsOfServiceUrl("http://localhost:8081/navi/index")
                 .version("1.0")
                 .build();
     }
