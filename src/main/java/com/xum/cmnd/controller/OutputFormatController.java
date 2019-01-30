@@ -50,6 +50,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.xum.cmnd.config.TestDefaultConfig;
 import com.xum.cmnd.pojo.Devices;
 import com.xum.cmnd.pojo.DevicesWithBLOBs;
 import com.xum.cmnd.service.DevicesService;
@@ -68,9 +69,15 @@ public class OutputFormatController {
 	@Autowired
 	private DevicesService devicesService;
 	
+	@Autowired
+	TestDefaultConfig testDefaultConfig;
+	
 	@ApiOperation(value = "out", notes = "display out list") 
 	@RequestMapping(value = "/out", method = RequestMethod.GET)
 	public String outPutExample() {
+		LOG.info("name:" + testDefaultConfig.getName());
+		LOG.info("age:" + testDefaultConfig.getAge());
+		LOG.info("province:" + testDefaultConfig.getProvince());
 		return "output/output";
 	}
 	

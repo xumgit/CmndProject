@@ -3,9 +3,13 @@ package com.xum.cmnd;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+
+import com.xum.cmnd.config.TestDefaultConfig;
 
 @SpringBootApplication
 @MapperScan({ "com.xum.cmnd.dao" })
+@EnableConfigurationProperties({TestDefaultConfig.class})  
 public class CmndProjectApplication {
 
 	public static void main(String[] args) {
