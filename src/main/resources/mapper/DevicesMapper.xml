@@ -67,6 +67,14 @@
     from devices
     where Id = #{id,jdbcType=VARCHAR}
   </select>
+  <select id="selectByParameter" resultMap="ResultMapWithBLOBs" parameterType="DevicesWithBLOBs" >
+    select 
+		Id
+    from devices
+    where TVRoomID = #{tvroomid,jdbcType=VARCHAR}
+		and TVIPAddress = #{tvipaddress,jdbcType=VARCHAR}
+		and Type = #{type,jdbcType=VARCHAR}
+  </select>
   <select id="selectAllWithMap" resultType="java.util.Map">
    	select 
   	<include refid="Base_Column_List" />

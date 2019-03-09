@@ -29,5 +29,20 @@
             return $q.reject(resp.status);
 	    });
    };
+   
+   this.addRFTVs = function(tvRoomIds, platfrom) {
+       return $http({
+			method: "post",
+			url: "/tvs/addRFTVs", 
+			params: {
+                    "tvRoomIds": tvRoomIds,
+                    "platfrom": platfrom
+            }
+		}).then(function(resp) {
+            return resp.data;
+		}, function(resp) {
+            return $q.reject(resp.status);
+	    });
+   };
 
 }]);

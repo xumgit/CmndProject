@@ -14,6 +14,8 @@ public interface DevicesMapper {
     int insertSelective(DevicesWithBLOBs record);
 
     DevicesWithBLOBs selectByPrimaryKey(String id);
+    
+    DevicesWithBLOBs selectByParameter(DevicesWithBLOBs record);
 
     int updateByPrimaryKeySelective(DevicesWithBLOBs record);
 

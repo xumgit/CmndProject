@@ -41,7 +41,7 @@ public class IPTVPoolingController {
     }
 	
 	@ApiOperation(value = "iptvpolling", notes = "time polling info") 
-	@RequestMapping(value = "/iptvpolling", method = {RequestMethod.POST})
+	@RequestMapping(value = "/iptvpolling", method = {RequestMethod.POST,RequestMethod.GET})
 	@ResponseBody
 	public String iptvPolling() {
 		String status = "{\"status\":\"N\"}";

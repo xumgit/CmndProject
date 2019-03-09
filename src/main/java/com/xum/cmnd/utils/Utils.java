@@ -18,6 +18,20 @@ public class Utils {
 
 	private static final Logger LOG = LogManager.getLogger(Utils.class);
 	
+	public static String getTVMAVAddress(String tvMAC) {
+		String tvMACAddress = "1A:2B:3C:4D:5E:6F";
+		StringBuilder tvMACABuff = new StringBuilder(tvMAC);
+		if (tvMACABuff.length() == 12) {
+			tvMACABuff.insert(2, ":");
+			tvMACABuff.insert(5, ":");
+			tvMACABuff.insert(8, ":");
+			tvMACABuff.insert(11, ":");
+			tvMACABuff.insert(14, ":");
+			tvMACAddress = tvMACABuff.toString().toUpperCase();
+		}
+		return tvMACAddress;
+	}
+	
 	public static String GetDate() {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss");
 		return dateFormat.format(new Date());

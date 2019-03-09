@@ -45,6 +45,12 @@ public class DevicesService {
 		return devicesWithBLOBs;
 	}
 	
+	public DevicesWithBLOBs selectByParameter(DevicesWithBLOBs record) {
+		DevicesWithBLOBs devicesWithBLOBs = null;
+		devicesWithBLOBs = this.devicesMapper.selectByParameter(record);
+		return devicesWithBLOBs;
+	}
+	
 	public int updateByPrimaryKeySelective(DevicesWithBLOBs record) {
 		int affectRow = -1;
 		affectRow = this.devicesMapper.updateByPrimaryKeySelective(record);

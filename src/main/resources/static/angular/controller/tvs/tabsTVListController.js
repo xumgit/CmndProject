@@ -59,6 +59,11 @@ cmndProjectApps.controller('tabsTVListController', ['$scope', '$rootScope', '$ht
 
         $scope.addDetectDevicesBtn = function() {
             console.log("addDetectDevicesBtn");
+            var tvRoomIds = "1,3,7,8,9";
+            var platfrom = "2019 PS";
+            tabsTVListService.addRFTVs(tvRoomIds,platfrom).then(function(data){
+                console.log("status:" + data.status);
+            });
         }
 
         $scope.CreateGroupBtn = function() {

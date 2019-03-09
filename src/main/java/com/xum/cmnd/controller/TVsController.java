@@ -1,9 +1,13 @@
 package com.xum.cmnd.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,6 +24,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.xum.cmnd.pojo.DevicesWithBLOBs;
 import com.xum.cmnd.service.DevicesService;
+import com.xum.cmnd.utils.Utils;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -147,7 +152,7 @@ public class TVsController {
 		if (tvUid != "") {
 			device.setId(tvUid);
 			device.setTvname(deviceName);
-			int affectRow = devicesService.updateByPrimaryKeySelective(device);
+			int affectRow = this.devicesService.updateByPrimaryKeySelective(device);
 			if (affectRow < 0) {
 				status = "{\"status\":\"failed\"}";
 			}
@@ -157,5 +162,64 @@ public class TVsController {
 		
 		return status;
 	}
+    
+    @ApiOperation(value="addRFTVs", notes = "add rf tv, just to test")
+	@RequestMapping(value="/addRFTVs", method = {RequestMethod.POST}, produces = {"application/*"}, 
+			consumes = {"application/*"})
+	@ResponseBody
+	public String addRFTV(@RequestParam(value="tvRoomIds", required=false, defaultValue="") String tvRoomIds,
+			@RequestParam(value="platform", required=false, defaultValue="2019 MS") String platform) {
+    	String status = "{\"status\":\"success\"}";
+  	    	
+    	if (tvRoomIds != null && tvRoomIds.length() > 0) {
+    		DevicesWithBLOBs device = new DevicesWithBLOBs();
+			device.setType(platform);
+			device.setTvipaddress("RF");
+    		DevicesWithBLOBs existDevice = null;
+    		String[] tvRoomIdsArr = tvRoomIds.split(",");
+    		int tvRoomIdlen = tvRoomIdsArr.length;
+    		for (int i = 0;i < tvRoomIdlen; i++) {
+    			String roomId = Utils.getTvRoomId(tvRoomIdsArr[i]);	
+    			String datetime = Utils.GetDate();
+    			Date dateName = new Date();        
+    	        SimpleDateFormat ft = new  SimpleDateFormat("dd MMM yyyy hh:mm:ss", Locale.ENGLISH);
+    	    	device.setTvroomid(roomId);
+    			existDevice = this.devicesService.selectByParameter(device);
+    			if (existDevice != null) { // had exist, not need add   				
+    				existDevice.setPowerstatus("On");
+    				existDevice.setLastonline(datetime);
+    				int affectRow = this.devicesService.updateByPrimaryKeySelective(existDevice);
+    				if (affectRow < 0) {
+    					LOG.info("had exist roomid:" + roomId + ",platform:" + platform + ",update failed");
+        			} else {
+        				LOG.info("had exist roomid:" + roomId + ",platform:" + platform + ",update success");
+        			}
+    			} else { // add RF device 
+        			String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+        			LOG.info(i + "=" + tvRoomIdsArr[i] + ",uuid=" + uuid);  
+        			String tvSerialNumber = "CMNDRF" + uuid.substring(0, 12);
+        			String tvMACAddress = Utils.getTVMAVAddress(uuid.substring(12, 24));
+        			String tvUniqueId = tvSerialNumber + tvMACAddress.replaceAll(":", "");
+        			LOG.info("tvSerialNumber=" + tvSerialNumber + ",TVMACAddress=" + tvMACAddress);
+        			device.setId(tvUniqueId);
+        			device.setTvname("TV " + ft.format(dateName));
+        	    	device.setPowerstatus("On");
+        	    	device.setCreateddate(datetime);
+        	    	device.setLastonline(datetime);
+        			device.setTvuniqueid(tvUniqueId);
+        			device.setTvserialnumber(tvSerialNumber);
+        			device.setTvmacaddress(tvMACAddress);      			
+        			int affectRow = this.devicesService.insertSelective(device);
+        			if (affectRow < 0) {
+        				status = "{\"status\":\"failed\"}";
+        			}
+    			}
+    		}
+    	} else {
+    		status = "{\"status\":\"failed\"}";
+    	}
+    	
+    	return status;
+    }
 	
 }
