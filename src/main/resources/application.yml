@@ -1,0 +1,45 @@
+server:
+   port: 8081
+ 
+#C:\Documents and Settings\All Users\MySQL\MySQL Server 5.7\Data
+spring:
+   datasource:
+      driverClassName: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/smartinstall?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+      username: root
+      password: 1332080218
+      #password = Lo7!1pJI8#Ko*$t
+      separator: $$
+      initialization-mode: ALWAYS
+      schema:
+         - classpath:sql/sql_*.sql
+   jackson:
+      serialization:
+         indent-output: true
+   thymeleaf:
+      prefix: classpath:/templates/
+      check-template-location: true
+      suffix: .html
+      encoding: UTF-8
+      servlet:
+         content-type: text/html
+      mode: HTML
+      cache: false
+
+#mybatis 
+mybatis:
+   mapper-locations: classpath:mapper/*.xml
+   config-location: classpath:config/mybatis/mybatis_config.xml
+   type-aliases-package: com.xum.cmnd.pojo
+
+#actuator
+# http://localhost:9091/actuator
+management:
+   server:
+      port = 9091
+   endpoint:
+      health:
+         show-details: always
+      web:
+         exposure:
+            include: '*'

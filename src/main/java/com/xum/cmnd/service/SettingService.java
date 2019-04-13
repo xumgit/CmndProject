@@ -50,6 +50,14 @@ public class SettingService {
 		this.settingMapper.settingTableChange();
 	}
 	
+	public void getSettingCountByPlatform(Map<String, Object> mapPara) {
+		this.settingMapper.getSettingCountByPlatform(mapPara);
+	}
+	
+	public void getSettingCountByPlatformAnother(Map<String, Object> mapPara) {
+		this.settingMapper.getSettingCountByPlatformAnother(mapPara);
+	}
+	
 	public SettingWithBLOBs selectByPrimaryKey(Integer id) {
 		SettingWithBLOBs settingWithBLOBs = null;
 		settingWithBLOBs = this.settingMapper.selectByPrimaryKey(id);

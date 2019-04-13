@@ -17,6 +17,10 @@ public interface SettingMapper {
     
     void settingTableChange();
     
+    void getSettingCountByPlatform(Map<String, Object> mapPara);
+    
+    void getSettingCountByPlatformAnother(Map<String, Object> mapPara);
+    
     SettingWithBLOBs selectByPrimaryKey(Integer id);
     
     List<Map<String, Object>> selectSettingWithBootGrid(Map<String, Object> mapPara);

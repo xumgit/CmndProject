@@ -37,8 +37,21 @@
    	select count(1) from setting
   </select>
   <select id="settingTableChange" statementType="CALLABLE">
-      CALL smartinstall.`setting_table_change`();
+      {CALL smartinstall.setting_table_change()}
   </select>
+  <select id="getSettingCountByPlatform" statementType="CALLABLE">
+      {CALL smartinstall.get_setting_count(
+      		#{platform, jdbcType=VARCHAR, mode=IN},
+      		#{totalCounts, jdbcType=INTEGER, mode=OUT}
+      )}
+  </select>
+   <select id="getSettingCountByPlatformAnother" parameterMap="getSettingCountMap" statementType="CALLABLE">
+      CALL smartinstall.`get_setting_count`(?,?);
+  </select>
+  <parameterMap type="java.util.Map" id="getSettingCountMap">
+      <parameter property="platform" mode="IN" jdbcType="VARCHAR"/>
+      <parameter property="totalCounts" mode="OUT" jdbcType="INTEGER"/>
+  </parameterMap>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
