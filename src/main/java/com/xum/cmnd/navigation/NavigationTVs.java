@@ -2,8 +2,12 @@ package com.xum.cmnd.navigation;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.xum.cmnd.service.SettingService;
 
 @Controller
 @RequestMapping(value = "/tvs")
@@ -12,7 +16,7 @@ public class NavigationTVs {
 	private static final Logger LOG = LogManager.getLogger(NavigationTVs.class);
 	
 	@RequestMapping(value = "/index")
-	public String index() {
+	public String index() {		
 		String view = "navigation/tvs/index";
 		return view;
 	}

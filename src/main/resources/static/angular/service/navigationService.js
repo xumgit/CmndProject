@@ -18,6 +18,14 @@ cmndProjectApps.service("navigationService", ["$q", "$http",'locals', '$state', 
 			return $q.reject(resp.status);
 		});
     };
+    
+    this.executeSqlScript = function() {
+		return $http.get("/executeSql/index").then(function(resp) {
+			return resp.data;
+		}, function(resp) {
+			return $q.reject(resp.status);
+		});
+    };
 
     this.goToPage = function() {
         var main_nav_tab = locals.get("main_nav_tab", "tvs");

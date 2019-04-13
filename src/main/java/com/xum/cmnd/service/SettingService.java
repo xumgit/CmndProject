@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.xum.cmnd.dao.SettingMapper;
 
@@ -43,6 +44,10 @@ public class SettingService {
 		int allcount = 0;
 		allcount = this.settingMapper.selectAllCount();
 		return allcount;
+	}
+	
+	public void settingTableChange() {
+		this.settingMapper.settingTableChange();
 	}
 	
 	public SettingWithBLOBs selectByPrimaryKey(Integer id) {

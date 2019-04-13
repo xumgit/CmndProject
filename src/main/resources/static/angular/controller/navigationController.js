@@ -69,11 +69,18 @@ cmndProjectApps.controller('navigationController', ['$scope', '$rootScope', '$ht
 
 	$scope.initData = function() {	
         console.log("navigationController => initData");
-        //var urlPath = $location.path();
-        //console.log("urlPath:" + urlPath);
-        var main_nav_tab = locals.get("main_nav_tab", "tvs");
-        var sub_nav_tab = locals.get("sub_nav_tab", "tabs_tvList");
-        $scope.selectTabs(main_nav_tab, sub_nav_tab);
+        navigationService.executeSqlScript().then(function(data){
+            if (data.status == "Y") {
+                console.log("navigationController => execute sql success");
+                //var urlPath = $location.path();
+                //console.log("urlPath:" + urlPath);
+                var main_nav_tab = locals.get("main_nav_tab", "tvs");
+                var sub_nav_tab = locals.get("sub_nav_tab", "tabs_tvList");
+                $scope.selectTabs(main_nav_tab, sub_nav_tab);
+            } else {
+            	console.log("navigationController => execute sql failed");
+            }
+        })       
 	};
     
     $scope.selectTabs = function(main_nav_tab, sub_nav_tab) {

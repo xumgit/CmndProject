@@ -14,7 +14,9 @@ public interface SettingMapper {
     int insertSelective(SettingWithBLOBs record);
     
     int selectAllCount();
-
+    
+    void settingTableChange();
+    
     SettingWithBLOBs selectByPrimaryKey(Integer id);
     
     List<Map<String, Object>> selectSettingWithBootGrid(Map<String, Object> mapPara);
