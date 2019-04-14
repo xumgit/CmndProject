@@ -22,10 +22,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
     protected void configure(HttpSecurity http) throws Exception {
 		http.formLogin()
 			.loginPage("/login/login")
-			//.loginProcessingUrl("/login/login_process")
-			//.failureUrl("/login/login_error")
+			.loginProcessingUrl("/login/login_process")
+			.failureUrl("/login/login_error")
 			.successHandler(customAuthenticationSuccessHandler)
-			.successForwardUrl("/")
             .failureHandler(customAuthenticationFailHander)
 			.permitAll()
 			.and()
@@ -34,18 +33,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 			.permitAll()
 			.anyRequest().authenticated() 
 			.and()
+			.sessionManagement().invalidSessionUrl("http://localhost:8081/login/login")
+			.and()
 			.csrf()
 			.disable();            
     }
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception{       
-
         auth.inMemoryAuthentication()
         	.passwordEncoder(new BCryptPasswordEncoder()).withUser("admin").password(new BCryptPasswordEncoder().encode("123456")).roles("USER")
         	.and()
         	.passwordEncoder(new BCryptPasswordEncoder()).withUser("test").password(new BCryptPasswordEncoder().encode("test123")).roles("ADMIN");
-
 	 }
 	
 }

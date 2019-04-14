@@ -6,24 +6,47 @@
 <link rel="stylesheet" th:href="@{/bootstrap-3.3.6-dist/css/bootstrap.css}" />
 <script type="text/javascript" th:src="@{/js/jquery-1.10.2.js}"></script>
 <script type="text/javascript" th:src="@{/bootstrap-3.3.6-dist/js/bootstrap.min.js}"></script>
+<style type="text/css">
+#container {
+	text-align: center; 
+	margin: 0 auto;
+	width: 400px;
+	background-color: #bcbcbc;
+	margin-top: 10px;
+	padding: 5px;
+	border-radius: 10px;
+}
 
+#container table {
+	margin: 0 auto;
+}
+
+#container .separate {
+	height: 10px;
+}
+
+#container .errorMsg {
+	height: 10px;
+	color: red;
+}
+</style>
 <title>LogIn Page</title>
 </head>
 <body>
-<div style="text-align: center;">
-	<form class="form-signin" method="post">
+<div id="container">
+	<form class="form-signin" action="/login/login_process" method="post">
             <h2 class="form-signin-heading">User Login</h2>
-            <table style="margin: 0 auto;">
-                  <tr style="margin: 15px;">
+            <table>
+                  <tr>
                         <td>UserName:&nbsp;&nbsp;</td>
-                        <td><input type="text" name="username" class="form-control" placeholder="please input username"/></td>
+                        <td><input type="text" name="username" class="form-control" placeholder="please input username" th:value="${inputUsername}"/></td>
                   </tr>
-                  <tr style="height: 10px;"><td colspan="2"></td></tr>
+                  <tr class="separate"><td colspan="2"></td></tr>
                   <tr>
                         <td>Password:&nbsp;&nbsp;</td>
-                        <td><input type="password" name="password" class="form-control" placeholder="please input password"/></td>
+                        <td><input type="password" name="password" class="form-control" placeholder="please input password" th:value="${inputPassword}"/></td>
                   </tr>
-                  <tr style="height: 10px;"><td colspan="2"></td></tr>
+                  <tr class="errorMsg"><td colspan="2" th:text="${errorMsg}"></td></tr>
                   <tr>                 
                         <td colspan="2">
                               <button type="submit" class="btn btn-lg btn-primary btn-block" >Login</button>

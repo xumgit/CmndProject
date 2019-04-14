@@ -24,15 +24,14 @@ public class CustomAuthenticationFailHander extends SimpleUrlAuthenticationFailu
 
 	private static final Logger LOG = LogManager.getLogger(CustomAuthenticationFailHander.class);
 	
+	private static final String ERROR_MSG = "UserName or Password error!";
+	
 	@Autowired
     private ObjectMapper objectMapper;
     
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                 AuthenticationException exception) throws IOException, ServletException {
-          // TODO Auto-generated method stub
-          LOG.info("login error");
-          //以Json格式返回
           Map<String,String> map = new HashMap<>();
           map.put("code", "201");
           map.put("msg", "login error");
@@ -40,8 +39,15 @@ public class CustomAuthenticationFailHander extends SimpleUrlAuthenticationFailu
           response.setContentType("application/json");
           response.setCharacterEncoding("UTF-8");   
           response.getWriter().write(objectMapper.writeValueAsString(map));
-          LOG.info("onAuthenticationFailure"); 
-          //new DefaultRedirectStrategy().sendRedirect(request, response, "/login/login_error");
+          //LOG.info("onAuthenticationFailure:" + objectMapper.writeValueAsString(exception));
+          String username = request.getParameter("username");
+          String password = request.getParameter("password");
+          LOG.info("username:" + username + ",password:" + password);
+          String url = "/login/login?errorMsg=" + ERROR_MSG + "&username=" + username + "&password=" + password;
+          //response.sendRedirect(url);
+          //super.onAuthenticationFailure(request, response, exception);
+          request.getRequestDispatcher("/login/login?errorMsg=" + ERROR_MSG + "&inputUsername=" + username + "&inputPassword=" + password)
+          		 .forward(request, response);
     }
 	
 }

@@ -16,14 +16,14 @@ cmndProjectApps.controller('navigationTVsController', ['$scope', '$rootScope', '
             //$scope.selectTabsAndGoto($scope.tvs_main_nav_tab, sub_nav_tab);          
         };
 
-        $scope.timer = $interval(function(){
+        /*$scope.timer = $interval(function(){
             navigationService.getIptvPollingData().then(function(data){
                 //console.log("status:" + data.status);
                 if (data.status != "N") {
                     $('#grid_tvList').bootgrid('reload');
                 }
             });
-        }, 3000); 
+        }, 3000);*/ 
 
         $("#tvs_tabs li a").each(function(index, ele){  	
         	$(this).click(function(){
