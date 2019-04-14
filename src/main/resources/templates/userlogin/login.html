@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+
+<link rel="stylesheet" th:href="@{/bootstrap-3.3.6-dist/css/bootstrap.css}" />
+<script type="text/javascript" th:src="@{/js/jquery-1.10.2.js}"></script>
+<script type="text/javascript" th:src="@{/bootstrap-3.3.6-dist/js/bootstrap.min.js}"></script>
+
+<title>LogIn Page</title>
+</head>
+<body>
+<div style="text-align: center;">
+	<form class="form-signin" method="post">
+            <h2 class="form-signin-heading">User Login</h2>
+            <table style="margin: 0 auto;">
+                  <tr style="margin: 15px;">
+                        <td>UserName:&nbsp;&nbsp;</td>
+                        <td><input type="text" name="username" class="form-control" placeholder="please input username"/></td>
+                  </tr>
+                  <tr style="height: 10px;"><td colspan="2"></td></tr>
+                  <tr>
+                        <td>Password:&nbsp;&nbsp;</td>
+                        <td><input type="password" name="password" class="form-control" placeholder="please input password"/></td>
+                  </tr>
+                  <tr style="height: 10px;"><td colspan="2"></td></tr>
+                  <tr>                 
+                        <td colspan="2">
+                              <button type="submit" class="btn btn-lg btn-primary btn-block" >Login</button>
+                        </td>
+                  </tr>
+            </table>
+      </form>
+</div>
+</body>
+</html>

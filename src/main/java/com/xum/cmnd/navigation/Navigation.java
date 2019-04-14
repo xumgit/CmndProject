@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xum.cmnd.service.SettingService;
 
 @Controller
-@RequestMapping(value = "/navi")
+@RequestMapping(value = "/")
 public class Navigation {
 	
 	private static final Logger LOG = LogManager.getLogger(Navigation.class);
 	
-	@RequestMapping(value = "/index")
+	@RequestMapping(value = "/")
 	public String index(HttpServletRequest request) {
 		String view = "navigation/index";	
 		return view;
