@@ -23,12 +23,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class CustomAuthenticationFailHander extends SimpleUrlAuthenticationFailureHandler {
 
 	private static final Logger LOG = LogManager.getLogger(CustomAuthenticationFailHander.class);
-	
+
 	private static final String ERROR_MSG = "UserName or Password error!";
-	
+
 	@Autowired
     private ObjectMapper objectMapper;
-    
+
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                 AuthenticationException exception) throws IOException, ServletException {
@@ -37,17 +37,18 @@ public class CustomAuthenticationFailHander extends SimpleUrlAuthenticationFailu
           map.put("msg", "login error");
           response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
           response.setContentType("application/json");
-          response.setCharacterEncoding("UTF-8");   
+          response.setCharacterEncoding("UTF-8");
           response.getWriter().write(objectMapper.writeValueAsString(map));
           //LOG.info("onAuthenticationFailure:" + objectMapper.writeValueAsString(exception));
           String username = request.getParameter("username");
           String password = request.getParameter("password");
           LOG.info("username:" + username + ",password:" + password);
           String url = "/login/login?errorMsg=" + ERROR_MSG + "&username=" + username + "&password=" + password;
+          super.onAuthenticationFailure(request, response, exception);
           //response.sendRedirect(url);
           //super.onAuthenticationFailure(request, response, exception);
-          request.getRequestDispatcher("/login/login?errorMsg=" + ERROR_MSG + "&inputUsername=" + username + "&inputPassword=" + password)
-          		 .forward(request, response);
+          //request.getRequestDispatcher("/login/login?errorMsg=" + ERROR_MSG + "&inputUsername=" + username + "&inputPassword=" + password)
+          		 //.forward(request, response);
     }
 	
 }

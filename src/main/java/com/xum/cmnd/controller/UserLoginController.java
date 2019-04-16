@@ -17,12 +17,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class UserLoginController {
 
 	private static final Logger LOG = LogManager.getLogger(UserLoginController.class);
-	
+
 	@RequestMapping(value = "/login")
-	public String userLogIn(ModelMap model, 
+	public String userLogIn(ModelMap model,
 			@RequestParam(value="errorMsg", required=false) String errorMsg,
 			@RequestParam(value="inputUsername", required=false) String inputUsername,
-			@RequestParam(value="inputPassword", required=false) String inputPassword) {	
+			@RequestParam(value="inputPassword", required=false) String inputPassword) {
 		LOG.info("userlogin/login, errorMsg:" + errorMsg + ",username:" + inputUsername + ",inputPassword:" + inputPassword);
 		if (inputUsername != null && !"".equals(inputUsername)) {
 			model.addAttribute("inputUsername", inputUsername);
@@ -32,24 +32,24 @@ public class UserLoginController {
 		}
 		if (errorMsg != null && !"".equals(errorMsg)) {
 			model.addAttribute("errorMsg", errorMsg);
-		}		
+		}
 		return "userlogin/login";
 	}
-	
+
 	@RequestMapping(value = "/login_process")
-	public String userLogSuccess() {	
+	public String userLogSuccess() {
 		LOG.info("userlogin/login_process");
 		return "userlogin/login_process";
 	}
-	
+
 	@RequestMapping(value = "/login_error")
-	public String userLogError() {	
+	public String userLogError() {
 		LOG.info("userlogin/login_error");
 		return "userlogin/login_error";
 	}
-	
+
 	@RequestMapping(value = "/login_out")
-	public void userLogOut(HttpServletResponse response) throws IOException {	
+	public void userLogOut(HttpServletResponse response) throws IOException {
 		LOG.info("userlogin/login_out");
 		response.sendRedirect("/login/login");
 		//return "redirect:/login/login/";
