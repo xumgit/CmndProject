@@ -21,9 +21,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
 		http.formLogin()
-			//.loginPage("/login/login")
-			//.loginProcessingUrl("/login/login_process")
-			//.failureUrl("/login/login_error")
+			.loginPage("/login/login")
+			.loginProcessingUrl("/login/login_process")
+			.failureUrl("/login/login_error")
 			.successHandler(customAuthenticationSuccessHandler)
             .failureHandler(customAuthenticationFailHander)
 			.permitAll()

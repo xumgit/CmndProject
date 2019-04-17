@@ -24,6 +24,8 @@ public class CustomAuthenticationFailHander extends SimpleUrlAuthenticationFailu
 
 	private static final Logger LOG = LogManager.getLogger(CustomAuthenticationFailHander.class);
 
+	private String  defaultFailureUrl = "/login/login?errorMsg=" + ERROR_MSG;
+
 	private static final String ERROR_MSG = "UserName or Password error!";
 
 	@Autowired
@@ -43,12 +45,11 @@ public class CustomAuthenticationFailHander extends SimpleUrlAuthenticationFailu
           String username = request.getParameter("username");
           String password = request.getParameter("password");
           LOG.info("username:" + username + ",password:" + password);
-          String url = "/login/login?errorMsg=" + ERROR_MSG + "&username=" + username + "&password=" + password;
-          super.onAuthenticationFailure(request, response, exception);
+          String url = "/login/login_error?errorMsg=" + ERROR_MSG + "&inputUsername=" + username + "&inputPassword=" + password;
+          //super.onAuthenticationFailure(request, response, exception);
           //response.sendRedirect(url);
           //super.onAuthenticationFailure(request, response, exception);
-          //request.getRequestDispatcher("/login/login?errorMsg=" + ERROR_MSG + "&inputUsername=" + username + "&inputPassword=" + password)
-          		 //.forward(request, response);
+          request.getRequestDispatcher(url).forward(request, response);
     }
 	
 }
