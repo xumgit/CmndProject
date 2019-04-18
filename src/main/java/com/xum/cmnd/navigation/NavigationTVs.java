@@ -1,5 +1,7 @@
 package com.xum.cmnd.navigation;
 
+import com.xum.cmnd.pojo.MongoTest;
+import com.xum.cmnd.utils.MongoUtil;
 import com.xum.cmnd.utils.RedisUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,6 +24,9 @@ public class NavigationTVs {
 	@Autowired
 	RedisUtil redisUtil;
 
+	@Autowired
+	MongoUtil mongoUtil;
+
 	@RequestMapping(value = "/index")
 	public String index() {		
 		String view = "navigation/tvs/index";
@@ -30,12 +35,23 @@ public class NavigationTVs {
 	
 	@RequestMapping(value = "/index/tabs_msg")
 	public String tabs_msg() {
+		MongoTest mongoTest = new MongoTest();
+		mongoTest.setId(1);
+		mongoTest.setAge(12);
+		mongoTest.setName("admin");
+		mongoUtil.saveTest(mongoTest);
+		LOG.info("save Mongo test data success, id is 1, age is 12, name is admin");
 		String view = "navigation/tvs/tabs_msg";
 		return view;
 	}
 	
 	@RequestMapping(value = "/index/tabs_rooms")
 	public String tabs_rooms() {
+		MongoTest mongoTest = mongoUtil.findTestByName("admin");
+		LOG.info("query name is admin -> mongoTest:" + mongoTest);
+		if (mongoTest != null) {
+			LOG.info("Id:" + mongoTest.getId() + ",Age:" + mongoTest.getAge());
+		}
 		String view = "navigation/tvs/tabs_rooms";
 		return view;
 	}
@@ -59,12 +75,20 @@ public class NavigationTVs {
 	
 	@RequestMapping(value = "/index/tabs_groupList")
 	public String tabs_groupList() {
+		MongoTest mongoTest = new MongoTest();
+		mongoTest.setId(1);
+		mongoTest.setAge(12);
+		mongoTest.setName("admin-admin");
+		mongoUtil.updateTest(mongoTest);
+		LOG.info("update Mongo test data success, id is 1, age is 12, name is admin-admin");
 		String view = "navigation/tvs/tabs_groupList";
 		return view;
 	}
-	
+
 	@RequestMapping(value = "/index/tabs_rfSetting")
 	public String tabs_rfSetting() {
+		mongoUtil.deleteTestById(1);
+		LOG.info("delete Mongo test data success, id is 1");
 		String view = "navigation/tvs/tabs_rfSetting";
 		return view;
 	}

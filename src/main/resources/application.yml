@@ -42,6 +42,9 @@ spring:
             max-active: 8
             max-wait: -1
       timeout: 5000
+   data:
+      mongodb:
+         uri: mongodb://localhost:27017/test
 
 #mybatis 
 mybatis:
