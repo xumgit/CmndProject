@@ -45,6 +45,12 @@ spring:
    data:
       mongodb:
          uri: mongodb://localhost:27017/test
+   mail:
+      host: smtp.163.com
+      username: xum1281517532@163.com
+      password: 1332080218
+      default-encoding: UTF-8
+      protocol: smtp
 
 #mybatis 
 mybatis:

@@ -1,6 +1,7 @@
 package com.xum.cmnd.navigation;
 
 import com.xum.cmnd.pojo.MongoTest;
+import com.xum.cmnd.utils.MailUtil;
 import com.xum.cmnd.utils.MongoUtil;
 import com.xum.cmnd.utils.RedisUtil;
 import org.apache.logging.log4j.LogManager;
@@ -27,6 +28,9 @@ public class NavigationTVs {
 	@Autowired
 	MongoUtil mongoUtil;
 
+	@Autowired
+	MailUtil mailUtil;
+
 	@RequestMapping(value = "/index")
 	public String index() {		
 		String view = "navigation/tvs/index";
@@ -41,6 +45,12 @@ public class NavigationTVs {
 		mongoTest.setName("admin");
 		mongoUtil.saveTest(mongoTest);
 		LOG.info("save Mongo test data success, id is 1, age is 12, name is admin");
+
+		String to = "meng.xu@tpv-tech.com";
+		String subject = "test subject";
+		String content = "text content";
+		mailUtil.sendSimpleMail(to, subject, content);
+
 		String view = "navigation/tvs/tabs_msg";
 		return view;
 	}
