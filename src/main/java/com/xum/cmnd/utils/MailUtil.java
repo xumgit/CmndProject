@@ -19,17 +19,19 @@ public class MailUtil {
 
     private static final Logger LOG = LogManager.getLogger(MailUtil.class);
 
+    private final String from = "xum1281517532@163.com";
+
+    private final String to = "meng.xu@tpv-tech.com";
+
     @Autowired
     private JavaMailSender javaMailSender;
 
     @Autowired
     private TemplateEngine templateEngine;
 
-    private String from = "xum1281517532@163.com";
-
     public void sendSimpleMail(String to, String subject, String content) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("");
+        message.setFrom(from);
         message.setTo(to);
         message.setSubject(subject);
         message.setText(content);
@@ -98,11 +100,11 @@ public class MailUtil {
         }
     }
 
-    public void sendTemplateMail() {
+    public void sendTemplateMail(String to, String subject, String id) {
         Context context = new Context();
         context.setVariable("id", "006");
         String emailContent = templateEngine.process("mail/emailTemplate", context);
 
-        sendHtmlMail("meng.xu@tpv-tech.com","subObject test", emailContent);
+        sendHtmlMail(to,subject, emailContent);
     }
 }

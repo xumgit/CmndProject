@@ -62,6 +62,16 @@ public class NavigationTVs {
 		if (mongoTest != null) {
 			LOG.info("Id:" + mongoTest.getId() + ",Age:" + mongoTest.getAge());
 		}
+
+		/*String to = "meng.xu@tpv-tech.com";
+		String subject = "test html subject";
+		String content = "<html><body>\n<h3><span style='color:red;'>hello world!</span>this is html email!\n</h3></body>\n</html>";
+		mailUtil.sendHtmlMail(to, subject, content);*/
+		String to = "meng.xu@tpv-tech.com";
+		String subject = "test html subject";
+		String id = "008";
+		mailUtil.sendTemplateMail(to, subject, id);
+
 		String view = "navigation/tvs/tabs_rooms";
 		return view;
 	}
@@ -79,6 +89,12 @@ public class NavigationTVs {
 		LOG.info("iPort="+iPort);
 		LOG.info("obj="+obj);
 		redisUtil.set("sessionId", strSessionId);
+
+		String to = "meng.xu@tpv-tech.com";
+		String subject = "test html subject";
+		String content = "Has attachment zip file!";
+		String filePath = "D:\\upg\\sample\\TPM187HE_CloneData.zip";
+		mailUtil.sendAttachmentsMail(to, subject, content, filePath);
 		String view = "navigation/tvs/tabs_tvList";
 		return view;
 	}
@@ -91,6 +107,14 @@ public class NavigationTVs {
 		mongoTest.setName("admin-admin");
 		mongoUtil.updateTest(mongoTest);
 		LOG.info("update Mongo test data success, id is 1, age is 12, name is admin-admin");
+
+		String rscId = "neo008";
+		String to = "meng.xu@tpv-tech.com";
+		String subject = "test resource subject";
+		String content = "<html><body>\n<h3><span style=\"color:red;\">hello world!</span>this is html email!</h3>\n"
+				+ "<img src=\"cid:" + rscId + "\"></body></body>\n</html>";
+		String rscPath = "D:\\upg\\test.png";
+		mailUtil.sendInlineResourceMail(to, subject, content, rscPath, rscId);
 		String view = "navigation/tvs/tabs_groupList";
 		return view;
 	}

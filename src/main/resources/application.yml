@@ -48,9 +48,16 @@ spring:
    mail:
       host: smtp.163.com
       username: xum1281517532@163.com
-      password: 1332080218
+      password: xu880522 # 授权密码
       default-encoding: UTF-8
-      protocol: smtp
+      properties:
+         mail:
+            smtp:
+               auth: true
+               starttls:
+                  enable: true
+                  required: true
+
 
 #mybatis 
 mybatis:
