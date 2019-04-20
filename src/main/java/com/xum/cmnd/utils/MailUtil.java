@@ -29,7 +29,7 @@ public class MailUtil {
     @Autowired
     private TemplateEngine templateEngine;
 
-    public void sendSimpleMail(String to, String subject, String content) {
+    public void sendSimpleMail(String from, String to, String subject, String content) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(from);
         message.setTo(to);
@@ -43,7 +43,7 @@ public class MailUtil {
         }
     }
 
-    public void sendHtmlMail(String to, String subject, String content) {
+    public void sendHtmlMail(String from, String to, String subject, String content) {
         MimeMessage message = javaMailSender.createMimeMessage();
 
         try {
@@ -59,7 +59,7 @@ public class MailUtil {
         }
     }
 
-    public void sendAttachmentsMail(String to, String subject, String content, String filePath){
+    public void sendAttachmentsMail(String from, String to, String subject, String content, String filePath){
         MimeMessage message = javaMailSender.createMimeMessage();
 
         try {
@@ -80,7 +80,7 @@ public class MailUtil {
         }
     }
 
-    public void sendInlineResourceMail(String to, String subject, String content, String rscPath, String rscId){
+    public void sendInlineResourceMail(String from, String to, String subject, String content, String rscPath, String rscId){
         MimeMessage message = javaMailSender.createMimeMessage();
 
         try {
@@ -100,11 +100,11 @@ public class MailUtil {
         }
     }
 
-    public void sendTemplateMail(String to, String subject, String id) {
+    public void sendTemplateMail(String from, String to, String subject, String id) {
         Context context = new Context();
         context.setVariable("id", "006");
         String emailContent = templateEngine.process("mail/emailTemplate", context);
 
-        sendHtmlMail(to,subject, emailContent);
+        sendHtmlMail(from, to,subject, emailContent);
     }
 }

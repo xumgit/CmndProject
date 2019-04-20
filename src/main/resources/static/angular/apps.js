@@ -2,7 +2,7 @@
  * root apps
  */
 
-var cmndProjectApps = angular.module('cmndProject', ['ngAnimate', 'ngCookies', 'ui.router']);
+var cmndProjectApps = angular.module('cmndProject', ['ngAnimate', 'ngCookies', 'ui.router', 'toaster']);
 cmndProjectApps.run(function($rootScope, $state, locals) {
     window.myAppErrorLog = [];
     

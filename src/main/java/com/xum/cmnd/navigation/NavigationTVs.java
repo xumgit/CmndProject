@@ -22,15 +22,6 @@ public class NavigationTVs {
 
 	private static final Logger LOG = LogManager.getLogger(NavigationTVs.class);
 
-	@Autowired
-	RedisUtil redisUtil;
-
-	@Autowired
-	MongoUtil mongoUtil;
-
-	@Autowired
-	MailUtil mailUtil;
-
 	@RequestMapping(value = "/index")
 	public String index() {		
 		String view = "navigation/tvs/index";
@@ -39,90 +30,30 @@ public class NavigationTVs {
 	
 	@RequestMapping(value = "/index/tabs_msg")
 	public String tabs_msg() {
-		MongoTest mongoTest = new MongoTest();
-		mongoTest.setId(1);
-		mongoTest.setAge(12);
-		mongoTest.setName("admin");
-		mongoUtil.saveTest(mongoTest);
-		LOG.info("save Mongo test data success, id is 1, age is 12, name is admin");
-
-		String to = "meng.xu@tpv-tech.com";
-		String subject = "test subject";
-		String content = "text content";
-		mailUtil.sendSimpleMail(to, subject, content);
-
 		String view = "navigation/tvs/tabs_msg";
 		return view;
 	}
 	
 	@RequestMapping(value = "/index/tabs_rooms")
 	public String tabs_rooms() {
-		MongoTest mongoTest = mongoUtil.findTestByName("admin");
-		LOG.info("query name is admin -> mongoTest:" + mongoTest);
-		if (mongoTest != null) {
-			LOG.info("Id:" + mongoTest.getId() + ",Age:" + mongoTest.getAge());
-		}
-
-		/*String to = "meng.xu@tpv-tech.com";
-		String subject = "test html subject";
-		String content = "<html><body>\n<h3><span style='color:red;'>hello world!</span>this is html email!\n</h3></body>\n</html>";
-		mailUtil.sendHtmlMail(to, subject, content);*/
-		String to = "meng.xu@tpv-tech.com";
-		String subject = "test html subject";
-		String id = "008";
-		mailUtil.sendTemplateMail(to, subject, id);
-
 		String view = "navigation/tvs/tabs_rooms";
 		return view;
 	}
 	
 	@RequestMapping(value = "/index/tabs_tvList")
 	public String tabs_tvList(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		String strSessionId = session.getId();
-		int iPort = request.getServerPort();
-		Object obj = session.getAttribute("session");
-		if (obj == null) {
-			session.setAttribute("session", "sessionTest");
-		}
-		LOG.info("strSessionId="+strSessionId);
-		LOG.info("iPort="+iPort);
-		LOG.info("obj="+obj);
-		redisUtil.set("sessionId", strSessionId);
-
-		String to = "meng.xu@tpv-tech.com";
-		String subject = "test html subject";
-		String content = "Has attachment zip file!";
-		String filePath = "D:\\upg\\sample\\TPM187HE_CloneData.zip";
-		mailUtil.sendAttachmentsMail(to, subject, content, filePath);
 		String view = "navigation/tvs/tabs_tvList";
 		return view;
 	}
 	
 	@RequestMapping(value = "/index/tabs_groupList")
 	public String tabs_groupList() {
-		MongoTest mongoTest = new MongoTest();
-		mongoTest.setId(1);
-		mongoTest.setAge(12);
-		mongoTest.setName("admin-admin");
-		mongoUtil.updateTest(mongoTest);
-		LOG.info("update Mongo test data success, id is 1, age is 12, name is admin-admin");
-
-		String rscId = "neo008";
-		String to = "meng.xu@tpv-tech.com";
-		String subject = "test resource subject";
-		String content = "<html><body>\n<h3><span style=\"color:red;\">hello world!</span>this is html email!</h3>\n"
-				+ "<img src=\"cid:" + rscId + "\"></body></body>\n</html>";
-		String rscPath = "D:\\upg\\test.png";
-		mailUtil.sendInlineResourceMail(to, subject, content, rscPath, rscId);
 		String view = "navigation/tvs/tabs_groupList";
 		return view;
 	}
 
 	@RequestMapping(value = "/index/tabs_rfSetting")
 	public String tabs_rfSetting() {
-		mongoUtil.deleteTestById(1);
-		LOG.info("delete Mongo test data success, id is 1");
 		String view = "navigation/tvs/tabs_rfSetting";
 		return view;
 	}

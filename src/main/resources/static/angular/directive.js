@@ -29,4 +29,8 @@
                 }
             };
         }]
-);
+).directive('bindToasterHtml', [function () {
+     return {
+         template: "<span style='color:white;'>{{directiveData.content}}</span>"
+     };
+ }]);
