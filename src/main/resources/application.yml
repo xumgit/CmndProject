@@ -57,6 +57,12 @@ spring:
                starttls:
                   enable: true
                   required: true
+   servlet:
+      multipart:
+         max-file-size: 100MB
+         max-request-size: 100MB
+         enabled: true
+         file-size-threshold: 0
 
 
 #mybatis 
