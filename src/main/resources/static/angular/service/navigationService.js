@@ -3,6 +3,14 @@
  */
 
 cmndProjectApps.service("navigationService", ["$q", "$http",'locals', '$state', function($q, $http, locals, $state) {
+	this.sendRequestCommand = function(req) {
+		return $http(req).then(function(resp) {
+			return resp.data;
+		}, function(resp) {
+			return $q.reject(resp.status);
+		});
+	};
+
 	this.getTabsContentData = function(url) {
 		return $http.get(url).then(function(resp) {
 			return resp.data;

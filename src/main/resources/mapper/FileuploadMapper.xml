@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xum.cmnd.dao.FileuploadMapper" >
+  <resultMap id="BaseResultMap" type="com.xum.cmnd.pojo.Fileupload" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="size" property="size" jdbcType="INTEGER" />
+    <result column="uploadDate" property="uploaddate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xum.cmnd.pojo.FileuploadWithBLOBs" extends="BaseResultMap" >
+    <result column="name" property="name" jdbcType="LONGVARCHAR" />
+    <result column="contentType" property="contenttype" jdbcType="LONGVARCHAR" />
+    <result column="content" property="content" jdbcType="LONGVARBINARY" />
+    <result column="path" property="path" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, size, uploadDate
+  </sql>
+  <sql id="Blob_Column_List" >
+    name, contentType, content, path
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from fileupload
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fileupload
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xum.cmnd.pojo.FileuploadWithBLOBs" >
+    insert into fileupload (id, size, uploadDate, 
+      name, contentType, content, 
+      path)
+    values (#{id,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}, #{uploaddate,jdbcType=TIMESTAMP}, 
+      #{name,jdbcType=LONGVARCHAR}, #{contenttype,jdbcType=LONGVARCHAR}, #{content,jdbcType=LONGVARBINARY}, 
+      #{path,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xum.cmnd.pojo.FileuploadWithBLOBs" >
+    insert into fileupload
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="size != null" >
+        size,
+      </if>
+      <if test="uploaddate != null" >
+        uploadDate,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="contenttype != null" >
+        contentType,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="path != null" >
+        path,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="size != null" >
+        #{size,jdbcType=INTEGER},
+      </if>
+      <if test="uploaddate != null" >
+        #{uploaddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="contenttype != null" >
+        #{contenttype,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xum.cmnd.pojo.FileuploadWithBLOBs" >
+    update fileupload
+    <set >
+      <if test="size != null" >
+        size = #{size,jdbcType=INTEGER},
+      </if>
+      <if test="uploaddate != null" >
+        uploadDate = #{uploaddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="contenttype != null" >
+        contentType = #{contenttype,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="path != null" >
+        path = #{path,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xum.cmnd.pojo.FileuploadWithBLOBs" >
+    update fileupload
+    set size = #{size,jdbcType=INTEGER},
+      uploadDate = #{uploaddate,jdbcType=TIMESTAMP},
+      name = #{name,jdbcType=LONGVARCHAR},
+      contentType = #{contenttype,jdbcType=LONGVARCHAR},
+      content = #{content,jdbcType=LONGVARBINARY},
+      path = #{path,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xum.cmnd.pojo.Fileupload" >
+    update fileupload
+    set size = #{size,jdbcType=INTEGER},
+      uploadDate = #{uploaddate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

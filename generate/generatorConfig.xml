@@ -13,9 +13,9 @@ PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         </commentGenerator>
         <!--数据库链接URL，用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-            connectionURL="jdbc:mysql://localhost:3306/studyplugin" 
+            connectionURL="jdbc:mysql://localhost:3306/smartinstall" 
             userId="root"
-            password="Lo7!1pJI8#Ko*$t">
+            password="1332080218">
         </jdbcConnection>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false" />

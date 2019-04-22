@@ -23,21 +23,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
 	private static final Logger LOG = LogManager.getLogger(CustomAuthenticationSuccessHandler.class);
-	
+
 	@Autowired
     private ObjectMapper objectMapper;
-	
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
-                throws IOException, ServletException {         	 
-          //super.onAuthenticationSuccess(request, response, authentication);         
+                throws IOException, ServletException {
+          //super.onAuthenticationSuccess(request, response, authentication);
           Map<String,String> map = new HashMap<>();
           map.put("code", "200");
           map.put("msg", "login success");
           response.setContentType("application/json;charset=UTF-8");
           response.getWriter().write(objectMapper.writeValueAsString(map));
-          LOG.info("onAuthenticationSuccess:" + objectMapper.writeValueAsString(authentication)); 
-          new DefaultRedirectStrategy().sendRedirect(request, response, "/navi/index");  
+          LOG.info("onAuthenticationSuccess:" + objectMapper.writeValueAsString(authentication));
+          new DefaultRedirectStrategy().sendRedirect(request, response, "/navi/index");
     }
-	
+
 }
