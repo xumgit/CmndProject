@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>uiBootstrapTest</title>
+<link href="../bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="../ui-grid.info-4.7.1/ui-grid.min.css" rel="stylesheet" />
+<script src="angular-1.7.3/angular.min.js"></script>
+<script src="angular-1.7.3/angular-animate.min.js"></script>
+<script src="angular-1.7.3/angular-route.min.js"></script>
+<script src="angular-1.7.3/angular-touch.min.js"></script>
+<script src="angular-1.7.3/thirdPart/uiBootStrap/ui-bootstrap-tpls.min.js"></script>
+<script src="../ui-grid.info-4.7.1/ui-grid.min.js"></script>
+
+<!--ui-grid excel export-->  
+<script src="../pdf/csv.js"></script>
+
+<!--ui-grid pdf export-->
+<script src="../pdf/pdfmake.min.js"></script>
+<script src="../pdf/vfs_fonts.js"></script>
+<!--ui-grid-selection 选择行指令-->  
+<!--ui-grid-resize-columns 表格宽可拉伸指令-->  
+<!--ui-grid-auto-resize 自动使用div的高度和宽度指令-->  
+<!--ui-grid-exporter 导出指令-->  
+<!--ui-grid-edit 编辑指令-->  
+<!--ui-gird-pagination 分页指令-->  
+<!--ui-gird-pagination 分页指令-->  
+<!--ui-grid-cellnav 单元格指令-->  
+<!--gridStyle 自定义设置样式--> 
+<script type="text/javascript">
+window.pdfMake.fonts={
+ simblack: {
+  normal: 'simpleblack.ttf',
+  bold: 'simpleblack.ttf',
+  italics: 'simpleblack.ttf',
+  bolditalics: 'simpleblack.ttf'
+ },
+ Roboto: {
+  normal: 'Roboto-Regular.ttf',
+  bold: 'Roboto-Medium.ttf',
+  italics: 'Roboto-Italic.ttf',
+  bolditalics: 'Roboto-Italic.ttf'
+}
+}
+var apps = angular.module('myApps', ['ngAnimate','ngRoute', 'ui.bootstrap', 'ngTouch', 'ui.grid', 'ui.grid.selection',
+									 'ui.grid.resizeColumns', 'ui.grid.autoResize', 'ui.grid.edit', 'ui.grid.exporter',
+									 'ui.grid.pagination', 'ui.grid.cellNav']);
+apps.controller('MainCtrl', ['$scope','i18nService', function ($scope, i18nService) {
+
+		i18nService.setCurrentLang('zh-cn');
+        $scope.gridOptions = {
+            enableSorting: true,//编辑完成后执行事件
+			onRegisterApi: function (gridApi) {
+              $scope.gridApi = gridApi;
+              $scope.gridApi.edit.on.afterCellEdit($scope, function (rowEntity) {
+              //编辑离开事件
+              $http.post('/manage/api/dictionary/update', {
+              "accountName": rowEntity.accountName,
+              "userName": rowEntity.userName,
+              "unitName": rowEntity.unitName,
+               })
+                  .success(function (data) {
+                     if (data.meta.success) {
+                         alert('修改成功');
+                     } else {
+                     alert(data.meta.message);
+                     }
+               })
+                   .error(function () {
+                     toastr.warning("服务器出错，无法获取数据");
+                   });
+               });
+              },
+            columnDefs: [
+                {field: 'accountName', displayName:'手机号', width: 200},
+                {field: 'userName', displayName:'用户名', width: 100},
+                {field: 'unitName', displayName:'单位', width: 300},
+                {
+                    field: 'createTime', displayName: '注册时间', width: 200,
+                    cellTemplate: '<div class="ui-grid-cell-contents"><span ng-bind="grid.appScope.rDateFormat(row.entity.createTime)"></span></div>'
+                },
+                {
+                    field: 'roleList', displayName: '类型', width: 200,
+                    cellTemplate: '<div class="ui-grid-cell-contents"><span ng-repeat="item in row.entity.roleList" style="margin-right:5px;">{{item.roleName}}</span></div>'
+                },
+                {
+                    field: 'accountId', displayName: '详细信息', width: 200,
+                    cellTemplate: '<div class="ui-grid-cell-contents"><button type="button" ng-click="grid.appScope.showAccountDetail(row.entity.roleList, row.entity.accountId)" style="line-height: normal" class="btn-primary btn">查看详情</button></div>'
+                }
+            ]
+        }; 
+       $scope.gridOptions.data = [
+          {
+             'accountName':'15555555555',
+             'userName':'浮生若梦',
+             'unitName':'无',
+             'createTime':1506661676435,
+             'roleList':[{roleName:'前端','roleId':2},{roleName:'后端','roleId':3}],
+             'accountId':201
+          },
+          {
+             'accountName':'15555555555',
+             'userName':'浮生若梦',
+             'unitName':'无',
+             'createTime':1506661676435,
+             'roleList':[{roleName:'前端','roleId':2},{roleName:'后端','roleId':3}],
+             'accountId':201
+          }
+       ]
+
+}]).controller('OtherCtrl', function($scope,i18nService) {//前四个基本上是必用到的 后面的可以根据自身情况去加  
+            // 国际化；  
+            i18nService.setCurrentLang('zh-cn');  
+            $scope.gridOptions = {  
+                data : 'myData',  
+                //基础属性  
+                enableSorting : true,//是否支持排序(列)  
+                useExternalSorting : false,//是否支持自定义的排序规则  
+                enableRowHeaderSelection : false,  
+                enableGridMenu : false,//是否显示表格 菜单  
+                showGridFooter: true,//时候显示表格的footer  
+                enableHorizontalScrollbar : 1,//表格的水平滚动条  
+                enableVerticalScrollbar : 1,//表格的垂直滚动条 (两个都是 1-显示,0-不显示)  
+                selectionRowHeaderWidth : 30,  
+                enableCellEditOnFocus:false,//default为false,true的时候单击即可打开编辑(cellEdit为true的时候,需要引入'ui.grid.cellNav')  
+                //分页属性  
+                enablePagination: true, //是否分页,default为true  
+                enablePaginationControls: true, //使用默认的底部分页  
+                paginationPageSizes: [10, 15, 20], //每页显示个数选项  
+                paginationCurrentPage:1, //当前的页码  
+                paginationPageSize: 10, //每页显示个数  
+                paginationTemplate:"<div></div>", //自定义底部分页代码  
+                totalItems : 0, // 总数量  
+                useExternalPagination: true,//是否使用分页按钮            
+                //选中  
+                rowTemplate: "<div ng-dblclick=\"grid.appScope.onDblClick(row)\" ng-repeat=\"(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name\" class=\"ui-grid-cell\" ng-class=\"{ 'ui-grid-row-header-cell': col.isRowHeader }\" ui-grid-cell></div>",//双击行事件  
+                enableFooterTotalSelected: true, // 是否显示选中的总数,default为true,如果显示,showGridFooter 必须为true  
+                enableFullRowSelection : true, //是否点击行任意位置后选中,default为false,当为true时,checkbox可以显示但是不可选中  
+                enableRowHeaderSelection : true, //是否显示选中checkbox框 ,default为true  
+                enableRowSelection : true, // 行选择是否可用,default为true;  
+                enableSelectAll : true, // 选择所有checkbox是否可用，default为true;   
+                enableSelectionBatchEvent : true, //default为true  
+                modifierKeysToMultiSelect: false ,//default为false,为true时只能按ctrl或shift键进行多选,这个时候multiSelect必须为true;  
+                multiSelect: true ,// 是否可以选择多个,默认为true;  
+                noUnselect: false,//default为false,选中后是否可以取消选中  
+                selectionRowHeaderWidth:30 ,//default为30,设置选择列的宽度  
+                //api   
+                onRegisterApi : function (gridApi) {  
+                    $scope.gridApi = gridApi;  
+                    $scope.gridApi.edit.on.afterCellEdit($scope,function(rowEntity){  
+                        //编辑离开事件  
+                    });  
+                      
+                    $scope.gridApi.selection.on.rowSelectionChanged($scope,function(row,event){  
+                       //行选中事件  
+                     });  
+                },  
+                 
+                //导出(只支持csv,扩展性不太好)  
+                exporterAllDataFn: function(){//导出全部  
+                       return getAllData();  
+                },  
+                exporterCsvColumnSeparator: ',',  
+                exporterCsvFilename:'testdown.csv',  
+                exporterFieldCallback : function ( grid, row, col, value ){//导出回调可以过滤条件  
+                  
+                    return value;  
+                },  
+                exporterHeaderFilterUseName : true,  
+                exporterMenuCsv : true,  
+                exporterMenuLabel : "Export",  
+                exporterMenuPdf : true,  
+                exporterOlderExcelCompatibility : false,//是否兼容低版本excel  
+                exporterPdfCustomFormatter : function ( docDefinition ) {  
+                 docDefinition.styles.footerStyle = { bold: true, fontSize: 10 };  
+                 return docDefinition;  
+                },  
+                exporterPdfFooter :{   
+                                     text: '',   
+                                     style: ''   
+                                   },  
+                exporterPdfDefaultStyle : {  
+                  fontSize: 11,font:'simblack' //font 设置自定义字体  Roboto/simblack
+                },  
+                exporterPdfFilename:'testdown.pdf',  
+                exporterPdfFooter: function(currentPage, pageCount) {   
+                       return currentPage.toString() + ' of ' + pageCount;   
+                },  
+                exporterPdfHeader : function(currentPage, pageCount) {   
+                   return currentPage.toString() + ' of ' + pageCount;   
+                },  
+                exporterPdfMaxGridWidth : 720,  
+                exporterPdfOrientation : 'landscape',//  'landscape' 或 'portrait' pdf横向或纵向  
+                exporterPdfPageSize : 'A4',// 'A4' or 'LETTER'   
+                exporterPdfTableHeaderStyle : {  
+                 bold: true,  
+                 fontSize: 12,  
+                 color: 'black'  
+                },  
+                exporterPdfTableLayout : null,  
+                exporterPdfTableStyle: {  
+                 margin: [0, 5, 0, 15]  
+                },  
+                exporterSuppressColumns : ['name'],//过滤不需要的列  
+                exporterSuppressMenu: false,  
+                //列属性设置  
+                 columnDefs: [{   field: 'name',   
+                                 displayName: '名字',   
+                                 width: '100', //宽度设置  
+                                 enableColumnMenu: false,// 是否显示列头部菜单按钮  
+                                 //enableHiding: false,  
+                                 //suppressRemoveSort: true,  
+                                 enableCellEdit: false, // 是否可编辑  
+                                 cellEditableCondition:function($scope){  
+                                    return boolean;//是否编辑控制  
+                                 },  
+                                 visible:true,//是否显示default为true,  
+                                 cellTemplate : '<a href="" ng-click="grid.appScope.viewPages(row.entity);">{{row.entity.name==1?"重写":""}}</a>',//重写cell  
+                                 cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {  
+                                  //做一些判断。。。  
+                                  return 'red'//自定义样式   
+                                },  
+                                 //cell下拉  
+                                 editableCellTemplate: 'ui-grid/dropdownEditor',  
+                                 editDropdownOptionsArray: [],//[{name:1,nameText:'Yoko'}]  
+                                 editDropdownIdLabel: 'name',//id  
+                                 editDropdownValueLabel: 'nameText',//显示的名字  
+                                   
+                                 cellFilter:"nameFilet"//过滤器  
+                             }  
+                               
+                            ],  
+            };  
+          var myData=[{name:''}];  
+        }).controller('MyCtrl', function($scope,i18nService) {
+            // 国际化；
+            i18nService.setCurrentLang("en");
+            
+            $scope.gridOptions = {
+                data: 'myData',
+                columnDefs: [{ field: 'name', 
+                                 displayName: '名字', 
+                                 width: '10%', 
+                                 enableColumnMenu: false,// 是否显示列头部菜单按钮
+                                 enableHiding: false,
+                                 suppressRemoveSort: true,
+                                 enableCellEdit: false // 是否可编辑
+                             },
+                             { field: "age"},
+                             { field: "birthday"},
+                             { field: "salary"}
+                            ],
+                            
+                enableSorting: true, //是否排序
+                useExternalSorting: false, //是否使用自定义排序规则
+                enableGridMenu: true, //是否显示grid 菜单
+                showGridFooter: true, //是否显示grid footer
+                enableHorizontalScrollbar :  1, //grid水平滚动条是否显示, 0-不显示  1-显示
+                enableVerticalScrollbar : 0, //grid垂直滚动条是否显示, 0-不显示  1-显示
+                
+                //-------- 分页属性 ----------------
+                enablePagination: true, //是否分页，默认为true
+                enablePaginationControls: true, //使用默认的底部分页
+                paginationPageSizes: [10, 15, 20], //每页显示个数可选项
+                paginationCurrentPage:1, //当前页码
+                paginationPageSize: 10, //每页显示个数
+                //paginationTemplate:"<div></div>", //自定义底部分页代码
+                totalItems : 0, // 总数量
+                useExternalPagination: true,//是否使用分页按钮
+                
+           
+                //----------- 选中 ----------------------
+                enableFooterTotalSelected: true, // 是否显示选中的总数，默认为true, 如果显示，showGridFooter 必须为true
+                enableFullRowSelection : true, //是否点击行任意位置后选中,默认为false,当为true时，checkbox可以显示但是不可选中
+                enableRowHeaderSelection : true, //是否显示选中checkbox框 ,默认为true
+                enableRowSelection : true, // 行选择是否可用，默认为true;
+                enableSelectAll : true, // 选择所有checkbox是否可用，默认为true; 
+                enableSelectionBatchEvent : true, //默认true
+                   isRowSelectable: function(row){ //GridRow
+                   if(row.entity.age > 45){
+                       row.grid.api.selection.selectRow(row.entity); // 选中行
+                   }
+                },
+                modifierKeysToMultiSelect: false ,//默认false,为true时只能 按ctrl或shift键进行多选, multiSelect 必须为true;
+                multiSelect: true ,// 是否可以选择多个,默认为true;
+                noUnselect: false,//默认false,选中后是否可以取消选中
+                selectionRowHeaderWidth:30 ,//默认30 ，设置选择列的宽度；
+                
+                //--------------导出----------------------------------
+                exporterAllDataFn: function(){
+                       return getPage(1,$scope.gridOptions.totalItems);
+                },
+                exporterCsvColumnSeparator: ',',
+                exporterCsvFilename:'download.csv',
+                exporterFieldCallback : function ( grid, row, col, value ){
+                 if ( value == 50 ){
+                   value = "可以退休";
+                 }
+                 return value;
+                },
+                exporterHeaderFilter :function( displayName ){ 
+                   return 'col: ' + name; 
+                },
+                exporterHeaderFilterUseName : true,
+                exporterMenuCsv : true,
+                exporterMenuLabel : "Export",
+                exporterMenuPdf : true,
+                exporterOlderExcelCompatibility : false,
+                exporterPdfCustomFormatter : function ( docDefinition ) {
+                 docDefinition.styles.footerStyle = { bold: true, fontSize: 10 };
+                 return docDefinition;
+                },
+                exporterPdfFooter :{ 
+                                     text: 'My footer', 
+                                     style: 'footerStyle' 
+                                   },
+                exporterPdfDefaultStyle : {
+                  fontSize: 11,font:'Roboto' //font 设置自定义字体  Roboto/simblack
+                },
+                exporterPdfFilename:'download.pdf',
+                /* exporterPdfFooter : {
+                 columns: [
+                   'Left part',
+                   { text: 'Right part', alignment: 'right' }
+                 ]
+                }, 
+                或 */
+                exporterPdfFooter: function(currentPage, pageCount) { 
+                       return currentPage.toString() + ' of ' + pageCount; 
+                },
+                exporterPdfHeader : function(currentPage, pageCount) { 
+                   return currentPage.toString() + ' of ' + pageCount; 
+                },
+                exporterPdfMaxGridWidth : 720,
+                exporterPdfOrientation : 'landscape',//  'landscape' 或 'portrait' pdf横向或纵向
+                exporterPdfPageSize : 'A4',// 'A4' or 'LETTER' 
+                exporterPdfTableHeaderStyle : {
+                 bold: true,
+                 fontSize: 12,
+                 color: 'black'
+                },
+                exporterPdfTableLayout : null,
+                exporterPdfTableStyle: {
+                 margin: [0, 5, 0, 15]
+                },
+                exporterSuppressColumns : ['buttons'],
+                exporterSuppressMenu: false,
+ 
+                //---------------api---------------------
+                onRegisterApi: function(gridApi) {
+                    $scope.gridApi = gridApi;
+                    //分页按钮事件
+                    gridApi.pagination.on.paginationChanged($scope,function(newPage, pageSize) {
+                          if(getPage) { 
+                              getPage(newPage, pageSize); 
+                           }
+                    });
+                    //行选中事件
+                    $scope.gridApi.selection.on.rowSelectionChanged($scope,function(row,event){
+                        if(row){
+                            $scope.testRow = row.entity;
+                        }
+                     });
+                }
+            };
+            
+            var getPage = function(curPage, pageSize) {
+                    var firstRow = (curPage - 1) * pageSize;
+                    $scope.gridOptions.totalItems = mydefalutData.length;
+                    $scope.gridOptions.data = mydefalutData.slice(firstRow, firstRow + pageSize);
+                    //或者像下面这种写法
+                    //$scope.myData = mydefalutData.slice(firstRow, firstRow + pageSize);
+            };
+            
+            var mydefalutData = [{ name: "Moroni", age: 50, birthday: "Oct 28, 1970", salary: "60,000" },
+                            { name: "Tiancum", age: 43, birthday: "Feb 12, 1985", salary: "70,000" },
+                            { name: "Jacob", age: 27, birthday: "Aug 23, 1983", salary: "50,000" },
+                            { name: "Nephi", age: 29, birthday: "May 31, 2010", salary: "40,000" },
+                            { name: "Enos", age: 34, birthday: "Aug 3, 2008", salary: "30,000" },
+                            { name: "Moroni", age: 50, birthday: "Oct 28, 1970", salary: "60,000" },
+                            { name: "Tiancum", age: 43, birthday: "Feb 12, 1985", salary: "70,000" },
+                            { name: "Jacob", age: 27, birthday: "Aug 23, 1983", salary: "40,000" },
+                            { name: "Nephi", age: 29, birthday: "May 31, 2010", salary: "50,000" },
+                            { name: "Enos", age: 34, birthday: "Aug 3, 2008", salary: "30,000" },
+                            { name: "Moroni", age: 50, birthday: "Oct 28, 1970", salary: "60,000" },
+                            { name: "Tiancum", age: 43, birthday: "Feb 12, 1985", salary: "70,000" },
+                            { name: "Jacob", age: 27, birthday: "Aug 23, 1983", salary: "40,000" },
+                            { name: "Nephi", age: 29, birthday: "May 31, 2010", salary: "50,000" },
+                            { name: "Enos", age: 34, birthday: "Aug 3, 2008", salary: "30,000" }];
+            
+            getPage(1, $scope.gridOptions.paginationPageSize);
+        }); 
+</script>
+</head>
+<body ng-app="myApps">
+	<div ng-controller="MainCtrl">
+		<div id="user-grid" ui-grid="gridOptions" class="user-grid" ui-grid-resize-columns ui-grid-edit></div>
+    </div>
+	<div ng-controller="OtherCtrl">
+		<div class="gridStyle" ui-grid="gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize ui-grid-exporter ui-grid-edit ui-gird-pagination ui-grid-cellnav>
+		</div>
+	</div>
+	<div ng-controller="MyCtrl">
+       <div  ui-grid="gridOptions" style="width: 100%; height: 500px; text-align: center;" ui-grid-edit ui-grid-pagination 
+       ui-grid-selection ui-grid-exporter ui-grid-resize-columns ui-grid-auto-resize>
+       </div>
+        
+       <div style="width:100%; height: 100px">
+            <ol>
+               <li>名称：{{testRow.name}}</li>
+               <li>年龄：{{testRow.age}}</li>
+               <li>生日：{{testRow.birthday}}</li>
+            </ol>   
+       </div>
+   </div>
+</body>
+</html>

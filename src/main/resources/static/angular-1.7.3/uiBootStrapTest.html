@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>uiBootstrapTest</title>
+<link href="../bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet" />
+<script src="angular-1.7.3/angular.min.js"></script>
+<script src="angular-1.7.3/angular-animate.min.js"></script>
+<script src="angular-1.7.3/angular-route.min.js"></script>
+<script src="angular-1.7.3/thirdPart/uiBootStrap/ui-bootstrap-tpls.min.js"></script>
+<!--<script src="angular-study.js"></script> -->
+<style>
+	input.ng-invalid {
+		background-color: lightblue;
+	}
+	.full button span {
+		background-color: limegreen;
+		border-radius: 32px;
+		color: black;
+	}
+	.partially button span {
+		background-color: orange;
+		border-radius: 32px;
+		color: black;
+	}
+</style>
+<script type="text/javascript">
+var apps = angular.module('myApps', ['ngAnimate','ngRoute', 'ui.bootstrap']);
+apps.controller('PaginationDemoCtrl', function ($scope, $log) {
+  $scope.totalItems = 64;
+  $scope.currentPage = 4;
+
+  $scope.setPage = function (pageNo) {
+    $scope.currentPage = pageNo;
+  };
+
+  $scope.pageChanged = function() {
+    $log.log('Page changed to: ' + $scope.currentPage);
+  };
+
+  $scope.maxSize = 5;
+  $scope.bigTotalItems = 175;
+  $scope.bigCurrentPage = 1;
+}).controller('ButtonsCtrl', function ($scope) {
+  $scope.singleModel = 1;
+
+  $scope.radioModel = 'Middle';
+
+  $scope.checkModel = {
+    left: false,
+    middle: true,
+    right: false
+  };
+
+  $scope.checkResults = [];
+
+  $scope.$watchCollection('checkModel', function () {
+    $scope.checkResults = [];
+    angular.forEach($scope.checkModel, function (value, key) {
+      if (value) {
+        $scope.checkResults.push(key);
+      }
+    });
+  });
+}).controller('DropdownCtrl', function ($scope, $log) {
+  $scope.items = [
+    'The first choice!',
+    'And another choice for you.',
+    'but wait! A third!'
+  ];
+
+  $scope.status = {
+    isopen: false
+  };
+
+  $scope.toggled = function(open) {
+    $log.log('Dropdown is now: ', open);
+  };
+
+  $scope.toggleDropdown = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+    $scope.status.isopen = !$scope.status.isopen;
+  };
+
+  $scope.appendToEl = angular.element(document.querySelector('#dropdown-long-content'));
+}).controller('RatingDemoCtrl', function ($scope) {
+  $scope.rate = 7;
+  $scope.max = 10;
+  $scope.isReadonly = false;
+
+  $scope.hoveringOver = function(value) {
+    $scope.overStar = value;
+    $scope.percent = 100 * (value / $scope.max);
+  };
+
+  $scope.ratingStates = [
+    {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
+    {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
+    {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
+    {stateOn: 'glyphicon-heart'},
+    {stateOff: 'glyphicon-off'}
+  ];
+}).controller('PopoverDemoCtrl', function ($scope, $sce) {
+  $scope.dynamicPopover = {
+    content: 'Hello, World!',
+    templateUrl: 'myPopoverTemplate.html',
+    title: 'Title'
+  };
+
+  $scope.placement = {
+    options: [
+      'top',
+      'top-left',
+      'top-right',
+      'bottom',
+      'bottom-left',
+      'bottom-right',
+      'left',
+      'left-top',
+      'left-bottom',
+      'right',
+      'right-top',
+      'right-bottom'
+    ],
+    selected: 'top'
+  };
+  
+  $scope.htmlPopover = $sce.trustAsHtml('<b style="color: red">I can</b> have <div class="label label-success">HTML</div> content');
+}).controller('DatepickerDemoCtrl', function ($scope) {
+  $scope.today = function() {
+    $scope.dt = new Date();
+  };
+  $scope.today();
+
+  $scope.clear = function() {
+    $scope.dt = null;
+  };
+
+  $scope.options = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: true
+  };
+
+  // Disable weekend selection
+  function disabled(data) {
+    var date = data.date,
+      mode = data.mode;
+    return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+  }
+
+  $scope.toggleMin = function() {
+    $scope.options.minDate = $scope.options.minDate ? null : new Date();
+  };
+
+  $scope.toggleMin();
+
+  $scope.setDate = function(year, month, day) {
+    $scope.dt = new Date(year, month, day);
+  };
+
+  var tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  var afterTomorrow = new Date(tomorrow);
+  afterTomorrow.setDate(tomorrow.getDate() + 1);
+  $scope.events = [
+    {
+      date: tomorrow,
+      status: 'full'
+    },
+    {
+      date: afterTomorrow,
+      status: 'partially'
+    }
+  ];
+
+  function getDayClass(data) {
+    var date = data.date,
+      mode = data.mode;
+    if (mode === 'day') {
+      var dayToCheck = new Date(date).setHours(0,0,0,0);
+
+      for (var i = 0; i < $scope.events.length; i++) {
+        var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+
+        if (dayToCheck === currentDay) {
+          return $scope.events[i].status;
+        }
+      }
+    }
+
+    return '';
+  }
+}).controller('ProgressDemoCtrl', function ($scope) {
+  $scope.max = 200;
+
+  $scope.random = function() {
+    var value = Math.floor(Math.random() * 100 + 1);
+    var type;
+
+    if (value < 25) {
+      type = 'success';
+    } else if (value < 50) {
+      type = 'info';
+    } else if (value < 75) {
+      type = 'warning';
+    } else {
+      type = 'danger';
+    }
+
+    $scope.showWarning = type === 'danger' || type === 'warning';
+
+    $scope.dynamic = value;
+    $scope.type = type;
+  };
+
+  $scope.random();
+
+  $scope.randomStacked = function() {
+    $scope.stacked = [];
+    var types = ['success', 'info', 'warning', 'danger'];
+
+    for (var i = 0, n = Math.floor(Math.random() * 4 + 1); i < n; i++) {
+        var index = Math.floor(Math.random() * 4);
+        $scope.stacked.push({
+          value: Math.floor(Math.random() * 30 + 1),
+          type: types[index]
+        });
+    }
+  };
+
+  $scope.randomStacked();
+}).controller('ModalDemoCtrl', function ($uibModal, $log, $document) {
+  var $ctrl = this;
+  $ctrl.items = ['item1', 'item2', 'item3'];
+
+  $ctrl.animationsEnabled = true;
+
+  $ctrl.open = function (size, parentSelector) {
+    var parentElem = parentSelector ? 
+      angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
+    var modalInstance = $uibModal.open({
+      animation: $ctrl.animationsEnabled,
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      templateUrl: 'myModalContent.html',
+      controller: 'ModalInstanceCtrl',
+      controllerAs: '$ctrl',
+      size: size,
+      appendTo: parentElem,
+      resolve: {
+        items: function () {
+          return $ctrl.items;
+        }
+      }
+    });
+
+    modalInstance.result.then(function (selectedItem) {
+      $ctrl.selected = selectedItem;
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+  };
+
+  $ctrl.openComponentModal = function () {
+    var modalInstance = $uibModal.open({
+      animation: $ctrl.animationsEnabled,
+      component: 'modalComponent',
+      resolve: {
+        items: function () {
+          return $ctrl.items;
+        }
+      }
+    });
+
+    modalInstance.result.then(function (selectedItem) {
+      $ctrl.selected = selectedItem;
+    }, function () {
+      $log.info('modal-component dismissed at: ' + new Date());
+    });
+  };
+
+  $ctrl.openMultipleModals = function () {
+    $uibModal.open({
+      animation: $ctrl.animationsEnabled,
+      ariaLabelledBy: 'modal-title-bottom',
+      ariaDescribedBy: 'modal-body-bottom',
+      templateUrl: 'stackedModal.html',
+      size: 'sm',
+      controller: function($scope) {
+        $scope.name = 'bottom';  
+      }
+    });
+
+    $uibModal.open({
+      animation: $ctrl.animationsEnabled,
+      ariaLabelledBy: 'modal-title-top',
+      ariaDescribedBy: 'modal-body-top',
+      templateUrl: 'stackedModal.html',
+      size: 'sm',
+      controller: function($scope) {
+        $scope.name = 'top';  
+      }
+    });
+  };
+
+  $ctrl.toggleAnimation = function () {
+    $ctrl.animationsEnabled = !$ctrl.animationsEnabled;
+  };
+}).controller('TabsDemoCtrl', function ($scope, $window) {
+  $scope.tabs = [
+    { title:'Dynamic Title 1', content:'Dynamic content 1' },
+    { title:'Dynamic Title 2', content:'Dynamic content 2', disabled: true }
+  ];
+
+  $scope.alertMe = function() {
+    setTimeout(function() {
+      $window.alert('You\'ve selected the alert tab!');
+    });
+  };
+
+  $scope.model = {
+    name: 'Tabs'
+  };
+});
+
+// Please note that $uibModalInstance represents a modal window (instance) dependency.
+// It is not the same as the $uibModal service used above.
+
+apps.controller('ModalInstanceCtrl', function ($uibModalInstance, items) {
+  var $ctrl = this;
+  $ctrl.items = items;
+  $ctrl.selected = {
+    item: $ctrl.items[0]
+  };
+
+  $ctrl.ok = function () {
+    $uibModalInstance.close($ctrl.selected.item);
+  };
+
+  $ctrl.cancel = function () {
+    $uibModalInstance.dismiss('cancel');
+  };
+});
+
+// Please note that the close and dismiss bindings are from $uibModalInstance.
+apps.component('modalComponent', {
+  templateUrl: 'myModalContent.html',
+  bindings: {
+    resolve: '<',
+    close: '&',
+    dismiss: '&'
+  },
+  controller: function () {
+    var $ctrl = this;
+
+    $ctrl.$onInit = function () {
+      $ctrl.items = $ctrl.resolve.items;
+      $ctrl.selected = {
+        item: $ctrl.items[0]
+      };
+    };
+
+    $ctrl.ok = function () {
+      $ctrl.close({$value: $ctrl.selected.item});
+    };
+
+    $ctrl.cancel = function () {
+      $ctrl.dismiss({$value: 'cancel'});
+    };
+  }
+});
+
+</script>
+</head>
+<body ng-app="myApps">
+	<h2 style="color:red;">PaginationDemo</h2>
+	<div ng-controller="PaginationDemoCtrl">
+		<h4>Default</h4>
+		<ul uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></ul> <br />
+		<ul uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul> <br />
+		<ul uib-pagination direction-links="false" boundary-links="true" total-items="totalItems" ng-model="currentPage"></ul> <br />
+		<ul uib-pagination direction-links="false" total-items="totalItems" ng-model="currentPage" num-pages="smallnumPages"></ul>
+		<pre>The selected page no: {{currentPage}}</pre>
+		<button type="button" class="btn btn-info" ng-click="setPage(3)">Set current page to: 3</button>
+
+		<hr />
+		<h4>Limit the maximum visible buttons</h4>
+		<h6><code>rotate</code> defaulted to <code>true</code>:</h6>
+		<ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPages"></ul>
+		<h6><code>rotate</code> defaulted to <code>true</code> and <code>force-ellipses</code> set to <code>true</code>:</h6>
+		<ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" force-ellipses="true"></ul>
+		<h6><code>rotate</code> set to <code>false</code>:</h6>
+		<ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false"></ul>
+		<h6><code>boundary-link-numbers</code> set to <code>true</code> and <code>rotate</code> defaulted to <code>true</code>:</h6>
+		<ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true"></ul>
+		<h6><code>boundary-link-numbers</code> set to <code>true</code> and <code>rotate</code> set to <code>false</code>:</h6>
+		<ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" rotate="false"></ul>
+		<pre>Page: {{bigCurrentPage}} / {{numPages}}</pre>
+	</div>
+	<h2 style="color:red;">ButtonsDemo</h2>
+	<div ng-controller="ButtonsCtrl">
+		<h4>Single toggle</h4>
+		<pre>{{singleModel}}</pre>
+		<button type="button" class="btn btn-primary" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+			Single Toggle
+		</button>
+		<h4>Checkbox</h4>
+		<pre>Model: {{checkModel}}</pre>
+		<pre>Results: {{checkResults}}</pre>
+		<div class="btn-group">
+			<label class="btn btn-primary" ng-model="checkModel.left" uib-btn-checkbox>Left</label>
+			<label class="btn btn-primary" ng-model="checkModel.middle" uib-btn-checkbox>Middle</label>
+			<label class="btn btn-primary" ng-model="checkModel.right" uib-btn-checkbox>Right</label>
+		</div>
+		<h4>Radio &amp; Uncheckable Radio</h4>
+		<pre>{{radioModel || 'null'}}</pre>
+		<div class="btn-group">
+			<label class="btn btn-primary" ng-model="radioModel" uib-btn-radio="'Left'">Left</label>
+			<label class="btn btn-primary" ng-model="radioModel" uib-btn-radio="'Middle'">Middle</label>
+			<label class="btn btn-primary" ng-model="radioModel" uib-btn-radio="'Right'">Right</label>
+		</div>
+		<div class="btn-group">
+			<label class="btn btn-success" ng-model="radioModel" uib-btn-radio="'Left'" uncheckable>Left</label>
+			<label class="btn btn-success" ng-model="radioModel" uib-btn-radio="'Middle'" uncheckable>Middle</label>
+			<label class="btn btn-success" ng-model="radioModel" uib-btn-radio="'Right'" uib-uncheckable="uncheckable">Right</label>
+		</div>
+		<div>
+			<button class="btn btn-default" ng-click="uncheckable = !uncheckable">
+				Toggle uncheckable
+			</button>
+		</div>
+	</div>
+	<h2 style="color:red;">DropdownDemo</h2>
+	<div ng-controller="DropdownCtrl">
+		<!-- Simple dropdown -->
+		<span uib-dropdown on-toggle="toggled(open)">
+		  <a href id="simple-dropdown" uib-dropdown-toggle>
+			Click me for a dropdown, yo!
+		  </a> <br />
+		  <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+			<li ng-repeat="choice in items">
+			  <a href>{{choice}}</a>
+			</li>
+		  </ul>
+		</span>
+
+		<!-- Single button -->
+		<div class="btn-group" uib-dropdown is-open="status.isopen">
+		  <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+			Button dropdown <span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+			<li role="menuitem"><a href="#">Action</a></li>
+			<li role="menuitem"><a href="#">Another action</a></li>
+			<li role="menuitem"><a href="#">Something else here</a></li>
+			<li class="divider"></li>
+			<li role="menuitem"><a href="#">Separated link</a></li>
+		  </ul>
+		</div>
+
+		<!-- Split button -->
+		<div class="btn-group" uib-dropdown>
+		  <button id="split-button" type="button" class="btn btn-danger">Action</button>
+		  <button type="button" class="btn btn-danger" uib-dropdown-toggle>
+			<span class="caret"></span>
+			<span class="sr-only">Split button!</span>
+		  </button>
+		  <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
+			<li role="menuitem"><a href="#">Action</a></li>
+			<li role="menuitem"><a href="#">Another action</a></li>
+			<li role="menuitem"><a href="#">Something else here</a></li>
+			<li class="divider"></li>
+			<li role="menuitem"><a href="#">Separated link</a></li>
+		  </ul>
+		</div>
+
+		<!-- Single button using append-to-body -->
+		<div class="btn-group" uib-dropdown dropdown-append-to-body>
+		  <button id="btn-append-to-body" type="button" class="btn btn-primary" uib-dropdown-toggle>
+			Dropdown on Body <span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
+			<li role="menuitem"><a href="#">Action</a></li>
+			<li role="menuitem"><a href="#">Another action</a></li>
+			<li role="menuitem"><a href="#">Something else here</a></li>
+			<li class="divider"></li>
+			<li role="menuitem"><a href="#">Separated link</a></li>
+		  </ul>
+		</div>
+
+		<!-- Single button using template-url -->
+		<div class="btn-group" uib-dropdown>
+		  <button id="button-template-url" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+			Dropdown using template <span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu" uib-dropdown-menu template-url="dropdown.html" aria-labelledby="button-template-url">
+		  </ul>
+		</div>
+
+		<hr />
+		<p>
+			<button type="button" class="btn btn-default btn-sm" ng-click="toggleDropdown($event)">Toggle button dropdown</button>
+			<button type="button" class="btn btn-warning btn-sm" ng-click="disabled = !disabled">Enable/Disable</button>
+		</p>
+
+		<hr>
+		<!-- Single button with keyboard nav -->
+		<div class="btn-group" uib-dropdown keyboard-nav>
+			<button id="simple-btn-keyboard-nav" type="button" class="btn btn-primary" uib-dropdown-toggle>
+				Dropdown with keyboard navigation <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+				<li role="menuitem"><a href="#">Action</a></li>
+				<li role="menuitem"><a href="#">Another action</a></li>
+				<li role="menuitem"><a href="#">Something else here</a></li>
+				<li class="divider"></li>
+				<li role="menuitem"><a href="#">Separated link</a></li>
+			</ul>
+		</div>
+
+		<hr>
+		<!-- AppendTo use case -->
+		<h4>append-to vs. append-to-body vs. inline example</h4>
+		<div id="dropdown-scrollable-container" style="height: 15em; overflow: auto;">
+		  <div id="dropdown-long-content">
+			<div id="dropdown-hidden-container">
+			  <div class="btn-group" uib-dropdown keyboard-nav dropdown-append-to="appendToEl">
+				<button id="btn-append-to" type="button" class="btn btn-primary" uib-dropdown-toggle>
+				  Dropdown in Container <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to">
+				  <li role="menuitem"><a href="#">Action</a></li>
+				  <li role="menuitem"><a href="#">Another action</a></li>
+				  <li role="menuitem"><a href="#">Something else here</a></li>
+				  <li class="divider"></li>
+				  <li role="menuitem"><a href="#">Separated link</a></li>
+				</ul>
+			  </div>
+			  <div class="btn-group" uib-dropdown dropdown-append-to-body>
+				<button id="btn-append-to-to-body" type="button" class="btn btn-primary" uib-dropdown-toggle>
+				  Dropdown on Body <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-to-body">
+				  <li role="menuitem"><a href="#">Action</a></li>
+				  <li role="menuitem"><a href="#">Another action</a></li>
+				  <li role="menuitem"><a href="#">Something else here</a></li>
+				  <li class="divider"></li>
+				  <li role="menuitem"><a href="#">Separated link</a></li>
+				</ul>
+			  </div>
+			  <div class="btn-group" uib-dropdown>
+				<button id="btn-append-to-single-button" type="button" class="btn btn-primary" uib-dropdown-toggle>
+				  Inline Dropdown <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-single-button">
+				  <li role="menuitem"><a href="#">Action</a></li>
+				  <li role="menuitem"><a href="#">Another action</a></li>
+				  <li role="menuitem"><a href="#">Something else here</a></li>
+				  <li class="divider"></li>
+				  <li role="menuitem"><a href="#">Separated link</a></li>
+				</ul>
+			  </div>
+			</div>
+		  </div>
+		</div>
+
+		<script type="text/ng-template" id="dropdown.html">
+			<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="button-template-url">
+			  <li role="menuitem"><a href="#">Action in Template</a></li>
+			  <li role="menuitem"><a href="#">Another action in Template</a></li>
+			  <li role="menuitem"><a href="#">Something else here</a></li>
+			  <li class="divider"></li>
+			  <li role="menuitem"><a href="#">Separated link in Template</a></li>
+			</ul>
+		</script>
+	</div>
+	<h2 style="color:red;">RatingDemo</h2>
+	<div ng-controller="RatingDemoCtrl">
+		<h4>Default</h4>
+		<span uib-rating ng-model="rate" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+		<span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
+
+		<pre style="margin:15px 0;">Rate: <b>{{rate}}</b> - Readonly is: <i>{{isReadonly}}</i> - Hovering over: <b>{{overStar || "none"}}</b></pre>
+
+		<button type="button" class="btn btn-sm btn-danger" ng-click="rate = 0" ng-disabled="isReadonly">Clear</button>
+		<button type="button" class="btn btn-sm btn-default" ng-click="isReadonly = ! isReadonly">Toggle Readonly</button>
+		<hr />
+
+		<h4>Custom icons</h4>
+		<div ng-init="x = 5"><span uib-rating ng-model="x" max="15" state-on="'glyphicon-ok-sign'" state-off="'glyphicon-ok-circle'" aria-labelledby="custom-icons-1"></span> <b>(<i>Rate:</i> {{x}})</b></div>
+		<div ng-init="y = 2"><span uib-rating ng-model="y" rating-states="ratingStates" aria-labelledby="custom-icons-2"></span> <b>(<i>Rate:</i> {{y}})</b></div>
+	</div>
+	<h2 style="color:red;">PopoverDemo</h2>
+	<div ng-controller="PopoverDemoCtrl">
+		<h4>Dynamic</h4>
+		<div class="form-group">
+		  <label>Popup Text:</label>
+		  <input type="text" ng-model="dynamicPopover.content" class="form-control">
+		</div>
+		<div class="form-group">
+		  <label>Popup Title:</label>
+		  <input type="text" ng-model="dynamicPopover.title" class="form-control">
+		</div>
+		<div class="form-group">
+		  <label>Popup Template:</label>
+		  <input type="text" ng-model="dynamicPopover.templateUrl" class="form-control">
+		</div>
+		<button uib-popover="{{dynamicPopover.content}}" popover-title="{{dynamicPopover.title}}" type="button" class="btn btn-default">Dynamic Popover</button>
+
+		<button uib-popover-template="dynamicPopover.templateUrl" popover-title="{{dynamicPopover.title}}" type="button" class="btn btn-default">Popover With Template</button>
+
+		<script type="text/ng-template" id="myPopoverTemplate.html">
+			<div>{{dynamicPopover.content}}</div>
+			<div class="form-group">
+			  <label>Popup Title:</label>
+			  <input type="text" ng-model="dynamicPopover.title" class="form-control">
+			</div>
+		</script>
+		<hr />
+		<h4>Positional</h4>
+		<div class="form-group">
+		  <label>Popover placement</label>
+		  <select class="form-control" ng-model="placement.selected" ng-options="o as o for o in placement.options"></select>
+		</div>
+		<button popover-placement="{{placement.selected}}" uib-popover="On the {{placement.selected}}" type="button" class="btn btn-default">Popover {{placement.selected}}</button>
+
+		<hr />
+		<h4>Triggers</h4>
+		<p>
+		  <button uib-popover="I appeared on mouse enter!" popover-trigger="'mouseenter'" type="button" class="btn btn-default">Mouseenter</button>
+		</p>
+		<input type="text" value="Click me!" uib-popover="I appeared on focus! Click away and I'll vanish..."  popover-trigger="'focus'" class="form-control">
+
+		<hr />
+		<h4>Other</h4>
+		<button popover-animation="true" uib-popover="I fade in and out!" type="button" class="btn btn-default">fading</button>
+		<button uib-popover="I have a title!" popover-title="The title." type="button" class="btn btn-default">title</button>
+		<button uib-popover="I am activated manually" popover-is-open="popoverIsOpen" ng-click="popoverIsOpen = !popoverIsOpen" type="button" class="btn btn-default">Toggle popover</button>
+		<button uib-popover-html="htmlPopover" class="btn btn-default">HTML Popover</button>
+		<button uib-popover-html="'<b>HTML</b>, <i>inline</i>'" class="btn btn-default">HTML Popover (inline)</button>
+	</div>
+	<h2 style="color:red;">DatepickerDemo</h2>
+	<div ng-controller="DatepickerDemoCtrl">
+		<pre>Selected date is: <em>{{dt | date:'fullDate' }}</em></pre>
+
+		<h4>Inline</h4>
+		<div style="display:inline-block; min-height:290px;">
+		  <div uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options"></div>
+		</div>
+
+		<hr />
+		<button type="button" class="btn btn-sm btn-info" ng-click="today()">Today</button>
+		<button type="button" class="btn btn-sm btn-default" ng-click="setDate(2009, 7, 24)">2009-08-24</button>
+		<button type="button" class="btn btn-sm btn-danger" ng-click="clear()">Clear</button>
+		<button type="button" class="btn btn-sm btn-default" ng-click="toggleMin()" uib-tooltip="After today restriction">Min date</button>
+	</div>
+	<h2 style="color:red;">ProgressDemo</h2>
+	<div ng-controller="ProgressDemoCtrl">
+		<h3>Static</h3>
+		<div class="row">
+			<div class="col-sm-4"><uib-progressbar value="55"></uib-progressbar></div>
+			<div class="col-sm-4"><uib-progressbar class="progress-striped" value="22" type="warning">22%</uib-progressbar></div>
+			<div class="col-sm-4"><uib-progressbar class="progress-striped active" max="200" value="166" type="danger"><i>166 / 200</i></uib-progressbar></div>
+		</div>
+
+		<hr />
+		<h3>Dynamic <button type="button" class="btn btn-sm btn-primary" ng-click="random()">Randomize</button></h3>
+		<uib-progressbar max="max" value="dynamic"><span style="color:white; white-space:nowrap;">{{dynamic}} / {{max}}</span></uib-progressbar>
+		
+		<small><em>No animation</em></small>
+		<uib-progressbar animate="false" value="dynamic" type="success"><b>{{dynamic}}%</b></uib-progressbar>
+
+		<small><em>Object (changes type based on value)</em></small>
+		<uib-progressbar class="progress-striped active" value="dynamic" type="{{type}}">{{type}} <i ng-show="showWarning">!!! Watch out !!!</i></uib-progressbar>
+		
+		<hr />
+		<h3>Stacked <button type="button" class="btn btn-sm btn-primary" ng-click="randomStacked()">Randomize</button></h3>
+		<uib-progress><uib-bar ng-repeat="bar in stacked track by $index" value="bar.value" type="{{bar.type}}"><span ng-hide="bar.value < 5">{{bar.value}}%</span></uib-bar></uib-progress>
+
+	</div>
+	<h2 style="color:red;">ModalDemo</h2>
+	<div ng-controller="ModalDemoCtrl as $ctrl" class="modal-demo">
+		<script type="text/ng-template" id="myModalContent.html">
+			<div class="modal-header">
+				<h3 class="modal-title" id="modal-title">I'm a modal!</h3>
+			</div>
+			<div class="modal-body" id="modal-body">
+				<ul>
+					<li ng-repeat="item in $ctrl.items">
+						<a href="#" ng-click="$event.preventDefault(); $ctrl.selected.item = item">{{ item }}</a>
+					</li>
+				</ul>
+				Selected: <b>{{ $ctrl.selected.item }}</b>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+				<button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+			</div>
+		</script>
+		<script type="text/ng-template" id="stackedModal.html">
+			<div class="modal-header">
+				<h3 class="modal-title" id="modal-title-{{name}}">The {{name}} modal!</h3>
+			</div>
+			<div class="modal-body" id="modal-body-{{name}}">
+				Having multiple modals open at once is probably bad UX but it's technically possible.
+			</div>
+		</script>
+
+		<button type="button" class="btn btn-default" ng-click="$ctrl.open()">Open me!</button>
+		<button type="button" class="btn btn-default" ng-click="$ctrl.open('lg')">Large modal</button>
+		<button type="button" class="btn btn-default" ng-click="$ctrl.open('sm')">Small modal</button>
+		<button type="button" 
+			class="btn btn-default" 
+			ng-click="$ctrl.open('sm', '.modal-parent')">
+				Modal appended to a custom parent
+		</button>
+		<button type="button" class="btn btn-default" ng-click="$ctrl.toggleAnimation()">Toggle Animation ({{ $ctrl.animationsEnabled }})</button>
+		<button type="button" class="btn btn-default" ng-click="$ctrl.openComponentModal()">Open a component modal!</button>
+		<button type="button" class="btn btn-default" ng-click="$ctrl.openMultipleModals()">
+			Open multiple modals at once 
+		</button>
+		<div ng-show="$ctrl.selected">Selection from a modal: {{ $ctrl.selected }}</div>
+		<div class="modal-parent">
+		</div>
+	</div>
+	<h2 style="color:red;">TabsDemo</h2>
+	<div ng-controller="TabsDemoCtrl">
+	  <p>Select a tab by setting active binding to true:</p>
+	  <p>
+		<button type="button" class="btn btn-default btn-sm" ng-click="active = 1">Select second tab</button>
+		<button type="button" class="btn btn-default btn-sm" ng-click="active = 2">Select third tab</button>
+	  </p>
+	  <p>
+		<button type="button" class="btn btn-default btn-sm" ng-click="tabs[1].disabled = ! tabs[1].disabled">Enable / Disable third tab</button>
+	  </p>
+	  <hr />
+
+	  <uib-tabset active="active">
+		<uib-tab index="0" heading="Static title">Static content</uib-tab>
+		<uib-tab index="$index + 1" ng-repeat="tab in tabs" heading="{{tab.title}}" disable="tab.disabled">
+		  {{tab.content}}
+		</uib-tab>
+		<uib-tab index="3" select="alertMe()">
+		  <uib-tab-heading>
+			<i class="glyphicon glyphicon-bell"></i> Alert!
+		  </uib-tab-heading>
+		  I've got an HTML heading, and a select callback. Pretty cool!
+		</uib-tab>
+	  </uib-tabset>
+
+	  <hr />
+
+	  <uib-tabset active="activePill" vertical="true" type="pills">
+		<uib-tab index="0" heading="Vertical 1">Vertical content 1</uib-tab>
+		<uib-tab index="1" heading="Vertical 2">Vertical content 2</uib-tab>
+	  </uib-tabset>
+
+	  <hr />
+
+	  <uib-tabset active="activeJustified" justified="true">
+		<uib-tab index="0" heading="Justified">Justified content</uib-tab>
+		<uib-tab index="1" heading="SJ">Short Labeled Justified content</uib-tab>
+		<uib-tab index="2" heading="Long Justified">Long Labeled Justified content</uib-tab>
+	  </uib-tabset>
+
+	  <hr />
+
+	  Tabbed pills with CSS classes
+	  <uib-tabset type="pills">
+		<uib-tab heading="Default Size">Tab 1 content</uib-tab>
+		<uib-tab heading="Small Button" classes="btn-sm">Tab 2 content</uib-tab>
+	  </uib-tabset>
+
+	  <hr />
+
+	  Tabs using nested forms:
+	  <form name="outerForm" class="tab-form-demo">
+		<uib-tabset active="activeForm">
+		  <uib-tab index="0" heading="Form Tab">
+			<ng-form name="nestedForm">
+			  <div class="form-group">
+				<label>Name</label>
+				<input type="text" class="form-control" required ng-model="model.name"/>
+			  </div>
+			</ng-form>
+		  </uib-tab>
+		  <uib-tab index="1" heading="Tab One">
+			Some Tab Content
+		  </uib-tab>
+		  <uib-tab index="2" heading="Tab Two">
+			More Tab Content
+		  </uib-tab>
+		</uib-tabset>
+	  </form>
+	  Model:
+	  <pre>{{ model | json }}</pre>
+	  Nested Form:
+	  <pre>{{ outerForm.nestedForm | json }}</pre>
+	</div>
+	<!--<div ng-controller="myCtrls">
+    	<input ng-model="name">
+    	<h1>{{greeting}}</h1>
+    	<button ng-click='sayHello()'>点我</button>
+    	<div>Name: {{printName() | reverse}}</div> 
+    	<ul>
+  			<li ng-repeat="x in names | orderBy:'country'">
+    		{{ x.name + ', ' + x.country }}
+  			</li>
+		</ul> 
+		<div>{{localurl}}</div>
+	</div>
+
+	<div ng-controller="myCtrl1">     
+    	{{first}}<br>              
+    	{{$root.first}}<br>         
+    	{{second}}<br>              
+    	{{$root.second}}<br>       
+	</div>
+
+	<div ng-controller="myCtrl2">
+    	{{first}}<br>               
+    	{{$root.first}}<br>        
+    	{{second}}<br>            
+    	{{$root.second}}       
+	</div>-->
+
+	<!--
+	ng-invalid:未通过验证的表单
+	ng-valid:布尔型属性，它指示表单是否通过验证。如果表单当前通过验证，他将为true
+	ng-dirty:布尔值属性，表示用户是否修改了表单。如果为 ture，表示有修改过；false 表示修没有修改过
+	ng-touched:布尔值属性，表示用户是否和控件进行过交互
+	ng-pristine:布尔值属性，表示用户是否修改了表单。如果为ture，表示没有修改过；false表示修改过
+
+	ng-valid: 验证通过
+	ng-invalid: 验证失败
+	ng-valid-[key]: 由$setValidity添加的所有验证通过的值
+	ng-invalid-[key]: 由$setValidity添加的所有验证失败的值
+	ng-pristine: 控件为初始状态
+	ng-dirty: 控件输入值已变更
+	ng-touched: 控件已失去焦点
+	ng-untouched: 控件未失去焦点
+	ng-pending: 任何为满足$asyncValidators的情况
+	-->
+	<!-- <form ng-app="" name="myForm">
+    输入你的名字:
+    <input name="myAddress" ng-model="text" required>
+	</form> -->
+
+
+	<!-- <div ng-app="" ng-init="names=[
+		{name:'Jani',country:'Norway'},
+		{name:'Hege',country:'Sweden'},
+		{name:'Kai',country:'Denmark'}]">
+		<p>循环对象：</p>
+		<ul>
+  			<li ng-repeat="x in names">
+    		{{ x.name + ', ' + x.country }}
+  			</li>
+		</ul> 
+	</div> -->
+
+	<!-- <div ng-app="" ng-init="names=['Jani','Hege','Kai']">
+  		<p>使用 ng-repeat 来循环数组</p>
+  		<ul>
+    		<li ng-repeat="x in names">
+      		{{ x }}
+    		</li>
+  		</ul>
+	</div> -->
+
+	<!-- <div ng-app="" ng-init="quantity=1;price=5">
+		数量: <input type="text" ng-model="quantity"> <br />
+		价格: <input type="text" ng-model="price"> <br />
+		<h1><b>总价: </b> {{quantity*price}}</h1>
+	</div> -->
+
+	<!-- <div ng-app="">
+	<p>名字 : <input type="text" ng-model="name"></p>
+	<h1>Hello {{name}}</h1>
+	</div>
+	 -->
+
+	<!-- <div ng-app="" ng-init="firstName='John'">
+	<p>姓名为 <span ng-bind="firstName"></span></p>
+	</div>  -->
+	
+	<!-- <div ng-app="myApp" ng-controller="myCtrl">
+	名: <input type="text" ng-model="firstName1"><br>
+	姓: <input type="text" ng-model="lastName1"><br>
+	<br>
+	姓名: {{firstName1 + " " + lastName1}} 
+	</div> -->
+
+	<!-- <form ng-app="" name="myForm" ng-init="myText = 'test@runoob.com'">
+    Email:
+    <input type="email" name="myAddress" ng-model="text">
+    <span ng-show="myForm.myAddress.$error.email">
+    不是一个合法的邮箱地址</span>
+    <h1>状态</h1>
+    {{myForm.myAddress.$valid}}
+    {{myForm.myAddress.$dirty}}
+    {{myForm.myAddress.$touched}}
+	</form> -->
+
+	<!-- <div ng-app="" ng-init="points=[1,15,19,2,40]">
+		<p>第三个值为 {{points[2]}}</p> 
+	</div> -->
+
+	<!-- <div ng-app="" ng-init="person={first:'John',second:'Doe'}">
+		<p>{{person.first}}</p>
+	</div> -->
+
+	<!-- <div ng-app="" ng-init="name='John'">
+		<p>名字 : <input type="text" ng-model="name"></p>
+		<h1>Hello {{name}}</h1>
+	</div> -->
+
+</body>
+</html>
