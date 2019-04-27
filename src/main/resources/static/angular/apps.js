@@ -2,7 +2,7 @@
  * root apps
  */
 
-var cmndProjectApps = angular.module('cmndProject', ['ngAnimate', 'ngCookies', 'ui.router', 'toaster', 'ui.bootstrap', 'ngTouch', 'ui.grid', 'ui.grid.selection',
+var cmndProjectApps = angular.module('cmndProject', ['ngAnimate', 'ngCookies', 'ngTable', 'ui.router', 'toaster', 'ui.bootstrap', 'ngTouch', 'ui.grid', 'ui.grid.selection',
 	'ui.grid.resizeColumns', 'ui.grid.autoResize', 'ui.grid.edit', 'ui.grid.exporter', 'ui.grid.pagination', 'ui.grid.cellNav']);
 cmndProjectApps.run(function($rootScope, $state, locals) {
     window.myAppErrorLog = [];
