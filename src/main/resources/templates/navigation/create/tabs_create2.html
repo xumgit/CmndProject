@@ -1,40 +1,46 @@
 <div ng-controller="navigationCreate2Controller as demo">
-    <div style="margin: 0px 10px 0px 10px;">
-    	<table ng-table="tableParams" class="table table-condensed table-bordered table-striped editable-table demoTable" show-filter="true">
-    		<tr ng-repeat="row in $data">
+	<toaster-container></toaster-container>
+	<h2 class="page-header">Loading data - managed array</h2>
+    <div class="bs-callout bs-callout-info">
+		<h4>Overview</h4>
+		<p>When you have the <em>entire</em> dataset available in-memory you can hand this to <code>NgTableParams</code> to manage the filtering, sorting and paging of that array</p>
+	</div>
+	<div>
+		<table ng-table="demo.tableParams" class="table table-condensed table-bordered table-striped">
+			<tr ng-repeat="row in $data" ng-form="rowForm" demo-tracked-table-row="row">
 				<td title="'Name'" filter="{name: 'text'}" sortable="'name'" ng-switch="row.isEditing" ng-class="name.$dirty ? 'bg-warning' : ''" ng-form="name" demo-tracked-table-cell>
-	            	<span ng-switch-default class="editable-text">{{row.name}}</span>
-	            	<div class="controls" ng-class="name.$invalid && name.$dirty ? 'has-error' : ''" ng-switch-when="true">
-	              		<input type="text" name="name" ng-model="row.name" class="editable-input form-control input-sm" required />
-	            	</div>
-         		</td>
-	          <td title="'Age'" filter="{age: 'number'}" sortable="'age'" ng-switch="row.isEditing" ng-class="age.$dirty ? 'bg-warning' : ''" ng-form="age" demo-tracked-table-cell>
-		            <span ng-switch-default class="editable-text">{{row.age}}</span>
-		            <div class="controls" ng-class="age.$invalid && age.$dirty ? 'has-error' : ''" ng-switch-when="true">
-		              	<input type="number" name="age" ng-model="row.age" class="editable-input form-control input-sm" required/>
-		            </div>
-	          </td>
-	          <td title="'Money'" filter="{money: 'number'}" sortable="'money'" ng-switch="row.isEditing" ng-class="money.$dirty ? 'bg-warning' : ''" ng-form="money" demo-tracked-table-cell>
-		            <span ng-switch-default class="editable-text">{{row.money}}</span>
-		            <div class="controls" ng-class="money.$invalid && money.$dirty ? 'has-error' : ''" ng-switch-when="true">
-		             	<input type="number" name="money" ng-model="row.money" class="editable-input form-control input-sm" required/>
-		            </div>
-	           </td>
-	           <td>
-            		<button class="btn btn-primary btn-sm" title ="save" ng-click="save(row, rowForm)" ng-if="row.isEditing" ng-disabled="rowForm.$pristine || rowForm.$invalid">
-            			<span class="glyphicon glyphicon-ok"></span>
-            		</button>
-            		<button class="btn btn-default btn-sm" title = "cancel" ng-click="cancel(row, rowForm)" ng-if="row.isEditing">
-            			<span class="glyphicon glyphicon-remove"></span>
-            		</button>
-            		<button class="btn btn-default btn-sm" title = "edit" ng-click="row.isEditing = true" ng-if="!row.isEditing">
-            			<span class="glyphicon glyphicon-pencil"></span>
-            		</button>
-            		<button class="btn btn-danger btn-sm" title="delete" ng-click="del(row)" ng-if="!row.isEditing">
-            			<span class="glyphicon glyphicon-trash"></span>
-            		</button>
-          	   </td>
-    		</tr>
+					<span ng-switch-default class="editable-text">{{row.name}}</span>
+	 				<div class="controls" ng-class="name.$invalid && name.$dirty ? 'has-error' : ''" ng-switch-when="true">
+	 					<input type="text" name="name" ng-model="row.name" class="editable-input form-control input-sm" required />
+					</div>
+				</td>
+				<td title="'Age'" filter="{age: 'number'}" sortable="'age'" ng-switch="row.isEditing" ng-class="age.$dirty?'bg-warning':''" ng-form="age" demo-tracked-table-cell>
+					<span ng-switch-default class="editable-text">{{row.age}}</span>
+					<div class="controls" ng-class="age.$invalid && age.$dirty?'has-error':''" ng-switch-when="true">
+						<input type="number" name="age" ng-model="row.age" class="editable-input form-control input-sm" required/>
+					</div>
+				</td>
+				<td title="'Money'" filter="{money: 'number'}" sortable="'money'" ng-switch="row.isEditing" ng-class="money.$dirty?'bg-warning':''" ng-form="money" demo-tracked-table-cell>
+					<span ng-switch-default class="editable-text">{{row.money}}</span>
+					<div class="controls" ng-class="money.$invalid && money.$dirty?'has-error':''" ng-switch-when="true">
+						<input type="number" name="money" ng-model="row.money" class="editable-input form-control input-sm" required/>
+					</div>
+				</td>
+				<td>
+					<button class="btn btn-primary btn-sm" ng-title="save" ng-click="demo.save(row, rowForm)" ng-if="row.isEditing" ng-disabled="rowForm.$pristine || rowForm.$invalid">
+						<span class="glyphicon glyphicon-ok"></span>
+					</button>
+					<button class="btn btn-default btn-sm" ng-title="cancel" ng-click="demo.cancel(row, rowForm)" ng-if="row.isEditing">
+						<span class="glyphicon glyphicon-remove"></span>
+					</button>
+					<button class="btn btn-default btn-sm" ng-title="edit" ng-click="row.isEditing = true" ng-if="!row.isEditing">
+						<span class="glyphicon glyphicon-pencil"></span>
+					</button>
+					<button class="btn btn-danger btn-sm" ng-title="delete" ng-click="demo.del(row)" ng-if="!row.isEditing">
+						<span class="glyphicon glyphicon-trash"></span>
+					</button>
+				</td>
+			</tr>
 		</table>
-    </div>
+	</div>
 </div>
