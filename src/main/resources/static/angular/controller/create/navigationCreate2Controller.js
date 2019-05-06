@@ -110,9 +110,9 @@
 	cmndProjectApps.controller('navigationCreate2Controller', navigationCreate2Controller);
 	navigationCreate2Controller.$inject = ["NgTableParams", '$scope', '$rootScope', '$http', '$location',
 							  			   'locals', '$state', '$stateParams', 'navigationService', 
-							  			   'tabsCreate1Service', 'toaster', '$timeout', 'i18nService'];
+							  			   'tabsCreate1Service', 'toaster', '$timeout', 'i18nService', 'Upload'];
 	function navigationCreate2Controller(NgTableParams, $scope, $rootScope, $http, $location, locals, $state, $stateParams, 
-										 navigationService, tabsCreate1Service, toaster, $timeout, i18nService) {
+										 navigationService, tabsCreate1Service, toaster, $timeout, i18nService, Upload) {
 		var data = [
 			{name: "Moroni", age: 16, money: 88.1}, {name: "Enos", age: 99, money: 22.3}, {name: "Tracy", age: 2, money: 22.4}, 
 			{name: "Oracle", age: 31, money: 33.3}, {name: "Java", age: 13, money: 53.3}, {name: "Php", age: 46, money: 67.3},
@@ -198,4 +198,54 @@
                 });
             }, 500);
         }
+	    
+	    $scope.myImage = '';
+        $scope.myCroppedImage = '';
+        
+        function onLoadDone () {
+        	console.log("onLoadDone:");
+        }
+        
+        var handleFileSelect = function(evt) {
+          var file = evt.currentTarget.files[0];
+          var reader = new FileReader();
+          reader.onload = function (evt) {
+            $scope.$apply(function($scope){
+              $scope.myImage = evt.target.result;
+            });
+          };
+          reader.readAsDataURL(file);
+        };
+        angular.element(document.querySelector('#fileInput')).on('change',handleFileSelect);
+        
+        $scope.submit = function() {
+            if ($scope.form.file.$valid && $scope.file) {
+              $scope.upload($scope.file);
+            }
+          };
+
+          // upload on file select or drop
+          $scope.upload = function (file) {
+              Upload.upload({
+                  url: 'upload/url',
+                  data: {file: file, 'username': $scope.username}
+              }).then(function (resp) {
+                  console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+              }, function (resp) {
+                  console.log('Error status: ' + resp.status);
+              }, function (evt) {
+                  var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                  console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+              });
+          };
+          // for multiple files:
+          $scope.uploadFiles = function (files) {
+            if (files && files.length) {
+              for (var i = 0; i < files.length; i++) {
+                //Upload.upload({..., data: {file: files[i]}, ...})...;
+              }
+              // or send them all together for HTML5 browsers:
+              //Upload.upload({..., data: {file: files}, ...})...;
+            }
+          };
 	}
