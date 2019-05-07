@@ -2,9 +2,17 @@
  * 
  */
 
-<script type="text/babel">
-ReactDOM.render(
-    <h1>Hello, world!</h1>,
+function tick() {
+  const element = (
+    <div>
+      <h1>Hello, world!</h1>
+      <h2>Current Time: {new Date().toLocaleTimeString()}.</h2>
+    </div>
+  );
+  ReactDOM.render(
+    element,
     document.getElementById('example')
-);
-</script>
+  );
+}
+ 
+setInterval(tick, 1000);

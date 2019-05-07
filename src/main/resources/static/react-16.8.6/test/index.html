@@ -7,23 +7,97 @@
 <script type="text/javascript" src="../react-dom.development.js"></script>
 <script type="text/javascript" src="../babel.min.js"></script>
 <script type="text/babel">
+let myStyle = {
+    fontSize: 20,
+    color: 'red'
+};
+
 function tick() {
-  const element = (
-    <div>
-      <h1>Hello, world!</h1>
-      <h2>Current Time: {new Date().toLocaleTimeString()}.</h2>
-    </div>
-  );
-  ReactDOM.render(
-    element,
-    document.getElementById('example')
-  );
+ 	{/*comment*/}
+  	
+  	let arr = ['Alice', 'Emily', 'Kate'];
+	let i = 1;
+	const element = (
+    	<div>
+			<div>
+			{
+				arr.map(function(name, key) {
+            		return <div key={key}>Hello, {name}!</div>;
+          		})
+			}
+			</div>
+      		<h1 style={myStyle}>{i == 1 ? 'True!' : 'False'}</h1>
+      		<h2>Current Time: {new Date().toLocaleTimeString()}</h2>
+    	</div>
+  	);
+
+  	ReactDOM.render(
+    	element,
+    	document.getElementById('example'),
+		cb('example')
+  	);
+
+	ReactDOM.render(
+    	<App />,
+    	document.getElementById('example1'),
+		cb('example1')
+	);
 }
+
+function App() {
+    return (
+    	<div>
+        	<Name name="baidu" />
+        	<NameUrl name="baidu" url="http://www.runoob.com" />
+        	<Welcome name="myName" province="china"/>
+    	</div>
+    );
+}
+
+function Name(props) {
+    return <h3>WebsiteName:{props.name}</h3>;
+}
+
+function NameUrl(props) {
+    return <h3 style={myStyle}>WebsiteName:{props.name},WebsiteUrl:{props.url}</h3>;
+}
+
+class Welcome extends React.Component {
+	constructor(props) {
+    	super(props);
+    	this.state = {date: new Date()};
+  	}
+	
+	componentDidMount() {
+		let f = () => this.ticks();
+    	this.timerID = setInterval(f,1000);
+  	}
  
-setInterval(tick, 1000);
+  	componentWillUnmount() {
+    	clearInterval(this.timerID);
+  	}
+
+	ticks() {
+    	this.setState({
+      		date: new Date()
+    	});
+  	}
+
+  	render() {
+    	return <h3>Hello, {this.props.name}, {this.props.province}, {this.state.date.toLocaleTimeString()}</h3>;
+  	}
+}
+
+function cb(v) {
+	console.log("cb function:" + v);
+}
+
+tick(); 
+//setInterval(tick, 1000);
 </script>
 </head>
 <body>
 	<div id="example"></div>
+	<div id="example1"></div>
 </body>
 </html>
