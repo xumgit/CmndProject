@@ -5,6 +5,7 @@
 <title>ReactIndex</title>
 <script type="text/javascript" src="../react.development.js"></script>
 <script type="text/javascript" src="../react-dom.development.js"></script>
+<script type="text/javascript" src="prop-types.js"></script>
 <script type="text/javascript" src="../babel.min.js"></script>
 <script type="text/babel">
 let myStyle = {
@@ -14,8 +15,11 @@ let myStyle = {
 
 function tick() {
  	{/*comment*/}
-  	
-  	let arr = ['Alice', 'Emily', 'Kate'];
+  	const arr1 = ['A', 'B', 'C'];
+  	let arr = [...arr1, 'Alice', 'Emily', 'Kate'];
+	const a = 20;
+	const b = 30;
+	const ab = `${a}+${b}=${a+b}`;
 	let i = 1;
 	const element = (
     	<div>
@@ -26,7 +30,7 @@ function tick() {
           		})
 			}
 			</div>
-      		<h1 style={myStyle}>{i == 1 ? 'True!' : 'False'}</h1>
+      		<h1 style={myStyle}>{i == 1 ? 'True!' : 'False'} - {ab}</h1>
       		<h2>Current Time: {new Date().toLocaleTimeString()}</h2>
     	</div>
   	);
@@ -40,8 +44,20 @@ function tick() {
 	ReactDOM.render(
     	<App />,
     	document.getElementById('example1'),
-		cb('example1')
+		cb()
 	);
+
+	ReactDOM.render(
+    	<Websites />,
+    	document.getElementById('example2'),
+		cb('example2')
+	);
+
+  ReactDOM.render(
+      <Toggle />,
+      document.getElementById('example3'),
+    cb('example3')
+  );
 }
 
 function App() {
@@ -49,7 +65,7 @@ function App() {
     	<div>
         	<Name name="baidu" />
         	<NameUrl name="baidu" url="http://www.runoob.com" />
-        	<Welcome name="myName" province="china"/>
+        	<Welcome province="china"/>
     	</div>
     );
 }
@@ -88,9 +104,83 @@ class Welcome extends React.Component {
   	}
 }
 
-function cb(v) {
+Welcome.defaultProps = {
+  	name: 'usa'
+};
+
+Welcome.propTypes = {
+  	name: PropTypes.string
+};
+
+class NameWeb extends React.Component {
+  	render() {
+    	return (
+      		<h3>{this.props.name}</h3>
+    	);
+  	}
+}
+
+class LinkWeb extends React.Component {
+  	render() {
+    	return (
+      		<a href={this.props.state.site} title={this.props.state.name}>
+        		{this.props.state.site}
+      		</a>
+    	);
+  	}
+}
+
+class Websites extends React.Component {
+	constructor() {
+      	super();
+      	this.state = {
+        	name: "baidu",
+        	site: "http://www.baidu.com"
+      	}
+   	}
+
+	render() {
+    	return (
+			<div>
+				<NameWeb name={this.state.name} />
+				<LinkWeb state={this.state} />
+			</div>
+		)
+  	}
+}
+
+class Toggle extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {isToggleOn: true};
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.setState(prevState => ({
+      isToggleOn: !prevState.isToggleOn
+    }));
+  }
+
+  render() {
+    return (
+      <button onClick={this.handleClick}>
+        {this.state.isToggleOn ? 'ON' : 'OFF'}
+      </button>
+    );
+  }
+}
+
+function cb(v='default Value') {
 	console.log("cb function:" + v);
 }
+
+const add = (a, b, ...more) => {
+    return more.reduce((m, n) => m + n) + a + b;
+}
+
+console.log("sum:" + add(1,2,3,4,5,6));
 
 tick(); 
 //setInterval(tick, 1000);
@@ -99,5 +189,7 @@ tick();
 <body>
 	<div id="example"></div>
 	<div id="example1"></div>
+	<div id="example2"></div>
+  <div id="example3"></div>
 </body>
 </html>
