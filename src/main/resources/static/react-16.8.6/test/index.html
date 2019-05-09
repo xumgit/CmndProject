@@ -53,11 +53,27 @@ function tick() {
 		cb('example2')
 	);
 
-  ReactDOM.render(
-      <Toggle />,
-      document.getElementById('example3'),
-    cb('example3')
-  );
+  	ReactDOM.render(
+      	<Toggle />,
+      	document.getElementById('example3'),
+    	cb('example3')
+  	);
+
+	ReactDOM.render(
+      	<ListArr arr={arr1} />,
+      	document.getElementById('example4'),
+    	cb('example4')
+  	);
+}
+
+function ListLi(props) {
+	return <li>{props.value}</li>;
+}	
+
+function ListArr(props) {
+	const arr = props.arr;
+	const listItems = arr.map((ar) => <ListLi key={ar.toString()} value={ar} />);
+	return (<ul>{listItems}</ul>);
 }
 
 function App() {
@@ -150,26 +166,79 @@ class Websites extends React.Component {
 }
 
 class Toggle extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {isToggleOn: true};
+	constructor(props) {
+    	super(props);
+    	this.state = {isToggleOn: true};
+		this.switch = true;
+		this.arr = ["AA", "BB", "CC"];
+    	this.handleClick = this.handleClick.bind(this);
+  	}
 
-    this.handleClick = this.handleClick.bind(this);
-  }
+  	handleClick() {
+    	this.setState(prevState => ({
+      		isToggleOn: !prevState.isToggleOn
+    	}));
+		this.switch = !this.switch;
+  	}
+	
+  	test1Console(toggle, value, e) {
+		console.log("test1, toggle:" + toggle + ",value:" + value + ",e:" + e);
+		e.preventDefault();
+	}
 
-  handleClick() {
-    this.setState(prevState => ({
-      isToggleOn: !prevState.isToggleOn
-    }));
-  }
+	test2Console(toggle, value, e) { 
+		console.log("test2, toggle:" + toggle + ",value:" + value + ",e:" + e);
+		e.preventDefault();
+	}
 
-  render() {
-    return (
-      <button onClick={this.handleClick}>
-        {this.state.isToggleOn ? 'ON' : 'OFF'}
-      </button>
-    );
-  }
+	test3Console(value, e) { 
+		console.log("value:" + value + ",e:" + e);
+		if (value) {
+			console.log("test3Console=>true");
+		} else {
+			console.log("test3Console=>false");
+		}
+		e.preventDefault();
+	}
+	
+  	render() {
+		let button = null;
+		if (this.switch) {
+			button = (
+					  <button onClick={(e) => this.test3Console(false, e)}>
+						 test3
+      				  </button>
+					 );
+		} else {
+			button = (<button>nothing</button>);
+		}
+		
+    	return (
+			<div>
+      			<button onClick={this.handleClick}>
+					{this.state.isToggleOn ? 'ON' : 'OFF'}
+      			</button>
+				&nbsp;&nbsp;
+				<button onClick={()=>this.handleClick()}>
+					{this.state.isToggleOn ? 'ON' : 'OFF'}
+      			</button>
+	  			&nbsp;&nbsp; 
+				{/* 这种方式e(this)必须放在最后面, e(this)值得其实当前事件, 例子下面 */}
+				{/* 事件: this.test1Console.bind(this, 要传的参数) */}
+				{/* 函数: test1Console(传过来的参数, event) */}
+				<button onClick={this.test1Console.bind(this, this.state.isToggleOn, "test1Console")}>
+					test1
+      			</button>
+				&nbsp;&nbsp; {/* 这种方式必须与参数一一对应 */}
+				<button onClick={(e) => this.test2Console(this.state.isToggleOn, "test2Console", e)}>
+					test2
+      			</button>
+				&nbsp;&nbsp;
+				{button}
+				<br />
+			</div>
+    	);
+  	}
 }
 
 function cb(v='default Value') {
@@ -190,6 +259,7 @@ tick();
 	<div id="example"></div>
 	<div id="example1"></div>
 	<div id="example2"></div>
-  <div id="example3"></div>
+  	<div id="example3"></div>
+  	<div id="example4"></div>
 </body>
 </html>
