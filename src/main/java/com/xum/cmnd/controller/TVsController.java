@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,6 +45,9 @@ public class TVsController {
 	
 	@Autowired
 	private DevicesService devicesService;
+	
+	@Autowired
+	private AsyncTaskController asyncTaskController;
 	
 	// consumes = {"application/JSON","application/XML","text/plain"}
 	@ApiOperation(value = "getDevices", notes = "get all devices from devices table") 
@@ -93,6 +97,15 @@ public class TVsController {
 		data.addProperty("total", total);
 		data.add("rows", array);
 		LOG.info("data.toString():" + data.toString());
+		try {
+			asyncTaskController.testAsync();
+		} catch (InterruptedException e) {
+			LOG.error(e.getMessage(), e);
+			Thread.currentThread().interrupt();
+		} catch (ExecutionException e) {
+			LOG.error(e.getMessage(), e);
+			Thread.currentThread().interrupt();
+		} 
 		return data.toString();
 	}
 	
