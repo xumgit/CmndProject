@@ -5,6 +5,7 @@ body {
 
 ol, ul {
   padding-left: 30px;
+  list-style-type: disc;
 }
 
 .board-row:after {
@@ -36,6 +37,11 @@ ol, ul {
   padding: 0;
   text-align: center;
   width: 34px;
+}
+
+.hightCircle {
+  color: red;
+  background: blue;
 }
 
 .square:focus {

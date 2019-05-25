@@ -35,7 +35,10 @@ class SquareCopy extends React.Component {
 
 function Square(props) {
     return (
-      <button className="square" onClick={props.onClick}>
+      <button
+        className={`square ${props.line.indexOf(props.index) > -1 ? "hightCircle" : null}`}
+        onClick={props.onClick}
+      >
         {props.value}
       </button>
     );
@@ -45,6 +48,8 @@ class Board extends React.Component {
   renderSquare(i) {
     return <Square
               key={i}
+              index={i}
+              line={this.props.line}
               value={this.props.squares[i]}
               onClick={()=>this.props.onClick(i)}
            />;
@@ -109,7 +114,6 @@ class Game extends React.Component {
   }
 
   sort(sortType) {
-    console.log("ascHistory");
     if ("asc" === sortType && "asc" !== this.state.sort) {
       this.setState({
         history: this.state.history.reverse(),
@@ -128,23 +132,44 @@ class Game extends React.Component {
   }
 
   handleClick(i) {
-    const history = this.state.history.slice(0, this.state.stepNumber + 1);
-    const current = history[history.length - 1];
+    const history = this.state.history.slice(0, this.state.history.length + 1);
+    let current = history[history.length - 1];
+    if ("asc" !== this.state.sort) {
+      current = history[0];
+    }
     const squares = current.squares.slice();
-    const historyRowLine = this.state.historyRowLine.slice(0, this.state.stepNumber + 1);
+    const historyRowLine = this.state.historyRowLine.slice(0, this.state.historyRowLine.length + 1);
 
-    if (calculateWinner(squares) || squares[i]) {
+    const obj = calculateWinner(squares);
+    if (obj.isWin || squares[i]) {
       return;
     }
     squares[i] = this.state.xIsNext ? 'X' : 'O';
+
+    let addSquares = [{
+      squares: squares
+    }];
+    let newHistory = [];
+
+    let addHistoryRowLine = [{
+      rowLine: getLineRowNumber(i)
+    }];
+    let newHistoryRowLine = [];
+    if ("asc" !== this.state.sort) {
+      newHistory = addSquares.concat(history);
+      newHistoryRowLine = addHistoryRowLine.concat(historyRowLine);
+    } else {
+      newHistory = history.concat(addSquares);
+      newHistoryRowLine = historyRowLine.concat(addHistoryRowLine);
+    }
+    let stepNumber = newHistory.length - 1;
+    if ("asc" !== this.state.sort) {
+      stepNumber = this.state.history.length - newHistory.length + 1;
+    }
     this.setState({
-      history: history.concat([{
-        squares: squares
-      }]),
-      historyRowLine: historyRowLine.concat([{
-        rowLine: getLineRowNumber(i)
-      }]),
-      stepNumber: history.length,
+      history: newHistory,
+      historyRowLine: newHistoryRowLine,
+      stepNumber: stepNumber,
       xIsNext: !this.state.xIsNext,
       currentClick: this.state.currentClick + 1
     });
@@ -158,6 +183,7 @@ class Game extends React.Component {
     }
     const history = this.state.history;
     const historyLen = history.length;
+    console.log("historyLen:" + historyLen + ",maxStep:" + this.state.maxStep);
     const current = history[this.state.stepNumber];
     const historyRowLine = this.state.historyRowLine;
     const winner = calculateWinner(current.squares);
@@ -182,10 +208,14 @@ class Game extends React.Component {
     });
 
     let status;
-    if (winner) {
-      status = 'winner: ' + winner;
-    } else {
+    let inDraw = false;
+    if (winner.isWin) {
+      status = 'winner: ' + winner.winner;
+    } else if (historyLen <= this.state.maxStep) {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+    } else if (!winner.isWin && historyLen === (this.state.maxStep + 1)) {
+      inDraw = true
+      status = "ended in a draw";
     }
 
     return (
@@ -193,11 +223,16 @@ class Game extends React.Component {
         <div className="game-board">
           <Board
             squares = {current.squares}
+            line = {winner.line}
             onClick = {(i)=>this.handleClick(i)}
             />
         </div>
         <div className="game-info">
-          <div>{status}</div>
+          <div
+            className={`${inDraw ? "hightCircle" : null}`}
+          >
+            {status}
+          </div>
           <ol>{moves}</ol>
           <div>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -245,21 +280,23 @@ function getLineRowNumber(i) {
 }
 
 function calculateWinner(squares) {
+  let obj = {
+    isWin: false,
+    winner: 'X',
+    line: [-1,-1,-1]
+  };
   const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
+    [0, 1, 2],[3, 4, 5],[6, 7, 8],[0, 3, 6],
+    [1, 4, 7],[2, 5, 8],[0, 4, 8],[2, 4, 6],
   ];
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      obj.isWin = true;
+      obj.winner = squares[a];
+      obj.line = lines[i];
+      return obj;
     }
   }
-  return null;
+  return obj;
 }
