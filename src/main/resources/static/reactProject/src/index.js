@@ -42,31 +42,32 @@ function Square(props) {
 }
 
 class Board extends React.Component {
-  renderSquare(i, line, row) {
+  renderSquare(i) {
     return <Square
+              key={i}
               value={this.props.squares[i]}
               onClick={()=>this.props.onClick(i)}
            />;
   }
 
   render() {
+    const numbers = [0,3,6];
+    const html = numbers.map((number)=>{
+      return (
+        <div className="board-row" key={number}>
+          {
+            [number, ++number, ++number].map((n)=>{
+              return (
+                this.renderSquare(n)
+              )
+            })
+          }
+        </div>
+      )
+    });
     return (
       <div>
-        <div className="board-row">
-          {this.renderSquare(0, 1, 1)}
-          {this.renderSquare(1, 1, 2)}
-          {this.renderSquare(2, 1, 3)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3, 2, 1)}
-          {this.renderSquare(4, 2, 2)}
-          {this.renderSquare(5, 2, 3)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6, 3, 1)}
-          {this.renderSquare(7, 3, 2)}
-          {this.renderSquare(8, 3, 3)}
-        </div>
+        {html}
       </div>
     );
   }
@@ -75,24 +76,55 @@ class Board extends React.Component {
 class Game extends React.Component {
   constructor(props) {
       super(props);
+      const maxStep = 9;
+      const ascSort = "asc";
+      const descSort = "desc";
       this.state = {
         history: [{
-          squares: Array(9).fill(null)
+          squares: Array(maxStep).fill(null)
         }],
         historyRowLine: [{
           rowLine: [0,0]
         }],
+        maxStep: maxStep,
         stepNumber: 0,
         xIsNext: true,
+        currentClick: 0,
+        ascSort: ascSort,
+        descSort: descSort,
+        sort: "asc"
       };
   }
 
   jumpTo(step) {
-    console.log("step:" + step);
+    let stepNumber = step;
+    if ("asc" !== this.state.sort) {
+      stepNumber = this.state.history.length - step - 1;
+    }
     this.setState({
-      stepNumber: step,
-      xIsNext: (step % 2) === 0
+      stepNumber: stepNumber,
+      xIsNext: (step % 2) === 0,
+      currentClick: step
     });
+  }
+
+  sort(sortType) {
+    console.log("ascHistory");
+    if ("asc" === sortType && "asc" !== this.state.sort) {
+      this.setState({
+        history: this.state.history.reverse(),
+        historyRowLine: this.state.historyRowLine.reverse(),
+        stepNumber: this.state.history.length - this.state.stepNumber - 1,
+        sort: "asc"
+      });
+    } else if ("desc" === sortType && "desc" !== this.state.sort) {
+      this.setState({
+        history: this.state.history.reverse(),
+        historyRowLine: this.state.historyRowLine.reverse(),
+        stepNumber: this.state.history.length - this.state.stepNumber - 1,
+        sort: "desc"
+      });
+    }
   }
 
   handleClick(i) {
@@ -114,21 +146,37 @@ class Game extends React.Component {
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
+      currentClick: this.state.currentClick + 1
     });
+    //changeColor(i);
   }
 
   render() {
+    let isAsc = true;
+    if ("asc" !== this.state.sort) {
+      isAsc = false;
+    }
     const history = this.state.history;
+    const historyLen = history.length;
     const current = history[this.state.stepNumber];
     const historyRowLine = this.state.historyRowLine;
     const winner = calculateWinner(current.squares);
     const moves = history.map((step, move) => {
       const currentRowLine = historyRowLine[move];
-      const desc = move ? "Go to move #" + move : "Go to game #0";
+      let currentMove = move;
+      if (!isAsc) {
+        currentMove = historyLen - currentMove - 1;
+      }
+      const desc = currentMove ? "Go to move #" + currentMove : "Go to game #0";
       return (
-        <li key={move}>
-          <button onClick={()=>this.jumpTo(move)}>{desc} &nbsp;&nbsp;
-          (line, row)=>({currentRowLine.rowLine[0]},{currentRowLine.rowLine[1]})</button>
+        <li key={currentMove}>
+          <button
+            className = {`${currentMove === this.state.currentClick ? "hightDisplay" : null}`}
+            onClick = {()=>this.jumpTo(currentMove)}
+          >
+            {desc} &nbsp;&nbsp;
+            (line, row)=>({currentRowLine.rowLine[0]},{currentRowLine.rowLine[1]})
+          </button>
         </li>
       );
     });
@@ -151,6 +199,12 @@ class Game extends React.Component {
         <div className="game-info">
           <div>{status}</div>
           <ol>{moves}</ol>
+          <div>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <button onClick={()=>this.sort(this.state.ascSort)}>Asc history</button>
+              &nbsp;
+              <button onClick={()=>this.sort(this.state.descSort)}>Desc history</button>
+          </div>
         </div>
       </div>
     );
@@ -162,6 +216,20 @@ ReactDOM.render(
   <Game />,
   document.getElementById('root')
 );
+
+function changeColor(move) {
+
+  let historyButtonDom = document.getElementsByClassName("hightDisplay");
+  let len = historyButtonDom.length;
+  for (let i = 0; i < len; i++) {
+    //if (move == i && historyButtonDom[i].hasAttribute("className")) {
+      //historyButtonDom[i].setAttribute("className", "hightDisplay");
+    //} else {
+      //historyButtonDom[i].setAttribute();
+    //}
+  }
+  console.log("historyButtonDom:" + historyButtonDom.length);
+}
 
 function getLineRowNumber(i) {
   let lineRow = [0,0];
