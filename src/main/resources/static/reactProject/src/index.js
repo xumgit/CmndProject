@@ -101,6 +101,40 @@ class Game extends React.Component {
       };
   }
 
+  // getSnapshotBeforeUpdate(prevProps, prevState) {
+  //   console.log('getSnapshotBeforeUpdate');
+  //   return null;
+  // }
+
+  componentWillMount() {
+    console.log('componentWillMount');
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount');
+  }
+
+  componentWillReceiveProps(newProps) {
+    console.log('deprecated method,componentWillReceiveProps');
+  }
+
+  shouldComponentUpdate(newProps, newState) {
+    console.log("shouldComponentUpdate");
+    return true;
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log('deprecated method,componentWillUpdate');
+  }
+  
+  componentDidUpdate(prevProps, prevState) {
+    console.log('componentDidUpdate');
+  }
+
+  componentWillUnmount() {
+    console.log('deprecated method,componentWillUnmount');
+  }
+
   jumpTo(step) {
     let stepNumber = step;
     if ("asc" !== this.state.sort) {
