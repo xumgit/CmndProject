@@ -2,12 +2,24 @@ describe('loginTestPage', () => {
   it('LoginPage', () => {
     cy.visit('http://localhost:8080/cas/login?service=http%3A%2F%2Flocalhost%3A8080%2FSmartInstall%2Flogin%2Fcas')
     cy.url().should("include", "/cas/login")       //访问地址
-	cy.wait(10)
+	  cy.wait(10)
     cy.get('#username', {timeout: 5000}).type("admin")
     cy.get('#password', {timeout: 5000}).type("tpvision")
     cy.wait(1)
     cy.get('.btn').click()
     cy.wait(10)
+
+    cy.fixture('example.json').as('testJson')
+    cy.get('@testJson').then((data)=>{
+      console.log("name:" + data.name);
+      // cy.screenshot("baiduPage", {
+      //   onAfterScreenshot ($el, props) {
+      //     console.log("screen success");
+      //   }
+      // })
+    })
+
+
 	//cy.get('#kw').type('CBA')
 	//cy.get('#su').click()
 	//cy.get('[href="http://zhidao.baidu.com/q?ct=17&pn=0&tn=ikaslist&rn=10&fr=wwwt&word=NBA"]').click()
