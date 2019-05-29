@@ -14,23 +14,23 @@ function fizzbuzz (num) {
 }
 
 describe('loginTestPage', () => {
-	
+
   before(function() {
-	cy.log('before => runs once before all tests in the block') 
+	cy.log('before => runs once before all tests in the block')
   })
 
   after(function() {
-	cy.log('after => runs once after all tests in the block') 
+	cy.log('after => runs once after all tests in the block')
   })
 
   beforeEach(function() {
-	cy.log('beforeEach => runs before each test in the block') 
+	cy.log('beforeEach => runs before each test in the block')
   })
 
   afterEach(function() {
-	cy.log('afterEach => runs after each test in the block') 
+	cy.log('afterEach => runs after each test in the block')
   })
-	
+
   function numsExpectedToEq (arr, expected) {
     // loop through the array of nums and make
     // sure they equal what is expected
@@ -47,7 +47,7 @@ describe('loginTestPage', () => {
   it('returns "buzz" when number is multiple of 5', function () {
     numsExpectedToEq([10, 20, 25], 'buzz')
   })
-  
+
   // this case will skip
   it.skip('returns "fizzbuzz" when number is multiple of both 3 and 5', function () {
     numsExpectedToEq([15, 30, 60], 'fizzbuzz')
@@ -62,7 +62,19 @@ describe('loginTestPage', () => {
     cy.wait(1)
     cy.get('.btn').click()
     cy.wait(10)
-
+	
+	const nav_files = cy.get('#nav_files')
+	const parent_t = nav_files.parent()
+	console.log("[xum]:" + JSON.stringify(parent_t))
+	/*const nav_files = cy.get('#nav_files').parent()
+	const hasActiveClass = cy.get('#nav_files').parent().hasClass('active')
+	if (hasActiveClass) {
+		// dosomething
+	} else {
+		cy.get('#nav_files').click()
+		cy.wait(10)
+	}*/
+    
     cy.fixture('example.json').as('testJson')
     cy.get('@testJson').then((data)=>{
       console.log("name:" + data.name);
