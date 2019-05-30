@@ -1,4 +1,9 @@
 
+/*
+ * cyPressProject\project
+ * node_modules\.bin\cypress open
+*/
+
 function fizzbuzz (num) {
   if (num % 3 === 0 && num % 5 === 0) {
     return 'fizzbuzz'
@@ -54,36 +59,40 @@ describe('loginTestPage', () => {
   })
 
   it('LoginPage', () => {
-    cy.visit('http://localhost:8080/cas/login?service=http%3A%2F%2Flocalhost%3A8080%2FSmartInstall%2Flogin%2Fcas')
-    cy.url().should("include", "/cas/login")       //访问地址
-	cy.wait(10)
+    cy.visit('/')
+    //cy.url().should("include", "/SmartInstall")       //访问地址
+	  cy.wait(10)
     cy.get('#username', {timeout: 5000}).type("admin")
     cy.get('#password', {timeout: 5000}).type("tpvision")
     cy.wait(1)
     cy.get('.btn').click()
     cy.wait(10)
-	
-	const nav_files = cy.get('#nav_files')
-	const parent_t = nav_files.parent()
-	console.log("[xum]:" + JSON.stringify(parent_t))
-	/*const nav_files = cy.get('#nav_files').parent()
-	const hasActiveClass = cy.get('#nav_files').parent().hasClass('active')
-	if (hasActiveClass) {
-		// dosomething
-	} else {
-		cy.get('#nav_files').click()
-		cy.wait(10)
-	}*/
-    
-    cy.fixture('example.json').as('testJson')
-    cy.get('@testJson').then((data)=>{
+
+	cy.get('#nav_files')
+    .as('navFiles')
+    .parent("li")
+      // expect($tr).to.not.have.class('active')
+    .should('not.have.class', 'active').then(()=>{
+        console.log("files navi not active")
+        cy.get('@navFiles').click()
+        cy.wait(10)
+    });
+
+  cy.get('[data-table=tabs_settingPackage]')
+    .as('naviFileSettingPackage')
+    .should('have.attr', 'aria-expanded', 'false').then(($dom)=>{
+        console.log("select navi:" + $dom.text() + ",prop href:" + $dom.prop('href'));
+  })
+
+  cy.fixture('example.json').as('testJson')
+  cy.get('@testJson').then((data)=>{
       console.log("name:" + data.name);
       // cy.screenshot("baiduPage", {
       //   onAfterScreenshot ($el, props) {
       //     console.log("screen success");
       //   }
       // })
-    })
+  })
 
 
 	//cy.get('#kw').type('CBA')
