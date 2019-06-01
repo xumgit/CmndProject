@@ -84,22 +84,21 @@ describe('loginTestPage', () => {
     //.parent('li')
     //.should('not.have.class', 'active')
     .then(($parentDom) => {
-        if ($parentDom.hasClass('active')) {
-
-        } else {
+        cy.wait(5)
+        if (!$parentDom.hasClass('active')) {
           cy.get('@mainNaviTVs').click()
           cy.wait(10)
         }
   })
-
+  cy.wait(5)
   cy.get('[data-table=tabs-devices]')
     .as('mainNaviTVs_tvs')
     //.parent("li")
     //.should('not.have.class', 'active')
-    .then(($parentDom) => {
-        if ($parentDom.hasClass('active')) {
-
-        } else {
+    .should('be.visible')
+    .then(($parentD) => {
+        cy.wait(5)
+        if (!$parentD.hasClass('active')) {
           cy.get('@mainNaviTVs_tvs').click()
           cy.wait(10)
         }
@@ -116,7 +115,7 @@ describe('loginTestPage', () => {
       url: null,
       body: null
   }
-
+  cy.wait(5)
   cy.get('@TVData').then((tvData)=>{
       //console.log("TVDiscoveryData:" + tvData.TVDiscoveryData);
       commonRequest.url = tvData.WebServicesUrl;
@@ -127,7 +126,7 @@ describe('loginTestPage', () => {
           console.log("send TVDiscovery status:" + statusCode)
           cy.wait(10)
           if (statusCode == 200) {
-            commonRequest.body = JSON.stringify(tvData.IPCloneServiceData);
+            commonRequest.body = JSON.stringify(tvData.ReadyForUpgradeData);
             cy.request(commonRequest).then((res) => {
                 console.log("send IPClonservice status:" + res.status);
                 cy.wait(10)
@@ -135,8 +134,45 @@ describe('loginTestPage', () => {
           }
       })
   })
+  cy.wait(5)
+  cy.get('@TVData').then((tvData)=>{
+      /*cy.get("#tvsBody > tr")
+        .each(($element, index, $list) => {
+            $element.find("tr[data-row-id=\"" + tvData.TVUniqueID + "\"])
+                    .should('exit')
+        })*/
+     const obj = cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
+     obj.should('exist')
+        .then(($targetDom) => {
+            cy.wait(5)
+            if (!$targetDom.hasClass('active')) {
+                $targetDom.find("input[name=select]").click()
+            }
+        })
+        .then(($targetDom) => {
+            cy.wait(5)
+            cy.get("#assign_select")
+              .click()
+              .then(($dom) => {
+                  $dom.find("ul li:eq(3)").click()
+                  cy.wait(5)
+                  cy.get("#assignSelectRows tr:eq(1)").click()
+              })
+        })
+        .then(() => {
+            cy.wait(5)
+            cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")//.find("#tv_CloneDiv")
+                      //.should('to.have.css', 'color', 'blue')
+                      //.parent()
+                      .find("span.glyphicon-refresh")
+                      .should('exist')
+                      .then(($upgradeDom) => {
+                          $upgradeDom.click()
+                      })
+        })
+  })
 
-  cy.get('#nav_files')
+  /*cy.get('#nav_files')
     .as('mainNaviFiles')
     .parent("li")
     // expect($tr).to.not.have.class('active')
@@ -162,7 +198,7 @@ describe('loginTestPage', () => {
             cy.wait(10)
         }
         //console.log("select navi:" + $dom.text() + ",prop href:" + $dom.prop('href'));
-  })
+  })*/
 
   // not support upload file
   //cy.get('#uploadedClone > #upload > #spanupload > [name="uploadedfile"]')
