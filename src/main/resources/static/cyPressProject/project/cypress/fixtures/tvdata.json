@@ -1,0 +1,272 @@
+{
+  "WebServicesUrl": "http://localhost:8080/SmartInstall/webservices.jsp",
+  "TVDiscoveryData": {
+                    	"CommandDetails": {
+                      		"TVDiscoveryParameters": {
+                        			"PowerStatus": "On",
+                        			"TVIPAddress": "192.168.103.222",
+                        			"TVMACAddress": "70:AF:24:1A:97:51",
+                        			"TVModelNumber": "32HFL5014/12",
+                        			"TVRoomID": "00000",
+                        			"TVSerialNumber": "9005",
+                        			"VSecureTVID": "8000000000000011E870"
+                      		},
+                      		"WebServiceParameters": {
+                        			"PollingFrequency": 10,
+                        			"TVUniqueID": "900570AF241A9751"
+                      		}
+                    	},
+                    	"CmdType": "Response",
+                    	"Cookie": -1,
+                    	"Fun": "TVDiscoveryService",
+                    	"Svc": "WebServices",
+                    	"SvcVer": "4.0"
+                    },
+  "IPCloneServiceData": {
+        	"CommandDetails": {
+        		"CloneToServerParameters": {
+        			"CloneItemsAvailableToServer": [{
+        				"CloneItemName": "RoomSpecificSettings",
+        				"CloneItemVersionNo": "01/01/2018:01:01"
+        			}, {
+        				"CloneItemName": "ProfessionalAppsData",
+        				"CloneItemVersionNo": "01/01/2018:01:01"
+        			}, {
+        				"CloneItemName": "AndroidApps",
+        				"CloneItemVersionNo": "01/01/2018:01:01"
+        			}, {
+        				"CloneItemName": "TVSettings",
+        				"CloneItemVersionNo": "01/01/2018:01:01"
+        			}, {
+        				"CloneItemName": "HTVCfg.xml",
+        				"CloneItemVersionNo": "00/00/0000:--:--"
+        			}, {
+        				"CloneItemName": "TVChannelList",
+        				"CloneItemVersionNo": "28/05/2019:10:39"
+        			}],
+        			"CloneToServerSessionStatus": {
+        				"CloneItemStatus": [{
+        					"CloneItemDetails": {
+        						"CloneItemName": "ProfessionalApps",
+        						"CloneItemVersionNo": ""
+        					},
+        					"CloneStatus": "NotAvailable"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "DataDump",
+        						"CloneItemVersionNo": ""
+        					},
+        					"CloneStatus": "Successful"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "RoomSpecificSettings",
+        						"CloneItemVersionNo": "01/01/2018:01:01"
+        					},
+        					"CloneStatus": "Successful"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "AndroidAppsData",
+        						"CloneItemVersionNo": ""
+        					},
+        					"CloneStatus": "NotAvailable"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "SmartInfoPages",
+        						"CloneItemVersionNo": ""
+        					},
+        					"CloneStatus": "NotAvailable"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "MediaChannels",
+        						"CloneItemVersionNo": ""
+        					},
+        					"CloneStatus": "NotAvailable"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "ProfessionalAppsData",
+        						"CloneItemVersionNo": "01/01/2018:01:01"
+        					},
+        					"CloneStatus": "Successful"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "AndroidApps",
+        						"CloneItemVersionNo": "01/01/2018:01:01"
+        					},
+        					"CloneStatus": "Successful"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "TVSettings",
+        						"CloneItemVersionNo": "01/01/2018:01:01"
+        					},
+        					"CloneStatus": "Successful"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "HTVCfg.xml",
+        						"CloneItemVersionNo": "00/00/0000:--:--"
+        					},
+        					"CloneStatus": "Successful"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "TVChannelList",
+        						"CloneItemVersionNo": "28/05/2019:10:39"
+        					},
+        					"CloneStatus": "Successful"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "CustomDashboardFallback",
+        						"CloneItemVersionNo": ""
+        					},
+        					"CloneStatus": "NotAvailable"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "Banner",
+        						"CloneItemVersionNo": ""
+        					},
+        					"CloneStatus": "NotAvailable"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "Schedules",
+        						"CloneItemVersionNo": ""
+        					},
+        					"CloneStatus": "NotAvailable"
+        				}],
+        				"SessionEndTime": "",
+        				"SessionStartTime": "",
+        				"SessionStatus": ""
+        			},
+        			"CloneToServerStatus": "NotReady"
+        		},
+        		"IPCloneParameters": {
+        			"CloneItemsRequiredForUpgrade": [{
+        				"CloneItemName": "RoomSpecificSettings",
+        				"CloneItemVersionNo": "01/01/2018:01:01"
+        			}, {
+        				"CloneItemName": "ProfessionalAppsData",
+        				"CloneItemVersionNo": "01/01/2018:01:01"
+        			}, {
+        				"CloneItemName": "AndroidApps",
+        				"CloneItemVersionNo": "01/01/2018:01:01"
+        			}, {
+        				"CloneItemName": "TVSettings",
+        				"CloneItemVersionNo": "01/01/2018:01:01"
+        			}, {
+        				"CloneItemName": "MainFirmware",
+        				"CloneItemVersionNo": "TPM181HE_R.005.003.022.000"
+        			}, {
+        				"CloneItemName": "HTVCfg.xml",
+        				"CloneItemVersionNo": "00/00/0000:--:--"
+        			}, {
+        				"CloneItemName": "TVChannelList",
+        				"CloneItemVersionNo": "28/05/2019:10:39"
+        			}],
+        			"CloneSessionStatus": {
+        				"CloneItemStatus": [{
+        					"CloneItemDetails": {
+        						"CloneItemName": "ProfessionalApps",
+        						"CloneItemVersionNo": ""
+        					},
+        					"CloneStatus": "NotAvailable"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "RoomSpecificSettings",
+        						"CloneItemVersionNo": "01/01/2018:01:01"
+        					},
+        					"CloneStatus": "Successful"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "AndroidAppsData",
+        						"CloneItemVersionNo": ""
+        					},
+        					"CloneStatus": "NotAvailable"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "SmartInfoPages",
+        						"CloneItemVersionNo": ""
+        					},
+        					"CloneStatus": "NotAvailable"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "Script",
+        						"CloneItemVersionNo": ""
+        					},
+        					"CloneStatus": "NotAvailable"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "MediaChannels",
+        						"CloneItemVersionNo": ""
+        					},
+        					"CloneStatus": "NotAvailable"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "ProfessionalAppsData",
+        						"CloneItemVersionNo": "01/01/2018:01:01"
+        					},
+        					"CloneStatus": "Successful"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "AndroidApps",
+        						"CloneItemVersionNo": "01/01/2018:01:01"
+        					},
+        					"CloneStatus": "Successful"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "TVSettings",
+        						"CloneItemVersionNo": "01/01/2018:01:01"
+        					},
+        					"CloneStatus": "Successful"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "MainFirmware",
+        						"CloneItemVersionNo": "TPM181HE_R.005.003.022.000"
+        					},
+        					"CloneStatus": "Successful"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "HTVCfg.xml",
+        						"CloneItemVersionNo": "00/00/0000:--:--"
+        					},
+        					"CloneStatus": "Successful"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "TVChannelList",
+        						"CloneItemVersionNo": "28/05/2019:10:39"
+        					},
+        					"CloneStatus": "Successful"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "CustomDashboardFallback",
+        						"CloneItemVersionNo": ""
+        					},
+        					"CloneStatus": "NotAvailable"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "Banner",
+        						"CloneItemVersionNo": ""
+        					},
+        					"CloneStatus": "NotAvailable"
+        				}, {
+        					"CloneItemDetails": {
+        						"CloneItemName": "Schedules",
+        						"CloneItemVersionNo": ""
+        					},
+        					"CloneStatus": "NotAvailable"
+        				}],
+        				"SessionEndTime": "",
+        				"SessionStartTime": "",
+        				"SessionStatus": ""
+        			},
+        			"CurrentUpgradeStatus": "ReadyForUpgrade"
+        		},
+        		"WebServiceParameters": {
+        			"PollingFrequency": 10,
+        			"TVUniqueID": "900570AF241A9751"
+        		}
+        	},
+        	"CmdType": "Response",
+        	"Cookie": 293,
+        	"Fun": "IPCloneService",
+        	"Svc": "WebServices",
+        	"SvcVer": "4.0"
+        }
+
+}

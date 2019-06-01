@@ -21,15 +21,16 @@ function fizzbuzz (num) {
 describe('loginTestPage', () => {
 
   before(function() {
-	cy.log('before => runs once before all tests in the block')
+	   cy.log('before => runs once before all tests in the block')
   })
 
   after(function() {
-	cy.log('after => runs once after all tests in the block')
+	   cy.log('after => runs once after all tests in the block')
   })
 
   beforeEach(function() {
-	cy.log('beforeEach => runs before each test in the block')
+	   cy.log('beforeEach => runs before each test in the block')
+     cy.fixture('tvdata.json').as('TVData')
   })
 
   afterEach(function() {
@@ -68,23 +69,7 @@ describe('loginTestPage', () => {
     cy.get('.btn').click()
     cy.wait(10)
 
-	cy.get('#nav_files')
-    .as('navFiles')
-    .parent("li")
-      // expect($tr).to.not.have.class('active')
-    .should('not.have.class', 'active').then(()=>{
-        console.log("files navi not active")
-        cy.get('@navFiles').click()
-        cy.wait(10)
-    });
-
-  cy.get('[data-table=tabs_settingPackage]')
-    .as('naviFileSettingPackage')
-    .should('have.attr', 'aria-expanded', 'false').then(($dom)=>{
-        console.log("select navi:" + $dom.text() + ",prop href:" + $dom.prop('href'));
-  })
-
-  cy.fixture('example.json').as('testJson')
+  /*cy.fixture('example.json').as('testJson')
   cy.get('@testJson').then((data)=>{
       console.log("name:" + data.name);
       // cy.screenshot("baiduPage", {
@@ -92,8 +77,97 @@ describe('loginTestPage', () => {
       //     console.log("screen success");
       //   }
       // })
+  })*/
+
+  cy.get('#nav_tvs')
+    .as('mainNaviTVs')
+    //.parent('li')
+    //.should('not.have.class', 'active')
+    .then(($parentDom) => {
+        if ($parentDom.hasClass('active')) {
+
+        } else {
+          cy.get('@mainNaviTVs').click()
+          cy.wait(10)
+        }
   })
 
+  cy.get('[data-table=tabs-devices]')
+    .as('mainNaviTVs_tvs')
+    //.parent("li")
+    //.should('not.have.class', 'active')
+    .then(($parentDom) => {
+        if ($parentDom.hasClass('active')) {
+
+        } else {
+          cy.get('@mainNaviTVs_tvs').click()
+          cy.wait(10)
+        }
+  })
+
+  const commonRequest = {
+      method: 'POST',
+      form: false,
+      headers: {
+        "Authorization": "whateverYouNeedForAuthentication",
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      url: null,
+      body: null
+  }
+
+  cy.get('@TVData').then((tvData)=>{
+      //console.log("TVDiscoveryData:" + tvData.TVDiscoveryData);
+      commonRequest.url = tvData.WebServicesUrl;
+      commonRequest.body = JSON.stringify(tvData.TVDiscoveryData);
+      cy.request(commonRequest).then((resp)=>{
+          //console.log("resp:" + JSON.stringify(resp));
+          const statusCode = resp.status
+          console.log("send TVDiscovery status:" + statusCode)
+          cy.wait(10)
+          if (statusCode == 200) {
+            commonRequest.body = JSON.stringify(tvData.IPCloneServiceData);
+            cy.request(commonRequest).then((res) => {
+                console.log("send IPClonservice status:" + res.status);
+                cy.wait(10)
+            });
+          }
+      })
+  })
+
+  cy.get('#nav_files')
+    .as('mainNaviFiles')
+    .parent("li")
+    // expect($tr).to.not.have.class('active')
+    //.should('not.have.class', 'active')
+    .then(($parentDom) => {
+      if ($parentDom.hasClass('active')) {
+
+      } else {
+          cy.get('@mainNaviFiles').click()
+          cy.wait(10)
+      }
+  });
+
+  cy.get('[data-table=tabs_clone]')
+    .as('mainNaviFiles_Clones')
+    .parent("li")
+    //.should('have.attr', 'aria-expanded', 'false')
+    .then(($parentDom)=>{
+        if ($parentDom.hasClass('active')) {
+
+        } else {
+            cy.get('@mainNaviFiles_Clones').click()
+            cy.wait(10)
+        }
+        //console.log("select navi:" + $dom.text() + ",prop href:" + $dom.prop('href'));
+  })
+
+  // not support upload file
+  //cy.get('#uploadedClone > #upload > #spanupload > [name="uploadedfile"]')
+  //  .type('E:/clonedata/TPM181HE_CloneData.zip')
+  //  .type('{enter}')
 
 	//cy.get('#kw').type('CBA')
 	//cy.get('#su').click()
