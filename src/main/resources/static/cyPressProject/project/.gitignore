@@ -1,3 +1,4 @@
 ### STS ###
 /node_modules/*
 !/upload/images/
+*.mp4

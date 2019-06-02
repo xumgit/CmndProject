@@ -9,7 +9,7 @@
                     	"CommandDetails": {
                       		"TVDiscoveryParameters": {
                         			"PowerStatus": "On",
-                        			"TVIPAddress": "192.168.103.222",
+                        			"TVIPAddress": "127.10.11.12",
                         			"TVMACAddress": "70:AF:24:1A:97:51",
                         			"TVModelNumber": "32HFL5014/12",
                         			"TVRoomID": "00000",
