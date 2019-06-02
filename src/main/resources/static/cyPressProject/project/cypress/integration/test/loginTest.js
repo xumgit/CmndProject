@@ -62,12 +62,12 @@ describe('loginTestPage', () => {
   it('LoginPage', () => {
     cy.visit('/')
     //cy.url().should("include", "/SmartInstall")       //访问地址
-	  cy.wait(10)
+	  cy.wait(1000)
     cy.get('#username', {timeout: 5000}).type("admin")
     cy.get('#password', {timeout: 5000}).type("tpvision")
-    cy.wait(1)
+    cy.wait(1000)
     cy.get('.btn').click()
-    cy.wait(10)
+    cy.wait(3000)
 
   /*cy.fixture('example.json').as('testJson')
   cy.get('@testJson').then((data)=>{
@@ -84,23 +84,25 @@ describe('loginTestPage', () => {
     //.parent('li')
     //.should('not.have.class', 'active')
     .then(($parentDom) => {
-        cy.wait(5)
+        cy.wait(3000)
         if (!$parentDom.hasClass('active')) {
           cy.get('@mainNaviTVs').click()
-          cy.wait(10)
+          cy.wait(3000)
         }
   })
-  cy.wait(5)
+
+  cy.wait(3000)
+
   cy.get('[data-table=tabs-devices]')
     .as('mainNaviTVs_tvs')
     //.parent("li")
     //.should('not.have.class', 'active')
     .should('be.visible')
     .then(($parentD) => {
-        cy.wait(5)
+        cy.wait(3000)
         if (!$parentD.hasClass('active')) {
           cy.get('@mainNaviTVs_tvs').click()
-          cy.wait(10)
+          cy.wait(3000)
         }
   })
 
@@ -115,63 +117,114 @@ describe('loginTestPage', () => {
       url: null,
       body: null
   }
-  cy.wait(5)
+
+  cy.wait(3000)
+
   cy.get('@TVData').then((tvData)=>{
       //console.log("TVDiscoveryData:" + tvData.TVDiscoveryData);
       commonRequest.url = tvData.WebServicesUrl;
       commonRequest.body = JSON.stringify(tvData.TVDiscoveryData);
+      // send TVDiscovery data
       cy.request(commonRequest).then((resp)=>{
           //console.log("resp:" + JSON.stringify(resp));
           const statusCode = resp.status
           console.log("send TVDiscovery status:" + statusCode)
-          cy.wait(10)
+          cy.reload()
+          cy.wait(5000)
           if (statusCode == 200) {
             commonRequest.body = JSON.stringify(tvData.ReadyForUpgradeData);
+            // send IPClonservice, generate Firmware version
             cy.request(commonRequest).then((res) => {
                 console.log("send IPClonservice status:" + res.status);
-                cy.wait(10)
+                cy.wait(3000)
             });
           }
       })
   })
-  cy.wait(5)
+
+  cy.wait(3000)
+
   cy.get('@TVData').then((tvData)=>{
-      /*cy.get("#tvsBody > tr")
-        .each(($element, index, $list) => {
-            $element.find("tr[data-row-id=\"" + tvData.TVUniqueID + "\"])
-                    .should('exit')
-        })*/
      const obj = cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
      obj.should('exist')
+        // 1. select tv
         .then(($targetDom) => {
-            cy.wait(5)
+            cy.wait(3000)
             if (!$targetDom.hasClass('active')) {
                 $targetDom.find("input[name=select]").click()
             }
         })
-        .then(($targetDom) => {
-            cy.wait(5)
+        // 2. assign clone data
+        .then(() => {
+            cy.wait(3000)
             cy.get("#assign_select")
               .click()
               .then(($dom) => {
+                  cy.wait(2500)
                   $dom.find("ul li:eq(3)").click()
-                  cy.wait(5)
-                  cy.get("#assignSelectRows tr:eq(1)").click()
+                  cy.wait(2500)
+                  cy.get("#assignSelectRows tr:eq(1)")
+                    .click()
+                    // 3. check assign clone color
+                    .then(() => {
+                        cy.wait(5000)
+                        cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
+                          .find("#tv_CloneDiv")
+                          .should('have.css', 'color', tvData.BlueColor)
+                    })
               })
-        })
-        .then(() => {
-            cy.wait(5)
-            cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")//.find("#tv_CloneDiv")
-                      //.should('to.have.css', 'color', 'blue')
-                      //.parent()
-                      .find("span.glyphicon-refresh")
-                      .should('exist')
-                      .then(($upgradeDom) => {
-                          $upgradeDom.click()
-                      })
         })
   })
 
+  cy.wait(5000)
+
+  cy.get('@TVData').then((tvData) => {
+      commonRequest.url = tvData.WebServicesUrl;
+      commonRequest.body = JSON.stringify(tvData.UpGradeInProgressData);
+      cy.request(commonRequest).then((resp) => {
+          cy.wait(5000)
+          const responseCode = resp.status;
+          console.log("responseCode:" + responseCode);
+          if (responseCode == 200) {
+
+          }
+      }).then(() => {
+          cy.wait(5000)
+          cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
+            .should('exist')
+            .then(() => {
+                cy.wait(5000)
+                cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
+                  .find("#tv_CloneDiv")
+                  .should('have.css', 'color', tvData.OrangeColor)
+            })
+      })
+  })
+
+  cy.wait(5000)
+
+  cy.get('@TVData').then((tvData) => {
+      commonRequest.url = tvData.WebServicesUrl;
+      commonRequest.body = JSON.stringify(tvData.NotInUpgradeModeData);
+      cy.request(commonRequest).then((resp) => {
+          cy.wait(5000)
+          const responseCode = resp.status;
+          console.log("responseCode:" + responseCode);
+          if (responseCode == 200) {
+
+          }
+      }).then(() => {
+          cy.wait(5000)
+          cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
+            .should('exist')
+            .then(() => {
+                cy.wait(5000)
+                cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
+                  .find("#tv_CloneDiv")
+                  .should('have.css', 'color', tvData.GreenColor)
+            })
+      })
+  })
   /*cy.get('#nav_files')
     .as('mainNaviFiles')
     .parent("li")

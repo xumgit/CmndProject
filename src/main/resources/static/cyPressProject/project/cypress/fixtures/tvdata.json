@@ -1,6 +1,10 @@
 {
   "WebServicesUrl": "http://localhost:8080/SmartInstall/webservices.jsp",
   "TVUniqueID": "900570AF241A9751",
+  "BlueColor": "rgb(0, 0, 255)",
+  "OrangeColor": "rgb(255, 191, 0)",
+  "GreenColor": "rgb(1, 223, 1)",
+  "RedColor": "rgb(255, 0, 0)",
   "TVDiscoveryData": {
                     	"CommandDetails": {
                       		"TVDiscoveryParameters": {
