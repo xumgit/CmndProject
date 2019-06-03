@@ -202,7 +202,17 @@ context('Unit Test', () => {
               const responseCode = resp.status;
               console.log("responseCode:" + responseCode);
               if (responseCode == 200) {
-
+                    cy.wait(1000)
+                    cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
+                      .should('exist')
+                      .find("img.hideIcon")
+                      .then(($imgIcon) => {
+                          cy.wait(1000)
+                          if ($imgIcon.length > 0) {
+                          } else {
+                            cy.reload()
+                          }
+                      })
               }
           }).then(() => {
               cy.wait(5000)
@@ -220,16 +230,25 @@ context('Unit Test', () => {
 
   function nine_Emulator_TV_Response_NotInUpgradeMode() {
       cy.log("Emulator TV response NotInUpgradeMode, then check clone green color")
-      cy.wait(5000)
+      cy.wait(3000)
       cy.get('@TVData').then((tvData) => {
           commonRequest.url = tvData.WebServicesUrl;
           commonRequest.body = JSON.stringify(tvData.NotInUpgradeModeData);
           cy.request(commonRequest).then((resp) => {
-              cy.wait(5000)
+              cy.wait(7000)
               const responseCode = resp.status;
               console.log("responseCode:" + responseCode);
               if (responseCode == 200) {
-
+                cy.wait(1000)
+                cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
+                  .should('exist')
+                  .find("img.hideIcon")
+                  .then(($imgIcon) => {
+                      cy.wait(1000)
+                      if ($imgIcon.length > 0) {
+                         cy.reload()
+                      } 
+                  })
               }
           }).then(() => {
               cy.wait(5000)
@@ -284,6 +303,7 @@ context('Unit Test', () => {
             })
       })
   }
+
  // it will only this case, after all case will not execute
  // it.only('returns "fizz" when number is multiple of 3', function () {
  //   numsExpectedToEq([9, 12, 18], 'fizz')
