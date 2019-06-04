@@ -5,6 +5,25 @@
   "OrangeColor": "rgb(255, 191, 0)",
   "GreenColor": "rgb(1, 223, 1)",
   "RedColor": "rgb(255, 0, 0)",
+  "CloneItems": {
+		"TVChannelList": "TVChannelList",
+		"HTVCfg.xml": "HTVCfg.xml",
+		"ProfessionalAppsData": "ProfessionalAppsData",
+		"RoomSpecificSettings": "RoomSpecificSettings",
+		"Schedules": "Schedules",
+		"TVSettings": "TVSettings",
+		"MainFirmware": "MainFirmware",
+		"Script": "Script",
+		"WelcomeLogo": "WelcomeLogo",
+		"SmartInfoPages": "SmartInfoPages",
+		"SmartInfoImages": "SmartInfoImages",
+		"CustomDashboardFallback": "CustomDashboardFallback",
+		"MediaChannels": "MediaChannels",
+		"Banner": "Banner",
+		"ProfessionalApps": "ProfessionalApps",
+		"AndroidAppsData": "AndroidAppsData"
+  },
+
   "TVDiscoveryData": {
                     	"CommandDetails": {
                       		"TVDiscoveryParameters": {

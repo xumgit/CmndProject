@@ -49,259 +49,324 @@ context('Unit Test', () => {
   // }
 
   const commonRequest = {
-      method: 'POST',
-      form: false,
-      headers: {
-        "Authorization": "whateverYouNeedForAuthentication",
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      url: null,
-      body: null
+        method: 'POST',
+        form: false,
+        headers: {
+            "Authorization": "whateverYouNeedForAuthentication",
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        url: null,
+        body: null
+  }
+
+  function changeData(data, changeDataObj) {       
+        if (null == changeDataObj) {
+            cy.log("changeDataObj is null")
+            return data
+        }
+        if (null == data) {
+            cy.log("data is null")
+            return data
+        }
+        let notInUpgradeModeDataObj = data.NotInUpgradeModeData
+        if (null == notInUpgradeModeDataObj) {
+            cy.log("notInUpgradeModeDataObj is null")
+            return data
+        }
+        let commandDetailsObj = notInUpgradeModeDataObj.CommandDetails
+        if (null == commandDetailsObj) {
+            cy.log("commandDetailsObj is null")
+            return data
+        }
+        let ipCloneParametersObj = commandDetailsObj.IPCloneParameters
+        if (null == ipCloneParametersObj) {
+            cy.log("ipCloneParametersObj is null")
+            return data
+        }
+        let cloneSessionStatusObj = ipCloneParametersObj.CloneSessionStatus
+        if (null == cloneSessionStatusObj) {
+            cy.log("cloneSessionStatusObj is null")
+            return data
+        }
+        let cloneItemStatusArrObj = cloneSessionStatusObj.CloneItemStatus
+        if (null == cloneItemStatusArrObj) {
+            cy.log("cloneItemStatusArrObj is null")
+            return data
+        }
+        let arrLen = cloneItemStatusArrObj.length
+        for(let i = 0; i < arrLen; i++) {
+            let cloneItemDetailsObj = cloneItemStatusArrObj[i].CloneItemDetails
+            let cloneItemName = cloneItemDetailsObj.CloneItemName
+            if (null != cloneItemName && "" != cloneItemName 
+                    && changeDataObj.hasOwnProperty(cloneItemName)) {
+                cloneItemDetailsObj.CloneItemVersionNo = changeDataObj[cloneItemName]
+            }
+        }
+        return data
   }
 
   function one_Login_CMND_page() {
-      cy.log("Login CMND page")
-      cy.visit('/')
-      //cy.url().should("include", "/SmartInstall")       //访问地址
-      cy.wait(1000)
-      cy.get('#username', {timeout: 5000}).type("admin")
-      cy.get('#password', {timeout: 5000}).type("tpvision")
-      cy.wait(1000)
-      cy.get('.btn').click()
-      cy.wait(3000)
+        cy.log("Login CMND page")
+        cy.visit('/')
+        //cy.url().should("include", "/SmartInstall")       //访问地址
+        cy.wait(1000)
+        cy.get('#username', {timeout: 5000}).type("admin")
+        cy.get('#password', {timeout: 5000}).type("tpvision")
+        cy.wait(1000)
+        cy.get('.btn').click()
+        cy.wait(3000)
   }
 
   function two_Navigation_to_TVS_tv_page() {
-      cy.log("Navigation to TVS_tv page")
-      cy.wait(3000)
-      cy.get('#nav_tvs')
-        .as('mainNaviTVs')
-        //.parent('li')
-        //.should('not.have.class', 'active')
-        .then(($parentDom) => {
-            cy.wait(3000)
-            if (!$parentDom.hasClass('active')) {
-              cy.get('@mainNaviTVs').click()
-              cy.wait(3000)
-            }
-        })
+        cy.log("Navigation to TVS_tv page")
+        cy.wait(3000)
+        cy.get('#nav_tvs')
+            .as('mainNaviTVs')
+            //.parent('li')
+            //.should('not.have.class', 'active')
+            .then(($parentDom) => {
+                cy.wait(3000)
+                if (!$parentDom.hasClass('active')) {
+                cy.get('@mainNaviTVs').click()
+                cy.wait(3000)
+                }
+            })
 
-      cy.wait(3000)
+        cy.wait(3000)
 
-      cy.get('[data-table=tabs-devices]')
-        .as('mainNaviTVs_tvs')
-        //.parent("li")
-        //.should('not.have.class', 'active')
-        .should('be.visible')
-        .then(($parentD) => {
-            cy.wait(3000)
-            if (!$parentD.hasClass('active')) {
-              cy.get('@mainNaviTVs_tvs').click()
-              cy.wait(3000)
-            }
-        })
+        cy.get('[data-table=tabs-devices]')
+            .as('mainNaviTVs_tvs')
+            //.parent("li")
+            //.should('not.have.class', 'active')
+            .should('be.visible')
+            .then(($parentD) => {
+                cy.wait(3000)
+                if (!$parentD.hasClass('active')) {
+                cy.get('@mainNaviTVs_tvs').click()
+                cy.wait(3000)
+                }
+            })
   }
 
   function three_Send_TVDiscovery_data() {
-      cy.log("Send TVDiscovery, generate a emulator tv")
-      cy.get('@TVData').then((tvData) => {
-          cy.wait(3000)
-          //console.log("TVDiscoveryData:" + tvData.TVDiscoveryData);
-          commonRequest.url = tvData.WebServicesUrl
-          commonRequest.body = JSON.stringify(tvData.TVDiscoveryData);
-          cy.request(commonRequest).then((resp)=>{
-              //console.log("resp:" + JSON.stringify(resp));
-              console.log("send TVDiscovery status:" + resp.status)
-              cy.reload()
-              cy.wait(3000)
-          })
-      })
+        cy.log("Send TVDiscovery, generate a emulator tv")
+        cy.get('@TVData').then((tvData) => {
+            cy.wait(3000)
+            //console.log("TVDiscoveryData:" + tvData.TVDiscoveryData);
+            commonRequest.url = tvData.WebServicesUrl
+            commonRequest.body = JSON.stringify(tvData.TVDiscoveryData);
+            cy.request(commonRequest).then((resp)=>{
+                //console.log("resp:" + JSON.stringify(resp));
+                console.log("send TVDiscovery status:" + resp.status)
+                cy.reload()
+                cy.wait(3000)
+            })
+        })
   }
 
   function four_Send_IPClonservice_data() {
-      cy.log("Send IPClonservice, show Firmware version")
-      cy.get('@TVData').then((tvData) => {
-          cy.wait(3000)
-          commonRequest.url = tvData.WebServicesUrl
-          commonRequest.body = JSON.stringify(tvData.ReadyForUpgradeData)
-          cy.request(commonRequest).then((res) => {
-              console.log("send IPClonservice status:" + res.status)
-              cy.wait(3000)
-          });
-      })
+        cy.log("Send IPClonservice, show Firmware version")
+        cy.get('@TVData').then((tvData) => {
+            cy.wait(3000)
+            commonRequest.url = tvData.WebServicesUrl
+            commonRequest.body = JSON.stringify(tvData.ReadyForUpgradeData)
+            cy.request(commonRequest).then((res) => {
+                console.log("send IPClonservice status:" + res.status)
+                cy.wait(3000)
+            });
+        })
   }
 
   function five_Select_TV() {
-      cy.log("Select TV")
-      cy.wait(3000)
-      cy.get('@TVData').then((tvData) => {
-          cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
-            .should('exist')
-            .then(($targetDom) => {
-                cy.wait(3000)
-                if (!$targetDom.hasClass('active')) {
-                    $targetDom.find("input[name=select]").click()
-                }
-            })
-      })
+        cy.log("Select TV")
+        cy.wait(3000)
+        cy.get('@TVData').then((tvData) => {
+            cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
+                .should('exist')
+                .then(($targetDom) => {
+                    cy.wait(3000)
+                    if (!$targetDom.hasClass('active')) {
+                        $targetDom.find("input[name=select]").click()
+                    }
+                })
+        })
   }
 
   function six_Assign_Clone_data() {
-      cy.log("Assign Clone data, then check blue color")
-      cy.wait(3000)
-      cy.get('@TVData').then((tvData) => {
-          cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
-            .should('exist')
-            .then(() => {
-                cy.wait(3000)
-                cy.get("#assign_select")
-                  .click()
-                  .then(($dom) => {
-                      cy.wait(1000)
-                      $dom.find("ul li:eq(3)").click()
-                      cy.wait(1000)
-                      cy.get("#assignSelectRows tr:eq(1)")
-                        .click()
-                        .then(() => {
-                            cy.wait(5000)
-                            cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
-                              .find("#tv_CloneDiv")
-                              .should('have.css', 'color', tvData.BlueColor)
-                        })
-                  })
-            })
-      })
+        cy.log("Assign Clone data, then check blue color")
+        cy.wait(3000)
+        cy.get('@TVData').then((tvData) => {
+            cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
+                .should('exist')
+                .then(() => {
+                    cy.wait(3000)
+                    cy.get("#assign_select")
+                    .click()
+                    .then(($dom) => {
+                        cy.wait(1000)
+                        $dom.find("ul li:eq(3)").click()
+                        cy.wait(3000)
+                        cy.get("#assignSelectRows > tr")
+                            //.its('length')
+                            //.should('be.gt', 1)
+                            //.contains('CypressTestCloneData')
+                            //.click()
+                            .each(($tr, index, $arrList) => {
+                                let selectText = $tr.find("td").eq(0).text()
+                                cy.log("text_" + index + ":" + selectText)
+                                if (selectText.indexOf('CypressTestCloneData') > -1) {
+                                    cy.log("CloneData select success")
+                                    $tr.click()                              
+                                }
+                            })
+                            .then(() => {
+                                cy.wait(5000)
+                                cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
+                                .find("#tv_CloneDiv")
+                                .should('have.css', 'color', tvData.BlueColor)
+                            })
+                    })
+                })
+        })
   }
 
   function seven_Click_Upgrade_button() {
-      cy.log("Click Upgrade button, means ready to upgrade")
-      cy.wait(3000)
-      cy.get('@TVData').then((tvData)=>{
-         cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
-           .should('exist')
-           .then(() => {
-                cy.wait(3000)
-                cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
-                  .should('exist')
-                  .find("span.glyphicon-refresh")
-                  .should('exist')
-                  .click()
-            })
-      })
+        cy.log("Click Upgrade button, means ready to upgrade")
+        cy.wait(3000)
+        cy.get('@TVData').then((tvData)=>{
+            cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
+            .should('exist')
+            .then(() => {
+                    cy.wait(3000)
+                    cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
+                    .should('exist')
+                    .find("span.glyphicon-refresh")
+                    .should('exist')
+                    .click()
+                })
+        })
   }
 
   function eight_Emulator_TV_Response_UpgradeInprogress() {
-      cy.log("Emulator TV response UpgradeInprogress, then check clone orange color")
-      cy.wait(5000)
-      cy.get('@TVData').then((tvData) => {
-          commonRequest.url = tvData.WebServicesUrl;
-          commonRequest.body = JSON.stringify(tvData.UpGradeInProgressData);
-          cy.request(commonRequest).then((resp) => {
-              cy.wait(5000)
-              const responseCode = resp.status;
-              console.log("responseCode:" + responseCode);
-              if (responseCode == 200) {
-                    cy.wait(1000)
-                    cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
-                      .should('exist')
-                      .find("img.hideIcon")
-                      .then(($imgIcon) => {
-                          cy.wait(1000)
-                          if ($imgIcon.length > 0) {
-                          } else {
-                            cy.reload()
-                          }
-                      })
-              }
-          }).then(() => {
-              cy.wait(5000)
-              cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
-                .should('exist')
-                .then(() => {
-                    cy.wait(5000)
-                    cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
-                      .find("#tv_CloneDiv")
-                      .should('have.css', 'color', tvData.OrangeColor)
-                })
-          })
-      })
+        cy.log("Emulator TV response UpgradeInprogress, then check clone orange color")
+        cy.wait(5000)
+        cy.get('@TVData').then((tvData) => {
+            commonRequest.url = tvData.WebServicesUrl;
+            commonRequest.body = JSON.stringify(tvData.UpGradeInProgressData);
+            cy.request(commonRequest).then((resp) => {
+                cy.wait(5000)
+                const responseCode = resp.status;
+                console.log("responseCode:" + responseCode);
+                if (responseCode == 200) {
+                        cy.wait(1000)
+                        cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
+                        .should('exist')
+                        .find("img.hideIcon")
+                        .then(($imgIcon) => {
+                            cy.wait(1000)
+                            if ($imgIcon.length > 0) {
+                            } else {
+                                cy.reload()
+                            }
+                        })
+                }
+            }).then(() => {
+                cy.wait(5000)
+                cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
+                    .should('exist')
+                    .then(() => {
+                        cy.wait(5000)
+                        cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
+                        .find("#tv_CloneDiv")
+                        .should('have.css', 'color', tvData.OrangeColor)
+                    })
+            })
+        })
   }
 
   function nine_Emulator_TV_Response_NotInUpgradeMode() {
-      cy.log("Emulator TV response NotInUpgradeMode, then check clone green color")
-      cy.wait(3000)
-      cy.get('@TVData').then((tvData) => {
-          commonRequest.url = tvData.WebServicesUrl;
-          commonRequest.body = JSON.stringify(tvData.NotInUpgradeModeData);
-          cy.request(commonRequest).then((resp) => {
-              cy.wait(7000)
-              const responseCode = resp.status;
-              console.log("responseCode:" + responseCode);
-              if (responseCode == 200) {
-                cy.wait(1000)
-                cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
-                  .should('exist')
-                  .find("img.hideIcon")
-                  .then(($imgIcon) => {
-                      cy.wait(1000)
-                      if ($imgIcon.length > 0) {
-                         cy.reload()
-                      } 
-                  })
-              }
-          }).then(() => {
-              cy.wait(5000)
-              cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
-                .should('exist')
-                .then(() => {
-                    cy.wait(5000)
+        cy.log("Emulator TV response NotInUpgradeMode, then check clone green color")
+        cy.wait(3000)
+        cy.get('@TVData').then((tvData) => {
+            commonRequest.url = tvData.WebServicesUrl;
+            let changeDataObj = {}
+            changeDataObj[tvData.CloneItems["TVChannelList"]] = "04/06/2019:01:39";
+            changeDataObj[tvData.CloneItems["HTVCfg.xml"]] = "04/06/2019:15:15";
+            changeDataObj[tvData.CloneItems["ProfessionalAppsData"]] = "04/06/2019:15:15";
+            changeDataObj[tvData.CloneItems["RoomSpecificSettings"]] = "24/08/2018:11:45";
+            changeDataObj[tvData.CloneItems["Schedules"]] = "23/08/2018:10:34";
+            changeDataObj[tvData.CloneItems["TVSettings"]] = "04/06/2019:13:39";
+            let data = changeData(tvData, changeDataObj)
+            commonRequest.body = JSON.stringify(data.NotInUpgradeModeData);
+            cy.request(commonRequest).then((resp) => {
+                cy.wait(7000)
+                const responseCode = resp.status;
+                cy.log("NotInUpgradeMode responseCode:" + responseCode);
+                if (responseCode == 200) {
+                    cy.wait(1000)
                     cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
-                      .find("#tv_CloneDiv")
-                      .should('have.css', 'color', tvData.GreenColor)
-                })
-          })
-      })
+                    .should('exist')
+                    .find("img.hideIcon")
+                    .then(($imgIcon) => {
+                        cy.wait(1000)
+                        if ($imgIcon.length > 0) {
+                            cy.reload()
+                        } 
+                    })
+                }
+            }).then(() => {
+                cy.wait(5000)
+                cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
+                    .should('exist')
+                    .then(() => {
+                        cy.wait(5000)
+                        cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
+                        .find("#tv_CloneDiv")
+                        .should('have.css', 'color', tvData.GreenColor)
+                    })
+            })
+        })
   }
 
   function ten_Click_Info_Dialog_button() {
-      cy.log("Click info dialog button, further check upgrade info")
-      cy.wait(5000)
-      cy.get('@TVData').then((tvData) => {
-          cy.wait(5000)
-          cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
-            .should('exist')
-            .find("span.glyphicon-info-sign")
-            .should('exist')
-            .click()
-            .then(() => {
-                cy.wait(2000)
-                cy.get("#TV_info").scrollTo('center')
-                cy.wait(8000)
-                  .then(() => {
-                      cy.get("#infoModal_ID button.close").click()
-                  })
-            })
-      })
+        cy.log("Click info dialog button, further check upgrade info")
+        cy.wait(5000)
+        cy.get('@TVData').then((tvData) => {
+            cy.wait(5000)
+            cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
+                .should('exist')
+                .find("span.glyphicon-info-sign")
+                .should('exist')
+                .click()
+                .then(() => {
+                    cy.wait(2000)
+                    cy.get("#TV_info").scrollTo('center')
+                    cy.wait(8000)
+                    .then(() => {
+                        cy.get("#infoModal_ID button.close").click()
+                    })
+                })
+        })
   }
 
   function eleven_delete_TV() {
-      cy.log("delete this tv")
-      cy.wait(3000)
-      cy.get('@TVData').then((tvData) => {
-          cy.wait(5000)
-          cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
-            .should('exist')
-            .find("span.glyphicon-trash")
-            .should('exist')
-            .click()
-            .then(() => {
-                cy.wait(2000)
-                cy.get("#tvDeleteModal #deleteTV")
-                  .should("exist")
-                  .click()
-            })
-      })
+        cy.log("delete this tv")
+        cy.wait(3000)
+        cy.get('@TVData').then((tvData) => {
+            cy.wait(5000)
+            cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
+                .should('exist')
+                .find("span.glyphicon-trash")
+                .should('exist')
+                .click()
+                .then(() => {
+                    cy.wait(2000)
+                    cy.get("#tvDeleteModal #deleteTV")
+                    .should("exist")
+                    .click()
+                })
+        })
   }
 
  // it will only this case, after all case will not execute
