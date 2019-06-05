@@ -158,7 +158,7 @@ context('Unit Test', () => {
             commonRequest.body = JSON.stringify(tvData.TVDiscoveryData);
             cy.request(commonRequest).then((resp)=>{
                 //console.log("resp:" + JSON.stringify(resp));
-                console.log("send TVDiscovery status:" + resp.status)
+                cy.log("send TVDiscovery status:" + resp.status)
                 cy.reload()
                 cy.wait(3000)
             })
@@ -172,7 +172,7 @@ context('Unit Test', () => {
             commonRequest.url = tvData.WebServicesUrl
             commonRequest.body = JSON.stringify(tvData.ReadyForUpgradeData)
             cy.request(commonRequest).then((res) => {
-                console.log("send IPClonservice status:" + res.status)
+                cy.log("send IPClonservice status:" + res.status)
                 cy.wait(3000)
             });
         })
