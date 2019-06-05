@@ -80,49 +80,65 @@ context('Send Many TV Test', () => {
         return tvSerialNumber
     }
 
-    function generateTVDiscoveryData(tvData) {
-        let commandDetailsObj = tvData.TVDiscoveryData
+    function generateTVDiscoveryData(tvDiscoveryData, index) {
+        let commandDetailsObj = tvDiscoveryData.CommandDetails
         let tvDiscoveryParametersObj = commandDetailsObj.TVDiscoveryParameters
         let webServiceParametersObj = commandDetailsObj.WebServiceParameters
-        tvDiscoveryParametersObj.TVIPAddress = generateIpAddress(i)
-        let tvMACAddress = generateMacAddress(i)
+        tvDiscoveryParametersObj.TVIPAddress = generateIpAddress(index)
+        let tvMACAddress = generateMacAddress(index)
         tvDiscoveryParametersObj.TVMACAddress = tvMACAddress
-        let tvRoomID = generateRoomId(i)
+        let tvRoomID = generateRoomId(index)
         tvDiscoveryParametersObj.TVRoomID = tvRoomID
-        let tvSerialNumber = generateTVSerialNumber(i)
+        let tvSerialNumber = generateTVSerialNumber(index)
         tvDiscoveryParametersObj.TVSerialNumber = tvSerialNumber
         let tvUniqueID = tvSerialNumber + tvMACAddress.replace(/:/g, "")
         webServiceParametersObj.TVUniqueID = tvUniqueID
-        return tvData
+        return tvDiscoveryData
     }
 
-    const commonRequest = {
-        method: 'POST',
-        form: false,
-        headers: {
-            "Authorization": "whateverYouNeedForAuthentication",
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        url: null,
-        body: null
+    function sendRequestCommand(tvData, i) {
+         
+        let commonRequest = {
+            method: 'POST',
+            form: false,
+            headers: {
+                "Authorization": "whateverYouNeedForAuthentication",
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            url: null,
+            body: null
+        }  
+        commonRequest.url = tvData.WebServicesUrl  
+        let tvDiscoveryData = tvData.TVDiscoveryData  
+        let newTvDiscoveryData = generateTVDiscoveryData(tvDiscoveryData, i)
+        let currentTVUniqueID = newTvDiscoveryData.CommandDetails.WebServiceParameters.TVUniqueID
+        commonRequest.body = JSON.stringify(newTvDiscoveryData);
+        cy.log("current tv count:" + i)
+        cy.request(commonRequest).then((resp)=>{
+            cy.log("send TVDiscovery status:" + resp.status)
+            cy.wait(2000)
+              .then(() => {
+                    let readyForUpgradeData = tvData.ReadyForUpgradeData
+                    readyForUpgradeData.CommandDetails.WebServiceParameters.TVUniqueID = currentTVUniqueID
+                    commonRequest.url = tvData.WebServicesUrl 
+                    commonRequest.body = JSON.stringify(readyForUpgradeData)
+                    cy.request(commonRequest).then((res) => {
+                        cy.log("send ReadyForUpgradeData status:" + res.status)
+                        cy.wait(2000)
+                    })
+              })
+        })
     }
 
     it('send tvdiscovery data', () =>{
         cy.get('@TVData').then((tvData) => {
             cy.wait(3000)
-            //console.log("TVDiscoveryData:" + tvData.TVDiscoveryData);
-            commonRequest.url = tvData.WebServicesUrl
-            for(let i = 1; i <= 10; i++) {
-                let newTvData = generateTVDiscoveryData(tvData)
-                commonRequest.body = JSON.stringify(newTvData.TVDiscoveryData);
-                cy.wait(1000)
-                cy.request(commonRequest).then((resp)=>{
-                    //console.log("resp:" + JSON.stringify(resp));
-                    cy.log("send TVDiscovery status:" + resp.status)
-                    cy.reload()
-                    cy.wait(3000)
-                })
+            let genarateTotalTvs = 100
+            let generateTvTimeInterval = 8000
+            
+            for(let i = 1; i <= genarateTotalTvs; i++) {                                           
+                setTimeout(sendRequestCommand(tvData, i), generateTvTimeInterval)
             }                      
         })
     })
