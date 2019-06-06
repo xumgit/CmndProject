@@ -23,3 +23,6 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+// file-upload plugin
+import "cypress-file-upload"
