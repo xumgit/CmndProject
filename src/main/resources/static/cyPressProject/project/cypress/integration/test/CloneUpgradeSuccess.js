@@ -127,22 +127,22 @@ context('Unit Test', () => {
             //.should('not.have.class', 'active')
             .then(($parentDom) => {
                 cy.wait(3000)
-                if (!$parentDom.hasClass('active')) {
-                cy.get('@mainNaviTVs').click()
-                cy.wait(3000)
+                if (!$parentDom.parent().hasClass('active')) {
+                    cy.get('@mainNaviTVs').click()
+                    cy.wait(3000)
                 }
             })
 
         cy.wait(3000)
 
-        cy.get('[data-table=tabs-devices]')
+        cy.get('a[data-table=tabs-devices]')
             .as('mainNaviTVs_tvs')
             //.parent("li")
             //.should('not.have.class', 'active')
             .should('be.visible')
             .then(($parentD) => {
                 cy.wait(3000)
-                if (!$parentD.hasClass('active')) {
+                if (!$parentD.parent().hasClass('active')) {
                 cy.get('@mainNaviTVs_tvs').click()
                 cy.wait(3000)
                 }
@@ -186,9 +186,19 @@ context('Unit Test', () => {
                 .should('exist')
                 .then(($targetDom) => {
                     cy.wait(3000)
-                    if (!$targetDom.hasClass('active')) {
-                        $targetDom.find("input[name=select]").click()
-                    }
+                    cy.get("#tvsBody > tr")
+                      .each(($tr, index, $arrList) => {
+                         let tvUniqueID = $tr.attr("data-row-id")
+                         if (tvUniqueID != tvData.TVUniqueID) {
+                             if ($tr.hasClass('active')) {
+                                $tr.find("input[name=select]").click()
+                             }
+                         } else {
+                            if (!$tr.hasClass('active')) {
+                                $tr.find("input[name=select]").click()
+                             }
+                         }
+                      })
                 })
         })
   }
@@ -221,7 +231,7 @@ context('Unit Test', () => {
                                 }
                             })
                             .then(() => {
-                                cy.wait(5000)
+                                cy.wait(10000)
                                 cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
                                 .find("#tv_CloneDiv")
                                 .should('have.css', 'color', tvData.BlueColor)
