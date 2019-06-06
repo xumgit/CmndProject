@@ -159,8 +159,20 @@ context('Unit Test', () => {
             cy.request(commonRequest).then((resp)=>{
                 //console.log("resp:" + JSON.stringify(resp));
                 cy.log("send TVDiscovery status:" + resp.status)
-                cy.reload()
-                cy.wait(3000)
+                cy.wait(10000)
+                let isRefreshPage = true
+                cy.get("#tvsBody > tr")
+                .each(($tr, index, $arrList) => {
+                    let tvUniqueID = $tr.attr("data-row-id")
+                    if (tvUniqueID == tvData.TVUniqueID) {
+                        isRefreshPage = false
+                    }
+                })
+                .then(() => {
+                    if (isRefreshPage) {
+                        cy.reload()
+                    }
+                })             
             })
         })
   }
@@ -260,12 +272,12 @@ context('Unit Test', () => {
 
   function eight_Emulator_TV_Response_UpgradeInprogress() {
         cy.log("Emulator TV response UpgradeInprogress, then check clone orange color")
-        cy.wait(5000)
+        cy.wait(3000)
         cy.get('@TVData').then((tvData) => {
             commonRequest.url = tvData.WebServicesUrl;
             commonRequest.body = JSON.stringify(tvData.UpGradeInProgressData);
             cy.request(commonRequest).then((resp) => {
-                cy.wait(5000)
+                cy.wait(3000)
                 const responseCode = resp.status;
                 console.log("responseCode:" + responseCode);
                 if (responseCode == 200) {
@@ -282,7 +294,7 @@ context('Unit Test', () => {
                         })
                 }
             }).then(() => {
-                cy.wait(5000)
+                cy.wait(3000)
                 cy.get("#tvsBody tr[data-row-id=\"" + tvData.TVUniqueID + "\"]")
                     .should('exist')
                     .then(() => {
