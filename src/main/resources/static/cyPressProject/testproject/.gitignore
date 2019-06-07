@@ -2,3 +2,5 @@
 /node_modules/*
 !/upload/images/
 *.mp4
+/cypress/screenshots/*.png
+/cypress/log/*.json

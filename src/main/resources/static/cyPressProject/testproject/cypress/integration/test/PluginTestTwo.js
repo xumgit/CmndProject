@@ -1,5 +1,4 @@
-
-describe('Plugin Unit Test', () => {
+describe('Plugin Unit Another Test', () => {
 
     function one_Login_CMND_page() {
         cy.log("Login CMND page")
@@ -57,5 +56,4 @@ describe('Plugin Unit Test', () => {
         cy.wait(5000)
         two_Navigation_to_Files_clone_page()
     })
-
 })
