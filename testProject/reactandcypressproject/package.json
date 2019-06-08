@@ -11,7 +11,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cy:run": "cypress run",
+    "cy:open": "cypress open"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -29,6 +31,9 @@
     ]
   },
   "devDependencies": {
-    "cypress": "^3.3.1"
+    "axios": "0.18.1",
+    "css-loader": "^2.1.1",
+    "cypress": "^3.3.1",
+    "cypress-react-unit-test": "^2.4.2"
   }
 }

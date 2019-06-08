@@ -19,5 +19,6 @@ describe('React Unit Test', () => {
         .then(($thirdDom) => {
             $thirdDom.click()
         })
+        cy.wait(5000)
     })
 })
