@@ -15,6 +15,7 @@
 !/upload/images/
 
 ### IntelliJ IDEA ###
+__pycache__
 .idea
 *.iws
 *.iml
