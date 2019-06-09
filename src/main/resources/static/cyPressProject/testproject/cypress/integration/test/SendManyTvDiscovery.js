@@ -40,7 +40,7 @@ context('Send Many TV Test', () => {
             macAddress = "AF:" + index + ":24:1A:97:51"
         } else if (index >=1000 && index <= 9999) {
             let index = Math.floor(index / 100)
-            macAddress = "AF:BE" + index + ":1A:97:51"
+            macAddress = "AF:BE:" + index + ":1A:97:51"
         }
 
         return macAddress
