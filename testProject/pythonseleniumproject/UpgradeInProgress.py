@@ -1,44 +1,27 @@
  #coding=utf-8
 import requests
 import json
+import Common
 
 class ReadForUpgrade:
-    def __init__(self):
+    def __init__(self, generateTvsCount = 1):
+        self.generateTvsCount = generateTvsCount
         self.webservicesUrl = "http://localhost:8080/SmartInstall/webservices.jsp"
         self.headers = {
                 "Authorization": "whateverYouNeedForAuthentication",
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             }
-        self.readForUpgradeData = {
+        self.upgradeInProgressData = {
                                     "CommandDetails": {
                                         "CloneToServerParameters": {
-                                            "CloneItemsAvailableToServer": [{
-                                                "CloneItemName": "RoomSpecificSettings",
-                                                "CloneItemVersionNo": "24/08/2018:11:45"
-                                            }, {
-                                                "CloneItemName": "ProfessionalAppsData",
-                                                "CloneItemVersionNo": "01/06/2019:20:05"
-                                            }, {
-                                                "CloneItemName": "AndroidApps",
-                                                "CloneItemVersionNo": "01/01/2018:01:01"
-                                            }, {
-                                                "CloneItemName": "TVSettings",
-                                                "CloneItemVersionNo": "01/06/2019:20:05"
-                                            }, {
-                                                "CloneItemName": "HTVCfg.xml",
-                                                "CloneItemVersionNo": "01/06/2019:20:05"
-                                            }, {
-                                                "CloneItemName": "TVChannelList",
-                                                "CloneItemVersionNo": "01/06/2019:08:05"
-                                            }],
                                             "CloneToServerSessionStatus": {
                                                 "CloneItemStatus": [{
                                                     "CloneItemDetails": {
                                                         "CloneItemName": "ProfessionalApps",
-                                                        "CloneItemVersionNo": ""
+                                                        "CloneItemVersionNo": "22/03/2019:11:57"
                                                     },
-                                                    "CloneStatus": "NotAvailable"
+                                                    "CloneStatus": "Successful"
                                                 }, {
                                                     "CloneItemDetails": {
                                                         "CloneItemName": "DataDump",
@@ -54,21 +37,27 @@ class ReadForUpgrade:
                                                 }, {
                                                     "CloneItemDetails": {
                                                         "CloneItemName": "AndroidAppsData",
-                                                        "CloneItemVersionNo": ""
+                                                        "CloneItemVersionNo": "22/03/2019:11:57"
                                                     },
-                                                    "CloneStatus": "NotAvailable"
+                                                    "CloneStatus": "Successful"
                                                 }, {
                                                     "CloneItemDetails": {
                                                         "CloneItemName": "SmartInfoPages",
-                                                        "CloneItemVersionNo": ""
+                                                        "CloneItemVersionNo": "22/03/2019:10:49"
                                                     },
-                                                    "CloneStatus": "NotAvailable"
+                                                    "CloneStatus": "Successful"
+                                                }, {
+                                                    "CloneItemDetails": {
+                                                        "CloneItemName": "Script",
+                                                        "CloneItemVersionNo": "22/03/2019:11:57"
+                                                    },
+                                                    "CloneStatus": "Successful"
                                                 }, {
                                                     "CloneItemDetails": {
                                                         "CloneItemName": "MediaChannels",
-                                                        "CloneItemVersionNo": ""
+                                                        "CloneItemVersionNo": "22/03/2019:11:57"
                                                     },
-                                                    "CloneStatus": "NotAvailable"
+                                                    "CloneStatus": "Successful"
                                                 }, {
                                                     "CloneItemDetails": {
                                                         "CloneItemName": "ProfessionalAppsData",
@@ -78,7 +67,7 @@ class ReadForUpgrade:
                                                 }, {
                                                     "CloneItemDetails": {
                                                         "CloneItemName": "AndroidApps",
-                                                        "CloneItemVersionNo": "01/01/2018:01:01"
+                                                        "CloneItemVersionNo": "22/03/2019:11:57"
                                                     },
                                                     "CloneStatus": "Successful"
                                                 }, {
@@ -102,21 +91,21 @@ class ReadForUpgrade:
                                                 }, {
                                                     "CloneItemDetails": {
                                                         "CloneItemName": "CustomDashboardFallback",
-                                                        "CloneItemVersionNo": ""
+                                                        "CloneItemVersionNo": "22/03/2019:11:57"
                                                     },
-                                                    "CloneStatus": "NotAvailable"
+                                                    "CloneStatus": "Successful"
                                                 }, {
                                                     "CloneItemDetails": {
                                                         "CloneItemName": "Banner",
-                                                        "CloneItemVersionNo": ""
+                                                        "CloneItemVersionNo": "26/10/2018:04:39"
                                                     },
-                                                    "CloneStatus": "NotAvailable"
+                                                    "CloneStatus": "Successful"
                                                 }, {
                                                     "CloneItemDetails": {
                                                         "CloneItemName": "Schedules",
                                                         "CloneItemVersionNo": "23/08/2018:10:34"
                                                     },
-                                                    "CloneStatus": "NotAvailable"
+                                                    "CloneStatus": "Successful"
                                                 }],
                                                 "SessionEndTime": "",
                                                 "SessionStartTime": "",
@@ -125,28 +114,6 @@ class ReadForUpgrade:
                                             "CloneToServerStatus": "NotReady"
                                         },
                                         "IPCloneParameters": {
-                                            "CloneItemsRequiredForUpgrade": [{
-                                                "CloneItemName": "RoomSpecificSettings",
-                                                "CloneItemVersionNo": "24/08/2018:11:45"
-                                            }, {
-                                                "CloneItemName": "ProfessionalAppsData",
-                                                "CloneItemVersionNo": "01/06/2019:20:05"
-                                            }, {
-                                                "CloneItemName": "AndroidApps",
-                                                "CloneItemVersionNo": "01/01/2018:01:01"
-                                            }, {
-                                                "CloneItemName": "TVSettings",
-                                                "CloneItemVersionNo": "01/06/2019:20:05"
-                                            }, {
-                                                "CloneItemName": "MainFirmware",
-                                                "CloneItemVersionNo": "TPM181HE_R.005.003.022.000"
-                                            }, {
-                                                "CloneItemName": "HTVCfg.xml",
-                                                "CloneItemVersionNo": "01/06/2019:20:05"
-                                            }, {
-                                                "CloneItemName": "TVChannelList",
-                                                "CloneItemVersionNo": "01/06/2019:08:05"
-                                            }],
                                             "CloneSessionStatus": {
                                                 "CloneItemStatus": [{
                                                     "CloneItemDetails": {
@@ -240,10 +207,10 @@ class ReadForUpgrade:
                                                     "CloneStatus": "NotAvailable"
                                                 }],
                                                 "SessionEndTime": "",
-                                                "SessionStartTime": "",
-                                                "SessionStatus": ""
+                                                "SessionStartTime": "28/03/2019 12:35",
+                                                "SessionStatus": "InProgress"
                                             },
-                                            "CurrentUpgradeStatus": "ReadyForUpgrade"
+                                            "CurrentUpgradeStatus": "UpgradeInProgress"
                                         },
                                         "WebServiceParameters": {
                                             "PollingFrequency": 10,
@@ -251,16 +218,22 @@ class ReadForUpgrade:
                                         }
                                     },
                                     "CmdType": "Response",
-                                    "Cookie": 293,
+                                    "Cookie": -1,
                                     "Fun": "IPCloneService",
                                     "Svc": "WebServices",
                                     "SvcVer": "4.0"
                                 }
         self.timeout = 30
 
-    def sendReadForUpgradeData(self, tvUniqueID):
-        self.readForUpgradeData['CommandDetails']['WebServiceParameters']['TVUniqueID'] = tvUniqueID
-        r = requests.post(self.webservicesUrl, headers=self.headers, 
-                                data=json.dumps(self.readForUpgradeData), timeout=self.timeout)
-        return r.status_code
-        #print("send ReadForUpgrade status:" + str(r.status_code)) 
+    def sendUpgradeInProgressData(self):
+        common = Common.Common()
+        start = 1
+        end = self.generateTvsCount + 1
+        for index in range(start, end):
+            tvSerialNumber = common.generateTVSerialNumber(index)
+            tvMACAddress = common.generateMacAddress(index)
+            tvUniqueID = tvSerialNumber + tvMACAddress.replace(":", "", 5)
+            self.upgradeInProgressData['CommandDetails']['WebServiceParameters']['TVUniqueID'] = tvUniqueID
+            r = requests.post(self.webservicesUrl, headers=self.headers, 
+                                data=json.dumps(self.upgradeInProgressData), timeout=self.timeout)
+            print("TV:" + str(index) + ",UpgradeInProgress:" + str(r.status_code))

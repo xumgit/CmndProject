@@ -1,8 +1,10 @@
+ #coding=utf-8
 import math
 import requests
 import json
 import datetime
 import time
+import Common
 import ReadForUpgrade
 
 class TVDiscovery:
@@ -42,6 +44,7 @@ class TVDiscovery:
         print("")
     
     def genarateManyTvs(self): 
+        common = Common.Common()
         readForUpgrade = ReadForUpgrade.ReadForUpgrade()     
         start = 1
         end = self.generateTvsCount + 1
@@ -50,86 +53,20 @@ class TVDiscovery:
             commandDetailsObj = tvdiscoveryDataObj['CommandDetails']
             tvDiscoveryParametersObj = commandDetailsObj['TVDiscoveryParameters']
             webServiceParametersObj = commandDetailsObj['WebServiceParameters']
-            tvDiscoveryParametersObj['TVIPAddress'] = self.generateIpAddress(index)
-            tvMACAddress = self.generateMacAddress(index)
+            tvDiscoveryParametersObj['TVIPAddress'] = common.generateIpAddress(index)
+            tvMACAddress = common.generateMacAddress(index)
             tvDiscoveryParametersObj['TVMACAddress'] = tvMACAddress
-            tvRoomID = self.generateRoomId(index)
+            tvRoomID = common.generateRoomId(index)
             tvDiscoveryParametersObj['TVRoomID'] = tvRoomID
-            tvSerialNumber = self.generateTVSerialNumber(index)
+            tvSerialNumber = common.generateTVSerialNumber(index)
             tvDiscoveryParametersObj['TVSerialNumber'] = tvSerialNumber
             tvUniqueID = tvSerialNumber + tvMACAddress.replace(":", "", 5)
             webServiceParametersObj['TVUniqueID'] = tvUniqueID
             
             r = requests.post(self.webservicesUrl, headers=self.headers, 
-                                data=json.dumps(tvdiscoveryDataObj), timeout=self.timeout)                               
-            print("current tv count:" + str(index) + ",status:" + str(r.status_code))   
-            readForUpgrade.sendReadForUpgradeData(tvUniqueID)
-
-    def generateIpAddress(self, index):
-        ipAddress = "127.1.1.1"   
-        if index == 0:
-            index = 1
-        
-        if index > 0 and index <= 255 : 
-            ipAddress = "127.1.1." + str(index)
-        elif index > 255 and index <= 510 :
-            index = index - 255
-            ipAddress = "127.1.2." + str(index)
-        elif index > 510 and index <= 765 :
-            index = index - 510
-            ipAddress = "127.1.3." + str(index)
-        elif index > 765 and index <= 1020 :
-            index = index - 765
-            ipAddress = "127.1.4." + str(index)
-
-        return ipAddress
-
-    def generateMacAddress(self, index):
-        macAddress = "70:AF:24:1A:97:51" 
-        
-        if index >= 0 and index <= 9 :
-            macAddress = "0" + str(index) + ":AF:24:1A:97:51"
-        elif index >= 10 and index <= 99 :
-            macAddress = str(index) + ":AF:24:1A:97:51"
-        elif index >= 100 and index <= 999 :
-            index = math.floor(index / 10)
-            macAddress = "AF:" + str(index) + ":24:1A:97:51"
-        elif index >=1000 and index <= 9999 :
-            index = math.floor(index / 100)
-            macAddress = "AF:BE:" + str(index) + ":1A:97:51"
-
-        return macAddress
-
-    def generateRoomId(self, index):
-        roomId = "00000"
-
-        if index >= 0 and index <= 9 :
-            roomId = "0000" + str(index)
-        elif index >= 10 and index <= 99 :
-            roomId = "000" + str(index)
-        elif index >= 100 and index <= 999 :
-            roomId = "00" + str(index)
-        elif index >= 1000 and index <= 9999 :
-            roomId = "0" + str(index)
-        elif index >= 10000 and index <= 99999 :
-            roomId = str(index)
-
-        return roomId
-
-    def generateTVSerialNumber(self, index):
-        prefixTvseri = "1234"
-        tvSerialNumber = "12345678"
-
-        if index >= 0 and index < 10 :
-            tvSerialNumber = prefixTvseri + str(index)
-        elif index >= 10 and index < 99 :
-            tvSerialNumber = prefixTvseri + str(index)
-        elif index >= 99 and index < 999 :
-            tvSerialNumber = prefixTvseri + str(index)
-        elif index >= 999 and index < 9999 :
-            tvSerialNumber = prefixTvseri + str(index)
-
-        return tvSerialNumber
+                                data=json.dumps(tvdiscoveryDataObj), timeout=self.timeout)                                              
+            returnCode = readForUpgrade.sendReadForUpgradeData(tvUniqueID)
+            print("TV:" + str(index) + ",TVDiscovery:" + str(r.status_code) + ",ReadForUpgrade:"+ str(returnCode))
 
 
 # ========== start test ==========
