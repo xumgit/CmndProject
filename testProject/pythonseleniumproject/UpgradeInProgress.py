@@ -3,7 +3,7 @@ import requests
 import json
 import Common
 
-class ReadForUpgrade:
+class UpgradeInProgress:
     def __init__(self, generateTvsCount = 1):
         self.generateTvsCount = generateTvsCount
         self.webservicesUrl = "http://localhost:8080/SmartInstall/webservices.jsp"

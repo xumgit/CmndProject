@@ -4,6 +4,8 @@ import requests
 import json
 import time
 import TVDiscovery
+import UpgradeInProgress
+import NotInUpgradeMode
 import datetime
 import os
 
@@ -83,25 +85,138 @@ def gotoTVS_tvs_tab(dr):
     if ('active' != class_tvs_tvs) :
         devices_parentObj.click()
 
+def changePageSize(dr):   
+    pageSize = dr.find_element_by_css_selector('#grid_devices-header button.dropdown-toggle span.dropdown-text').text
+    if (50 == int(pageSize)):
+        pass
+    else:
+        toggleBtn = dr.find_element_by_css_selector('#grid_devices-header button.dropdown-toggle')
+        toggleBtn.click()
+        time.sleep(1)
+        liaList = dr.find_elements_by_css_selector('#grid_devices-header ul.dropdown-menu:nth-of-type(1) > li > a')
+        liaListLen = len(liaList)
+        for index in range(0, liaListLen):
+            if (50 == int(liaList[index].text)):
+                liaList[index].click()
+                break
+
+def selectAllTv(dr):
+    selectAllTvCheck = dr.find_element_by_css_selector("input[name='select']")
+    isSelected = selectAllTvCheck.is_selected()
+    print("isSelected:" + str(isSelected))
+    if isSelected:
+        pass
+    else:
+        selectAllTvCheck.click()
+
+def assignClonePackage(dr):
+    dr.find_element_by_id('assign_select').click()
+    time.sleep(3)
+    liList = dr.find_elements_by_css_selector('#assign_select > ul > li')
+    listlen = len(liList)
+    for index in range(0, listlen):
+        cloneType = liList[index].text
+        if (cloneType.find("Channels") > -1) :
+            liList[index].click()
+            break
+    time.sleep(3)
+    tdList = dr.find_elements_by_css_selector('#assignSelectRows > tr > td:nth-of-type(1)')
+    tdListlen = len(tdList)
+    for indexL in range(0, tdListlen):
+        cloneValue = tdList[indexL].text
+        if (cloneValue.find("CypressTestCloneData") > -1) :
+            tdList[indexL].click()
+            break
+    time.sleep(5)
+
+def getAssignItemIdentifier(dr):
+    identifier = "10/06/2019:15:05"
+    firstTvObj = dr.find_element_by_css_selector('#tvsBody > tr:nth-of-type(1) > td:nth-of-type(10) > div')
+    sicloneidentValue = firstTvObj.get_attribute("sicloneident")
+    try:
+        time_temp = time.strptime(sicloneidentValue, "%Y/%m/%d-%H:%M:%S")
+        identifier = time.strftime("%d/%m/%Y:%H:%M", time_temp)
+        print("identifier:" + identifier)
+    except Exception as e:
+        print("exception:" + e)
+    return identifier
+
+def checkCloneColor(dr, type, color):
+    tvsList = dr.find_elements_by_css_selector('#tvsBody > tr > td:nth-of-type(10) > div')
+    tvListLen = len(tvsList)
+    for index in range(0, tvListLen):
+        colorValue = tvsList[index].value_of_css_property("color")
+        if (color == colorValue):
+            pass
+        else:
+            startallidValue = tvsList[index].get_attribute("startallid")
+            errTvObj = dr.find_element_by_css_selector("#tvsBody > tr[data-row-id='" + startallidValue + "'] > td:nth-of-type(8) > div")
+            print(type + ",color not match, tv ip address:" + errTvObj.text)
+
+def forceUpgradeItem(dr):
+    forceUpgradeBtn = dr.find_element_by_id('allBtn')
+    if ((forceUpgradeBtn.text).find("Force") > -1):
+        forceUpgradeBtn.click()
+    else:
+        print("force upgrade error")
+
 if __name__ == '__main__':
     print("startTime:" + getCurentTime())
     dr = getDriver() 
     openCmndPage(dr)
-    time.sleep(3)
+    dr.implicitly_wait(3)
     logIn(dr)
-    time.sleep(3)
+    dr.implicitly_wait(3)
     gotoFile_clone_tab(dr)
-    time.sleep(3)
+    dr.implicitly_wait(3)
     uploadFile(dr)
-    time.sleep(3)
+    dr.implicitly_wait(3)
     gotoTVS_tvs_tab(dr)
-    time.sleep(3)
-
+    dr.implicitly_wait(3)
+    changePageSize(dr)
+    dr.implicitly_wait(3)
     starttime = datetime.datetime.now()	
 
-    generateTvsCount = 5				
+    generateTvsCount = 50				
     tvDiscovery = TVDiscovery.TVDiscovery(generateTvsCount)
     tvDiscovery.genarateManyTvs()
+    dr.implicitly_wait(5)
+    dr.refresh()
+    print("==========generate tv success==========")
+
+    blueColor = "rgba(0, 0, 255, 1)"
+    dr.implicitly_wait(5)
+    selectAllTv(dr)
+    time.sleep(1)
+    assignClonePackage(dr)
+    time.sleep(1)
+    assignIdentifier = getAssignItemIdentifier(dr)
+    checkCloneColor(dr, "Assign", blueColor)
+    print("==========assign Clone package success==========")
+
+    time.sleep(1)
+    forceUpgradeItem(dr)
+    print("==========click upgrade success==========")  
+
+    orangeColor = "rgba(255, 191, 0, 1)"
+    upgradeInProgress = UpgradeInProgress.UpgradeInProgress(generateTvsCount)
+    upgradeInProgress.sendUpgradeInProgressData()
+    dr.implicitly_wait(5)
+    dr.refresh()
+    dr.implicitly_wait(5)
+    checkCloneColor(dr, "UpgradeInprogess", orangeColor)
+    print("==========send upgradeInProgress success==========")
+    time.sleep(10)
+
+    greenColor = "rgba(1, 223, 1, 1)"
+    upgradeIdentifier = {"TVChannelList": assignIdentifier}
+    notInUpgradeMode = NotInUpgradeMode.NotInUpgradeMode(generateTvsCount, upgradeIdentifier)
+    notInUpgradeMode.sendNotInUpgradeModeData()
+    dr.implicitly_wait(5)
+    dr.refresh()
+    dr.implicitly_wait(5)
+    checkCloneColor(dr, "NotInUpgradeMode", greenColor)
+    print("==========send NotInUpgradeMode success==========")
 
     endtime = datetime.datetime.now()
     consumerTime = (endtime - starttime).seconds

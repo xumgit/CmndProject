@@ -4,8 +4,9 @@ import json
 import Common
 
 class NotInUpgradeMode:
-    def __init__(self, generateTvsCount = 1):
+    def __init__(self, generateTvsCount = 1, upgradeIdentifier = {}):
         self.generateTvsCount = generateTvsCount
+        self.upgradeIdentifier = upgradeIdentifier
         self.webservicesUrl = "http://localhost:8080/SmartInstall/webservices.jsp"
         self.headers = {
                 "Authorization": "whateverYouNeedForAuthentication",
@@ -236,7 +237,7 @@ class NotInUpgradeMode:
                                     }
         self.timeout = 30
 
-    def sendNotInUpgradeModeDataData(self):
+    def sendNotInUpgradeModeData(self):
         common = Common.Common()
         start = 1
         end = self.generateTvsCount + 1
@@ -245,6 +246,13 @@ class NotInUpgradeMode:
             tvMACAddress = common.generateMacAddress(index)
             tvUniqueID = tvSerialNumber + tvMACAddress.replace(":", "", 5)
             self.notInUpgradeModeData['CommandDetails']['WebServiceParameters']['TVUniqueID'] = tvUniqueID
+            cloneItemStatusArr = self.notInUpgradeModeData['CommandDetails']['IPCloneParameters']['CloneSessionStatus']['CloneItemStatus']
+            cloneItemStatusLen = len(cloneItemStatusArr)
+            for indexJ in range(0, cloneItemStatusLen):
+                cloneItemDetailsObj = cloneItemStatusArr[indexJ]['CloneItemDetails']
+                if cloneItemDetailsObj['CloneItemName'] in self.upgradeIdentifier:
+                    cloneItemDetailsObj['CloneItemVersionNo'] = self.upgradeIdentifier[cloneItemDetailsObj['CloneItemName']]
+
             r = requests.post(self.webservicesUrl, headers=self.headers, 
                                 data=json.dumps(self.notInUpgradeModeData), timeout=self.timeout)
             print("TV:" + str(index) + ",NotInUpgradeMode:" + str(r.status_code))
