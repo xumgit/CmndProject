@@ -1,6 +1,8 @@
 ### STS ###
 /node_modules/*
 !/upload/images/
-*.mp4
-/cypress/screenshots/*.png
-/cypress/log/*.json
+
+# cypress
+/cypress/logs/*
+/cypress/screenshots/*
+/cypress/videos/*

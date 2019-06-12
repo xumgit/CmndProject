@@ -1,6 +1,7 @@
  #coding=utf-8
 import requests
 import json
+import Common
 
 class ReadForUpgrade:
     def __init__(self):
@@ -264,3 +265,12 @@ class ReadForUpgrade:
                                 data=json.dumps(self.readForUpgradeData), timeout=self.timeout)
         return r.status_code
         #print("send ReadForUpgrade status:" + str(r.status_code)) 
+
+    def generateSingleTvData(self, index):
+        common = Common.Common()
+        readForUpgradeDataObj = self.readForUpgradeData
+        tvSerialNumber = common.generateTVSerialNumber(index)
+        tvMACAddress = common.generateMacAddress(index)
+        tvUniqueID = tvSerialNumber + tvMACAddress.replace(":", "", 5)
+        readForUpgradeDataObj['CommandDetails']['WebServiceParameters']['TVUniqueID'] = tvUniqueID
+        return readForUpgradeDataObj

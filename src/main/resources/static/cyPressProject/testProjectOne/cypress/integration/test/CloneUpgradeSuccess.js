@@ -1,6 +1,6 @@
 
 /*
- * cd cyPressProject\project
+ * cd cyPressProject\testProjectOne
  * 1. manual run:
         node_modules\.bin\cypress open
  * 2. command line run, and record a video and screenshot:

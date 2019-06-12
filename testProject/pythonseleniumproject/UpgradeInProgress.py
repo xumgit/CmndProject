@@ -231,16 +231,23 @@ class UpgradeInProgress:
         start = 1
         end = self.generateTvsCount + 1
         for index in range(start, end):
-            tvSerialNumber = common.generateTVSerialNumber(index)
-            tvMACAddress = common.generateMacAddress(index)
-            tvUniqueID = tvSerialNumber + tvMACAddress.replace(":", "", 5)
-            self.upgradeInProgressData['CommandDetails']['WebServiceParameters']['TVUniqueID'] = tvUniqueID
+            upgradeInProgressDataObj = generateSingleTvData(index)
+            tvUniqueID = upgradeInProgressDataObj['CommandDetails']['WebServiceParameters']['TVUniqueID']
+
             r = requests.post(self.webservicesUrl, headers=self.headers, 
-                                data=json.dumps(self.upgradeInProgressData), timeout=self.timeout)
-            #print("TV:" + str(index) + ",UpgradeInProgress:" + str(r.status_code))
+                                data=json.dumps(upgradeInProgressDataObj), timeout=self.timeout)
             if (200 == r.status_code):
                 successCount += 1               
             else:
                 print("UpgradeInProgress failed, this tvUniqueID:" + tvUniqueID)
         if (successCount == self.generateTvsCount):
             print("UpgradeInProgress, All send success!")
+
+    def generateSingleTvData(self, index):
+        common = Common.Common()
+        upgradeInProgressDataObj = self.upgradeInProgressData
+        tvSerialNumber = common.generateTVSerialNumber(index)
+        tvMACAddress = common.generateMacAddress(index)
+        tvUniqueID = tvSerialNumber + tvMACAddress.replace(":", "", 5)
+        upgradeInProgressDataObj['CommandDetails']['WebServiceParameters']['TVUniqueID'] = tvUniqueID
+        return upgradeInProgressDataObj
