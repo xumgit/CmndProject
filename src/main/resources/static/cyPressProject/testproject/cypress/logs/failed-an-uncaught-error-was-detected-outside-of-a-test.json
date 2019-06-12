@@ -1,9 +1,0 @@
-{
-  "specName": "PluginTest.js",
-  "title": "An uncaught error was detected outside of a test",
-  "suiteName": "",
-  "testName": " An uncaught error was detected outside of a test",
-  "testError": "Cannot call \"cy.wait()\" outside a running test.\n\nThis usually happens when you accidentally write commands outside an it(...) test.\n\nIf that is the case, just move these commands inside an it(...) test.\n\nCheck your test file for errors.\n\nhttps://on.cypress.io/cannot-execute-commands-outside-test\n\nThis error originated from your test code, not from Cypress.\n\nWhen Cypress detects uncaught errors originating from your test code it will automatically fail the current test.\n\nCypress could not associate this error to any specific test.\n\nWe dynamically generated a new test to display this failure.",
-  "testCommands": [],
-  "screenshot": "an-uncaught-error-was-detected-outside-of-a-test-failed.png"
-}
