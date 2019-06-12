@@ -1,0 +1,13 @@
+{
+  "specName": "PluginTest.js",
+  "title": "should test something...",
+  "suiteName": "My tests running on all viewports across various URLs",
+  "testName": "http://www.baidu.com Testing on macbook-15 My tests running on all viewports across various URLs should test something...",
+  "testError": "Script error.\n\nCypress detected that an uncaught error was thrown from a cross origin script.\n\nWe cannot provide you the stack trace, line number, or file where this error occurred.\n\nCheck your Developer Tools Console for the actual error - it should be printed there.\n\nIt's possible to enable debugging these scripts by adding the 'crossorigin' attribute and setting a CORS header.\n\nhttps://on.cypress.io/cross-origin-script-error\n\nThis error originated from your application code, not from Cypress.\n\nWhen Cypress detects uncaught errors originating from your application it will automatically fail the current test.\n\nThis behavior is configurable, and you can choose to turn this off by listening to the 'uncaught:exception' event.\n\nhttps://on.cypress.io/uncaught-exception-from-application\n\nBecause this error occurred during a 'before each' hook we are skipping the remaining tests in the current suite: 'Testing on macbook-15'",
+  "testCommands": [
+    "viewport 1440, 900",
+    "visit http://www.baidu.com",
+    "xhr  GET https://www.baidu.com/his?wd=&from=pc_web&rf=3&hisdata=&json=1&p=3&sid=26523_1460_21109_29237_28518_29099_29134_28831_28584_29133&req=2&csor=0&cb=jQuery11020050131507552383825_1559880174931&_=1559880174932"
+  ],
+  "screenshot": "should-test-something-failed.png"
+}
