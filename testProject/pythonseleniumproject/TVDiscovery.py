@@ -45,6 +45,7 @@ class TVDiscovery:
     
     def genarateManyTvs(self): 
         common = Common.Common()
+        successCount = 0
         readForUpgrade = ReadForUpgrade.ReadForUpgrade()     
         start = 1
         end = self.generateTvsCount + 1
@@ -66,7 +67,13 @@ class TVDiscovery:
             r = requests.post(self.webservicesUrl, headers=self.headers, 
                                 data=json.dumps(tvdiscoveryDataObj), timeout=self.timeout)                                              
             returnCode = readForUpgrade.sendReadForUpgradeData(tvUniqueID)
-            print("TV:" + str(index) + ",TVDiscovery:" + str(r.status_code) + ",ReadForUpgrade:"+ str(returnCode))
+            #print("TV:" + str(index) + ",TVDiscovery:" + str(r.status_code) + ",ReadForUpgrade:"+ str(returnCode))
+            if (200 == r.status_code and 200 == returnCode):
+                successCount += 1               
+            else:
+                print("TVDiscovery & ReadForUpgrade failed, this tvUniqueID:" + tvUniqueID)
+        if (successCount == self.generateTvsCount):
+            print("TVDiscovery & ReadForUpgrade, All send success!")
 
 
 # ========== start test ==========

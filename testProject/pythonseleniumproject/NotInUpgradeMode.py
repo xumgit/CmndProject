@@ -239,6 +239,7 @@ class NotInUpgradeMode:
 
     def sendNotInUpgradeModeData(self):
         common = Common.Common()
+        successCount = 0
         start = 1
         end = self.generateTvsCount + 1
         for index in range(start, end):
@@ -255,4 +256,9 @@ class NotInUpgradeMode:
 
             r = requests.post(self.webservicesUrl, headers=self.headers, 
                                 data=json.dumps(self.notInUpgradeModeData), timeout=self.timeout)
-            print("TV:" + str(index) + ",NotInUpgradeMode:" + str(r.status_code))
+            if (200 == r.status_code):
+                successCount += 1               
+            else:
+                print("NotInUpgradeMode failed, this tvUniqueID:" + tvUniqueID)
+        if (successCount == self.generateTvsCount):
+            print("NotInUpgradeMode, All send success!")

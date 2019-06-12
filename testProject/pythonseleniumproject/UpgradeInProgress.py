@@ -227,6 +227,7 @@ class UpgradeInProgress:
 
     def sendUpgradeInProgressData(self):
         common = Common.Common()
+        successCount = 0
         start = 1
         end = self.generateTvsCount + 1
         for index in range(start, end):
@@ -236,4 +237,10 @@ class UpgradeInProgress:
             self.upgradeInProgressData['CommandDetails']['WebServiceParameters']['TVUniqueID'] = tvUniqueID
             r = requests.post(self.webservicesUrl, headers=self.headers, 
                                 data=json.dumps(self.upgradeInProgressData), timeout=self.timeout)
-            print("TV:" + str(index) + ",UpgradeInProgress:" + str(r.status_code))
+            #print("TV:" + str(index) + ",UpgradeInProgress:" + str(r.status_code))
+            if (200 == r.status_code):
+                successCount += 1               
+            else:
+                print("UpgradeInProgress failed, this tvUniqueID:" + tvUniqueID)
+        if (successCount == self.generateTvsCount):
+            print("UpgradeInProgress, All send success!")
