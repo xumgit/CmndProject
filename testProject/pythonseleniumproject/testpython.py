@@ -293,7 +293,7 @@ if __name__ == '__main__':
     selectAllTv(dr)
     time.sleep(1)
     assignClonePackage(dr, selectCloneType, uploadFileKey)
-    time.sleep(10)
+    time.sleep(20)
     assignIdentifier = getAssignItemIdentifier(dr)
     dr.implicitly_wait(10)   
     checkCloneColor(dr, "Assign", blueColor)

@@ -237,28 +237,34 @@ class NotInUpgradeMode:
                                     }
         self.timeout = 30
 
-    def sendNotInUpgradeModeData(self):
-        common = Common.Common()
+    def sendNotInUpgradeModeData(self):       
         successCount = 0
         start = 1
         end = self.generateTvsCount + 1
         for index in range(start, end):
-            tvSerialNumber = common.generateTVSerialNumber(index)
-            tvMACAddress = common.generateMacAddress(index)
-            tvUniqueID = tvSerialNumber + tvMACAddress.replace(":", "", 5)
-            self.notInUpgradeModeData['CommandDetails']['WebServiceParameters']['TVUniqueID'] = tvUniqueID
-            cloneItemStatusArr = self.notInUpgradeModeData['CommandDetails']['IPCloneParameters']['CloneSessionStatus']['CloneItemStatus']
-            cloneItemStatusLen = len(cloneItemStatusArr)
-            for indexJ in range(0, cloneItemStatusLen):
-                cloneItemDetailsObj = cloneItemStatusArr[indexJ]['CloneItemDetails']
-                if cloneItemDetailsObj['CloneItemName'] in self.upgradeIdentifier:
-                    cloneItemDetailsObj['CloneItemVersionNo'] = self.upgradeIdentifier[cloneItemDetailsObj['CloneItemName']]
-
+            notInUpgradeModeDataObj = self.generateSingleTvData(index)
+            tvUniqueID = notInUpgradeModeDataObj['CommandDetails']['WebServiceParameters']['TVUniqueID']
+            
             r = requests.post(self.webservicesUrl, headers=self.headers, 
-                                data=json.dumps(self.notInUpgradeModeData), timeout=self.timeout)
+                                data=json.dumps(notInUpgradeModeDataObj), timeout=self.timeout)
             if (200 == r.status_code):
                 successCount += 1               
             else:
                 print("NotInUpgradeMode failed, this tvUniqueID:" + tvUniqueID)
         if (successCount == self.generateTvsCount):
             print("NotInUpgradeMode, All send success!")
+    
+    def generateSingleTvData(self, index):
+        common = Common.Common()
+        notInUpgradeModeDataObj = self.notInUpgradeModeData
+        tvSerialNumber = common.generateTVSerialNumber(index)
+        tvMACAddress = common.generateMacAddress(index)
+        tvUniqueID = tvSerialNumber + tvMACAddress.replace(":", "", 5)
+        notInUpgradeModeDataObj['CommandDetails']['WebServiceParameters']['TVUniqueID'] = tvUniqueID
+        cloneItemStatusArr = notInUpgradeModeDataObj['CommandDetails']['IPCloneParameters']['CloneSessionStatus']['CloneItemStatus']
+        cloneItemStatusLen = len(cloneItemStatusArr)
+        for indexJ in range(0, cloneItemStatusLen):
+            cloneItemDetailsObj = cloneItemStatusArr[indexJ]['CloneItemDetails']
+            if cloneItemDetailsObj['CloneItemName'] in self.upgradeIdentifier:
+                cloneItemDetailsObj['CloneItemVersionNo'] = self.upgradeIdentifier[cloneItemDetailsObj['CloneItemName']]
+        return notInUpgradeModeDataObj

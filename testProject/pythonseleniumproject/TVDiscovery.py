@@ -44,28 +44,16 @@ class TVDiscovery:
         print("")
     
     def genarateManyTvs(self): 
-        common = Common.Common()
         successCount = 0
         readForUpgrade = ReadForUpgrade.ReadForUpgrade()     
         start = 1
         end = self.generateTvsCount + 1
         for index in range(start, end):
-            tvdiscoveryDataObj = self.tvdiscoveryData
-            commandDetailsObj = tvdiscoveryDataObj['CommandDetails']
-            tvDiscoveryParametersObj = commandDetailsObj['TVDiscoveryParameters']
-            webServiceParametersObj = commandDetailsObj['WebServiceParameters']
-            tvDiscoveryParametersObj['TVIPAddress'] = common.generateIpAddress(index)
-            tvMACAddress = common.generateMacAddress(index)
-            tvDiscoveryParametersObj['TVMACAddress'] = tvMACAddress
-            tvRoomID = common.generateRoomId(index)
-            tvDiscoveryParametersObj['TVRoomID'] = tvRoomID
-            tvSerialNumber = common.generateTVSerialNumber(index)
-            tvDiscoveryParametersObj['TVSerialNumber'] = tvSerialNumber
-            tvUniqueID = tvSerialNumber + tvMACAddress.replace(":", "", 5)
-            webServiceParametersObj['TVUniqueID'] = tvUniqueID
+            tvdiscoveryDataObj = self.generateSingleTvData(index)
+            tvUniqueID =  tvdiscoveryDataObj['CommandDetails']['WebServiceParameters']['TVUniqueID'] 
             
             r = requests.post(self.webservicesUrl, headers=self.headers, 
-                                data=json.dumps(tvdiscoveryDataObj), timeout=self.timeout)                                              
+                                data=json.dumps(tvdiscoveryDataObj), timeout=self.timeout)                                                      
             returnCode = readForUpgrade.sendReadForUpgradeData(tvUniqueID)
             #print("TV:" + str(index) + ",TVDiscovery:" + str(r.status_code) + ",ReadForUpgrade:"+ str(returnCode))
             if (200 == r.status_code and 200 == returnCode):
@@ -74,6 +62,23 @@ class TVDiscovery:
                 print("TVDiscovery & ReadForUpgrade failed, this tvUniqueID:" + tvUniqueID)
         if (successCount == self.generateTvsCount):
             print("TVDiscovery & ReadForUpgrade, All send success!")
+
+    def generateSingleTvData(self, index):
+        common = Common.Common()
+        tvdiscoveryDataObj = self.tvdiscoveryData
+        commandDetailsObj = tvdiscoveryDataObj['CommandDetails']
+        tvDiscoveryParametersObj = commandDetailsObj['TVDiscoveryParameters']
+        webServiceParametersObj = commandDetailsObj['WebServiceParameters']
+        tvDiscoveryParametersObj['TVIPAddress'] = common.generateIpAddress(index)
+        tvMACAddress = common.generateMacAddress(index)
+        tvDiscoveryParametersObj['TVMACAddress'] = tvMACAddress
+        tvRoomID = common.generateRoomId(index)
+        tvDiscoveryParametersObj['TVRoomID'] = tvRoomID
+        tvSerialNumber = common.generateTVSerialNumber(index)
+        tvDiscoveryParametersObj['TVSerialNumber'] = tvSerialNumber
+        tvUniqueID = tvSerialNumber + tvMACAddress.replace(":", "", 5)
+        webServiceParametersObj['TVUniqueID'] = tvUniqueID
+        return tvdiscoveryDataObj
 
 
 # ========== start test ==========

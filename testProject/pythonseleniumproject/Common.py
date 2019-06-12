@@ -3,7 +3,22 @@ import math
 
 class Common:
     def __init__(self):
-        pass
+        self.webservicesUrl = "http://localhost:8080/SmartInstall/webservices.jsp"
+        self.headers = {
+                "Authorization": "whateverYouNeedForAuthentication",
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+        self.timeout = 30
+
+    def getWebservicesUrl(self):
+        return self.webservicesUrl
+
+    def getHeaders(self):
+        return self.headers
+
+    def getTimeout(self):
+        return self.timeout
 
     def generateIpAddress(self, index):
         ipAddress = "127.1.1.1"   
