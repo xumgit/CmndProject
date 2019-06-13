@@ -28,7 +28,7 @@ class MultiThread(threading.Thread):
         headers = common.getHeaders()
         timeout = common.getTimeout()
         commonConstant = CommonConstant.CommonConstant()
-        print(self.threadName + ",startIndex:" + str(self.startPosition) + ",endIndex:" + str(self.endPosition))
+        print(self.threadName + ",startIndex:" + str(self.startPosition) + ",endIndex:" + str(self.endPosition - 1))
         if (getCurrentType(self.threadName).find(commonConstant.getTVDiscovery()) > -1):
             sendTVDiscoveryData(self.startPosition, self.endPosition, webservicesUrl, headers, timeout)
         elif (getCurrentType(self.threadName).find(commonConstant.getReadForUpgrade()) > -1):

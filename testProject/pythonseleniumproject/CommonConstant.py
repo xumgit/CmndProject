@@ -3,12 +3,12 @@ import os
 
 class CommonConstant:
 
-    def __init__(self):
+    def __init__(self):       
         self.TVDiscovery = "TVDiscovery"
         self.ReadForUpgrade = "ReadForUpgrade"
         self.UpgradeInProgress = "UpgradeInProgress"
         self.NotInUpgradeMode = "NotInUpgradeMode"
-        self.generateTvsCount = 10
+        self.generateTvsCount = 50
         self.groupTvs = 10
         self.uploadFilePath = 'testdata' + os.sep  + 'TPM181HE_CypressTestCloneData.zip'
         self.uploadFileKey = 'CypressTestCloneData'
@@ -18,6 +18,11 @@ class CommonConstant:
         self.blueColor = "rgba(0, 0, 255, 1)"
         self.orangeColor = "rgba(255, 191, 0, 1)"
         self.greenColor = "rgba(1, 223, 1, 1)"
+        self.none = "None"
+        self.assignCloneData = "AssignCloneData"
+
+    def getNone(self):
+        return self.none
 
     def getTVDiscovery(self):
         return self.TVDiscovery
@@ -60,3 +65,6 @@ class CommonConstant:
 
     def getGreenColor(self):
         return self.greenColor
+
+    def getAssignCloneData(self):
+        return self.assignCloneData

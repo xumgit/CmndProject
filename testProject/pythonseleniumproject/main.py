@@ -1,5 +1,8 @@
 #coding=utf-8
 from selenium import webdriver
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
 import requests
 import json
 import time
@@ -196,6 +199,28 @@ def changePageSize(dr, pageSize):
                 break
         time.sleep(1)
 
+def checkWhetherRefresh(dr, checkType, conditionValue):
+    refreshFlag = 0
+    commonConstant = CommonConstant.CommonConstant()
+    trListobj = dr.find_elements_by_css_selector("#tvsBody > tr")
+    trLen = len(trListobj)
+    if (checkType.find(commonConstant.getTVDiscovery()) > -1):              
+        for indexI in range(0, trLen):
+            swText = trListobj[indexI].find_element_by_id("tv_SwDiv").text
+            if conditionValue == swText:
+                refreshFlag = 1
+                break
+    elif (checkType.find(commonConstant.getAssignCloneData()) > -1)  \
+        or (checkType.find(commonConstant.getUpgradeInProgress()) > -1) \
+        or (checkType.find(commonConstant.getNotInUpgradeMode()) > -1):
+        for indexJ in range(0, trLen):
+            colorValue = trListobj[indexJ].find_element_by_id("tv_CloneDiv").value_of_css_property("color")
+            if conditionValue != colorValue:
+                refreshFlag = 1
+                break
+    print(checkType + ",refreshFlag:" + str(refreshFlag))
+    return refreshFlag
+
 def selectAllTv(dr):
     selectAllTvCheck = dr.find_element_by_css_selector("input[name='select']")
     isSelected = selectAllTvCheck.is_selected()
@@ -298,20 +323,27 @@ if __name__ == '__main__':
     time.sleep(5)		
     # tvDiscovery = TVDiscovery.TVDiscovery(generateTvsCount)
     # tvDiscovery.genarateManyTvs()
-    # time.sleep(1)   
-    dr.refresh()
-    dr.implicitly_wait(30)
-    #print("==========generate tv success==========")
+    # time.sleep(1)  
+    if checkWhetherRefresh(dr, commonConstant.getTVDiscovery(), commonConstant.getNone()) > 0: 
+        dr.refresh()
+        dr.implicitly_wait(30)
+    print("==========generate tv success==========")
   
     time.sleep(5)
     selectAllTv(dr)
     time.sleep(1)
     assignClonePackage(dr, selectCloneType, uploadFileKey)
-    time.sleep(20)
+    time.sleep(1)
+    #div.toast-container > div.toast-item-wrapper
+    WebDriverWait(dr, 60).until(EC.invisibility_of_element_located((By.CSS_SELECTOR, ".toast-item-wrapper")))
+    time.sleep(3)
     assignIdentifier = getAssignItemIdentifier(dr)
-    dr.implicitly_wait(10)   
-    checkCloneColor(dr, "Assign", blueColor)
-    #print("==========assign Clone package success==========")
+    time.sleep(1)  
+    if checkWhetherRefresh(dr, commonConstant.getAssignCloneData(), blueColor) > 0:
+        dr.refresh()
+        dr.implicitly_wait(30) 
+    checkCloneColor(dr, commonConstant.getAssignCloneData(), blueColor)
+    print("==========assign Clone package success==========")
 
     time.sleep(1)
     forceUpgradeItem(dr, forceBtnText)
@@ -322,10 +354,11 @@ if __name__ == '__main__':
     # upgradeInProgress = UpgradeInProgress.UpgradeInProgress(generateTvsCount)
     # upgradeInProgress.sendUpgradeInProgressData()
     # time.sleep(1) 
-    dr.refresh()
-    dr.implicitly_wait(30)
-    checkCloneColor(dr, "UpgradeInprogess", orangeColor)
-    #print("==========send upgradeInProgress success==========")
+    if checkWhetherRefresh(dr, commonConstant.getUpgradeInProgress(), orangeColor) > 0:
+        dr.refresh()
+        dr.implicitly_wait(30)
+    checkCloneColor(dr, commonConstant.getUpgradeInProgress(), orangeColor)
+    print("==========send upgradeInProgress success==========")
     time.sleep(10)
    
     upgradeIdentifier = {"TVChannelList": assignIdentifier}
@@ -334,17 +367,18 @@ if __name__ == '__main__':
     # notInUpgradeMode = NotInUpgradeMode.NotInUpgradeMode(generateTvsCount, upgradeIdentifier)
     # notInUpgradeMode.sendNotInUpgradeModeData()
     # time.sleep(1)
-    dr.refresh()
-    dr.implicitly_wait(30)
-    checkCloneColor(dr, "NotInUpgradeMode", greenColor)
-    #print("==========send NotInUpgradeMode success==========")
+    if checkWhetherRefresh(dr, commonConstant.getNotInUpgradeMode(), greenColor) > 0:
+        dr.refresh()
+        dr.implicitly_wait(30)
+    checkCloneColor(dr, commonConstant.getNotInUpgradeMode(), greenColor)
+    print("==========send NotInUpgradeMode success==========")
 
     time.sleep(2)
     gotoFile_clone_tab(dr)
     time.sleep(2)
     fileClonePageCycle(dr, uploadFileKey)
     #deleteUploadFile(dr, uploadFileKey)
-    #print("==========delete Clone Package success==========")
+    print("==========delete Clone Package success==========")
 
     endtime = datetime.datetime.now()
     consumerTime = (endtime - starttime).seconds
