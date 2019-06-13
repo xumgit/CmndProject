@@ -20,10 +20,10 @@ def getCurentTime():
     currentTime =  time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) 
     return currentTime
 
-def getDriver():
+def getDriver(absolutionChromedriverPath):
     # driver = webdriver.Firefox() //打开Firefox浏览器
-    # driver = webdriver.Ie() //打开IE浏览器
-    driver = webdriver.Chrome(executable_path='chromedriver_74_version.exe')
+    # driver = webdriver.Ie() //打开IE浏览器    
+    driver = webdriver.Chrome(executable_path=absolutionChromedriverPath)
     return driver
     
 def openCmndPage(dr):    
@@ -286,8 +286,9 @@ def forceUpgradeItem(dr, forceBtnText):
 def mainFunction():
     print("startTime:" + getCurentTime())
     starttime = datetime.datetime.now()
-    dr = getDriver()	
     commonConstant = CommonConstant.CommonConstant()
+    absolutionChromedriverPath = os.path.abspath(commonConstant.getAbsolutionChromedriverPath()) 
+    dr = getDriver(absolutionChromedriverPath)	   
     generateTvsCount = commonConstant.getGenerateTvsCount()
     groupTvs = commonConstant.getGroupTvs()
     divide = math.floor(generateTvsCount / groupTvs)
@@ -303,7 +304,7 @@ def mainFunction():
     blueColor = commonConstant.getBlueColor()
     orangeColor = commonConstant.getOrangeColor()
     greenColor = commonConstant.getGreenColor()
-    
+   
     openCmndPage(dr)
     dr.implicitly_wait(3)
     logIn(dr)

@@ -20,6 +20,7 @@ class CommonConstant:
         self.greenColor = "rgba(1, 223, 1, 1)"
         self.none = "None"
         self.assignCloneData = "AssignCloneData"
+        self.absolutionChromedriverPath = 'chromedriver' + os.sep + 'chromedriver_75_version.exe'
 
     def getNone(self):
         return self.none
@@ -68,3 +69,6 @@ class CommonConstant:
 
     def getAssignCloneData(self):
         return self.assignCloneData
+
+    def getAbsolutionChromedriverPath(self):
+        return self.absolutionChromedriverPath
