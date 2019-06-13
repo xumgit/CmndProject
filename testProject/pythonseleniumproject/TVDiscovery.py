@@ -10,12 +10,6 @@ import ReadForUpgrade
 class TVDiscovery:
     def __init__(self, generateTvsCount = 1):
         self.generateTvsCount = generateTvsCount
-        self.webservicesUrl = "http://localhost:8080/SmartInstall/webservices.jsp"
-        self.headers = {
-                "Authorization": "whateverYouNeedForAuthentication",
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            }
         self.tvdiscoveryData = {
                                 "CommandDetails": {
                       	            "TVDiscoveryParameters": {
@@ -38,12 +32,15 @@ class TVDiscovery:
                                 "Svc": "WebServices",
                                 "SvcVer": "4.0"
                                 }
-        self.timeout = 30
 
     def say_state(self):
         print("")
     
     def genarateManyTvs(self): 
+        common = Common.Common() 
+        webservicesUrl = common.getWebservicesUrl()
+        headers = common.getHeaders()
+        timeout = common.getTimeout()
         successCount = 0
         readForUpgrade = ReadForUpgrade.ReadForUpgrade()     
         start = 1
@@ -52,8 +49,8 @@ class TVDiscovery:
             tvdiscoveryDataObj = self.generateSingleTvData(index)
             tvUniqueID =  tvdiscoveryDataObj['CommandDetails']['WebServiceParameters']['TVUniqueID'] 
             
-            r = requests.post(self.webservicesUrl, headers=self.headers, 
-                                data=json.dumps(tvdiscoveryDataObj), timeout=self.timeout)                                                      
+            r = requests.post(webservicesUrl, headers=headers, 
+                                data=json.dumps(tvdiscoveryDataObj), timeout=timeout)                                                      
             returnCode = readForUpgrade.sendReadForUpgradeData(tvUniqueID)
             #print("TV:" + str(index) + ",TVDiscovery:" + str(r.status_code) + ",ReadForUpgrade:"+ str(returnCode))
             if (200 == r.status_code and 200 == returnCode):

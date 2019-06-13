@@ -6,12 +6,6 @@ import Common
 class UpgradeInProgress:
     def __init__(self, generateTvsCount = 1):
         self.generateTvsCount = generateTvsCount
-        self.webservicesUrl = "http://localhost:8080/SmartInstall/webservices.jsp"
-        self.headers = {
-                "Authorization": "whateverYouNeedForAuthentication",
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            }
         self.upgradeInProgressData = {
                                     "CommandDetails": {
                                         "CloneToServerParameters": {
@@ -223,10 +217,12 @@ class UpgradeInProgress:
                                     "Svc": "WebServices",
                                     "SvcVer": "4.0"
                                 }
-        self.timeout = 30
 
     def sendUpgradeInProgressData(self):
-        common = Common.Common()
+        common = Common.Common() 
+        webservicesUrl = common.getWebservicesUrl()
+        headers = common.getHeaders()
+        timeout = common.getTimeout()
         successCount = 0
         start = 1
         end = self.generateTvsCount + 1
@@ -234,8 +230,8 @@ class UpgradeInProgress:
             upgradeInProgressDataObj = generateSingleTvData(index)
             tvUniqueID = upgradeInProgressDataObj['CommandDetails']['WebServiceParameters']['TVUniqueID']
 
-            r = requests.post(self.webservicesUrl, headers=self.headers, 
-                                data=json.dumps(upgradeInProgressDataObj), timeout=self.timeout)
+            r = requests.post(webservicesUrl, headers=headers, 
+                                data=json.dumps(upgradeInProgressDataObj), timeout=timeout)
             if (200 == r.status_code):
                 successCount += 1               
             else:

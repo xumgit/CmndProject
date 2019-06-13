@@ -10,108 +10,116 @@ import ReadForUpgrade
 import UpgradeInProgress
 import NotInUpgradeMode
 import Common
+import CommonConstant
 import math
 
 class MultiThread(threading.Thread):
 
-    def __init__(self, threadName, start, end):
+    def __init__(self, threadName, start, end, upgradeIdentifier = {}):
         super().__init__()
         self.threadName = threadName
         self.startPosition = start
         self.endPosition = end
+        self.upgradeIdentifierDict = upgradeIdentifier
 
     def run(self):
+        common = Common.Common() 
+        webservicesUrl = common.getWebservicesUrl()
+        headers = common.getHeaders()
+        timeout = common.getTimeout()
+        commonConstant = CommonConstant.CommonConstant()
         print(self.threadName + ",startIndex:" + str(self.startPosition) + ",endIndex:" + str(self.endPosition))
-        if (self.threadName.find("TVDiscovery") > -1):
-            sendTvdiscoveryData(self.startPosition, self.endPosition)
-        elif (self.threadName.find("ReadForUpgrade") > -1):
-            sendReadForUpgradeData(self.startPosition, self.endPosition)
-        elif (self.threadName.find("UpgradeInProgress") > -1):
-            sendUpgradeInProgressData(self.startPosition, self.endPosition)
-        elif (self.threadName.find("NotInUpgradeMode") > -1):
-            sendNotInUpgradeModeData(self.startPosition, self.endPosition)
+        if (getCurrentType(self.threadName).find(commonConstant.getTVDiscovery()) > -1):
+            sendTVDiscoveryData(self.startPosition, self.endPosition, webservicesUrl, headers, timeout)
+        elif (getCurrentType(self.threadName).find(commonConstant.getReadForUpgrade()) > -1):
+            sendReadForUpgradeData(self.startPosition, self.endPosition, webservicesUrl, headers, timeout)
+        elif (getCurrentType(self.threadName).find(commonConstant.getUpgradeInProgress()) > -1):
+            sendUpgradeInProgressData(self.startPosition, self.endPosition, webservicesUrl, headers, timeout)
+        elif (getCurrentType(self.threadName).find(commonConstant.getNotInUpgradeMode()) > -1):
+            sendNotInUpgradeModeData(self.startPosition, self.endPosition, self.upgradeIdentifierDict, webservicesUrl, headers, timeout)
         else:
             print("not send any command")
 
-def sendTvdiscoveryData(startIndex, endIndex):
+def sendTVDiscoveryData(startIndex, endIndex, webservicesUrl, headers, timeout):
     tvDiscovery = TVDiscovery.TVDiscovery()
-    common = Common.Common() 
-    webservicesUrl = common.getWebservicesUrl()
-    headers = common.getHeaders()
-    timeout = common.getTimeout()
     for index in range(startIndex, endIndex):
         tvdiscoveryDataObj = tvDiscovery.generateSingleTvData(index)
         r = requests.post(webservicesUrl, headers=headers, 
                 data=json.dumps(tvdiscoveryDataObj), timeout=timeout)
 
-def sendReadForUpgradeData(startIndex, endIndex):
-    common = Common.Common() 
-    webservicesUrl = common.getWebservicesUrl()
-    headers = common.getHeaders()
-    timeout = common.getTimeout()
+def sendReadForUpgradeData(startIndex, endIndex, webservicesUrl, headers, timeout):
     readForUpgrade = ReadForUpgrade.ReadForUpgrade()
-    for indexI in range(startIndex, endIndex):
-        readForUpgradeDataObj = readForUpgrade.generateSingleTvData(indexI)
+    for index in range(startIndex, endIndex):
+        readForUpgradeDataObj = readForUpgrade.generateSingleTvData(index)
         r = requests.post(webservicesUrl, headers=headers, 
                 data=json.dumps(readForUpgradeDataObj), timeout=timeout)
 
-def sendUpgradeInProgressData(startIndex, endIndex):
-    common = Common.Common() 
-    webservicesUrl = common.getWebservicesUrl()
-    headers = common.getHeaders()
-    timeout = common.getTimeout()
+def sendUpgradeInProgressData(startIndex, endIndex, webservicesUrl, headers, timeout):
     upgradeInProgress = UpgradeInProgress.UpgradeInProgress()
-    for indexJ in range(startIndex, endIndex):
-        upgradeInProgressDataObj = upgradeInProgress.generateSingleTvData(indexJ)
+    for index in range(startIndex, endIndex):
+        upgradeInProgressDataObj = upgradeInProgress.generateSingleTvData(index)
         r = requests.post(webservicesUrl, headers=headers, 
                 data=json.dumps(upgradeInProgressDataObj), timeout=timeout)
 
-def sendNotInUpgradeModeData(startIndex, endIndex):
-    common = Common.Common() 
-    webservicesUrl = common.getWebservicesUrl()
-    headers = common.getHeaders()
-    timeout = common.getTimeout()
-    notInUpgradeMode = NotInUpgradeMode.NotInUpgradeMode()
-    for indexK in range(startIndex, endIndex):
-        notInUpgradeModeDataObj = notInUpgradeMode.generateSingleTvData(indexK)
+def sendNotInUpgradeModeData(startIndex, endIndex, upgradeIdentifierDict, webservicesUrl, headers, timeout):
+    notInUpgradeMode = NotInUpgradeMode.NotInUpgradeMode(upgradeIdentifier = upgradeIdentifierDict)
+    for index in range(startIndex, endIndex):
+        notInUpgradeModeDataObj = notInUpgradeMode.generateSingleTvData(index)
         r = requests.post(webservicesUrl, headers=headers, 
                 data=json.dumps(notInUpgradeModeDataObj), timeout=timeout)
 
-if __name__ == '__main__':
-    starttime = datetime.datetime.now()
+def getCurrentType(typeValue):
+    commonConstant = CommonConstant.CommonConstant()
+    threadName = "None_"
+    if (typeValue.find(commonConstant.getTVDiscovery()) > -1):
+        threadName = commonConstant.getTVDiscovery() + "_"
+    elif (typeValue.find(commonConstant.getReadForUpgrade()) > -1):
+        threadName = commonConstant.getReadForUpgrade() + "_"
+    elif (typeValue.find(commonConstant.getUpgradeInProgress()) > -1):
+        threadName = commonConstant.getUpgradeInProgress() + "_"
+    elif (typeValue.find(commonConstant.getNotInUpgradeMode()) > -1):
+        threadName = commonConstant.getNotInUpgradeMode() + "_"
+    else:
+        threadName = "None_"
+    return threadName
 
-    generateTvsCount = 30
-    groupTvs = 10
-    divide = math.floor(generateTvsCount / groupTvs)
-    remainder = generateTvsCount % groupTvs
-    if (remainder > 0):
-        divide = divide + 1
-    
+def mulThreadSendTypeData(typeValue, divide, remainder, groupTvs, upgradeIdentifier = {}):
+    threadName = getCurrentType(typeValue)
     for index in range(1, divide + 1):
-        threadName = "TVDiscovery_" + str(index)
+        currentThreadName = threadName + str(index)
         start = (index - 1)*groupTvs + 1
         if (index == divide and remainder > 0):
             end = start + remainder
         else:
             end = start + groupTvs
-        t = MultiThread(threadName, start, end)
+        t = MultiThread(currentThreadName, start, end, upgradeIdentifier)
         t.start()
+        t.join(timeout=2)
 
-    waitTime = math.floor(generateTvsCount / 40) * 5
-    if (waitTime == 0):
-        waitTime = 3
-    time.sleep(waitTime)
+# if __name__ == '__main__':
+#     starttime = datetime.datetime.now()
 
-    for index1 in range(1, divide + 1):
-        threadName = "ReadForUpgrade_" + str(index1)
-        start = (index1 - 1)*groupTvs + 1
-        if (index1 == divide and remainder > 0):
-            end = start + remainder
-        else:
-            end = start + groupTvs
-        t = MultiThread(threadName, start, end)
-        t.start()
+#     generateTvsCount = 10
+#     groupTvs = 30
+#     divide = math.floor(generateTvsCount / groupTvs)
+#     remainder = generateTvsCount % groupTvs
+#     if (remainder > 0):
+#         divide = divide + 1
+#     commonConstant = CommonConstant.CommonConstant()
+#     mulThreadSendTypeData(commonConstant.getTVDiscovery(), divide, remainder, groupTvs)
+#     mulThreadSendTypeData(commonConstant.getReadForUpgrade(), divide, remainder, groupTvs)
 
-    endtime = datetime.datetime.now()
-    consumerTime = (endtime - starttime).seconds
-    print ("total consumer time:" + str(consumerTime) + " seconds")
+    # waitTime = math.floor(generateTvsCount / 40) * 5
+    # if (waitTime == 0):
+    #     waitTime = 3
+    # time.sleep(waitTime)
+
+    
+
+    # common = Common.Common() 
+    # testUrl = Common.getTestUrl()
+    # print("testUrl:" + testUrl)
+
+    # endtime = datetime.datetime.now()
+    # consumerTime = (endtime - starttime).seconds
+    # print ("total consumer time:" + str(consumerTime) + " seconds")

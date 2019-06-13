@@ -1,13 +1,17 @@
- #coding=utf-8
+#coding=utf-8
 from selenium import webdriver
 import requests
 import json
 import time
 import TVDiscovery
+import ReadForUpgrade
 import UpgradeInProgress
 import NotInUpgradeMode
 import datetime
 import os
+import math
+import CommonConstant
+import MultiThread
 
 def getCurentTime(): 
     currentTime =  time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) 
@@ -256,19 +260,25 @@ def forceUpgradeItem(dr, forceBtnText):
 
 if __name__ == '__main__':
     print("startTime:" + getCurentTime())
-    starttime = datetime.datetime.now()	
-
-    generateTvsCount = 30
-    uploadFilePath = 'testdata' + os.sep  + 'TPM181HE_CypressTestCloneData.zip'
-    uploadFileKey = 'CypressTestCloneData'
-    selectCloneType = 'Channels'
-    pageSize = 50
-    forceBtnText = 'Force'
-    blueColor = "rgba(0, 0, 255, 1)"
-    orangeColor = "rgba(255, 191, 0, 1)"
-    greenColor = "rgba(1, 223, 1, 1)"
-
-    dr = getDriver() 
+    starttime = datetime.datetime.now()
+    dr = getDriver()	
+    commonConstant = CommonConstant.CommonConstant()
+    generateTvsCount = commonConstant.getGenerateTvsCount()
+    groupTvs = commonConstant.getGroupTvs()
+    divide = math.floor(generateTvsCount / groupTvs)
+    remainder = generateTvsCount % groupTvs
+    if (remainder > 0):
+        divide = divide + 1
+    
+    uploadFilePath = commonConstant.getUploadFilePath()
+    uploadFileKey = commonConstant.getUploadFileKey()
+    selectCloneType = commonConstant.getSelectCloneType()
+    pageSize = commonConstant.getPageSize()
+    forceBtnText = commonConstant.getForceBtnText()
+    blueColor = commonConstant.getBlueColor()
+    orangeColor = commonConstant.getOrangeColor()
+    greenColor = commonConstant.getGreenColor()
+    
     openCmndPage(dr)
     dr.implicitly_wait(3)
     logIn(dr)
@@ -280,16 +290,20 @@ if __name__ == '__main__':
     gotoTVS_tvs_tab(dr)
     time.sleep(3)
     changePageSize(dr, pageSize)
-    time.sleep(3)
-     				
-    tvDiscovery = TVDiscovery.TVDiscovery(generateTvsCount)
-    tvDiscovery.genarateManyTvs()
-    time.sleep(1)   
+    time.sleep(1)
+
+    MultiThread.mulThreadSendTypeData(commonConstant.getTVDiscovery(), divide, remainder, groupTvs)	
+    time.sleep(1)
+    MultiThread.mulThreadSendTypeData(commonConstant.getReadForUpgrade(), divide, remainder, groupTvs)
+    time.sleep(5)		
+    # tvDiscovery = TVDiscovery.TVDiscovery(generateTvsCount)
+    # tvDiscovery.genarateManyTvs()
+    # time.sleep(1)   
     dr.refresh()
     dr.implicitly_wait(30)
     #print("==========generate tv success==========")
   
-    time.sleep(1)
+    time.sleep(5)
     selectAllTv(dr)
     time.sleep(1)
     assignClonePackage(dr, selectCloneType, uploadFileKey)
@@ -302,10 +316,12 @@ if __name__ == '__main__':
     time.sleep(1)
     forceUpgradeItem(dr, forceBtnText)
     #print("==========click upgrade success==========")  
-  
-    upgradeInProgress = UpgradeInProgress.UpgradeInProgress(generateTvsCount)
-    upgradeInProgress.sendUpgradeInProgressData()
-    time.sleep(1) 
+    
+    MultiThread.mulThreadSendTypeData(commonConstant.getUpgradeInProgress(), divide, remainder, groupTvs)	
+    time.sleep(5)
+    # upgradeInProgress = UpgradeInProgress.UpgradeInProgress(generateTvsCount)
+    # upgradeInProgress.sendUpgradeInProgressData()
+    # time.sleep(1) 
     dr.refresh()
     dr.implicitly_wait(30)
     checkCloneColor(dr, "UpgradeInprogess", orangeColor)
@@ -313,9 +329,11 @@ if __name__ == '__main__':
     time.sleep(10)
    
     upgradeIdentifier = {"TVChannelList": assignIdentifier}
-    notInUpgradeMode = NotInUpgradeMode.NotInUpgradeMode(generateTvsCount, upgradeIdentifier)
-    notInUpgradeMode.sendNotInUpgradeModeData()
-    time.sleep(1)
+    MultiThread.mulThreadSendTypeData(commonConstant.getNotInUpgradeMode(), divide, remainder, groupTvs, upgradeIdentifier)
+    time.sleep(5)
+    # notInUpgradeMode = NotInUpgradeMode.NotInUpgradeMode(generateTvsCount, upgradeIdentifier)
+    # notInUpgradeMode.sendNotInUpgradeModeData()
+    # time.sleep(1)
     dr.refresh()
     dr.implicitly_wait(30)
     checkCloneColor(dr, "NotInUpgradeMode", greenColor)

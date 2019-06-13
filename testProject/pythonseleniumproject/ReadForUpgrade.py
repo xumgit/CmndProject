@@ -5,12 +5,6 @@ import Common
 
 class ReadForUpgrade:
     def __init__(self):
-        self.webservicesUrl = "http://localhost:8080/SmartInstall/webservices.jsp"
-        self.headers = {
-                "Authorization": "whateverYouNeedForAuthentication",
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            }
         self.readForUpgradeData = {
                                     "CommandDetails": {
                                         "CloneToServerParameters": {
@@ -257,12 +251,16 @@ class ReadForUpgrade:
                                     "Svc": "WebServices",
                                     "SvcVer": "4.0"
                                 }
-        self.timeout = 30
 
     def sendReadForUpgradeData(self, tvUniqueID):
-        self.readForUpgradeData['CommandDetails']['WebServiceParameters']['TVUniqueID'] = tvUniqueID
-        r = requests.post(self.webservicesUrl, headers=self.headers, 
-                                data=json.dumps(self.readForUpgradeData), timeout=self.timeout)
+        common = Common.Common() 
+        webservicesUrl = common.getWebservicesUrl()
+        headers = common.getHeaders()
+        timeout = common.getTimeout() 
+        readForUpgradeDataObj = self.readForUpgradeData
+        readForUpgradeDataObj['CommandDetails']['WebServiceParameters']['TVUniqueID'] = tvUniqueID
+        r = requests.post(webservicesUrl, headers=headers, 
+                                data=json.dumps(readForUpgradeDataObj), timeout=timeout)
         return r.status_code
         #print("send ReadForUpgrade status:" + str(r.status_code)) 
 

@@ -85,3 +85,7 @@ class Common:
             tvSerialNumber = prefixTvseri + str(index)
 
         return tvSerialNumber
+
+def getTestUrl():
+    print("test url")
+    return "http://www.baidu.com"
