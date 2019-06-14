@@ -260,7 +260,7 @@ def getAssignItemIdentifier(dr):
         identifier = time.strftime("%d/%m/%Y:%H:%M", time_temp)
         print("identifier:" + identifier)
     except Exception as e:
-        print("exception:" + e)
+        print("exception:" + str(e))
     return identifier
 
 def checkCloneColor(dr, logType, color):
