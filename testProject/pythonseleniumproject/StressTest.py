@@ -82,11 +82,39 @@ def selectTv(dr, devicemac):
         print("exception:" + str(e))
 
 def clone_selection_test(dr, loopno, devicemac, seletCloneType, selectCloneFile):
-    selectTv(dr, devicemac)
-    assignClonePackage(dr, seletCloneType, selectCloneFile)
-    clickStartUpgrade(dr, devicemac)
-    xpath_data = "//tbody[@id='tvsBody']/tr[contains(@data-row-id,'%s')]/td[10]/div" % devicemac
-    WebDriverWait(dr, 60).until(lambda dr: dr.find_element_by_xpath(xpath_data).value_of_css_property("color") == "rgba(255, 191, 0, 1)")
+    totalLoop = loopno + 1
+    for index in range(1, totalLoop):
+        #xpath_data = "//tbody[@id='tvsBody']/tr[contains(@data-row-id,'%s')]/td[10]/div" % devicemac
+        #WebDriverWait(dr, 10).until(lambda dr: dr.find_element_by_xpath(xpath_data).value_of_css_property("color") == "rgba(255, 191, 0, 1)")
+        time.sleep(5)
+        xpath_data = "//tbody[@id='tvsBody']/tr[contains(@data-row-id,'%s')]/td[8]/div" % devicemac
+        ipAddress = dr.find_element_by_xpath(xpath_data).text
+        selectTv(dr, devicemac)
+        assignClonePackage(dr, seletCloneType, selectCloneFile)
+        resultAssignClone = WebDriverWait(dr, 10).until(EC.invisibility_of_element_located((By.CSS_SELECTOR, ".toast-item-wrapper")))
+        logger("Thread: %d, the %s time, ipAddress: %s, AssignCloneData" % (threading.get_ident(), str(index), str(ipAddress)))
+        #if not resultAssignClone:
+        #dr.refresh()
+        #dr.implicitly_wait(60)
+        time.sleep(1)
+        checkCloneColor(dr, index, devicemac, "AssignCloneData", "rgba(0, 0, 255, 1)")
+        time.sleep(1)
+        clickStartUpgrade(dr, devicemac)
+        logger("Thread: %d, the %s time, ipAddress: %s, UpgradeInProgress" % (threading.get_ident(), str(index), str(ipAddress)))
+        print(str(index) + " time, wait response UpgradeInProgress")
+        xpath_circleImg = "//tbody[@id='tvsBody']/tr[contains(@data-row-id,'%s')]/td[11]/img[@class='hideIcon']" % devicemac  
+        resultInprogress = WebDriverWait(dr, 30).until(lambda dr: dr.find_element_by_xpath(xpath_circleImg).is_displayed())
+        if not resultInprogress:
+            dr.refresh()
+            dr.implicitly_wait(60)
+        checkCloneColor(dr, index, devicemac, "UpgradeInProgress", "rgba(255, 191, 0, 1)")
+        logger("Thread: %d, the %s time, ipAddress: %s, NotInUpgradeMode" % (threading.get_ident(), str(index), str(ipAddress)))
+        print(str(index) + " time, wait response NotInUpgradeMode")
+        resultNotInUpgradeMode = WebDriverWait(dr, 30).until(lambda dr: not (dr.find_element_by_xpath(xpath_circleImg).is_displayed()))
+        if not resultNotInUpgradeMode:
+            dr.refresh()
+            dr.implicitly_wait(60)   
+        checkCloneColor(dr, index, devicemac, "NotInUpgradeMode", "rgba(1, 223, 1, 1)")
 
 def clickStartUpgrade(dr, devicemac):
     try:
@@ -95,6 +123,15 @@ def clickStartUpgrade(dr, devicemac):
         upgradeObj.click()         
     except Exception as e:
         print("exception:" + str(e))
+
+def is_element_visible(dr, element):
+    try:
+        the_element = EC.visibility_of_element_located(element)
+        assert the_element(dr)
+        flag = True
+    except:
+        flag = False
+    return flag
 
 def assignClonePackage(dr, seletCloneType, selectCloneFile):
     dr.find_element_by_id('assign_select').click()
@@ -114,21 +151,21 @@ def assignClonePackage(dr, seletCloneType, selectCloneFile):
         if (cloneValue.find(selectCloneFile) > -1) :
             tdList[indexJ].click()
             break
-    WebDriverWait(dr, 30).until(EC.invisibility_of_element_located((By.CSS_SELECTOR, ".toast-item-wrapper")))
     time.sleep(1)
-    checkCloneColor(dr, "AssignCloneData", "rgba(0, 0, 255, 1)")
 
-def checkCloneColor(dr, logType, color):
-    tvsList = dr.find_elements_by_css_selector('#tvsBody > tr > td:nth-of-type(10) > div')
-    tvListLen = len(tvsList)
-    for index in range(0, tvListLen):
-        colorValue = tvsList[index].value_of_css_property("color")
-        if (color == colorValue):
-            pass
-        else:
-            startallidValue = tvsList[index].get_attribute("startallid")
-            errTvObj = dr.find_element_by_css_selector("#tvsBody > tr[data-row-id='" + startallidValue + "'] > td:nth-of-type(8) > div")
-            print(logType + ",color not match, tv ip address:" + errTvObj.text)
+def checkCloneColor(dr, index, devicemac, logType, color):
+    xpath_data = "//tbody[@id='tvsBody']/tr[contains(@data-row-id,'%s')]/td[10]/div" % devicemac
+    tvObj = dr.find_element_by_xpath(xpath_data)
+    colorValue = tvObj.value_of_css_property("color")
+    xpath_data = "//tbody[@id='tvsBody']/tr[contains(@data-row-id,'%s')]/td[8]/div" % devicemac
+    ipAddress = dr.find_element_by_xpath(xpath_data).text
+    if (color == colorValue):
+        logger("Thread: %d, the %s time, ipAddress: %s, logType: %s, checkColor success" % (threading.get_ident(), str(index), str(ipAddress), logType))
+        #msg = ("check_color success called by %d for %s, logType: %s" % (threading.get_ident(), devicemac, logType))
+    else:
+        logger("Thread: %d, the %s time, ipAddress: %s, logType: %s, checkColor failed" % (threading.get_ident(), str(index), str(ipAddress), logType))
+        print(logType + ",color not match, tv ip address:" + ipAddress)
+        #msg = ("check_color failed called by %d for %s, logType: %s, ip address: %s" % (threading.get_ident(), devicemac, logType, ipAddress))
 
 def thread_creators(dr, loopno, mac_list, seletCloneType, selectCloneFile):
     threads = len(mac_list) + 1  # Number of threads to create #
@@ -151,10 +188,11 @@ def thread_creators(dr, loopno, mac_list, seletCloneType, selectCloneFile):
 
 if __name__ == '__main__':
     print("==========start Stress Test case==========")
-    mac_list = ['70AF241366FF']
+    mac_list = ['70AF241A9751']
+    remove_logfile()
     dr = precondition_setup()
     unSelectAll(dr)
-    thread_creators(dr, 10, mac_list, 'Channels', 'CypressTestCloneData')
+    thread_creators(dr, 3, mac_list, 'Channels', 'CypressTestCloneData')
     time.sleep(5)
     dr.quit()
     print("===========end Stress Test case===========")
