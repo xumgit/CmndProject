@@ -38,6 +38,52 @@ public class TestController {
     @Autowired
     MailUtil mailUtil;
 
+    @RequestMapping(value = "/angularjsproject/index")
+	public String angularjsIndex() {
+		String view = "angularisproject/index";
+		return view;
+	}
+
+    @RequestMapping(value = "/angularjsproject/player/add")
+	public String angularjsPlayerAdd() {
+		String view = "angularisproject/tmpl/player/add";
+		return view;
+    }
+    
+    @RequestMapping(value = "/angularjsproject/player/edit")
+	public String angularjsPlayerEdit() {
+		String view = "angularisproject/tmpl/player/edit";
+		return view;
+    }
+
+    @RequestMapping(value = "/angularjsproject/player/list")
+	public String angularjsPlayerList() {
+		String view = "angularisproject/tmpl/player/list";
+		return view;
+    }
+
+    @RequestMapping(value = "/angularjsproject/player/view")
+	public String angularjsPlayerView() {
+		String view = "angularisproject/tmpl/player/view";
+		return view;
+    }
+
+    @RequestMapping(value = "/playersData")
+    @ResponseBody
+    public String getPlayersData() {
+        String data = "[{\"id\":\"1\", \"num\":23, \"name\":\"James\", \"position\":\"PF\", \"team\":\"骑士\", \"thumb\":\"james.png\", \"votes\":1988}," +
+                       "{\"id\":\"2\", \"num\":30, \"name\":\"Curry\", \"position\":\"SG\", \"team\":\"勇士\", \"thumb\":\"curry.png\", \"votes\":1865}, " +
+                       "{\"id\":\"3\", \"num\":7, \"name\":\"Anthony\", \"position\":\"C\", \"team\":\"尼克斯\", \"thumb\":\"anthony.png\", \"votes\":1499}, " +
+                       "{\"id\":\"4\", \"num\":3, \"name\":\"Paul\", \"position\":\"PG\", \"team\":\"快船\", \"thumb\":\"paul.png\", \"votes\":1600}," +
+                       "{\"id\":\"5\", \"num\":13, \"name\":\"Harden\", \"position\":\"SF\", \"team\":\"火箭\", \"thumb\":\"harden.png\", \"votes\":1813}," +
+                       "{\"id\":\"6\", \"num\":2, \"name\":\"Irving\", \"position\":\"PG\", \"team\":\"骑士\", \"thumb\":\"irving.png\", \"votes\":1361}," +
+                       "{\"id\":\"7\", \"num\":7, \"name\":\"Lin\", \"position\":\"PG\", \"team\":\"篮网\", \"thumb\":\"lin.png\", \"votes\":1200}," +
+                       "{\"id\":\"8\", \"num\":3, \"name\":\"Wade\", \"position\":\"SG\", \"team\":\"公牛\", \"thumb\":\"wade.png\", \"votes\":1532}," +
+                       "{\"id\":\"9\", \"num\":0, \"name\":\"Westbrook\", \"position\":\"SG\", \"team\":\"雷霆\", \"thumb\":\"westbrook.png\", \"votes\":2017}," +
+                       "{\"id\":\"10\", \"num\":35, \"name\":\"Durant\", \"position\":\"SF\", \"team\":\"勇士\", \"thumb\":\"durant.png\", \"votes\":1721} ]";
+        return data;
+    } 
+
     @RequestMapping(value = "/redisTest")
     @ResponseBody
     public String redisTest(HttpServletRequest request) {

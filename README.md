@@ -14,6 +14,12 @@
 * zookeeper
 * test(python + selenium, katakon, cypress)
 * react
+* sonar
+
+## MainCmndUrl: http://localhost:8081/navi/index
+## AngularJsUrl: http://localhost:8081/test/angularjsproject/index
+username: admin  
+password: 123456
 
 ## if you want run this project, please accroding to follow step install some soft
 
