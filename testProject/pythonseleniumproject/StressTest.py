@@ -12,6 +12,14 @@ import datetime
 import os
 import time
 
+MAC_List = ['70AF241A9751']
+Test_Times = 3
+Select_Clone_Type = 'Channels'
+select_Clone_File = 'CypressTestCloneData'
+AssignCloneData_WAIT_TIME = 30
+UpgradeInProgress_WAIT_TIME = 30
+NotInUpgradeMode_WAIT_TIME = 30
+
 def remove_logfile():
     if os.path.isfile('logs.txt'):
         os.unlink('logs.txt')
@@ -91,30 +99,66 @@ def clone_selection_test(dr, loopno, devicemac, seletCloneType, selectCloneFile)
         ipAddress = dr.find_element_by_xpath(xpath_data).text
         selectTv(dr, devicemac)
         assignClonePackage(dr, seletCloneType, selectCloneFile)
-        resultAssignClone = WebDriverWait(dr, 10).until(EC.invisibility_of_element_located((By.CSS_SELECTOR, ".toast-item-wrapper")))
-        logger("Thread: %d, the %s time, ipAddress: %s, AssignCloneData" % (threading.get_ident(), str(index), str(ipAddress)))
-        #if not resultAssignClone:
-        #dr.refresh()
-        #dr.implicitly_wait(60)
+        time.sleep(1)
+        element = (By.CSS_SELECTOR, ".toast-item-wrapper")
+        #toastTip = dr.find_element_by_css_selector("div.toast-container > div.toast-item-wrapper").is_displayed()
+        elementVisible = is_element_visible(dr, element)
+        #print("the " + str(index) + " time, elementVisible:" + str(elementVisible))
+        if not elementVisible:
+            pass
+        else:
+            try:
+                #resultAssignClone = WebDriverWait(dr, 10).until(EC.invisibility_of_element_located(element))
+                resultAssignClone = is_element_visible_timeout(dr, element, AssignCloneData_WAIT_TIME)
+                if resultAssignClone:
+                    while True:
+                        elementVisible = is_element_visible(dr, element)
+                        if elementVisible:
+                            time.sleep(1)
+                            continue
+                        else:
+                            break
+            except Exception as e:
+                logger("Thread: %d, the %s time, ipAddress: %s, AssignCloneData, Color not change" % (threading.get_ident(), str(index), str(ipAddress)))
+        logger("Thread: %d, the %s time, ipAddress: %s, AssignCloneData" % (threading.get_ident(), str(index), str(ipAddress)))       
         time.sleep(1)
         checkCloneColor(dr, index, devicemac, "AssignCloneData", "rgba(0, 0, 255, 1)")
-        time.sleep(1)
         clickStartUpgrade(dr, devicemac)
-        logger("Thread: %d, the %s time, ipAddress: %s, UpgradeInProgress" % (threading.get_ident(), str(index), str(ipAddress)))
-        print(str(index) + " time, wait response UpgradeInProgress")
+        logger("Thread: %d, the %s time, ipAddress: %s, wait response UpgradeInProgress" % (threading.get_ident(), str(index), str(ipAddress)))
+        print("the " + str(index) + " time, wait response UpgradeInProgress")
         xpath_circleImg = "//tbody[@id='tvsBody']/tr[contains(@data-row-id,'%s')]/td[11]/img[@class='hideIcon']" % devicemac  
-        resultInprogress = WebDriverWait(dr, 30).until(lambda dr: dr.find_element_by_xpath(xpath_circleImg).is_displayed())
+        element = (By.XPATH, xpath_circleImg)
+        resultInprogress = is_element_visible_timeout(dr, element, UpgradeInProgress_WAIT_TIME)   
         if not resultInprogress:
+            logger("Thread: %d, the %s time, ipAddress: %s, wait response UpgradeInProgress, Circle not rotate" % (threading.get_ident(), str(index), str(ipAddress)))
+            dr.refresh()
+            dr.implicitly_wait(60)     
+            # resultInprogress = WebDriverWait(dr, 30).until(lambda dr: dr.find_element_by_xpath(xpath_circleImg).is_displayed())
+            # if not resultInprogress:
+            #     dr.refresh()
+            #     dr.implicitly_wait(60)      
+        time.sleep(1)
+        checkCloneColor(dr, index, devicemac, "UpgradeInProgress", "rgba(255, 191, 0, 1)")
+        logger("Thread: %d, the %s time, ipAddress: %s, wait response NotInUpgradeMode" % (threading.get_ident(), str(index), str(ipAddress)))
+        print("the " + str(index) + " time, wait response NotInUpgradeMode")
+        element = (By.XPATH, xpath_circleImg)
+        resultNotInUpgradeMode = is_element_invisible_timeout(dr, element, NotInUpgradeMode_WAIT_TIME)   
+        if not resultNotInUpgradeMode:
+            logger("Thread: %d, the %s time, ipAddress: %s, wait response NotInUpgradeMode, Circle not stop" % (threading.get_ident(), str(index), str(ipAddress)))
             dr.refresh()
             dr.implicitly_wait(60)
-        checkCloneColor(dr, index, devicemac, "UpgradeInProgress", "rgba(255, 191, 0, 1)")
-        logger("Thread: %d, the %s time, ipAddress: %s, NotInUpgradeMode" % (threading.get_ident(), str(index), str(ipAddress)))
-        print(str(index) + " time, wait response NotInUpgradeMode")
-        resultNotInUpgradeMode = WebDriverWait(dr, 30).until(lambda dr: not (dr.find_element_by_xpath(xpath_circleImg).is_displayed()))
-        if not resultNotInUpgradeMode:
-            dr.refresh()
-            dr.implicitly_wait(60)   
+            # resultNotInUpgradeMode = WebDriverWait(dr, 30).until(lambda dr: not (dr.find_element_by_xpath(xpath_circleImg).is_displayed()))
+            # if not resultNotInUpgradeMode:
+            #     dr.refresh()
+            #     dr.implicitly_wait(60)            
+        time.sleep(1)
         checkCloneColor(dr, index, devicemac, "NotInUpgradeMode", "rgba(1, 223, 1, 1)")
+        circleImgStatus = dr.find_element_by_xpath(xpath_circleImg).is_displayed()
+        #print("the " + str(index) + " time, circleImgStatus:" + str(circleImgStatus))
+        if circleImgStatus:
+            xpath_stop = "//tbody[@id='tvsBody']/tr[contains(@data-row-id,'%s')]/td[11]/a[contains(@title, 'Stop')]" % devicemac 
+            dr.find_element_by_xpath(xpath_circleImg).click()
+            time.sleep(1)
 
 def clickStartUpgrade(dr, devicemac):
     try:
@@ -132,6 +176,51 @@ def is_element_visible(dr, element):
     except:
         flag = False
     return flag
+
+def is_element_visible_timeout(dr, element, timeout):
+    isElementVisible = False
+    time_start = datetime.datetime.now()
+    while True:
+        time_now = datetime.datetime.now()
+        time_difference = (time_now - time_start).seconds
+        if time_difference <= timeout:
+            recheck_the_element = is_element_visible(dr, element)
+            if recheck_the_element:
+                isElementVisible = recheck_the_element
+                break
+            else:
+                time.sleep(1)
+                continue 
+        else:
+            break             
+    return isElementVisible
+
+def is_element_invisible(dr, element):
+    try:
+        the_element = EC.invisibility_of_element_located(element)
+        assert the_element(dr)
+        flag = True
+    except:
+        flag = False
+    return flag
+
+def is_element_invisible_timeout(dr, element, timeout):
+    isElementInVisible = False
+    time_start = datetime.datetime.now()
+    while True:
+        time_now = datetime.datetime.now()
+        time_difference = (time_now - time_start).seconds
+        if time_difference <= timeout:
+            recheck_the_element = is_element_invisible(dr, element)
+            if recheck_the_element:
+                isElementInVisible = recheck_the_element
+                break
+            else:
+                time.sleep(1)
+                continue 
+        else:
+            break             
+    return isElementInVisible
 
 def assignClonePackage(dr, seletCloneType, selectCloneFile):
     dr.find_element_by_id('assign_select').click()
@@ -167,12 +256,12 @@ def checkCloneColor(dr, index, devicemac, logType, color):
         print(logType + ",color not match, tv ip address:" + ipAddress)
         #msg = ("check_color failed called by %d for %s, logType: %s, ip address: %s" % (threading.get_ident(), devicemac, logType, ipAddress))
 
-def thread_creators(dr, loopno, mac_list, seletCloneType, selectCloneFile):
+def thread_creators(dr, loopno, mac_list, selectCloneType, selectCloneFile):
     threads = len(mac_list) + 1  # Number of threads to create #
     try:
         jobs = []
         for i in range(1, threads):
-            thread = Thread(target=clone_selection_test, args=(dr, loopno, mac_list[i-1], seletCloneType, selectCloneFile))
+            thread = Thread(target=clone_selection_test, args=(dr, loopno, mac_list[i-1], selectCloneType, selectCloneFile))
             jobs.append(thread)
 
         for j in jobs:  # Start the threads #
@@ -185,14 +274,12 @@ def thread_creators(dr, loopno, mac_list, seletCloneType, selectCloneFile):
     except:
         print(traceback.print_exc())
 
-
 if __name__ == '__main__':
     print("==========start Stress Test case==========")
-    mac_list = ['70AF241A9751']
     remove_logfile()
     dr = precondition_setup()
     unSelectAll(dr)
-    thread_creators(dr, 3, mac_list, 'Channels', 'CypressTestCloneData')
+    thread_creators(dr, Test_Times, MAC_List, Select_Clone_Type, select_Clone_File)
     time.sleep(5)
     dr.quit()
     print("===========end Stress Test case===========")
