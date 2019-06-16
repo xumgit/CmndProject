@@ -16,4 +16,20 @@ angular.module("voteApp").service("voteSer", ["$q", "$http", function($q, $http)
 			return $q.reject(resp.status);
 		});
 	};
+	
+	this.getTestDemoData = function() {
+		return $http.get("/test/angularjsproject/getTestDemoReceiveData").then(function(resp) {
+			return resp.data;
+		}, function(resp) {
+			return $q.reject(resp.status);
+		});	
+	};
+	
+	this.clearTestDemoData = function() {
+		return $http.get("/test/angularjsproject/clearTestDemoReceiveData").then(function(resp) {
+			return resp.data;
+		}, function(resp) {
+			return $q.reject(resp.status);
+		});	
+	};
 }]);

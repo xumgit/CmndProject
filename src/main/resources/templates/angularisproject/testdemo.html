@@ -1,0 +1,21 @@
+<toaster-container></toaster-container>
+<div class="pure-g" style="margin-top: 25px;">
+	<div class="pure-u-1-1">
+		<table class="pure-table pure-table-horizontal">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Module</th>
+					<th>Address</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="tv in tvs">
+					<td>{{tv.name}}</td>
+					<td>{{tv.module}}</td>
+					<td>{{tv.ipaddress}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

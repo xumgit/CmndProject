@@ -1,5 +1,5 @@
 //定义主模块并注入依赖
-angular.module("voteApp", ["ngRoute"]);
+angular.module("voteApp", ["ngRoute", "toaster"]);
 
 //路由配置
 angular.module("voteApp").config(["$routeProvider", function($routeProvider) {
@@ -18,7 +18,16 @@ angular.module("voteApp").config(["$routeProvider", function($routeProvider) {
 	}).when("/player/edit/:playerId", {
 		templateUrl: "/test/angularjsproject/player/edit",
 		controller: playerEditCtrl
+	}).when("/angularjsproject/testdemo", {
+		templateUrl: "/test/angularjsproject/testdemo",
+		controller: testDemoCtrl
 	}).otherwise({
 		redirectTo: "/player/list"
 	});
+}]);
+
+angular.module("voteApp").directive('bindToasterHtml', [function () {
+    return {
+        template: "<span style='color:white;'>{{directiveData.content}}</span>"
+    };
 }]);

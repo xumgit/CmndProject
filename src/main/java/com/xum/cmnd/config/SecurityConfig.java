@@ -2,6 +2,7 @@ package com.xum.cmnd.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -29,8 +30,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 			.permitAll()
 			.and()
 			.authorizeRequests()
-			.antMatchers("/bootstrap-3.3.6-dist/**", "/js/**","/images/**", "/webjars/**", "**/favicon.ico", "/index")
+			.antMatchers("/bootstrap-3.3.6-dist/**", "/js/**","/images/**", "/webjars/**", "**/favicon.ico", "/index")			
+			.permitAll()	
+			//.antMatchers(HttpMethod.POST, "/test/angularjsproject/testdemoreceive.jsp")
+			//.permitAll()
+			.antMatchers("/test/angularjsproject/testdemoreceive.jsp", "/SmartInstall/webservices.jsp")
 			.permitAll()
+			// https://blog.csdn.net/u013435893/article/details/79770052
+			//.antMatchers(HttpMethod.POST, "/user").hasRole("ADMIN")
 			.anyRequest().authenticated()
 			.and()
 			.sessionManagement().invalidSessionUrl("http://localhost:8081/login/login")

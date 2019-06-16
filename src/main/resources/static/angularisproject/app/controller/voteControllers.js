@@ -1,3 +1,10 @@
+/*
+ * AngularJS Toaster study url:
+ * https://www.cnblogs.com/youzhuxiaoyao/p/4953642.html
+ * 
+ * */
+
+
 //List Controller
 function playerListCtrl($scope, $http) {
 	$http.get("/test/playersData").success(function(data) {
@@ -105,4 +112,56 @@ function playerViewCtrl($scope, $http, $routeParams) {
 		$scope.voteBtnText = "已投票";
 		$scope.isVoted = true;
 	};
+}
+
+//Test Demo controller
+function testDemoCtrl($scope, $http, $interval, voteSer, toaster, $timeout) {
+	$scope.tvs = [
+		{"name":"AAA","module":"BBB", "ipaddress": "10.0.1.1"},
+		{"name":"CCC","module":"DDD", "ipaddress": "10.0.1.2"},
+		{"name":"EEE","module":"FFF", "ipaddress": "10.0.1.3"}
+	];
+	
+	$interval(function(){
+		//voteSer.clearTestDemoData().then(function(){});
+		voteSer.getTestDemoData().then(function(data){
+			if ("" != data && null != data) {
+				var dataLen = data.length;
+				//console.log("dataLen:" + dataLen)
+				for (var i=0; i < dataLen; i++) {
+					//console.log("data[i]:" + data[i])
+					$scope.tvs.push(JSON.parse(data[i]));
+				}
+				$scope.popupTip("info", "add " + dataLen + " data")
+				voteSer.clearTestDemoData().then(function(d){
+					//console.log("d:" + d.status);
+				});
+			}
+		});     
+    }, 10000);
+	
+    /*
+     * type=> error/info/wait/success/warning
+     * */
+    $scope.popupTip = function(type, tipText) {
+         $timeout(function () {
+             toaster.pop({
+                 type: type,
+                 //title: 'Title text',
+                 //body: 'Body text',
+                 body: 'bind-toaster-html',
+                 bodyOutputType: 'directive',
+                 directiveData: {content: tipText},
+                 timeout: 3000,
+                 showCloseButton: true,
+                 onShowCallback: function (toast) {
+                     console.log("toaster is show");
+                 },
+                 onHideCallback: function (toast) {
+                     console.log("toaster is hide");
+                 }
+             });
+         }, 500);
+     };
+	
 }

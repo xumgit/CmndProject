@@ -1,5 +1,7 @@
 package com.xum.cmnd.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.xum.cmnd.pojo.MongoTest;
 import com.xum.cmnd.utils.MailUtil;
 import com.xum.cmnd.utils.MongoUtil;
@@ -8,9 +10,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -29,6 +37,10 @@ public class TestController {
 
     private static String STATUSSUCCESS = "{\"status\":\"success\"}";
 
+    private static String STATUFAILED = "{\"status\":\"failed\"}";
+    
+    private static List<String> testDemoReceiveData = new ArrayList<String>();
+    
     @Autowired
     RedisUtil redisUtil;
 
@@ -37,7 +49,47 @@ public class TestController {
 
     @Autowired
     MailUtil mailUtil;
-
+    
+    @PostMapping(value = "/angularjsproject/testdemoreceive.jsp")
+    @ResponseBody
+    public String angularjsTestDemoReceive(@RequestBody String requestData) {
+    	String status = STATUSSUCCESS;
+    	LOG.info("angularjsTestDemoReceive,requestData:" + requestData);
+    	if ("".equals(requestData)) {
+    		status = STATUFAILED;
+    	} else {
+    		synchronized(this) {
+    			testDemoReceiveData.add(requestData);
+        	}   		
+    	}
+		return status;
+    }
+    
+    @RequestMapping(value = "/angularjsproject/getTestDemoReceiveData")
+    @ResponseBody
+    public String getTestDemoReceiveData() {
+    	JSONArray array= JSONArray.parseArray(JSON.toJSONString(testDemoReceiveData));
+    	return array.toString();
+    }
+    
+    @RequestMapping(value = "/angularjsproject/clearTestDemoReceiveData")
+    @ResponseBody
+    public String clearTestDemoReceiveData() {
+    	String status = STATUSSUCCESS;
+    	synchronized(this) {
+    		testDemoReceiveData.clear();
+    	}  	
+    	LOG.info("clearTestDemoReceiveData success");
+    	return status;
+    }
+    
+    // http://localhost:8081/test/angularjsproject/index#/angularjsproject/testdemo
+    @RequestMapping(value = "/angularjsproject/testdemo")
+    public String angularjsTestDemo() {
+    	String view = "angularisproject/testdemo";
+		return view;
+    }
+    
     @RequestMapping(value = "/angularjsproject/index")
 	public String angularjsIndex() {
 		String view = "angularisproject/index";
