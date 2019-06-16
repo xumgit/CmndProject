@@ -1,8 +1,0 @@
-### STS ###
-/node_modules/*
-!/upload/images/
-
-# cypress
-/cypress/logs/*
-/cypress/screenshots/*
-/cypress/videos/*
