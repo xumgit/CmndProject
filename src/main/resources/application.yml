@@ -48,7 +48,7 @@ spring:
    mail:
       host: smtp.163.com
       username: xum1281517532@163.com
-      password: xu880522 # 授权密码
+      password: '你的授权密码'
       default-encoding: UTF-8
       properties:
          mail:
@@ -80,7 +80,7 @@ mybatis:
 # http://localhost:9091/actuator
 management:
    server:
-      port = 9091
+      port: 9091
    endpoint:
       health:
          show-details: always
