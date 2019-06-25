@@ -9,3 +9,8 @@ https://github.com/fuce1314/Springboot_v2
 
 renren-generator
 https://gitee.com/renrenio/renren-generator.git
+
+renren-security
+https://gitee.com/renrenio/renren-security
+(renren document)
+https://www.renren.io/guide/security
