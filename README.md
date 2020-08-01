@@ -30,6 +30,9 @@ my computer is window environment with 64 bits:
 cd (install_redis_path)\redis  
 then execute command: redis-server.exe redis.windows.conf
 
+open another window connect redis:
+redis-cli -h 127.0.0.1 -p 6379 -a 'you password'
+
 ### Install MongoDB
 first install MongoDB, following url, you can accroding the step install it.   
 download site: https://www.runoob.com/mongodb/mongodb-window-install.html  

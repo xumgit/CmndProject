@@ -2,6 +2,8 @@ package com.xum.cmnd.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.xum.cmnd.pojo.MongoTest;
 import com.xum.cmnd.utils.MailUtil;
 import com.xum.cmnd.utils.MongoUtil;
@@ -9,6 +11,8 @@ import com.xum.cmnd.utils.RedisUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -159,13 +163,14 @@ public class TestController {
     public String addMongoData(@RequestParam(value = "id") Integer id,
                              @RequestParam(value = "name", required = false, defaultValue = DEFAULT_NAME) String name,
                              @RequestParam(value = "age", required = false, defaultValue = "1") Integer age) {
-        MongoTest mongoTest = new MongoTest();
-        mongoTest.setId(id);
-        mongoTest.setAge(age);
-        mongoTest.setName(name);
-        mongoUtil.saveTest(mongoTest);
-        LOG.info("add Mongo data success, id:" + id + ",age:" + age + ",name:" + name);
-
+        for (int i = 1; i <= 10; i++) {
+            MongoTest mongoTest = new MongoTest();
+            mongoTest.setId(i);
+            mongoTest.setAge(age);
+            mongoTest.setName(name + i);
+            mongoUtil.saveTest(mongoTest);
+            LOG.info("add Mongo data success, id:" + id + ",age:" + age + ",name:" + name);
+        }
         return STATUSSUCCESS;
     }
 
@@ -203,6 +208,25 @@ public class TestController {
         LOG.info("delete Mongo test data success, id:" + id);
 
         return STATUSSUCCESS;
+    }
+
+    @RequestMapping(value = "/testMongoDBQuery")
+    @ResponseBody
+    public String testQuery() {
+        JsonObject data = new JsonObject();
+        JsonArray array = new JsonArray();
+        List<MongoTest> resData = mongoUtil.testMongoDBQuery();
+        JsonObject jsonObj = null;
+        for (MongoTest mongo : resData) {
+            jsonObj = new JsonObject();
+            jsonObj.addProperty("id", String.valueOf(mongo.getId()));
+            jsonObj.addProperty("age", String.valueOf(mongo.getAge()));
+            jsonObj.addProperty("name", String.valueOf(mongo.getName()));
+            array.add(jsonObj);
+        }
+        data.addProperty("rowCount", mongoUtil.queryCount());
+        data.add("rows", array);
+        return data.toString();
     }
 
     @RequestMapping(value = "/sendSimpleMail")

@@ -200,7 +200,8 @@ cmndProjectApps.controller('tabsRFSettingController', ['$scope', '$rootScope', '
             console.log("addMongoData");
             var req = {
                 method: 'POST',
-                url: '/test/addMongoData',
+                //url: '/test/addMongoData',
+                url: '/test/testMongoDBQuery',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
@@ -212,6 +213,7 @@ cmndProjectApps.controller('tabsRFSettingController', ['$scope', '$rootScope', '
             };
             tabsRFSettingService.sendRequestCommand(req).then(function(data){
                 console.log("status:" + data.status);
+                console.log(JSON.stringify(data));
                 if (data.status == "success") {
                     $scope.popupTip("success", "send addMongoData command success!");
                 } else {
